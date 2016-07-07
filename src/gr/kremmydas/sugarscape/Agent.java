@@ -1,8 +1,8 @@
 package gr.kremmydas.sugarscape;
 
-import gr.kremmydas.sugarscape.rules.ConsumptionRule;
-import gr.kremmydas.sugarscape.rules.MovementRule;
-import gr.kremmydas.sugarscape.rules.VisionRule;
+import gr.kremmydas.sugarscape.rules.consumption.ConsumptionRule;
+import gr.kremmydas.sugarscape.rules.movement.MovementRule;
+import gr.kremmydas.sugarscape.rules.vision.VisionRule;
 
 
 /**

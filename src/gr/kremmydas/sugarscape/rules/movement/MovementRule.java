@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.rules;
+package gr.kremmydas.sugarscape.rules.movement;
 
 import gr.kremmydas.sugarscape.Agent;
 import repast.simphony.space.grid.GridPoint;
