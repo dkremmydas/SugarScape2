@@ -1,5 +1,10 @@
 package gr.kremmydas.sugarscape.rules;
 
-public class MovementRule {
+import gr.kremmydas.sugarscape.Agent;
+import repast.simphony.space.grid.GridPoint;
 
+public interface MovementRule {
+
+	public GridPoint move(Agent a);
+	
 }
