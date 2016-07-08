@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.loaders;
+package gr.kremmydas.sugarscape.loaders.landscapes;
 
 import gr.kremmydas.sugarscape.landscape.Landscape;
 
