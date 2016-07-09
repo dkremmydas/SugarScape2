@@ -2,6 +2,7 @@ package gr.kremmydas.sugarscape.landscape;
 
 import gr.kremmydas.sugarscape.Agent;
 import repast.simphony.space.grid.DefaultGrid;
+import repast.simphony.space.grid.GridDimensions;
 import repast.simphony.valueLayer.GridValueLayer;
 
 /**
@@ -41,6 +42,35 @@ public class Landscape {
 		
 	}
 	
+	
+	public GridDimensions getDimensions() {
+		return this.grid.getDimensions();
+	}
+
+
+	public GridValueLayer getSugar() {
+		return sugar;
+	}
+
+
+	public void setSugar(GridValueLayer sugar) {
+		this.sugar = sugar;
+	}
+
+
+	public GridValueLayer getPepper() {
+		return pepper;
+	}
+
+
+	public void setPepper(GridValueLayer pepper) {
+		this.pepper = pepper;
+	}
+
+
+	public DefaultGrid<Agent> getGrid() {
+		return grid;
+	}
 	
 	
 	
