@@ -6,9 +6,11 @@ public class ProductAgentProperties {
 	
 	int quantityNeeded;
 	
+	int visibility;
+	
 	
 
-	public ProductAgentProperties(int quantityStored, int quantityNeeded) {
+	public ProductAgentProperties(int quantityStored, int quantityNeeded, int visibility) {
 		super();
 		this.quantityStored = quantityStored;
 		this.quantityNeeded = quantityNeeded;
@@ -28,6 +30,14 @@ public class ProductAgentProperties {
 
 	public void setQuantityNeeded(int quantityNeeded) {
 		this.quantityNeeded = quantityNeeded;
+	}
+
+	public int getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(int visibility) {
+		this.visibility = visibility;
 	}
 	
 	

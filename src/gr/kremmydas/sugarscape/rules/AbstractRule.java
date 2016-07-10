@@ -10,7 +10,7 @@ import gr.kremmydas.sugarscape.agents.Agent;
  */
 public abstract class AbstractRule {
 	
-	private Agent owner;	
+	protected Agent owner;	
 	
 
 	public AbstractRule(Agent owner) {

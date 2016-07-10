@@ -19,6 +19,6 @@ public abstract class AbstractVisionRule extends AbstractRule {
 	 * 
 	 * @return
 	 */
-	abstract Set<GridPoint> getVisionedPoints();
+	abstract public Set<GridPoint> getVisionedPoints();
 	
 }

@@ -45,9 +45,20 @@ public class Agent {
 		this.y = y;
 		this.sugarProperties = sugarProperties;
 		this.pepperProperties = pepperProperties;
+	}	
+	
+	public AbstractConsumptionRule getConsumptionRule() {
+		return cr;
 	}
-	
-	
+
+	public AbstractMovementRule getMovementRule() {
+		return mr;
+	}
+
+	public AbstractVisionRule getVisionRule() {
+		return vr;
+	}
+
 	@ScheduledMethod(start=1d,interval=2d)
 	public void move() {
 		//SimulationContext.getInstance().getProjection("sugarscapeGrid").
