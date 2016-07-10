@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.agents;
+package gr.kremmydas.sugarscape.products;
 
 public class ProductAgentProperties {
 	

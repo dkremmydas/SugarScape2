@@ -1,5 +1,6 @@
 package gr.kremmydas.sugarscape.agents;
 
+import gr.kremmydas.sugarscape.products.ProductAgentProperties;
 import gr.kremmydas.sugarscape.rules.consumption.AbstractConsumptionRule;
 import gr.kremmydas.sugarscape.rules.movement.AbstractMovementRule;
 import gr.kremmydas.sugarscape.rules.vision.AbstractVisionRule;
