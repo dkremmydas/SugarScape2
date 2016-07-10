@@ -1,6 +1,7 @@
 package gr.kremmydas.sugarscape.loaders.landscapes;
 
 import gr.kremmydas.sugarscape.landscape.Landscape;
+import gr.kremmydas.sugarscape.products.ProductGridProperties;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +12,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-
-import repast.simphony.valueLayer.GridValueLayer;
 
 public class ExcelLandscapeLoader implements LandscapeLoader {
 	
@@ -47,23 +46,41 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 	}
 	
 	private void loadSugar() {
-		Sheet sh = this.excelWB.getSheet("landscape_sugar");
-		this.ls.setSugar(new GridValueLayer("Sugar", true, this.ls.getDimensions().toIntArray(null)));
+		Sheet sh_init = this.excelWB.getSheet("landscape_sugar_init");
+		Sheet sh_cap = this.excelWB.getSheet("landscape_sugar_capacity");
+		Sheet sh_reg = this.excelWB.getSheet("landscape_sugar_regeneration");
+		
+		ProductGridProperties pgp = this.ls.getSugarGridProperties();
+		
+		
 		for(int x=0;x<this.ls.getDimensions().getWidth(); x++) {
 			for(int y=0;y<this.ls.getDimensions().getHeight(); y++) {
-				int s = (int)sh.getRow(y).getCell(x).getNumericCellValue();
-				this.ls.getSugar().set((double)s, x,y);
+				int s1 = (int)sh_init.getRow(y).getCell(x).getNumericCellValue();
+				int s2 = (int)sh_cap.getRow(y).getCell(x).getNumericCellValue();
+				int s3 = (int)sh_reg.getRow(y).getCell(x).getNumericCellValue();
+				pgp.getCurrentQuantity().set((double)s1, x,y);
+				pgp.getCapacity().set((double)s2, x,y);
+				pgp.getRegenerationRate().set((double)s3, x,y);
 			}
 		}
 	}
 	
 	private void loadPepper() {
-		Sheet sh = this.excelWB.getSheet("landscape_pepper");
-		this.ls.setSugar(new GridValueLayer("Pepper", true, this.ls.getDimensions().toIntArray(null)));
+		Sheet sh_init = this.excelWB.getSheet("landscape_pepper_init");
+		Sheet sh_cap = this.excelWB.getSheet("landscape_pepper_capacity");
+		Sheet sh_reg = this.excelWB.getSheet("landscape_pepper_regeneration");
+		
+		ProductGridProperties pgp = this.ls.getSugarGridProperties();
+		
+		
 		for(int x=0;x<this.ls.getDimensions().getWidth(); x++) {
 			for(int y=0;y<this.ls.getDimensions().getHeight(); y++) {
-				int s = (int)sh.getRow(y).getCell(x).getNumericCellValue();
-				this.ls.getSugar().set((double)s, x,y);
+				int s1 = (int)sh_init.getRow(y).getCell(x).getNumericCellValue();
+				int s2 = (int)sh_cap.getRow(y).getCell(x).getNumericCellValue();
+				int s3 = (int)sh_reg.getRow(y).getCell(x).getNumericCellValue();
+				pgp.getCurrentQuantity().set((double)s1, x,y);
+				pgp.getCapacity().set((double)s2, x,y);
+				pgp.getRegenerationRate().set((double)s3, x,y);
 			}
 		}
 	}

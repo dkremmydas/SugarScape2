@@ -1,9 +1,10 @@
 package gr.kremmydas.sugarscape.landscape;
 
 import gr.kremmydas.sugarscape.Agent;
+import gr.kremmydas.sugarscape.SimulationContext;
+import gr.kremmydas.sugarscape.products.ProductGridProperties;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridDimensions;
-import repast.simphony.valueLayer.GridValueLayer;
 
 /**
  * 
@@ -25,21 +26,24 @@ public class Landscape {
 	DefaultGrid<Agent> grid;
 	
 	/**
-	 * The concentration of sugar
+	 * The properties of sugar
 	 */
-	GridValueLayer sugar;
+	ProductGridProperties sugarGridProperties;
 	
 	/**
-	 * The concentration of pepper
+	 * The properties of pepper
 	 */
-	GridValueLayer pepper;
+	ProductGridProperties pepperGridProperties;
 
 	public Landscape(int x, int y) {
 		super();
 		this.x = x;
 		this.y = y;
 		grid = new DefaultGrid<>("sugarscapeGrid", x, y);
+		SimulationContext.getInstance().addProjection(grid);
 		
+		this.sugarGridProperties = new ProductGridProperties(x, y, "sugar");
+		this.pepperGridProperties = new ProductGridProperties(x, y, "pepper");
 	}
 	
 	
@@ -48,23 +52,13 @@ public class Landscape {
 	}
 
 
-	public GridValueLayer getSugar() {
-		return sugar;
+	public ProductGridProperties getSugarGridProperties() {
+		return sugarGridProperties;
 	}
 
 
-	public void setSugar(GridValueLayer sugar) {
-		this.sugar = sugar;
-	}
-
-
-	public GridValueLayer getPepper() {
-		return pepper;
-	}
-
-
-	public void setPepper(GridValueLayer pepper) {
-		this.pepper = pepper;
+	public ProductGridProperties getPepperGridProperties() {
+		return pepperGridProperties;
 	}
 
 

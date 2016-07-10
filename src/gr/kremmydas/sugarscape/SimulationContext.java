@@ -61,5 +61,11 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		
 		return sc;
 	}
+
+	public Landscape getLandscape() {
+		return landscape;
+	}
+	
+	
 	
 }
