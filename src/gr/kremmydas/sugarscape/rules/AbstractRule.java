@@ -1,6 +1,6 @@
 package gr.kremmydas.sugarscape.rules;
 
-import gr.kremmydas.sugarscape.Agent;
+import gr.kremmydas.sugarscape.agents.Agent;
 
 /**
  * A rule. The wner should always be defined.

@@ -1,6 +1,6 @@
 package gr.kremmydas.sugarscape.rules.vision;
 
-import gr.kremmydas.sugarscape.Agent;
+import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.rules.AbstractRule;
 
 import java.util.Set;

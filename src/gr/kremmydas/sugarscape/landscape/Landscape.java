@@ -1,7 +1,7 @@
 package gr.kremmydas.sugarscape.landscape;
 
-import gr.kremmydas.sugarscape.Agent;
 import gr.kremmydas.sugarscape.SimulationContext;
+import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridDimensions;

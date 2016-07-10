@@ -1,5 +1,6 @@
 package gr.kremmydas.sugarscape;
 
+import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.loaders.agents.AgentLoader;
 import gr.kremmydas.sugarscape.loaders.agents.ExcelAgentLoader;

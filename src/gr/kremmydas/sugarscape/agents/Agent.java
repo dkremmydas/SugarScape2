@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape;
+package gr.kremmydas.sugarscape.agents;
 
 import gr.kremmydas.sugarscape.rules.consumption.AbstractConsumptionRule;
 import gr.kremmydas.sugarscape.rules.movement.AbstractMovementRule;
@@ -29,21 +29,21 @@ public class Agent {
 	 */
 	private int x,y;
 	
-	private int sugarStored;
+	private ProductAgentProperties sugarProperties;
 	
-	private int pepperStored;
+	private ProductAgentProperties pepperProperties;
 
 	public Agent(AbstractConsumptionRule cr, AbstractMovementRule mr,
-			AbstractVisionRule vr, int x, int y, int sugarStored,
-			int pepperStored) {
+			AbstractVisionRule vr, int x, int y, ProductAgentProperties sugarProperties,
+			ProductAgentProperties pepperProperties) {
 		super();
 		this.cr = cr;
 		this.mr = mr;
 		this.vr = vr;
 		this.x = x;
 		this.y = y;
-		this.sugarStored = sugarStored;
-		this.pepperStored = pepperStored;
+		this.sugarProperties = sugarProperties;
+		this.pepperProperties = pepperProperties;
 	}
 	
 	
