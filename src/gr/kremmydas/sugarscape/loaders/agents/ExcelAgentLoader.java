@@ -4,9 +4,9 @@ import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.AgentProperties;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
-import gr.kremmydas.sugarscape.rules.consumption.AbstractConsumptionRule;
-import gr.kremmydas.sugarscape.rules.movement.AbstractMovementRule;
-import gr.kremmydas.sugarscape.rules.vision.AbstractVisionRule;
+import gr.kremmydas.sugarscape.rules.consumption.ConsumeAbility;
+import gr.kremmydas.sugarscape.rules.movement.MoveAbility;
+import gr.kremmydas.sugarscape.rules.vision.VisionAbility;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,9 +55,9 @@ public class ExcelAgentLoader implements AgentLoader {
 			
 			Agent a;
 			try {
-				a = new Agent((AbstractConsumptionRule) Class.forName(rulesBase+cr).newInstance(),
-						(AbstractMovementRule) Class.forName(rulesBase+vr).newInstance(), 
-						(AbstractVisionRule) Class.forName(rulesBase+mr).newInstance(), 
+				a = new Agent((ConsumeAbility) Class.forName(rulesBase+cr).newInstance(),
+						(MoveAbility) Class.forName(rulesBase+vr).newInstance(), 
+						(VisionAbility) Class.forName(rulesBase+mr).newInstance(), 
 						x, y, 
 						new ProductAgentProperties(initSugar, metabSugar), 
 						null,

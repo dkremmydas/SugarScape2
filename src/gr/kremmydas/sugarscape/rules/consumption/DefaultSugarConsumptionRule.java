@@ -1,11 +1,12 @@
 package gr.kremmydas.sugarscape.rules.consumption;
 
-import repast.simphony.space.grid.DefaultGrid;
-import repast.simphony.space.grid.GridPoint;
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
+import gr.kremmydas.sugarscape.rules.AbstractRule;
+import repast.simphony.space.grid.DefaultGrid;
+import repast.simphony.space.grid.GridPoint;
 
-public class DefaultSugarConsumptionRule extends AbstractConsumptionRule {
+public class DefaultSugarConsumptionRule extends AbstractRule implements ConsumeAbility {
 
 	public DefaultSugarConsumptionRule(Agent owner) {
 		super(owner);
@@ -15,7 +16,7 @@ public class DefaultSugarConsumptionRule extends AbstractConsumptionRule {
 	 * Consume all existent sugar
 	 */
 	@Override
-	Integer consume() {
+	public Integer consume() {
 		//get current agent point
 		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();
 		GridPoint gp = dg.getLocation(this.owner);

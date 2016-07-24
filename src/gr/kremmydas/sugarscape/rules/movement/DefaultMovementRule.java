@@ -2,13 +2,14 @@ package gr.kremmydas.sugarscape.rules.movement;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
+import gr.kremmydas.sugarscape.rules.AbstractRule;
 
 import java.util.Set;
 
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
-public class DefaultMovementRule extends AbstractMovementRule {
+public class DefaultMovementRule extends AbstractRule implements MoveAbility {
 
 	public DefaultMovementRule(Agent owner) {
 		super(owner);
@@ -18,7 +19,7 @@ public class DefaultMovementRule extends AbstractMovementRule {
 	 * Move to the visible point with the greatest concentration of sugar
 	 */
 	@Override
-	GridPoint move() {
+	public GridPoint move() {
 		GridValueLayer gvl = SimulationContext.getInstance().getLandscape().getSugarGridProperties().getCurrentQuantity();
 		Set<GridPoint> gps = this.owner.getVisionRule().getVisionedPoints();
 		GridPoint toMove = gps.iterator().next();

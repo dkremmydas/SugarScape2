@@ -52,13 +52,14 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		SimulationContext sc = new SimulationContext();
 		
 		//1. Load Landscape
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Landscape ...");
 		LandscapeLoader ll = new ExcelLandscapeLoader();
 		landscape = ll.load();
 		
 		//2. load agents
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agents ...");
 		AgentLoader al = new ExcelAgentLoader();
 		al.addAgents(sc);
-		
 		
 		return sc;
 	}

@@ -2,11 +2,13 @@ package gr.kremmydas.sugarscape.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
-import gr.kremmydas.sugarscape.rules.consumption.AbstractConsumptionRule;
-import gr.kremmydas.sugarscape.rules.movement.AbstractMovementRule;
-import gr.kremmydas.sugarscape.rules.vision.AbstractVisionRule;
+import gr.kremmydas.sugarscape.rules.consumption.ConsumeAbility;
+import gr.kremmydas.sugarscape.rules.movement.MoveAbility;
+import gr.kremmydas.sugarscape.rules.vision.VisionAbility;
 import repast.simphony.context.RepastElement;
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.space.grid.DefaultGrid;
+import repast.simphony.space.grid.GridPoint;
 
 
 /**
@@ -21,11 +23,11 @@ public class Agent implements RepastElement {
 	private int id;
 
 	// Rules
-	private AbstractConsumptionRule cr;
+	private ConsumeAbility cr;
 	
-	private AbstractMovementRule mr;
+	private MoveAbility mr;
 	
-	private AbstractVisionRule vr;
+	private VisionAbility vr;
 
 	
 	// State variables
@@ -38,8 +40,8 @@ public class Agent implements RepastElement {
 	
 	private AgentProperties properties;
 
-	public Agent(AbstractConsumptionRule cr, AbstractMovementRule mr,
-			AbstractVisionRule vr, int x, int y, ProductAgentProperties sugarProperties,
+	public Agent(ConsumeAbility cr, MoveAbility mr,
+			VisionAbility vr, int x, int y, ProductAgentProperties sugarProperties,
 			ProductAgentProperties pepperProperties, AgentProperties properties) {
 		super();
 		this.cr = cr;
@@ -53,21 +55,24 @@ public class Agent implements RepastElement {
 		SimulationContext.getInstance().getLandscape().getGrid().moveTo(this, x,y);
 	}	
 	
-	public AbstractConsumptionRule getConsumptionRule() {
+	public ConsumeAbility getConsumptionRule() {
 		return cr;
 	}
 
-	public AbstractMovementRule getMovementRule() {
+	public MoveAbility getMovementRule() {
 		return mr;
 	}
 
-	public AbstractVisionRule getVisionRule() {
+	public VisionAbility getVisionRule() {
 		return vr;
 	}
 
 	@ScheduledMethod(start=1d,interval=2d)
 	public void move() {
-		//SimulationContext.getInstance().getProjection("sugarscapeGrid").
+		DefaultGrid<Agent> g = SimulationContext.getInstance().getLandscape().getGrid();
+		GridPoint gp;
+		gp=this.mr.move();
+		g.moveTo(this, gp.getX(),gp.getY());
 	}
 	
 	@ScheduledMethod(start=2d,interval=2d)

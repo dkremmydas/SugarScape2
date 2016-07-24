@@ -2,6 +2,7 @@ package gr.kremmydas.sugarscape.rules.vision;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
+import gr.kremmydas.sugarscape.rules.AbstractRule;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +12,7 @@ import repast.simphony.query.space.grid.GridCellNgh;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
-public class DefaultVisionRule extends AbstractVisionRule {
+public class DefaultVisionRule extends AbstractRule implements VisionAbility {
 	
 	int visionRadius = 1;
 
