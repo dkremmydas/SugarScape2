@@ -4,16 +4,13 @@ public class ProductAgentProperties {
 	
 	int quantityStored;
 	
-	int quantityNeeded;
-	
-	int visibility;
-	
+	int metabolism;	
 	
 
-	public ProductAgentProperties(int quantityStored, int quantityNeeded, int visibility) {
+	public ProductAgentProperties(int quantityStored, int quantityNeeded) {
 		super();
 		this.quantityStored = quantityStored;
-		this.quantityNeeded = quantityNeeded;
+		this.metabolism = quantityNeeded;
 	}
 
 	public int getQuantityStored() {
@@ -24,21 +21,14 @@ public class ProductAgentProperties {
 		this.quantityStored = quantityStored;
 	}
 
-	public int getQuantityNeeded() {
-		return quantityNeeded;
+	public int getMetabolism() {
+		return metabolism;
 	}
 
-	public void setQuantityNeeded(int quantityNeeded) {
-		this.quantityNeeded = quantityNeeded;
+	public void setMetabolism(int quantityNeeded) {
+		this.metabolism = quantityNeeded;
 	}
 
-	public int getVisibility() {
-		return visibility;
-	}
-
-	public void setVisibility(int visibility) {
-		this.visibility = visibility;
-	}
 	
 	
 	

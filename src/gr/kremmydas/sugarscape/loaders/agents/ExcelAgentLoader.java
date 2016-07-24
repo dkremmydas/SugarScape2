@@ -2,7 +2,11 @@ package gr.kremmydas.sugarscape.loaders.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.landscape.Landscape;
+import gr.kremmydas.sugarscape.agents.AgentProperties;
+import gr.kremmydas.sugarscape.products.ProductAgentProperties;
+import gr.kremmydas.sugarscape.rules.consumption.AbstractConsumptionRule;
+import gr.kremmydas.sugarscape.rules.movement.AbstractMovementRule;
+import gr.kremmydas.sugarscape.rules.vision.AbstractVisionRule;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +33,9 @@ public class ExcelAgentLoader implements AgentLoader {
 	}
 
 	@Override
-	public void addAgents(SimulationContext sc) {
+	public void addAgents(SimulationContext sc)  {
+		String rulesBase = "gr.kremmydas.sugarscape.rules.";
+		
 		Sheet sh = this.excelWB.getSheet("agents");
 		Iterator<Row> rowItr = sh.iterator(); 
 		Row row = rowItr.next(); //skip header row
@@ -37,9 +43,40 @@ public class ExcelAgentLoader implements AgentLoader {
 		while(rowItr.hasNext()) {
 			row = rowItr.next();
 			
+			int id = (int) row.getCell(0).getNumericCellValue();
+			int initSugar = (int)row.getCell(1).getNumericCellValue();
+			int metabSugar = (int)row.getCell(2).getNumericCellValue();
+			int vis = (int)row.getCell(5).getNumericCellValue();
+			int x = (int)row.getCell(6).getNumericCellValue();
+			int y = (int)row.getCell(7).getNumericCellValue();
+			String vr = row.getCell(8).getStringCellValue();
+			String mr = row.getCell(9).getStringCellValue();
+			String cr = row.getCell(10).getStringCellValue();
 			
-			Agent a = new Agent(cr, mr, vr, x, y, sugarProperties, pepperProperties);
-			sc.add(a);
+			Agent a;
+			try {
+				a = new Agent((AbstractConsumptionRule) Class.forName(rulesBase+cr).newInstance(),
+						(AbstractMovementRule) Class.forName(rulesBase+vr).newInstance(), 
+						(AbstractVisionRule) Class.forName(rulesBase+mr).newInstance(), 
+						x, y, 
+						new ProductAgentProperties(initSugar, metabSugar), 
+						null,
+						new AgentProperties(vis)
+				);
+				a.setId(id);
+				sc.add(a);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 		}	
 
 	}
