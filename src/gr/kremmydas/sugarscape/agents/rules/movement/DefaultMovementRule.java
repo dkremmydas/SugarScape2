@@ -1,15 +1,15 @@
-package gr.kremmydas.sugarscape.rules.movement;
+package gr.kremmydas.sugarscape.agents.rules.movement;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.rules.AbstractRule;
+import gr.kremmydas.sugarscape.agents.rules.AbstractAgentRule;
 
 import java.util.Set;
 
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
-public class DefaultMovementRule extends AbstractRule implements MoveAbility {
+public class DefaultMovementRule extends AbstractAgentRule implements MoveAbility {
 
 	public DefaultMovementRule(Agent owner) {
 		super(owner);

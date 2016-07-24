@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.rules.consumption;
+package gr.kremmydas.sugarscape.agents.rules.consumption;
 
 import repast.simphony.space.grid.GridPoint;
 

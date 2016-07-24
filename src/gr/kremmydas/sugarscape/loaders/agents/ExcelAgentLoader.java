@@ -3,10 +3,10 @@ package gr.kremmydas.sugarscape.loaders.agents;
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.AgentProperties;
+import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
+import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
+import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
-import gr.kremmydas.sugarscape.rules.consumption.ConsumeAbility;
-import gr.kremmydas.sugarscape.rules.movement.MoveAbility;
-import gr.kremmydas.sugarscape.rules.vision.VisionAbility;
 
 import java.io.File;
 import java.io.IOException;

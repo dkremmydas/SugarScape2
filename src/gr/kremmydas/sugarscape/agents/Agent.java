@@ -1,10 +1,10 @@
 package gr.kremmydas.sugarscape.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
+import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
+import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
+import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
-import gr.kremmydas.sugarscape.rules.consumption.ConsumeAbility;
-import gr.kremmydas.sugarscape.rules.movement.MoveAbility;
-import gr.kremmydas.sugarscape.rules.vision.VisionAbility;
 import repast.simphony.context.RepastElement;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
@@ -77,7 +77,9 @@ public class Agent implements RepastElement {
 	
 	@ScheduledMethod(start=2d,interval=2d)
 	public void consume() {
-		//SimulationContext.getInstance().getProjection("sugarscapeGrid").
+		this.sugarProperties.setQuantityStored(
+				this.sugarProperties.getQuantityStored() + this.cr.consume()
+			);
 	}
 
 	@Override

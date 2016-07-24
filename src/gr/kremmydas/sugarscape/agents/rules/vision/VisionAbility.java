@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.rules.vision;
+package gr.kremmydas.sugarscape.agents.rules.vision;
 
 import java.util.Set;
 

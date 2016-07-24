@@ -1,12 +1,12 @@
-package gr.kremmydas.sugarscape.rules.consumption;
+package gr.kremmydas.sugarscape.agents.rules.consumption;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.rules.AbstractRule;
+import gr.kremmydas.sugarscape.agents.rules.AbstractAgentRule;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
-public class DefaultSugarConsumptionRule extends AbstractRule implements ConsumeAbility {
+public class DefaultSugarConsumptionRule extends AbstractAgentRule implements ConsumeAbility {
 
 	public DefaultSugarConsumptionRule(Agent owner) {
 		super(owner);

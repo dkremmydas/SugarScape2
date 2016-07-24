@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.rules;
+package gr.kremmydas.sugarscape.agents.rules;
 
 import gr.kremmydas.sugarscape.agents.Agent;
 
@@ -8,12 +8,12 @@ import gr.kremmydas.sugarscape.agents.Agent;
  * @author Dimitris Kremmydas
  *
  */
-public abstract class AbstractRule {
+public abstract class AbstractAgentRule {
 	
 	protected Agent owner;	
 	
 
-	public AbstractRule(Agent owner) {
+	public AbstractAgentRule(Agent owner) {
 		super();
 		this.owner = owner;
 	}
