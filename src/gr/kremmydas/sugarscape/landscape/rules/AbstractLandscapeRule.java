@@ -1,6 +1,6 @@
 package gr.kremmydas.sugarscape.landscape.rules;
 
-import repast.simphony.space.grid.GridPoint;
+import gr.kremmydas.sugarscape.landscape.Landscape;
 
 /**
  * A rule. The owner is the gridpoint that holds the rule and should always be defined.
@@ -8,12 +8,12 @@ import repast.simphony.space.grid.GridPoint;
  * @author Dimitris Kremmydas
  *
  */
-public abstract class AbstractGridPointRule {
+public abstract class AbstractLandscapeRule {
 	
-	protected GridPoint owner;	
+	protected Landscape owner;	
 	
 
-	public AbstractGridPointRule(GridPoint owner) {
+	public AbstractLandscapeRule(Landscape owner) {
 		super();
 		this.owner = owner;
 	}

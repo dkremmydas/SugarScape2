@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.loaders.landscapes;
+package gr.kremmydas.sugarscape.loaders.landscape;
 
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
@@ -31,6 +31,7 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 		this.createGrid();
 		this.loadPepper();
 		this.loadSugar();
+		this.loadGridPoints();
 		return ls;
 	}
 	
@@ -83,6 +84,10 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 				pgp.getRegenerationRate().set((double)s3, x,y);
 			}
 		}
+	}
+	
+	private void  loadGridPoints() {
+		
 	}
 
 }

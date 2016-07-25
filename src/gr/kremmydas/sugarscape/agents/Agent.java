@@ -38,11 +38,11 @@ public class Agent implements RepastElement {
 	
 	private ProductAgentProperties pepperProperties;
 	
-	private AgentProperties properties;
+	private AgentGeneticCharacteristics properties;
 
 	public Agent(ConsumeAbility cr, MoveAbility mr,
-			VisionAbility vr, int x, int y, ProductAgentProperties sugarProperties,
-			ProductAgentProperties pepperProperties, AgentProperties properties) {
+			VisionAbility vr, ProductAgentProperties sugarProperties,
+			ProductAgentProperties pepperProperties, AgentGeneticCharacteristics properties) {
 		super();
 		this.cr = cr;
 		this.mr = mr;
@@ -52,7 +52,7 @@ public class Agent implements RepastElement {
 		this.properties = properties;
 		
 		//position in the grid
-		SimulationContext.getInstance().getLandscape().getGrid().moveTo(this, x,y);
+		SimulationContext.getInstance().getLandscape().getGrid().moveTo(this, properties.getIni_x(),properties.getIni_y());
 	}	
 	
 	public ConsumeAbility getConsumptionRule() {
@@ -77,8 +77,8 @@ public class Agent implements RepastElement {
 	
 	@ScheduledMethod(start=2d,interval=2d)
 	public void consume() {
-		this.sugarProperties.setQuantityStored(
-				this.sugarProperties.getQuantityStored() + this.cr.consume()
+		this.sugarProperties.setHolding(
+				this.sugarProperties.getHolding() + this.cr.consume()
 			);
 	}
 
@@ -100,7 +100,7 @@ public class Agent implements RepastElement {
 		return pepperProperties;
 	}
 
-	public AgentProperties getProperties() {
+	public AgentGeneticCharacteristics getProperties() {
 		return properties;
 	}
 	

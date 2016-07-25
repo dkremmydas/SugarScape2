@@ -4,8 +4,8 @@ import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.loaders.agents.AgentLoader;
 import gr.kremmydas.sugarscape.loaders.agents.ExcelAgentLoader;
-import gr.kremmydas.sugarscape.loaders.landscapes.ExcelLandscapeLoader;
-import gr.kremmydas.sugarscape.loaders.landscapes.LandscapeLoader;
+import gr.kremmydas.sugarscape.loaders.landscape.ExcelLandscapeLoader;
+import gr.kremmydas.sugarscape.loaders.landscape.LandscapeLoader;
 
 import org.apache.log4j.Level;
 

@@ -1,24 +1,36 @@
 package gr.kremmydas.sugarscape.products;
 
+/**
+ * The set of agent's properties (fixed or variables) that are related to a product
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public class ProductAgentProperties {
 	
-	int quantityStored;
+	/**
+	 * Product stored (p. 24)
+	 */
+	int holding;
 	
+	/**
+	 * Amount of product consumed per time step (p. 24)
+	 */
 	int metabolism;	
 	
 
 	public ProductAgentProperties(int quantityStored, int quantityNeeded) {
 		super();
-		this.quantityStored = quantityStored;
+		this.holding = quantityStored;
 		this.metabolism = quantityNeeded;
 	}
 
-	public int getQuantityStored() {
-		return quantityStored;
+	public int getHolding() {
+		return holding;
 	}
 
-	public void setQuantityStored(int quantityStored) {
-		this.quantityStored = quantityStored;
+	public void setHolding(int quantityStored) {
+		this.holding = quantityStored;
 	}
 
 	public int getMetabolism() {

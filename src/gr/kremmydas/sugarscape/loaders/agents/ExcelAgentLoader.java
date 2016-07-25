@@ -2,7 +2,7 @@ package gr.kremmydas.sugarscape.loaders.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.agents.AgentProperties;
+import gr.kremmydas.sugarscape.agents.AgentGeneticCharacteristics;
 import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
 import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
@@ -58,10 +58,9 @@ public class ExcelAgentLoader implements AgentLoader {
 				a = new Agent((ConsumeAbility) Class.forName(rulesBase+cr).newInstance(),
 						(MoveAbility) Class.forName(rulesBase+vr).newInstance(), 
 						(VisionAbility) Class.forName(rulesBase+mr).newInstance(), 
-						x, y, 
 						new ProductAgentProperties(initSugar, metabSugar), 
 						null,
-						new AgentProperties(vis)
+						new AgentGeneticCharacteristics(vis,x,y)
 				);
 				a.setId(id);
 				sc.add(a);
