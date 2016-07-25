@@ -77,9 +77,13 @@ public class Agent implements RepastElement {
 	
 	@ScheduledMethod(start=2d,interval=2d)
 	public void consume() {
+		int toConsume = this.cr.consume();
+		
 		this.sugarProperties.setHolding(
-				this.sugarProperties.getHolding() + this.cr.consume()
+				this.sugarProperties.getHolding() + toConsume
 			);
+
+		SimulationContext.getInstance().getLandscape().removeSugar(this, toConsume);
 	}
 
 	@Override

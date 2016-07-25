@@ -2,9 +2,12 @@ package gr.kremmydas.sugarscape.landscape;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
+import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
+import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridDimensions;
+import repast.simphony.space.grid.GridPoint;
 
 /**
  * 
@@ -34,6 +37,11 @@ public class Landscape {
 	 * The properties of pepper
 	 */
 	ProductGridProperties pepperGridProperties;
+	
+	/**
+	 * The growback rule
+	 */
+	GrowbackAbility growbackRule;
 
 	public Landscape(int x, int y) {
 		super();
@@ -65,8 +73,28 @@ public class Landscape {
 	public DefaultGrid<Agent> getGrid() {
 		return grid;
 	}
+
+
+	public GrowbackAbility getGrowbackRule() {
+		return growbackRule;
+	}
+
+
+	public void setGrowbackRule(GrowbackAbility growbackRule) {
+		this.growbackRule = growbackRule;
+	}
 	
+	/**
+	 * The sugarscape growsback
+	 */
+	@ScheduledMethod(start=3d,interval=2d)
+	public void growback() {
+		this.sugarGridProperties.setCurrentQuantity(this.growbackRule.growback());
+	}
 	
-	
-	
+	public void removeSugar(Agent a, int q) {
+		GridPoint gp = this.grid.getLocation(a);
+		int nq = (int) this.sugarGridProperties.getCurrentQuantity().get(gp.getX(),gp.getY());
+		this.sugarGridProperties.getCurrentQuantity().set(nq, gp.getX(),gp.getY());
+	}
 }

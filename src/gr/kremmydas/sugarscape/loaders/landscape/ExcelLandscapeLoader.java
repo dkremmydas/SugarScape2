@@ -1,6 +1,7 @@
 package gr.kremmydas.sugarscape.loaders.landscape;
 
 import gr.kremmydas.sugarscape.landscape.Landscape;
+import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 
 import java.io.File;
@@ -17,6 +18,8 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 	
 	private String excelFile = "C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\SugarScape Sensitivity\\sugarscape_data.xlsx";
 	
+	private String rules_root = "gr.kremmydas.sugarscape.landscape.rules.";
+	
 	private Landscape ls;
 	private Workbook excelWB; 
 	
@@ -31,7 +34,6 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 		this.createGrid();
 		this.loadPepper();
 		this.loadSugar();
-		this.loadGridPoints();
 		return ls;
 	}
 	
@@ -39,11 +41,29 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 	private void createGrid() {
 		Sheet sh = this.excelWB.getSheet("landscape_properties");
 		Iterator<Row> rowItr = sh.iterator(); 
+		
+		//create landscape
 		Row row = rowItr.next(); 
 		int x = (int)row.getCell(1).getNumericCellValue();
 		row = rowItr.next(); 
 		int y = (int)row.getCell(1).getNumericCellValue();
 		this.ls = new Landscape(x, y);
+		
+		//load growback rule
+		row = rowItr.next(); 
+		String gbr = row.getCell(1).getStringCellValue();
+		try {
+			this.ls.setGrowbackRule( (GrowbackAbility) Class.forName(rules_root+gbr).newInstance());
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void loadSugar() {
@@ -84,10 +104,6 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 				pgp.getRegenerationRate().set((double)s3, x,y);
 			}
 		}
-	}
-	
-	private void  loadGridPoints() {
-		
 	}
 
 }
