@@ -16,7 +16,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelLandscapeLoader implements LandscapeLoader {
 	
-	private String excelFile = "C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\SugarScape Sensitivity\\sugarscape_data.xlsx";
+	private String excelFile = "C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\Sugarscape Java Power for ABM\\sugarscape_data.xlsx";
 	
 	private String rules_root = "gr.kremmydas.sugarscape.landscape.rules.";
 	
@@ -32,7 +32,7 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 		}
 
 		this.createGrid();
-		this.loadPepper();
+		//this.loadPepper();
 		this.loadSugar();
 		return ls;
 	}
@@ -61,7 +61,7 @@ public class ExcelLandscapeLoader implements LandscapeLoader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Could not find class (" + this.getClass().toString()+ ")");
 			e.printStackTrace();
 		}
 	}

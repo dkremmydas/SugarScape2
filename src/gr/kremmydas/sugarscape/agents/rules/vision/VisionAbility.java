@@ -1,5 +1,7 @@
 package gr.kremmydas.sugarscape.agents.rules.vision;
 
+import gr.kremmydas.sugarscape.agents.Agent;
+
 import java.util.Set;
 
 import repast.simphony.space.grid.GridPoint;
@@ -11,6 +13,6 @@ public interface VisionAbility {
 	 * 
 	 * @return
 	 */
-	abstract public Set<GridPoint> getVisionedPoints();
+	abstract public Set<GridPoint> getVisionedPoints(Agent owner);
 	
 }

@@ -2,7 +2,6 @@ package gr.kremmydas.sugarscape.landscape.rules.growback;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.landscape.Landscape;
-import gr.kremmydas.sugarscape.landscape.rules.AbstractLandscapeRule;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridFunction;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -14,21 +13,20 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitris Kremmydas
  *
  */
-public class DefaultGrowbackRule extends AbstractLandscapeRule implements
-		GrowbackAbility {
+public class DefaultGrowbackRule implements GrowbackAbility {
 
-	public DefaultGrowbackRule(Landscape owner) {
-		super(owner);
+	public DefaultGrowbackRule() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public GridValueLayer growback() {
-		int y =SimulationContext.getInstance().getLandscape().getDimensions().getHeight();
-		int x = SimulationContext.getInstance().getLandscape().getDimensions().getWidth();
+	public GridValueLayer growback(Landscape landscape) {
+		int y =landscape.getDimensions().getHeight();
+		int x = landscape.getDimensions().getWidth();
 		ValueLayerSetToCapacity f = new ValueLayerSetToCapacity(x,y);
 				;
-		this.owner.getSugarGridProperties().getCurrentQuantity().forEach(f,new GridPoint(0,0), x,y);
+		landscape.getSugarGridProperties().getCurrentQuantity().forEach(f,new GridPoint(0,0), x,y);
 		return f.getResults();
 	}
 	

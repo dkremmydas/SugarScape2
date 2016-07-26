@@ -2,7 +2,6 @@ package gr.kremmydas.sugarscape.agents.rules.vision;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.agents.rules.AbstractAgentRule;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,18 +11,18 @@ import repast.simphony.query.space.grid.GridCellNgh;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
-public class DefaultVisionRule extends AbstractAgentRule implements VisionAbility {
+public class DefaultVisionRule implements VisionAbility {
 	
 	int visionRadius = 1;
 
-	public DefaultVisionRule(Agent owner) {
-		super(owner);
+	public DefaultVisionRule() {
+		super();
 	}
 
 	@Override
-	public Set<GridPoint> getVisionedPoints() {
+	public Set<GridPoint> getVisionedPoints(Agent owner) {
 		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();
-		GridPoint gp = dg.getLocation(this.owner);
+		GridPoint gp = dg.getLocation(owner);
 		
 		@SuppressWarnings("rawtypes")
 		//http://stackoverflow.com/questions/37113194/retrieve-moore-neighborhood-value-stored-in-a-list

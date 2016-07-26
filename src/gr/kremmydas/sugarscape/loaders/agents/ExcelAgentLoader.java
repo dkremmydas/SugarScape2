@@ -20,7 +20,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class ExcelAgentLoader implements AgentLoader {
 	
-	private String excelFile = "C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\SugarScape Sensitivity\\sugarscape_data.xlsx";
+	private String excelFile = "C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\Sugarscape Java Power for ABM\\sugarscape_data.xlsx";
 	
 	private Workbook excelWB; 
 	
@@ -34,7 +34,7 @@ public class ExcelAgentLoader implements AgentLoader {
 
 	@Override
 	public void addAgents(SimulationContext sc)  {
-		String rulesBase = "gr.kremmydas.sugarscape.rules.";
+		String rulesBase = "gr.kremmydas.sugarscape.agents.rules.";
 		
 		Sheet sh = this.excelWB.getSheet("agents");
 		Iterator<Row> rowItr = sh.iterator(); 
@@ -56,8 +56,8 @@ public class ExcelAgentLoader implements AgentLoader {
 			Agent a;
 			try {
 				a = new Agent((ConsumeAbility) Class.forName(rulesBase+cr).newInstance(),
-						(MoveAbility) Class.forName(rulesBase+vr).newInstance(), 
-						(VisionAbility) Class.forName(rulesBase+mr).newInstance(), 
+						(MoveAbility) Class.forName(rulesBase+mr).newInstance(), 
+						(VisionAbility) Class.forName(rulesBase+vr).newInstance(), 
 						new ProductAgentProperties(initSugar, metabSugar), 
 						null,
 						new AgentGeneticCharacteristics(vis,x,y)

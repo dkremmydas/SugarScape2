@@ -6,7 +6,6 @@ import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
 import repast.simphony.context.RepastElement;
-import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
@@ -40,20 +39,33 @@ public class Agent implements RepastElement {
 	
 	private AgentGeneticCharacteristics properties;
 
+	public Agent() {};
+	
 	public Agent(ConsumeAbility cr, MoveAbility mr,
 			VisionAbility vr, ProductAgentProperties sugarProperties,
 			ProductAgentProperties pepperProperties, AgentGeneticCharacteristics properties) {
-		super();
+		this();
+		this.setProperties(sugarProperties,pepperProperties,properties);
+		this.setRules(cr, mr, vr);
+	}
+	
+	public void setRules(ConsumeAbility cr, MoveAbility mr,	VisionAbility vr) {
 		this.cr = cr;
 		this.mr = mr;
 		this.vr = vr;
+	}
+	
+	public void setProperties (ProductAgentProperties sugarProperties,
+			ProductAgentProperties pepperProperties, AgentGeneticCharacteristics properties) {
 		this.sugarProperties = sugarProperties;
 		this.pepperProperties = pepperProperties;
 		this.properties = properties;
 		
 		//position in the grid
+		System.out.println(this);
+		System.out.println(properties);
 		SimulationContext.getInstance().getLandscape().getGrid().moveTo(this, properties.getIni_x(),properties.getIni_y());
-	}	
+	}
 	
 	public ConsumeAbility getConsumptionRule() {
 		return cr;
@@ -67,17 +79,17 @@ public class Agent implements RepastElement {
 		return vr;
 	}
 
-	@ScheduledMethod(start=1d,interval=2d)
+	//@ScheduledMethod(start=1d,interval=2d)
 	public void move() {
 		DefaultGrid<Agent> g = SimulationContext.getInstance().getLandscape().getGrid();
 		GridPoint gp;
-		gp=this.mr.move();
+		gp=this.mr.move(this);
 		g.moveTo(this, gp.getX(),gp.getY());
 	}
 	
-	@ScheduledMethod(start=2d,interval=2d)
+	//@ScheduledMethod(start=2d,interval=2d)
 	public void consume() {
-		int toConsume = this.cr.consume();
+		int toConsume = this.cr.consume(this);
 		
 		this.sugarProperties.setHolding(
 				this.sugarProperties.getHolding() + toConsume
@@ -106,6 +118,18 @@ public class Agent implements RepastElement {
 
 	public AgentGeneticCharacteristics getProperties() {
 		return properties;
+	}
+
+	public void setConsumptionRule(ConsumeAbility cr) {
+		this.cr = cr;
+	}
+
+	public void setMovementRule(MoveAbility mr) {
+		this.mr = mr;
+	}
+
+	public void setVisionRule(VisionAbility vr) {
+		this.vr = vr;
 	}
 	
 	

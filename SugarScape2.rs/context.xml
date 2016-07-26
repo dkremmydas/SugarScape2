@@ -1,3 +1,7 @@
 <context id="SugarScape2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context">
-  	
+  	<context id="SimulationContext">
+  		<projection id="sugarscapeGrid" type="grid" />
+		<projection id="sugar_quantity" type="value layer" />
+		<projection id="sugar_capacity" type="value layer" />
+  	</context>
 </context>

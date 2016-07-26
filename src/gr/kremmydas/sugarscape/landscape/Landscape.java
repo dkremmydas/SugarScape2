@@ -4,7 +4,6 @@ import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
-import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridDimensions;
 import repast.simphony.space.grid.GridPoint;
@@ -87,9 +86,9 @@ public class Landscape {
 	/**
 	 * The sugarscape growsback
 	 */
-	@ScheduledMethod(start=3d,interval=2d)
+	//@ScheduledMethod(start=3d,interval=2d)
 	public void growback() {
-		this.sugarGridProperties.setCurrentQuantity(this.growbackRule.growback());
+		this.sugarGridProperties.setCurrentQuantity(this.growbackRule.growback(this));
 	}
 	
 	public void removeSugar(Agent a, int q) {
