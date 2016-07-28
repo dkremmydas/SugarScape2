@@ -105,7 +105,7 @@ public class Landscape {
 	
 	public void removeSugar(Agent a, int q) {
 		GridPoint gp = this.grid.getLocation(a);
-		int nq = (int) this.sugarGridProperties.getCurrentQuantity().get(gp.getX(),gp.getY());
+		int nq = (int) this.sugarGridProperties.getCurrentQuantity().get(gp.getX(),gp.getY())-q;
 		this.sugarGridProperties.getCurrentQuantity().set(nq, gp.getX(),gp.getY());
 	}
 	
