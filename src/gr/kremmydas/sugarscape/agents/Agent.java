@@ -6,6 +6,7 @@ import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
 import repast.simphony.context.RepastElement;
+import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
@@ -78,7 +79,7 @@ public class Agent implements RepastElement {
 		return vr;
 	}
 
-	//@ScheduledMethod(start=1d,interval=2d)
+	@ScheduledMethod(start=1d,interval=2d)
 	public void move() {
 		DefaultGrid<Agent> g = SimulationContext.getInstance().getLandscape().getGrid();
 		GridPoint gp;
@@ -86,7 +87,7 @@ public class Agent implements RepastElement {
 		g.moveTo(this, gp.getX(),gp.getY());
 	}
 	
-	//@ScheduledMethod(start=2d,interval=2d)
+	@ScheduledMethod(start=2d,interval=2d)
 	public void consume() {
 		int toConsume = this.cr.consume(this);
 		

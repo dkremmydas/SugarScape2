@@ -12,6 +12,7 @@ import org.apache.log4j.Level;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
+import repast.simphony.engine.environment.RunEnvironment;
 import simphony.util.messages.MessageCenter;
 
 public class SimulationContext extends DefaultContext<Agent> implements ContextBuilder<Agent>{
@@ -56,11 +57,18 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		LandscapeLoader ll = new ExcelLandscapeLoader();
 		landscape = ll.load();
 		sc.landscape = landscape;
+		RunEnvironment.getInstance().getCurrentSchedule().schedule(landscape);
 		
 		//2. load agents
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agents ...");
 		AgentLoader al = new ExcelAgentLoader();
 		al.addAgents(sc);
+		Iterable<Agent> ia = sc.getObjects(Agent.class);
+		for(Agent a : ia) {RunEnvironment.getInstance().getCurrentSchedule().schedule(a);}
+		
+		System.out.println("Number of Projections: " + sc.getProjections().size());
+		System.out.println("Number of Agents: " + sc.getObjects(Agent.class).size());
+		System.out.println("Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		
 		return sc;
 	}
