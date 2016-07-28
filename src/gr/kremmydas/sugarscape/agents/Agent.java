@@ -62,9 +62,8 @@ public class Agent implements RepastElement {
 		this.properties = properties;
 		
 		//position in the grid
-		System.out.println(this);
-		System.out.println(properties);
-		SimulationContext.getInstance().getLandscape().getGrid().moveTo(this, properties.getIni_x(),properties.getIni_y());
+		SimulationContext.getInstance().add(this);
+		//SimulationContext.getInstance().getLandscape().getGrid().moveTo(this, properties.getIni_x(),properties.getIni_y());
 	}
 	
 	public ConsumeAbility getConsumptionRule() {

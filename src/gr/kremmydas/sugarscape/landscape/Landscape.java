@@ -4,9 +4,15 @@ import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
+import repast.simphony.context.space.grid.GridFactory;
+import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.space.grid.DefaultGrid;
+import repast.simphony.space.grid.Grid;
+import repast.simphony.space.grid.GridAdder;
+import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridDimensions;
 import repast.simphony.space.grid.GridPoint;
+import repast.simphony.space.grid.WrapAroundBorders;
 
 /**
  * 
@@ -46,8 +52,13 @@ public class Landscape {
 		super();
 		this.x = x;
 		this.y = y;
-		grid = new DefaultGrid<>("sugarscapeGrid", x, y);
-		SimulationContext.getInstance().addProjection(grid);
+		GridFactory gf = GridFactoryFinder.createGridFactory(null);
+		grid = (DefaultGrid<Agent>) gf.createGrid("sugarscapeGrid", 
+				SimulationContext.getInstance(), 
+				new GridBuilderParameters <Agent> (new WrapAroundBorders (),new GridXYAdder(),true , x, y)
+			);
+		 
+		//SimulationContext.getInstance().addProjection(grid);
 		
 		this.sugarGridProperties = new ProductGridProperties(x, y, "sugar");
 		this.pepperGridProperties = new ProductGridProperties(x, y, "pepper");
@@ -95,5 +106,14 @@ public class Landscape {
 		GridPoint gp = this.grid.getLocation(a);
 		int nq = (int) this.sugarGridProperties.getCurrentQuantity().get(gp.getX(),gp.getY());
 		this.sugarGridProperties.getCurrentQuantity().set(nq, gp.getX(),gp.getY());
+	}
+	
+	class GridXYAdder implements GridAdder<Agent> {
+
+		@Override
+		public void add(Grid<Agent> destination, Agent object) {
+			destination.moveTo(object, object.getProperties().getIni_x(),object.getProperties().getIni_y());
+		}
+		
 	}
 }
