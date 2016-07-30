@@ -13,6 +13,6 @@ public interface VisionAbility {
 	 * 
 	 * @return
 	 */
-	abstract public Set<GridPoint> getVisionedPoints(Agent owner);
+	public Set<GridPoint> getVisionedPoints(Agent owner);
 	
 }

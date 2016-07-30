@@ -22,13 +22,16 @@ public class DefaultVisionRule implements VisionAbility {
 	@Override
 	public Set<GridPoint> getVisionedPoints(Agent owner) {
 		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();
+		Set<GridPoint> r = new HashSet<>();
 		GridPoint gp = dg.getLocation(owner);
+		
+		dg.getGridPointTranslator().translate(location, displacement);
 		
 		@SuppressWarnings("rawtypes")
 		//http://stackoverflow.com/questions/37113194/retrieve-moore-neighborhood-value-stored-in-a-list
 		GridCellNgh<GridCell> n = new GridCellNgh<GridCell>(dg, gp, GridCell.class, visionRadius,visionRadius);
 		
-		Set<GridPoint> r = new HashSet<>();
+		
 		for(@SuppressWarnings("rawtypes") GridCell gc : n.getNeighborhood(true)) {
 			r.add(gc.getPoint());
 		}

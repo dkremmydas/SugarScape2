@@ -9,6 +9,6 @@ public interface MoveAbility {
 	 * Decision of the Gridpoint to move
 	 * @return the {@link GridPoint}  to move to
 	 */
-	abstract GridPoint move(Agent owner);
+	public GridPoint move(Agent owner);
 
 }

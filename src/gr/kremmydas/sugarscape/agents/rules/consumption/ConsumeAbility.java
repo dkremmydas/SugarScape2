@@ -9,6 +9,6 @@ public interface ConsumeAbility {
 	 * Decision of many units of each {@link GridPoint} to consume
 	 * @return Map<GridPoint,Integer> Map of GridPoint->Consumption(int)
 	 */
-	abstract Integer consume(Agent owner);
+	public Integer consume(Agent owner);
 
 }

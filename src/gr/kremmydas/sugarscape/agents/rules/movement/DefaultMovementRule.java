@@ -3,8 +3,12 @@ package gr.kremmydas.sugarscape.agents.rules.movement;
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
+import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -19,17 +23,25 @@ public class DefaultMovementRule implements MoveAbility {
 	 */
 	@Override
 	public GridPoint move(Agent owner) {
-		GridValueLayer gvl = SimulationContext.getInstance().getLandscape().getSugarGridProperties().getCurrentQuantity();
-		Set<GridPoint> gps = owner.getVisionRule().getVisionedPoints(owner);
-		GridPoint toMove = gps.iterator().next();
-		double toMoveV = gvl.get(toMove.getX(),toMove.getY());
-		for(GridPoint gp : gps) {
-			double gpV=gvl.get(gp.getX(),gp.getY());
-			if(gpV>toMoveV) {
-				toMoveV=gpV;toMove=gp;
+		List<GridPoint> gps = new ArrayList<GridPoint>(owner.getVisionRule().getVisionedPoints(owner));
+		Collections.sort(gps, new Comparator<GridPoint>() {
+			@Override
+			public int compare(GridPoint arg0, GridPoint arg1) {
+				GridValueLayer gvl = SimulationContext.getInstance().getLandscape().getSugarGridProperties().getCurrentQuantity();
+				Double q1 = gvl.get(arg0.getX(),arg0.getY());
+				double q2 = gvl.get(arg1.getX(),arg1.getY());
+				return q1.compareTo(q2);
 			}
+		});
+		
+		//Return the GridPoint that is higher in the list and no one else is there
+		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();
+		for(GridPoint gp: gps) {
+			if(! dg.getObjectsAt(gp.getX(),gp.getY()).iterator().hasNext()) return gp;
 		}
-		return toMove;
+		
+		//If everything else is occupied by others, stay at the same point
+		return dg.getLocation(owner);
 	}
 
 }
