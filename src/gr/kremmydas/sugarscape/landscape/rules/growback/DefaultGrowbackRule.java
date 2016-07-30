@@ -2,8 +2,7 @@ package gr.kremmydas.sugarscape.landscape.rules.growback;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.landscape.Landscape;
-import repast.simphony.space.grid.GridPoint;
-import repast.simphony.valueLayer.GridFunction;
+import gr.kremmydas.sugarscape.products.ProductGridProperties;
 import repast.simphony.valueLayer.GridValueLayer;
 
 /**
@@ -15,48 +14,32 @@ import repast.simphony.valueLayer.GridValueLayer;
  */
 public class DefaultGrowbackRule implements GrowbackAbility {
 	
-	private int regenerationRate;
 
 	public DefaultGrowbackRule() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public GridValueLayer growback(Landscape landscape) {
+		ProductGridProperties sgp = SimulationContext.getInstance().getLandscape().getSugarGridProperties();
 		int y =landscape.getDimensions().getHeight();
 		int x = landscape.getDimensions().getWidth();
-		ValueLayerSetToCapacity f = new ValueLayerSetToCapacity(x,y);
-				;
-		landscape.getSugarGridProperties().getCurrentQuantity().forEach(f,new GridPoint(0,0), x,y);
-		return landscape.getSugarGridProperties().getCapacity();
-		//return f.getResults();
+		GridValueLayer r = new GridValueLayer("new",true,x,y);
+		
+		//regenerationRate
+		for(int i=0;i<x;i++) {
+			for(int j=0;j<y;j++) {
+				double nv =  Math.min(
+									sgp.getCurrentQuantity().get(i,j) + sgp.getRegenerationRate().get(i,j), 
+									sgp.getCapacity().get(i,j)
+								);
+				r.set(nv, i, j);
+			}
+		}
+		return r;
 	}
 	
 	
 	
-	private class ValueLayerSetToCapacity  implements GridFunction  {
-		
-		private GridValueLayer newValueLayer;
-		
-		public ValueLayerSetToCapacity(int x, int y) {
-			newValueLayer = new GridValueLayer("newValueLayer", true, x,y);
-		}
-
-		@Override
-		public void apply(double gridValue, int... location) {
-			
-			newValueLayer.set(
-					SimulationContext.getInstance().getLandscape().getSugarGridProperties().getCapacity().get(location[0],location[1]), 
-					location
-				);
-			
-		}
-		
-		public GridValueLayer getResults() {
-			return this.newValueLayer;
-		}
-		
-	}
-
+	
 }

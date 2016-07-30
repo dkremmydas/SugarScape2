@@ -12,11 +12,16 @@ public class SugarQuantityValueLayerStyle2D implements ValueLayerStyleOGL {
 	public SugarQuantityValueLayerStyle2D() {
 	}
 
+	/**
+	 * The following link is helpful for understanding how to create a 
+	 * HEATMAP (color proportional to a 0-1 range value): <br />
+	 * http://www.andrewnoske.com/wiki/Code_-_heatmaps_and_color_gradients
+	 */
 	@Override
 	public Color getColor(double... coordinates) {
-		int q = (int) layer.get(coordinates);
-		return Color.getHSBColor(21/(q+1), 21/(q+1), 0.8f);
-		Col
+		double q = layer.get(coordinates);
+		float qp = (float)(q/21);
+		return new Color((int)(qp*255), (int)(qp*255), (int)(qp*255));
 	}
 
 	@Override
