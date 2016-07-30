@@ -29,10 +29,16 @@ public class DefaultMovementRule implements MoveAbility {
 			public int compare(GridPoint arg0, GridPoint arg1) {
 				GridValueLayer gvl = SimulationContext.getInstance().getLandscape().getSugarGridProperties().getCurrentQuantity();
 				Double q1 = gvl.get(arg0.getX(),arg0.getY());
-				double q2 = gvl.get(arg1.getX(),arg1.getY());
-				return q1.compareTo(q2);
+				Double q2 = gvl.get(arg1.getX(),arg1.getY());
+				return q2.compareTo(q1);
 			}
 		});
+		//GridValueLayer gvl = SimulationContext.getInstance().getLandscape().getSugarGridProperties().getCurrentQuantity();
+		//for(GridPoint gp: gps) {
+		//	System.out.print(gp + ", q:"+gvl.get(gp.getX(),gp.getY()));
+		//}
+		//System.out.println();
+		//System.out.println(Arrays.toString(gps.toArray()));
 		
 		//Return the GridPoint that is higher in the list and no one else is there
 		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();

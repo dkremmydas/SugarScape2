@@ -1,5 +1,7 @@
 package gr.kremmydas.sugarscape.products;
 
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
 import gr.kremmydas.sugarscape.SimulationContext;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -52,6 +54,14 @@ public class ProductGridProperties {
 		this.capacity = capacity;
 	}
 	
-	
+	public DescriptiveStatistics getQuantityDescriptiveStats() {
+		DescriptiveStatistics stats = new DescriptiveStatistics();
+		for(int i=0;i<currentQuantity.getDimensions().getWidth();i++) {
+			for(int j=0;j<currentQuantity.getDimensions().getHeight();j++) {
+				stats.addValue(currentQuantity.get(i,j));
+			}
+		}
+		return stats;
+	}
 	
 }

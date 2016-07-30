@@ -14,6 +14,7 @@ import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridDimensions;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.WrapAroundBorders;
+import repast.simphony.valueLayer.ValueLayer;
 
 /**
  * 
@@ -96,11 +97,23 @@ public class Landscape {
 	}
 	
 	/**
-	 * The sugarscape growsback
+	 * The sugarscape growsback <br/>
+	 * Before I just set sugarGridProperties.getCurrentQuantity() = {new value layer} but it did not work.
+	 * I had to copy value-by-value the contents of the second valuelayer to the first
 	 */
 	@ScheduledMethod(start=3d,interval=2d)
 	public void growback() {
-		this.sugarGridProperties.setCurrentQuantity(this.growbackRule.growback(this));
+		System.out.println("Before Growback: " + this.sugarGridProperties.getQuantityDescriptiveStats());
+		ValueLayer newvl = this.growbackRule.growback(this);
+
+		for(int i=0;i<sugarGridProperties.getCurrentQuantity().getDimensions().getWidth();i++) {
+			for(int j=0;j<sugarGridProperties.getCurrentQuantity().getDimensions().getHeight();j++) {
+				sugarGridProperties.getCurrentQuantity().set(newvl.get(i,j), i,j);
+			}
+		}
+		
+		//this.sugarGridProperties.setCurrentQuantity();
+		System.out.println("After Growback: " + this.sugarGridProperties.getQuantityDescriptiveStats());
 	}
 	
 	public void removeSugar(Agent a, int q) {

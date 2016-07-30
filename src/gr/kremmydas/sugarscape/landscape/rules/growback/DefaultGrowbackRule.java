@@ -14,6 +14,8 @@ import repast.simphony.valueLayer.GridValueLayer;
  *
  */
 public class DefaultGrowbackRule implements GrowbackAbility {
+	
+	private int regenerationRate;
 
 	public DefaultGrowbackRule() {
 		super();
@@ -27,7 +29,8 @@ public class DefaultGrowbackRule implements GrowbackAbility {
 		ValueLayerSetToCapacity f = new ValueLayerSetToCapacity(x,y);
 				;
 		landscape.getSugarGridProperties().getCurrentQuantity().forEach(f,new GridPoint(0,0), x,y);
-		return f.getResults();
+		return landscape.getSugarGridProperties().getCapacity();
+		//return f.getResults();
 	}
 	
 	

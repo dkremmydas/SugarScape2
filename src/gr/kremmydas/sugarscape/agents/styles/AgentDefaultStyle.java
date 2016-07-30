@@ -8,7 +8,7 @@ public class AgentDefaultStyle extends DefaultStyleOGL2D {
 
 	@Override
 	public Color getColor(Object agent) {
-		return Color.RED;
+		return Color.GREEN;
 	}
 
 	
