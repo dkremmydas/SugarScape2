@@ -2,6 +2,7 @@ package gr.kremmydas.sugarscape.landscape;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
+import repast.simphony.context.RepastElement;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.space.grid.DefaultGrid;
@@ -18,7 +19,9 @@ import repast.simphony.space.grid.WrapAroundBorders;
  * @author Dimitris Kremmydas
  *
  */
-public class Landscape {
+public class Landscape implements RepastElement {
+	
+	private int id = 100;
 	
 	/**
 	 * The size of the grid
@@ -62,5 +65,17 @@ public class Landscape {
 		}
 
 		
+	}
+
+
+	@Override
+	public void setId(Object id) {
+		//We do nothing since only one Landscape is avaiable and id equals always to 0		
+	}
+
+
+	@Override
+	public Object getId() {
+		return this.id;
 	}
 }

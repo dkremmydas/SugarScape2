@@ -3,8 +3,8 @@ package gr.kremmydas.sugarscape;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.loaders.agents.AgentLoader;
-import gr.kremmydas.sugarscape.loaders.agents.ExcelAgentLoader;
-import gr.kremmydas.sugarscape.loaders.landscape.ExcelLandscapeLoader;
+import gr.kremmydas.sugarscape.loaders.agents.ExcelAgentChapter2Loader;
+import gr.kremmydas.sugarscape.loaders.landscape.ExcelLandscapeChapter2Loader;
 import gr.kremmydas.sugarscape.loaders.landscape.LandscapeLoader;
 
 import org.apache.log4j.Level;
@@ -54,21 +54,22 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		
 		//1. Load Landscape
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Landscape ...");
-		LandscapeLoader ll = new ExcelLandscapeLoader();
+		LandscapeLoader ll = new ExcelLandscapeChapter2Loader();
 		landscape = ll.load();
 		sc.landscape = landscape;
 		RunEnvironment.getInstance().getCurrentSchedule().schedule(landscape);
 		
 		//2. load agents
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agents ...");
-		AgentLoader al = new ExcelAgentLoader();
+		AgentLoader al = new ExcelAgentChapter2Loader();
 		al.addAgents(sc);
 		Iterable<Agent> ia = sc.getObjects(Agent.class);
 		for(Agent a : ia) {RunEnvironment.getInstance().getCurrentSchedule().schedule(a);}
 		
-		System.out.println("Number of Projections: " + sc.getProjections().size());
-		System.out.println("Number of Agents: " + sc.getObjects(Agent.class).size());
-		System.out.println("Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Everything is loaded.");
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Agents: " + sc.getObjects(Agent.class).size());
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		
 		return sc;
 	}

@@ -45,7 +45,7 @@ public class AgentChapter2 extends Agent {
 	}
 
 
-	@ScheduledMethod(start=1d,interval=2d)
+	@ScheduledMethod(start=1d,interval=5d)
 	public void move() {
 		DefaultGrid<Agent> g = SimulationContext.getInstance().getLandscape().getGrid();
 		GridPoint gp;
@@ -53,7 +53,7 @@ public class AgentChapter2 extends Agent {
 		g.moveTo(this, gp.getX(),gp.getY());
 	}
 	
-	@ScheduledMethod(start=2d,interval=2d)
+	@ScheduledMethod(start=2d,interval=5d)
 	public void consume() {
 		int toConsume = this.consumptionRule.consume(this);
 		
@@ -62,6 +62,13 @@ public class AgentChapter2 extends Agent {
 			);
 
 		myLandscape.removeSugar(this, toConsume);
+	}
+	
+	@ScheduledMethod(start=3d,interval=5d)
+	public void die() {
+		if(this.deathRule.die(this)) {
+			SimulationContext.getInstance().remove(this);
+		}
 	}
 
 
@@ -134,6 +141,8 @@ public class AgentChapter2 extends Agent {
 		this.myLandscape = myLandscape;
 	}
 	
-	
+	public double getSugarWealth() {
+		return this.sugarProperties.getHolding();
+	}
 
 }

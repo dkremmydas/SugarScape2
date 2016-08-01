@@ -1,11 +1,11 @@
 package gr.kremmydas.sugarscape.loaders.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
-import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.agents.AgentGeneticCharacteristics;
+import gr.kremmydas.sugarscape.agents.AgentChapter2;
 import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
 import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
 
 import java.io.File;
@@ -18,13 +18,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-public class ExcelAgentLoader implements AgentLoader {
+public class ExcelAgentChapter2Loader implements AgentLoader {
 	
-	private String excelFile = "C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\Sugarscape Java Power for ABM\\sugarscape_data.xlsx";
+	private String excelFile = "C:\\Users\\jkr\\Dropbox\\CurrentProjects\\Phd Proposal\\03. Work on progress\\Sugarscape Java Power for ABM\\sugarscape_data.Chapter2.xlsx";
 	
 	private Workbook excelWB; 
 	
-	public ExcelAgentLoader() {
+	public ExcelAgentChapter2Loader() {
 		try {
 			excelWB = WorkbookFactory.create(new File(excelFile));
 		} catch (InvalidFormatException | IOException e) {
@@ -53,17 +53,19 @@ public class ExcelAgentLoader implements AgentLoader {
 			String mr = row.getCell(9).getStringCellValue();
 			String cr = row.getCell(10).getStringCellValue();
 			
-			Agent a;
+			AgentChapter2 a;
 			try {
-				a = new Agent((ConsumeAbility) Class.forName(rulesBase+cr).newInstance(),
-						(MoveAbility) Class.forName(rulesBase+mr).newInstance(), 
-						(VisionAbility) Class.forName(rulesBase+vr).newInstance(), 
-						new ProductAgentProperties(initSugar, metabSugar), 
-						null,
-						new AgentGeneticCharacteristics(vis,x,y)
-				);
+				a = new AgentChapter2();
+				a.setConsumptionRule((ConsumeAbility) Class.forName(rulesBase+cr).newInstance());
+				a.setMovementRule((MoveAbility) Class.forName(rulesBase+mr).newInstance());
+				a.setVisionRule((VisionAbility) Class.forName(rulesBase+vr).newInstance());
+				a.setVisionLevel(vis);
+				a.setSugarProperties(new ProductAgentProperties(initSugar, metabSugar));
+				a.setIni_x(x);a.setIni_y(y);
 				a.setId(id);
+				a.setMyLandscape((LandscapeChapter2) sc.getLandscape());
 				sc.add(a);
+				
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -11,33 +11,33 @@ public class ProductAgentProperties {
 	/**
 	 * Product stored (p. 24)
 	 */
-	int holding;
+	double holding;
 	
 	/**
 	 * Amount of product consumed per time step (p. 24)
 	 */
-	int metabolism;	
+	double metabolism;	
 	
 
-	public ProductAgentProperties(int quantityStored, int quantityNeeded) {
+	public ProductAgentProperties(double quantityStored, double quantityNeeded) {
 		super();
 		this.holding = quantityStored;
 		this.metabolism = quantityNeeded;
 	}
 
-	public int getHolding() {
+	public double getHolding() {
 		return holding;
 	}
 
-	public void setHolding(int quantityStored) {
+	public void setHolding(double quantityStored) {
 		this.holding = quantityStored;
 	}
 
-	public int getMetabolism() {
+	public double getMetabolism() {
 		return metabolism;
 	}
 
-	public void setMetabolism(int quantityNeeded) {
+	public void setMetabolism(double quantityNeeded) {
 		this.metabolism = quantityNeeded;
 	}
 

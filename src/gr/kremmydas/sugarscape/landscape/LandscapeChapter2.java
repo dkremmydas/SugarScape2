@@ -45,11 +45,11 @@ public class LandscapeChapter2 extends Landscape {
 	 * Before I just set sugarGridProperties.getCurrentQuantity() = {new value layer} but it did not work.
 	 * I had to copy value-by-value the contents of the second valuelayer to the first
 	 */
-	@ScheduledMethod(start=3d,interval=2d)
+	@ScheduledMethod(start=4d,interval=5d)
 	public void growback() {
-		System.out.println("Before Growback: " + this.sugarGridProperties.getQuantityDescriptiveStats());
+		//System.out.println("Before Growback: " + this.sugarGridProperties.getQuantityDescriptiveStats());
+		
 		ValueLayer newvl = this.growbackRule.growback(this);
-
 		for(int i=0;i<sugarGridProperties.getCurrentQuantity().getDimensions().getWidth();i++) {
 			for(int j=0;j<sugarGridProperties.getCurrentQuantity().getDimensions().getHeight();j++) {
 				sugarGridProperties.getCurrentQuantity().set(newvl.get(i,j), i,j);
@@ -57,13 +57,19 @@ public class LandscapeChapter2 extends Landscape {
 		}
 		
 		//this.sugarGridProperties.setCurrentQuantity();
-		System.out.println("After Growback: " + this.sugarGridProperties.getQuantityDescriptiveStats());
+		//System.out.println("After Growback: " + this.sugarGridProperties.getQuantityDescriptiveStats());
 	}
 	
 	public void removeSugar(Agent a, int q) {
 		GridPoint gp = this.grid.getLocation(a);
 		int nq = (int) this.sugarGridProperties.getCurrentQuantity().get(gp.getX(),gp.getY())-q;
 		this.sugarGridProperties.getCurrentQuantity().set(nq, gp.getX(),gp.getY());
+	}
+	
+	public double getTotalSugar() {
+		double r = this.sugarGridProperties.getQuantityDescriptiveStats().getMean();
+		System.out.println("S:" + r);
+		return r;
 	}
 
 
