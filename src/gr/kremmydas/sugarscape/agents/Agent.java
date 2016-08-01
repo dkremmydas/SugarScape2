@@ -15,10 +15,11 @@ import repast.simphony.engine.schedule.ISchedulableAction;
  */
 public class Agent implements RepastElement {
 	
-	protected int id;
+	protected Integer id;
 	
 	protected int ini_x, ini_y;
 	
+	//advanced
 	List<ISchedulableAction> scheduledActions;
 
 	public Agent() {};

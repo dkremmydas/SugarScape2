@@ -7,12 +7,15 @@ import gr.kremmydas.sugarscape.loaders.agents.ExcelAgentChapter2Loader;
 import gr.kremmydas.sugarscape.loaders.landscape.ExcelLandscapeChapter2Loader;
 import gr.kremmydas.sugarscape.loaders.landscape.LandscapeLoader;
 
+import java.util.List;
+
 import org.apache.log4j.Level;
 
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedulableAction;
 import simphony.util.messages.MessageCenter;
 
 public class SimulationContext extends DefaultContext<Agent> implements ContextBuilder<Agent>{
@@ -63,15 +66,22 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agents ...");
 		AgentLoader al = new ExcelAgentChapter2Loader();
 		al.addAgents(sc);
+		
+		//add any ScheduledActions manully
 		Iterable<Agent> ia = sc.getObjects(Agent.class);
+		
+		//advanced
 		for(Agent a : ia) {
-			a.setScheduledActions(RunEnvironment.getInstance().getCurrentSchedule().schedule(a));
+			List<ISchedulableAction> sa = RunEnvironment.getInstance().getCurrentSchedule().schedule(a);
+			a.setScheduledActions(sa);
 		}
 		
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Everything is loaded.");
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Agents: " + sc.getObjects(Agent.class).size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+		System.out.println("Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+		
 		
 		return sc;
 	}

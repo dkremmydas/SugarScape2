@@ -65,7 +65,7 @@ public class ExcelAgentChapter2Loader implements AgentLoader {
 				a.setVisionLevel(vis);
 				a.setSugarProperties(new ProductAgentProperties(initSugar, metabSugar));
 				a.setIni_x(x);a.setIni_y(y);
-				a.setId(id);
+				a.setId(Integer.valueOf(id));
 				a.setMyLandscape((LandscapeChapter2) sc.getLandscape());
 				sc.add(a);
 				
