@@ -7,6 +7,11 @@ import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
+
+import java.util.List;
+
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedulableAction;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
@@ -61,12 +66,25 @@ public class AgentChapter2 extends Agent {
 				this.sugarProperties.getHolding() + toConsume
 			);
 
+		//remove sugar from landscape
 		myLandscape.removeSugar(this, toConsume);
+		
+		//eat necessary sugar
+		this.sugarProperties.setHolding(this.sugarProperties.getHolding()-this.sugarProperties.getMetabolism());
 	}
 	
 	@ScheduledMethod(start=3d,interval=5d)
 	public void die() {
 		if(this.deathRule.die(this)) {
+			System.out.println("Agent with id=" + this.id + " is dead");
+			
+			//remove scheduled actions of agent
+			List<ISchedulableAction> toR = this.getScheduledActions();
+			for(ISchedulableAction sa: toR) {
+				RunEnvironment.getInstance().getCurrentSchedule().removeAction(sa);
+			}
+			
+			//remove from context
 			SimulationContext.getInstance().remove(this);
 		}
 	}
@@ -85,7 +103,7 @@ public class AgentChapter2 extends Agent {
 	public int getVisionLevel() {
 		return visionLevel;
 	}
-
+ 
 
 	public void setVisionLevel(int visionLevel) {
 		this.visionLevel = visionLevel;

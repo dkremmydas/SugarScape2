@@ -3,6 +3,7 @@ package gr.kremmydas.sugarscape.loaders.agents;
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.AgentChapter2;
 import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
+import gr.kremmydas.sugarscape.agents.rules.death.DeathAbility;
 import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
@@ -52,6 +53,7 @@ public class ExcelAgentChapter2Loader implements AgentLoader {
 			String vr = row.getCell(8).getStringCellValue();
 			String mr = row.getCell(9).getStringCellValue();
 			String cr = row.getCell(10).getStringCellValue();
+			String dr = row.getCell(11).getStringCellValue();
 			
 			AgentChapter2 a;
 			try {
@@ -59,6 +61,7 @@ public class ExcelAgentChapter2Loader implements AgentLoader {
 				a.setConsumptionRule((ConsumeAbility) Class.forName(rulesBase+cr).newInstance());
 				a.setMovementRule((MoveAbility) Class.forName(rulesBase+mr).newInstance());
 				a.setVisionRule((VisionAbility) Class.forName(rulesBase+vr).newInstance());
+				a.setDeathRule((DeathAbility) Class.forName(rulesBase+dr).newInstance());
 				a.setVisionLevel(vis);
 				a.setSugarProperties(new ProductAgentProperties(initSugar, metabSugar));
 				a.setIni_x(x);a.setIni_y(y);

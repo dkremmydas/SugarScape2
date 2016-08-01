@@ -1,6 +1,9 @@
 package gr.kremmydas.sugarscape.agents;
 
+import java.util.List;
+
 import repast.simphony.context.RepastElement;
+import repast.simphony.engine.schedule.ISchedulableAction;
 
 
 /**
@@ -12,9 +15,11 @@ import repast.simphony.context.RepastElement;
  */
 public class Agent implements RepastElement {
 	
-	private int id;
+	protected int id;
 	
-	private int ini_x, ini_y;
+	protected int ini_x, ini_y;
+	
+	List<ISchedulableAction> scheduledActions;
 
 	public Agent() {};
 	
@@ -35,6 +40,16 @@ public class Agent implements RepastElement {
 	public void setIni_y(int ini_y) {
 		this.ini_y = ini_y;
 	}
+
+	public List<ISchedulableAction> getScheduledActions() {
+		return scheduledActions;
+	}
+
+	public void setScheduledActions(List<ISchedulableAction> scheduledActions) {
+		this.scheduledActions = scheduledActions;
+	}
+
+
 
 	@Override
 	public void setId(Object id) {

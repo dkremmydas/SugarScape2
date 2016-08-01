@@ -64,7 +64,9 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		AgentLoader al = new ExcelAgentChapter2Loader();
 		al.addAgents(sc);
 		Iterable<Agent> ia = sc.getObjects(Agent.class);
-		for(Agent a : ia) {RunEnvironment.getInstance().getCurrentSchedule().schedule(a);}
+		for(Agent a : ia) {
+			a.setScheduledActions(RunEnvironment.getInstance().getCurrentSchedule().schedule(a));
+		}
 		
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Everything is loaded.");
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());

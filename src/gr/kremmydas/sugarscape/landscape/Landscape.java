@@ -21,17 +21,17 @@ import repast.simphony.space.grid.WrapAroundBorders;
  */
 public class Landscape implements RepastElement {
 	
-	private int id = 100;
+	protected int id = 100;
 	
 	/**
 	 * The size of the grid
 	 */
-	int x,y;
+	protected int x,y;
 	
 	/**
 	 * The grid of the landscape
 	 */
-	DefaultGrid<Agent> grid;
+	protected DefaultGrid<Agent> grid;
 	
 	
 
@@ -57,17 +57,6 @@ public class Landscape implements RepastElement {
 	}
 
 	
-	class GridXYAdder implements GridAdder<Agent> {
-
-		@Override
-		public void add(Grid<Agent> destination, Agent object) {
-			destination.moveTo(object, object.getIni_x(),object.getIni_y());
-		}
-
-		
-	}
-
-
 	@Override
 	public void setId(Object id) {
 		//We do nothing since only one Landscape is avaiable and id equals always to 0		
@@ -78,4 +67,14 @@ public class Landscape implements RepastElement {
 	public Object getId() {
 		return this.id;
 	}
-}
+	
+	class GridXYAdder implements GridAdder<Agent> {
+
+		@Override
+		public void add(Grid<Agent> destination, Agent object) {
+			destination.moveTo(object, object.getIni_x(),object.getIni_y());
+		}	
+	} //end inner class
+	
+	
+} //end outer class
