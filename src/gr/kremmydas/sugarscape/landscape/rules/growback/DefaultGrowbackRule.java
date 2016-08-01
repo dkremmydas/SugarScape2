@@ -1,7 +1,6 @@
 package gr.kremmydas.sugarscape.landscape.rules.growback;
 
-import gr.kremmydas.sugarscape.SimulationContext;
-import gr.kremmydas.sugarscape.landscape.Landscape;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -20,8 +19,8 @@ public class DefaultGrowbackRule implements GrowbackAbility {
 	}
 
 	@Override
-	public GridValueLayer growback(Landscape landscape) {
-		ProductGridProperties sgp = SimulationContext.getInstance().getLandscape().getSugarGridProperties();
+	public GridValueLayer growback(LandscapeChapter2 landscape) {
+		ProductGridProperties sgp = landscape.getSugarGridProperties();
 		int y =landscape.getDimensions().getHeight();
 		int x = landscape.getDimensions().getWidth();
 		GridValueLayer r = new GridValueLayer("new",true,x,y);

@@ -2,6 +2,8 @@ package gr.kremmydas.sugarscape.agents.rules.movement;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
+import gr.kremmydas.sugarscape.agents.AgentChapter2;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,12 +24,15 @@ public class DefaultMovementRule implements MoveAbility {
 	 * Move to the visible point with the greatest concentration of sugar
 	 */
 	@Override
-	public GridPoint move(Agent owner) {
+	public GridPoint move(AgentChapter2 owner) {
 		List<GridPoint> gps = new ArrayList<GridPoint>(owner.getVisionRule().getVisionedPoints(owner));
+		
+		//in order for the inner class to be able to see theLandscape, it has to be final
+		final LandscapeChapter2 theLandscape = owner.getMyLandscape();
 		Collections.sort(gps, new Comparator<GridPoint>() {
 			@Override
 			public int compare(GridPoint arg0, GridPoint arg1) {
-				GridValueLayer gvl = SimulationContext.getInstance().getLandscape().getSugarGridProperties().getCurrentQuantity();
+				GridValueLayer gvl = theLandscape.getSugarGridProperties().getCurrentQuantity();
 				Double q1 = gvl.get(arg0.getX(),arg0.getY());
 				Double q2 = gvl.get(arg1.getX(),arg1.getY());
 				return q2.compareTo(q1);

@@ -2,6 +2,7 @@ package gr.kremmydas.sugarscape.agents.rules.vision;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
+import gr.kremmydas.sugarscape.agents.AgentChapter2;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,12 +20,12 @@ public class DefaultVisionRule implements VisionAbility {
 	}
 
 	@Override
-	public Set<GridPoint> getVisionedPoints(Agent owner) {
-		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();
+	public Set<GridPoint> getVisionedPoints(AgentChapter2 owner) {
+		DefaultGrid<Agent> dg = owner.getMyLandscape().getGrid();
 		GridPoint gp = dg.getLocation(owner);
 		//System.out.println("Owner Location: " + gp);
 		
-		return this.getCrossNeighbouringPoints(gp,owner.getProperties().getVisionLevel());
+		return this.getCrossNeighbouringPoints(gp,owner.getVisionLevel());
 		
 		
 	}
