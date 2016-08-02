@@ -3,8 +3,6 @@ package gr.kremmydas.sugarscape;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.loaders.agents.AgentLoader;
-import gr.kremmydas.sugarscape.loaders.agents.ExcelAgentChapter2Loader;
-import gr.kremmydas.sugarscape.loaders.landscape.ExcelLandscapeChapter2Loader;
 import gr.kremmydas.sugarscape.loaders.landscape.LandscapeLoader;
 
 import java.util.List;
@@ -57,31 +55,49 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		
 		//1. Load Landscape
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Landscape ...");
-		LandscapeLoader ll = new ExcelLandscapeChapter2Loader();
-		landscape = ll.load();
-		sc.landscape = landscape;
-		RunEnvironment.getInstance().getCurrentSchedule().schedule(landscape);
+		
+		LandscapeLoader ll;
+		try {
+			String ls =  RunEnvironment.getInstance().getParameters().getString("landscapeLoaderClass");
+			ll = (LandscapeLoader) Class.forName(ls).newInstance();
+			landscape = ll.load();
+			sc.landscape = landscape;
+			RunEnvironment.getInstance().getCurrentSchedule().schedule(landscape);
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		//2. load agents
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Loading Agents ...");
-		AgentLoader al = new ExcelAgentChapter2Loader();
-		al.addAgents(sc);
 		
-		//add any ScheduledActions manully
-		Iterable<Agent> ia = sc.getObjects(Agent.class);
-		
-		//advanced
-		for(Agent a : ia) {
-			List<ISchedulableAction> sa = RunEnvironment.getInstance().getCurrentSchedule().schedule(a);
-			a.setScheduledActions(sa);
+		AgentLoader al;
+		try {
+			String ls =  RunEnvironment.getInstance().getParameters().getString("agentLoaderClass");
+			al = (AgentLoader) Class.forName(ls).newInstance();
+			al.addAgents(sc);
+			
+			//add any ScheduledActions manually
+			Iterable<Agent> ia = sc.getObjects(Agent.class);
+			
+			//advanced
+			for(Agent a : ia) {
+				List<ISchedulableAction> sa = RunEnvironment.getInstance().getCurrentSchedule().schedule(a);
+				a.setScheduledActions(sa);
+			}
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 		
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Everything is loaded.");
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Agents: " + sc.getObjects(Agent.class).size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
-		System.out.println("Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
-		
 		
 		return sc;
 	}
