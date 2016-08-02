@@ -20,6 +20,8 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 
 	private static SimulationContext instance=null;
 	
+	private String landscapeLoaderRoot="gr.kremmydas.sugarscape.loaders.landscape.";
+	private String agentLoaderRoot="gr.kremmydas.sugarscape.loaders.agents.";
 	
 	private Landscape landscape;
 	
@@ -58,7 +60,7 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		
 		LandscapeLoader ll;
 		try {
-			String ls =  RunEnvironment.getInstance().getParameters().getString("landscapeLoaderClass");
+			String ls =  landscapeLoaderRoot + RunEnvironment.getInstance().getParameters().getString("landscapeLoaderClass");
 			ll = (LandscapeLoader) Class.forName(ls).newInstance();
 			landscape = ll.load();
 			sc.landscape = landscape;
@@ -75,7 +77,7 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		
 		AgentLoader al;
 		try {
-			String ls =  RunEnvironment.getInstance().getParameters().getString("agentLoaderClass");
+			String ls =  agentLoaderRoot + RunEnvironment.getInstance().getParameters().getString("agentLoaderClass");
 			al = (AgentLoader) Class.forName(ls).newInstance();
 			al.addAgents(sc);
 			
@@ -92,7 +94,6 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Everything is loaded.");
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());

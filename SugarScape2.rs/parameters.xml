@@ -3,8 +3,8 @@
 
 	<parameter name="randomSeed" displayName="Default Random Seed" type="int" defaultValue="__NULL__" />
 	
-	<parameter name="landscapeLoaderClass" displayName="Landscape Loader Class" type="String" defaultValue="gr.kremmydas.sugarscape.loaders.landscape.ExcelLandscapeChapter2Loader"  />
+	<parameter name="landscapeLoaderClass" displayName="Landscape Loader Class" type="String" defaultValue="SugarScapeLandscapePGMChapter2"  />
 	
-	<parameter name="agentLoaderClass" displayName="Agent Loader Class" type="String" defaultValue="gr.kremmydas.sugarscape.loaders.agents.ExcelAgentChapter2Loader" />
+	<parameter name="agentLoaderClass" displayName="Agent Loader Class" type="String" defaultValue="SugarscapeAgentsLoaderChapter2" />
 	
 </parameters>
