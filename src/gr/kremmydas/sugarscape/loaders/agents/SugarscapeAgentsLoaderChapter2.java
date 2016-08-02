@@ -38,7 +38,7 @@ public class SugarscapeAgentsLoaderChapter2 implements AgentLoader {
 			a.setDeathRule(new DefaultDeathRule());
 			a.setMovementRule(new DefaultMovementRule());
 			a.setVisionRule(new DefaultVisionRule());
-			a.setSugarProperties(new ProductAgentProperties(RandomHelper.nextIntFromTo(0, maxInitial), RandomHelper.nextIntFromTo(0, maxMetabolism)));
+			a.setSugarProperties(new ProductAgentProperties(RandomHelper.nextIntFromTo(0, maxInitial), RandomHelper.nextIntFromTo(1, maxMetabolism)));
 			
 			sc.add(a);
 		}

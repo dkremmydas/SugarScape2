@@ -1,7 +1,6 @@
 <repast.simphony.data2.engine.DataSetDescriptor>
-  <name>Total Landscape sugar</name>
-  <type>NON_AGGREGATE</type>
-  <sourceType>gr.kremmydas.sugarscape.landscape.LandscapeChapter2</sourceType>
+  <name>Alive Agents</name>
+  <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -12,28 +11,19 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1584458185</hashCode>
+    <hashCode>17340404</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
-  <methodDataSources class="linked-hash-map">
+  <methodDataSources class="linked-hash-map"/>
+  <countSources class="linked-hash-map">
     <entry>
-      <string>Id</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Id</id>
-        <className>gr.kremmydas.sugarscape.landscape.LandscapeChapter2</className>
-        <methodName>getId</methodName>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+      <string>agentNumber</string>
+      <repast.simphony.data2.engine.CountSourceDefinition>
+        <typeName>gr.kremmydas.sugarscape.agents.Agent</typeName>
+        <id>agentNumber</id>
+      </repast.simphony.data2.engine.CountSourceDefinition>
     </entry>
-    <entry>
-      <string>TotalSugar</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>TotalSugar</id>
-        <className>gr.kremmydas.sugarscape.landscape.LandscapeChapter2</className>
-        <methodName>getTotalSugar</methodName>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-  </methodDataSources>
-  <countSources class="linked-hash-map"/>
+  </countSources>
   <customNADataSources class="linked-hash-map"/>
   <customAggDataSources class="linked-hash-map"/>
 </repast.simphony.data2.engine.DataSetDescriptor>

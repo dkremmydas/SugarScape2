@@ -4,6 +4,8 @@ import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.loaders.agents.AgentLoader;
 import gr.kremmydas.sugarscape.loaders.landscape.LandscapeLoader;
+import gr.kremmydas.sugarscape.loaders.userPanel.Chapter2CustomUserPanel;
+import gr.kremmydas.sugarscape.loaders.userPanel.CustomPanelLoader;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedulableAction;
+import repast.simphony.ui.RSApplication;
 import simphony.util.messages.MessageCenter;
 
 public class SimulationContext extends DefaultContext<Agent> implements ContextBuilder<Agent>{
@@ -94,6 +97,10 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//3. load custom panel
+		CustomPanelLoader cpl = new Chapter2CustomUserPanel();
+		RSApplication.getRSApplicationInstance().addCustomUserPanel(cpl.loadPanel());
 		
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Everything is loaded.");
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());

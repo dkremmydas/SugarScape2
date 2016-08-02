@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
-  <name>Total Landscape sugar Chart</name>
-  <dataSet>Total Landscape sugar</dataSet>
+  <name>Alive Agents Chart</name>
+  <dataSet>Alive Agents</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel></yAxisLabel>
-  <chartTitle>Total Landscpe sugar</chartTitle>
+  <yAxisLabel>Number</yAxisLabel>
+  <chartTitle>Agents that are alive</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,14 +21,18 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>Id</string>
+      <string>agentNumber</string>
       <SeriesData>
-        <label></label>
+        <label>agentNumber</label>
+        <color>
+          <red>0</red>
+          <green>0</green>
+          <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
       </SeriesData>
     </entry>
   </seriesIds>
-  <dataValueIds>
-    <string>TotalSugar</string>
-  </dataValueIds>
+  <dataValueIds/>
   <plotRangeLength>-1</plotRangeLength>
 </repast.simphony.chart2.engine.TimeSeriesChartDescriptor>
