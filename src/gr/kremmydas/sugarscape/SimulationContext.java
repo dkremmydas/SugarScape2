@@ -98,14 +98,25 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 			e.printStackTrace();
 		}
 		
-		//3. load custom panel
-		CustomPanelLoader cpl = new Chapter2CustomUserPanel();
-		RSApplication.getRSApplicationInstance().addCustomUserPanel(cpl.loadPanel());
-		
+		//Since loading has finished, output some details on DEBUG mode
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Everything is loaded.");
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Agents: " + sc.getObjects(Agent.class).size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+	
+		
+		//3. load custom panel if not in batch mode
+		if(! RunEnvironment.getInstance().isBatch()) {
+		CustomPanelLoader cpl = new Chapter2CustomUserPanel();
+			RSApplication.getRSApplicationInstance().addCustomUserPanel(cpl.loadPanel());
+		}	
+			
+		
+		//4. If in batch mode, terminate after 1500 ticks
+		if(RunEnvironment.getInstance().isBatch()) {
+			RunEnvironment.getInstance().endAt(1500);
+		}
+		
 		
 		return sc;
 	}

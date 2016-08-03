@@ -82,7 +82,7 @@ public class AgentChapter2 extends Agent {
 	public void die() {
 		if(isAlive) {
 			if(this.deathRule.die(this)) {
-				System.out.println("Agent with id=" + this.id + " is dead");
+				//System.out.println("Agent with id=" + this.id + " is dead");
 				this.isAlive = false;
 				
 				//remove from context

@@ -7,4 +7,9 @@
 	
 	<parameter name="agentLoaderClass" displayName="Agent Loader Class" type="String" defaultValue="SugarscapeAgentsLoaderChapter2" />
 	
+	
+	<parameter name="maxVision" displayName="Maximum Agent Vision Level" type="int" defaultValue="6" />
+	<parameter name="maxMetabolism" displayName="Maximum Agent Metabolism" type="int" defaultValue="5" />
+	<parameter name="maxInitEndownment" displayName="Maximum Agent Vision Level" type="int" defaultValue="10" />
+	
 </parameters>

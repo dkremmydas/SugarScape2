@@ -21,7 +21,7 @@ import repast.simphony.space.grid.RandomGridAdder;
 
 public class SugarScapeLandscapePGMChapter2 implements LandscapeLoader {
 	
-	private String inputFile = "misc/sugarspace.pgm";
+	private String inputFile = "./data/sugarspace.pgm";
 	private PGMReader pgmreader;
 
 	public SugarScapeLandscapePGMChapter2() {

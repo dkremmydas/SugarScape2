@@ -1,3 +1,1 @@
-<?xml version="1.0"?>
-<sweep runs="1">
-</sweep>
+<?xml version="1.0" ?><sweep runs="1"><parameter name="landscapeLoaderClass" type="constant" constant_type="java.lang.String" value="SugarScapeLandscapePGMChapter2"></parameter><parameter name="agentLoaderClass" type="constant" constant_type="java.lang.String" value="SugarscapeAgentsLoaderChapter2"></parameter><parameter name="maxMetabolism" type="number" number_type="int" start="1" end="4" step="1"><parameter name="maxVision" type="number" number_type="int" start="1" end="6" step="1"><parameter name="maxInitEndownment" type="number" number_type="int" start="1" end="20" step="5"></parameter></parameter></parameter></sweep>

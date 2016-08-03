@@ -8,6 +8,7 @@ import gr.kremmydas.sugarscape.agents.rules.movement.DefaultMovementRule;
 import gr.kremmydas.sugarscape.agents.rules.vision.DefaultVisionRule;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
 
@@ -27,7 +28,9 @@ public class SugarscapeAgentsLoaderChapter2 implements AgentLoader {
 		RandomHelper.createUniform();
 		
 		int n=400;
-		int maxVision = 3; int maxMetabolism = 3; int maxInitial = 3;
+		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision"); 
+		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
+		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
 		for(int i=0;i<n;i++) {
 			AgentChapter2 a = new AgentChapter2();
 			
