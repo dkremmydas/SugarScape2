@@ -14,6 +14,12 @@ import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
+/**
+ * The movement rule applied in the book
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public class DefaultMovementRule implements MoveAbility {
 
 	public DefaultMovementRule() {
@@ -25,10 +31,13 @@ public class DefaultMovementRule implements MoveAbility {
 	 */
 	@Override
 	public GridPoint move(AgentChapter2 owner) {
+		//1. Get points that the agent can sees
 		List<GridPoint> gps = new ArrayList<GridPoint>(owner.getVisionRule().getVisionedPoints(owner));
 		
 		//in order for the inner class to be able to see theLandscape, it has to be final
 		final LandscapeChapter2 theLandscape = owner.getMyLandscape();
+		
+		//2. Sort the points by available quantity
 		Collections.sort(gps, new Comparator<GridPoint>() {
 			@Override
 			public int compare(GridPoint arg0, GridPoint arg1) {
@@ -45,13 +54,13 @@ public class DefaultMovementRule implements MoveAbility {
 		//System.out.println();
 		//System.out.println(Arrays.toString(gps.toArray()));
 		
-		//Return the GridPoint that is higher in the list and no one else is there
+		//3. Return the GridPoint that is higher in the list and no one else is there
 		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();
 		for(GridPoint gp: gps) {
 			if(! dg.getObjectsAt(gp.getX(),gp.getY()).iterator().hasNext()) return gp;
 		}
 		
-		//If everything else is occupied by others, stay at the same point
+		//4. If everything else is occupied by others, stay at the same point
 		return dg.getLocation(owner);
 	}
 
