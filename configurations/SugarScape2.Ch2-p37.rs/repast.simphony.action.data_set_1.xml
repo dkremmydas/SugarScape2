@@ -1,8 +1,9 @@
 <repast.simphony.data2.engine.DataSetDescriptor>
-  <name>mean_agent_properties</name>
-  <type>AGGREGATE</type>
+  <name>Sugar Wealth Distribution</name>
+  <type>NON_AGGREGATE</type>
+  <sourceType>gr.kremmydas.sugarscape.agents.AgentChapter2_p30</sourceType>
   <inclTick>true</inclTick>
-  <inclBatchRun>true</inclBatchRun>
+  <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
   <scheduleParams>
     <start>1.0</start>
@@ -11,26 +12,24 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>776085459</hashCode>
+    <hashCode>-1210645869</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>meanVision</string>
+      <string>Id</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>meanVision</id>
+        <id>Id</id>
         <className>gr.kremmydas.sugarscape.agents.AgentChapter2_p30</className>
-        <methodName>getVisionLevel</methodName>
-        <aggType>MEAN</aggType>
+        <methodName>getId</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>meanMetabolism</string>
+      <string>SugarWealth</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>meanMetabolism</id>
+        <id>SugarWealth</id>
         <className>gr.kremmydas.sugarscape.agents.AgentChapter2_p30</className>
-        <methodName>getMetabolism</methodName>
-        <aggType>MEAN</aggType>
+        <methodName>getSugarWealth</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

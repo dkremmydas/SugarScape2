@@ -19,11 +19,22 @@ import java.util.StringTokenizer;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.RandomGridAdder;
 
-
+/**
+ * <p>{@link LandscapeLoader} implementation. Reads the capacity
+ * of the cells of the sugarscape grid from a "sugarscape.pgm" file that is located 
+ * in ./data folder.</p>
+ * <p>Change the <i>growbackRuleClass</i> parameter for selecting {@link GrowbackAbility}
+ * rule. Also set <i>regenerationRate</i> parameter for setting the value of <i>a</i> (i.e. the
+ * regeneration rate).</p>
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	
 	private String inputFile = "./data/sugarspace.pgm";
 	private PGMReader pgmreader;
+	private String growbackRoot = "gr.kremmydas.sugarscape.landscape.rules.growback.";
 
 	public PGMLandscapeLoaderChapter2_p30() {
 		pgmreader = new PGMReader(inputFile);
@@ -36,7 +47,7 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 		LandscapeChapter2_p30 ls  = new LandscapeChapter2_p30(pgmreader.xSize, pgmreader.ySize);
 		GrowbackAbility ga;
 		try {
-			ga = (GrowbackAbility) Class.forName(RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
+			ga = (GrowbackAbility) Class.forName(growbackRoot+RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
 			ls.setGrowbackRule(ga);
 		} catch (InstantiationException e) {
 			e.printStackTrace();
@@ -70,7 +81,7 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	
 
 	/**
-	 * Class for reading PGM files into a 2D array.
+	 * Class for reading PGM files into a 2D array.<br />
 	 * From intiial Sugarscape-repast-demo implementation
 	 *
 	 * @author Eric Tatara

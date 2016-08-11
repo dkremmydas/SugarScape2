@@ -178,5 +178,9 @@ public class AgentChapter2_p30 extends Agent {
 	public double getSugarWealth() {
 		return this.sugarProperties.getHolding();
 	}
+	
+	public double getMetabolism() {
+		return this.sugarProperties.getMetabolism();
+	}
 
 }
