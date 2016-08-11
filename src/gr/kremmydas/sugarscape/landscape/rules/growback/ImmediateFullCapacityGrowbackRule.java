@@ -5,17 +5,17 @@ import gr.kremmydas.sugarscape.products.ProductGridProperties;
 import repast.simphony.valueLayer.GridValueLayer;
 
 /**
- * Grows back with a certain regeneration rate up to the full capacity. 
- * The Ga rule of p. 23, where a an integer
+ * Grows back the full capacity. 
+ * The Ga rule of p. 26
  * 
  * 
  * @author Dimitris Kremmydas
  *
  */
-public class DefaultGrowbackRule implements GrowbackAbility {
+public class ImmediateFullCapacityGrowbackRule implements GrowbackAbility {
 	
 
-	public DefaultGrowbackRule() {
+	public ImmediateFullCapacityGrowbackRule() {
 		super();
 	}
 
@@ -29,10 +29,7 @@ public class DefaultGrowbackRule implements GrowbackAbility {
 		//regenerationRate
 		for(int i=0;i<x;i++) {
 			for(int j=0;j<y;j++) {
-				double nv =  Math.min(
-									sgp.getCurrentQuantity().get(i,j) + sgp.getRegenerationRate().get(i,j), 
-									sgp.getCapacity().get(i,j)
-								);
+				double nv =  sgp.getCapacity().get(i,j);
 				r.set(nv, i, j);
 			}
 		}

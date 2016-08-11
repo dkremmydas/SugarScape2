@@ -6,16 +6,16 @@ import gr.kremmydas.sugarscape.agents.rules.consumption.DefaultSugarConsumptionR
 import gr.kremmydas.sugarscape.agents.rules.death.DefaultDeathRule;
 import gr.kremmydas.sugarscape.agents.rules.movement.DefaultMovementRule;
 import gr.kremmydas.sugarscape.agents.rules.vision.MooreVisionRule;
-import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
 
 
-public class SugarscapeAgentsLoaderChapter2 implements AgentLoader {
+public class SugarscapeAgentsLoaderChapter2_p30 implements AgentLoader {
 
-	public SugarscapeAgentsLoaderChapter2() {
+	public SugarscapeAgentsLoaderChapter2_p30() {
 		
 	}
 
@@ -35,7 +35,7 @@ public class SugarscapeAgentsLoaderChapter2 implements AgentLoader {
 			AgentChapter2 a = new AgentChapter2();
 			
 			a.setId(i);
-			a.setMyLandscape((LandscapeChapter2) sc.getLandscape());
+			a.setMyLandscape((LandscapeChapter2_p30) sc.getLandscape());
 			a.setVisionLevel(RandomHelper.nextIntFromTo(0, maxVision));
 			a.setConsumptionRule(new DefaultSugarConsumptionRule());
 			a.setDeathRule(new DefaultDeathRule());

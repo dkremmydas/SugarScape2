@@ -4,7 +4,7 @@ package gr.kremmydas.sugarscape.loaders.landscape;
 
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
-import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.landscape.rules.growback.DefaultGrowbackRule;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 
@@ -16,15 +16,16 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.RandomGridAdder;
 
 
-public class SugarScapeLandscapePGMChapter2 implements LandscapeLoader {
+public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	
 	private String inputFile = "./data/sugarspace.pgm";
 	private PGMReader pgmreader;
 
-	public SugarScapeLandscapePGMChapter2() {
+	public PGMLandscapeLoaderChapter2_p30() {
 		pgmreader = new PGMReader(inputFile);
 	}
 	
@@ -32,7 +33,7 @@ public class SugarScapeLandscapePGMChapter2 implements LandscapeLoader {
 
 	@Override
 	public Landscape load() {
-		LandscapeChapter2 ls  = new LandscapeChapter2(pgmreader.xSize, pgmreader.ySize);
+		LandscapeChapter2_p30 ls  = new LandscapeChapter2_p30(pgmreader.xSize, pgmreader.ySize);
 		ls.setGrowbackRule(new DefaultGrowbackRule());
 		
 		ProductGridProperties pgp = ls.getSugarGridProperties();
@@ -42,7 +43,9 @@ public class SugarScapeLandscapePGMChapter2 implements LandscapeLoader {
 				int s2 = (int)pgmreader.getMatrix()[x][y];
 				pgp.getCurrentQuantity().set((double)s1, x,y);
 				pgp.getCapacity().set((double)s2, x,y);
-				pgp.getRegenerationRate().set(1d, x,y);
+				pgp.getRegenerationRate().set(
+						(double)RunEnvironment.getInstance().getParameters().getInteger("regenerationRate"), 
+						x,y);
 			}
 		}
 		ls.getGrid().setAdder(new RandomGridAdder<Agent>());

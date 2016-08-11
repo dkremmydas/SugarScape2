@@ -5,7 +5,7 @@ import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
 import gr.kremmydas.sugarscape.agents.rules.death.DeathAbility;
 import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
-import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
@@ -31,7 +31,7 @@ public class AgentChapter2 extends Agent {
 	/**
 	 * Reference to the parent landscape
 	 */
-	LandscapeChapter2 myLandscape; 
+	LandscapeChapter2_p30 myLandscape; 
 	
 	
 	// Rules
@@ -166,12 +166,12 @@ public class AgentChapter2 extends Agent {
 	}
 
 
-	public LandscapeChapter2 getMyLandscape() {
+	public LandscapeChapter2_p30 getMyLandscape() {
 		return myLandscape;
 	}
 
 
-	public void setMyLandscape(LandscapeChapter2 myLandscape) {
+	public void setMyLandscape(LandscapeChapter2_p30 myLandscape) {
 		this.myLandscape = myLandscape;
 	}
 	

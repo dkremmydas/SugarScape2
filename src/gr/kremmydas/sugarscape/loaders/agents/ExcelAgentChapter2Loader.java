@@ -6,7 +6,7 @@ import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
 import gr.kremmydas.sugarscape.agents.rules.death.DeathAbility;
 import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
-import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
 
 import java.io.File;
@@ -66,7 +66,7 @@ public class ExcelAgentChapter2Loader implements AgentLoader {
 				a.setSugarProperties(new ProductAgentProperties(initSugar, metabSugar));
 				a.setIni_x(x);a.setIni_y(y);
 				a.setId(Integer.valueOf(id));
-				a.setMyLandscape((LandscapeChapter2) sc.getLandscape());
+				a.setMyLandscape((LandscapeChapter2_p30) sc.getLandscape());
 				sc.add(a);
 				
 			} catch (InstantiationException e) {

@@ -1,6 +1,6 @@
 package gr.kremmydas.sugarscape.landscape.rules.growback;
 
-import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import repast.simphony.valueLayer.GridValueLayer;
 
 /**
@@ -17,7 +17,7 @@ public class ZeroGrowbackRule implements GrowbackAbility {
 	}
 
 	@Override
-	public GridValueLayer growback(LandscapeChapter2 landscape) {
+	public GridValueLayer growback(LandscapeChapter2_p30 landscape) {
 		return landscape.getSugarGridProperties().getCurrentQuantity();
 	}
 	

@@ -3,7 +3,7 @@ package gr.kremmydas.sugarscape.agents.rules.movement;
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.AgentChapter2;
-import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +35,7 @@ public class DefaultMovementRule implements MoveAbility {
 		List<GridPoint> gps = new ArrayList<GridPoint>(owner.getVisionRule().getVisionedPoints(owner));
 		
 		//in order for the inner class to be able to see theLandscape, it has to be final
-		final LandscapeChapter2 theLandscape = owner.getMyLandscape();
+		final LandscapeChapter2_p30 theLandscape = owner.getMyLandscape();
 		
 		//2. Sort the points by available quantity
 		Collections.sort(gps, new Comparator<GridPoint>() {

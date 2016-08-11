@@ -7,7 +7,7 @@ import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 
-public class LandscapeChapter2 extends Landscape {
+public class LandscapeChapter2_p30 extends Landscape {
 	
 	/**
 	 * The properties of sugar
@@ -20,7 +20,7 @@ public class LandscapeChapter2 extends Landscape {
 	GrowbackAbility growbackRule;
 	
 
-	public LandscapeChapter2(int x, int y) {
+	public LandscapeChapter2_p30(int x, int y) {
 		super(x, y);
 		this.sugarGridProperties = new ProductGridProperties(x, y, "sugar");
 	}

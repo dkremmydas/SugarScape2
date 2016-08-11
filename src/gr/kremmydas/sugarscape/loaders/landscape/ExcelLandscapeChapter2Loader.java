@@ -1,6 +1,6 @@
 package gr.kremmydas.sugarscape.loaders.landscape;
 
-import gr.kremmydas.sugarscape.landscape.LandscapeChapter2;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 
@@ -20,11 +20,11 @@ public class ExcelLandscapeChapter2Loader implements LandscapeLoader {
 	
 	private String rules_root = "gr.kremmydas.sugarscape.landscape.rules.";
 	
-	private LandscapeChapter2 ls;
+	private LandscapeChapter2_p30 ls;
 	private Workbook excelWB; 
 	
 	@Override
-	public LandscapeChapter2 load() {
+	public LandscapeChapter2_p30 load() {
 		try {
 			excelWB = WorkbookFactory.create(new File(excelFile));
 		} catch (InvalidFormatException | IOException e) {
@@ -45,7 +45,7 @@ public class ExcelLandscapeChapter2Loader implements LandscapeLoader {
 		int x = (int)row.getCell(1).getNumericCellValue();
 		row = rowItr.next(); 
 		int y = (int)row.getCell(1).getNumericCellValue();
-		this.ls = new LandscapeChapter2(x, y);
+		this.ls = new LandscapeChapter2_p30(x, y);
 		
 		//load growback rule
 		row = rowItr.next(); 
