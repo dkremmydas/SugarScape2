@@ -24,12 +24,14 @@ public class DefaultVisionRule implements VisionAbility {
 	}
 
 	@Override
-	public Set<GridPoint> getVisionedPoints(AgentChapter2_p30 owner) {
-		DefaultGrid<Agent> dg = owner.getMyLandscape().getGrid();
+	public Set<GridPoint> getVisionedPoints(Agent owner) {
+		AgentChapter2_p30 o = (AgentChapter2_p30) owner;
+		
+		DefaultGrid<Agent> dg = o.getMyLandscape().getGrid();
 		GridPoint gp = dg.getLocation(owner);
 		//System.out.println("Owner Location: " + gp);
 		
-		return this.getVonNeumanPoints(gp,owner.getVisionLevel());
+		return this.getVonNeumanPoints(gp,o.getVisionLevel());
 		
 		
 	}

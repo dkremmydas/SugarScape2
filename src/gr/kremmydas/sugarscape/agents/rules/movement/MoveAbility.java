@@ -1,7 +1,6 @@
 package gr.kremmydas.sugarscape.agents.rules.movement;
 
 import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
 import repast.simphony.space.grid.GridPoint;
 
 /**
@@ -21,6 +20,6 @@ public interface MoveAbility {
 	 * See for example {@link DefaultMovementRule} and {@link RandomMovementRule}.</p>
 	 * @return the {@link GridPoint}  to move to
 	 */
-	public GridPoint move(AgentChapter2_p30 owner);
+	public GridPoint move(Agent owner);
 
 }

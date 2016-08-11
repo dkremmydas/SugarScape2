@@ -1,8 +1,8 @@
 <repast.simphony.data2.engine.DataSetDescriptor>
-  <name>Alive Agents</name>
+  <name>mean_agent_properties</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
-  <inclBatchRun>false</inclBatchRun>
+  <inclBatchRun>true</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
   <scheduleParams>
     <start>1.0</start>
@@ -11,19 +11,30 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>17340404</hashCode>
+    <hashCode>776085459</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
-  <methodDataSources class="linked-hash-map"/>
-  <countSources class="linked-hash-map">
+  <methodDataSources class="linked-hash-map">
     <entry>
-      <string>agentNumber</string>
-      <repast.simphony.data2.engine.CountSourceDefinition>
-        <typeName>gr.kremmydas.sugarscape.agents.Agent</typeName>
-        <id>agentNumber</id>
-      </repast.simphony.data2.engine.CountSourceDefinition>
+      <string>meanVision</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>meanVision</id>
+        <className>gr.kremmydas.sugarscape.agents.AgentChapter2_p30</className>
+        <methodName>getVisionLevel</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
-  </countSources>
+    <entry>
+      <string>meanMetabolism</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>meanMetabolism</id>
+        <className>gr.kremmydas.sugarscape.agents.AgentChapter2_p30</className>
+        <methodName>getMetabolism</methodName>
+        <aggType>MEAN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+  </methodDataSources>
+  <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
   <customAggDataSources class="linked-hash-map"/>
 </repast.simphony.data2.engine.DataSetDescriptor>

@@ -21,8 +21,10 @@ public class RandomMovementRule implements MoveAbility {
 	 * Move to a random visible point that is not already occupied
 	 */
 	@Override
-	public GridPoint move(AgentChapter2_p30 owner) {
-		List<GridPoint> gps = new ArrayList<GridPoint>(owner.getVisionRule().getVisionedPoints(owner));
+	public GridPoint move(Agent owner) {
+		AgentChapter2_p30 o = (AgentChapter2_p30) owner;
+		
+		List<GridPoint> gps = new ArrayList<GridPoint>(o.getVisionRule().getVisionedPoints(owner));
 		
 		Collections.shuffle(gps);
 		

@@ -3,7 +3,7 @@ package gr.kremmydas.sugarscape.loaders.agents;
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
 import gr.kremmydas.sugarscape.agents.rules.consumption.DefaultSugarConsumptionRule;
-import gr.kremmydas.sugarscape.agents.rules.death.DefaultDeathRule;
+import gr.kremmydas.sugarscape.agents.rules.death.DeathRule_p30;
 import gr.kremmydas.sugarscape.agents.rules.movement.DefaultMovementRule;
 import gr.kremmydas.sugarscape.agents.rules.vision.MooreVisionRule;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
@@ -38,7 +38,7 @@ public class SugarscapeAgentsLoaderChapter2_p30 implements AgentLoader {
 			a.setMyLandscape((LandscapeChapter2_p30) sc.getLandscape());
 			a.setVisionLevel(RandomHelper.nextIntFromTo(0, maxVision));
 			a.setConsumptionRule(new DefaultSugarConsumptionRule());
-			a.setDeathRule(new DefaultDeathRule());
+			a.setDeathRule(new DeathRule_p30());
 			a.setMovementRule(new DefaultMovementRule()); //a.setMovementRule(new RandomMovementRule());
 			a.setVisionRule(new MooreVisionRule());//a.setVisionRule(new DefaultVisionRule());
 			a.setSugarProperties(new ProductAgentProperties(RandomHelper.nextIntFromTo(0, maxInitial), RandomHelper.nextIntFromTo(1, maxMetabolism)));

@@ -16,12 +16,14 @@ public class DefaultSugarConsumptionRule implements ConsumeAbility {
 	 * Consume all existent sugar
 	 */
 	@Override
-	public Integer consume(AgentChapter2_p30 owner) {
+	public Integer consume(Agent owner) {
+		AgentChapter2_p30 o = (AgentChapter2_p30) owner;
+		
 		//get current agent point
 		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();
 		GridPoint gp = dg.getLocation(owner);
 		
-		int existQuant = (int)owner.getMyLandscape().getSugarGridProperties().getCurrentQuantity().get(gp.getX(),gp.getY());
+		int existQuant = (int)o.getMyLandscape().getSugarGridProperties().getCurrentQuantity().get(gp.getX(),gp.getY());
 		return existQuant;
 	}
 

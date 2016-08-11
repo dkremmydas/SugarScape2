@@ -30,12 +30,14 @@ public class DefaultMovementRule implements MoveAbility {
 	 * Move to the visible point with the greatest concentration of sugar
 	 */
 	@Override
-	public GridPoint move(AgentChapter2_p30 owner) {
+	public GridPoint move(Agent owner) {
+		AgentChapter2_p30 o = (AgentChapter2_p30) owner;
+		
 		//1. Get points that the agent can sees
-		List<GridPoint> gps = new ArrayList<GridPoint>(owner.getVisionRule().getVisionedPoints(owner));
+		List<GridPoint> gps = new ArrayList<GridPoint>(o.getVisionRule().getVisionedPoints(owner));
 		
 		//in order for the inner class to be able to see theLandscape, it has to be final
-		final LandscapeChapter2_p30 theLandscape = owner.getMyLandscape();
+		final LandscapeChapter2_p30 theLandscape = o.getMyLandscape();
 		
 		//2. Sort the points by available quantity
 		Collections.sort(gps, new Comparator<GridPoint>() {
