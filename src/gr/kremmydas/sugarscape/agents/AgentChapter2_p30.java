@@ -11,7 +11,7 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
-public class AgentChapter2 extends Agent {
+public class AgentChapter2_p30 extends Agent {
 	
 	/**
 	 * Properties related to sugar
@@ -45,7 +45,7 @@ public class AgentChapter2 extends Agent {
 		
 		
 
-	public AgentChapter2() {
+	public AgentChapter2_p30() {
 		super();
 	}
 

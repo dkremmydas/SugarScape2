@@ -5,7 +5,7 @@ package gr.kremmydas.sugarscape.loaders.landscape;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
-import gr.kremmydas.sugarscape.landscape.rules.growback.DefaultGrowbackRule;
+import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 
 import java.io.BufferedReader;
@@ -34,7 +34,20 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	@Override
 	public Landscape load() {
 		LandscapeChapter2_p30 ls  = new LandscapeChapter2_p30(pgmreader.xSize, pgmreader.ySize);
-		ls.setGrowbackRule(new DefaultGrowbackRule());
+		GrowbackAbility ga;
+		try {
+			ga = (GrowbackAbility) Class.forName(RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
+			ls.setGrowbackRule(ga);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			RunEnvironment.getInstance().endRun();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			RunEnvironment.getInstance().endRun();
+		}
+		
 		
 		ProductGridProperties pgp = ls.getSugarGridProperties();
 		for(int x=0;x<ls.getDimensions().getWidth(); x++) {

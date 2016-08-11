@@ -1,6 +1,6 @@
 package gr.kremmydas.sugarscape.agents.rules.vision;
 
-import gr.kremmydas.sugarscape.agents.AgentChapter2;
+import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
 
 import java.util.Set;
 
@@ -13,6 +13,6 @@ public interface VisionAbility {
 	 * 
 	 * @return
 	 */
-	public Set<GridPoint> getVisionedPoints(AgentChapter2 owner);
+	public Set<GridPoint> getVisionedPoints(AgentChapter2_p30 owner);
 	
 }

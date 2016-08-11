@@ -2,7 +2,7 @@ package gr.kremmydas.sugarscape.agents.rules.movement;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.agents.AgentChapter2;
+import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class RandomMovementRule implements MoveAbility {
 	 * Move to a random visible point that is not already occupied
 	 */
 	@Override
-	public GridPoint move(AgentChapter2 owner) {
+	public GridPoint move(AgentChapter2_p30 owner) {
 		List<GridPoint> gps = new ArrayList<GridPoint>(owner.getVisionRule().getVisionedPoints(owner));
 		
 		Collections.shuffle(gps);

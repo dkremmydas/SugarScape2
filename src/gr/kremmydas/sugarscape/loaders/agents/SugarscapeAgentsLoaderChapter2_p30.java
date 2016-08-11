@@ -1,7 +1,7 @@
 package gr.kremmydas.sugarscape.loaders.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
-import gr.kremmydas.sugarscape.agents.AgentChapter2;
+import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
 import gr.kremmydas.sugarscape.agents.rules.consumption.DefaultSugarConsumptionRule;
 import gr.kremmydas.sugarscape.agents.rules.death.DefaultDeathRule;
 import gr.kremmydas.sugarscape.agents.rules.movement.DefaultMovementRule;
@@ -27,12 +27,12 @@ public class SugarscapeAgentsLoaderChapter2_p30 implements AgentLoader {
 	public void addAgents(SimulationContext sc) {
 		RandomHelper.createUniform();
 		
-		int n=400;
+		int n=RunEnvironment.getInstance().getParameters().getInteger("numberOfAgents");
 		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision"); 
 		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
 		for(int i=0;i<n;i++) {
-			AgentChapter2 a = new AgentChapter2();
+			AgentChapter2_p30 a = new AgentChapter2_p30();
 			
 			a.setId(i);
 			a.setMyLandscape((LandscapeChapter2_p30) sc.getLandscape());

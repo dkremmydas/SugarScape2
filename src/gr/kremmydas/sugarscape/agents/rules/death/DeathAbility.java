@@ -1,7 +1,7 @@
 package gr.kremmydas.sugarscape.agents.rules.death;
 
 import gr.kremmydas.sugarscape.agents.Agent;
-import gr.kremmydas.sugarscape.agents.AgentChapter2;
+import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
 
 /**
  * A rule deciding on the death of agent
@@ -16,6 +16,6 @@ public interface DeathAbility {
 	 * @param {@link Agent} owner
 	 * @return true if agent should die, false if not
 	 */
-	public boolean die(AgentChapter2 owner);
+	public boolean die(AgentChapter2_p30 owner);
 	
 }
