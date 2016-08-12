@@ -50,5 +50,6 @@ public class SugarscapeAgentsLoaderChapter2_p37 implements AgentLoader {
 			sc.add(a);
 		}
 	}
+	
 
 }
