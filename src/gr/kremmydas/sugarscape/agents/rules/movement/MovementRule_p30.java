@@ -20,9 +20,9 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitris Kremmydas
  *
  */
-public class DefaultMovementRule implements MoveAbility {
+public class MovementRule_p30 implements MoveAbility {
 
-	public DefaultMovementRule() {
+	public MovementRule_p30() {
 		super();
 	}
 

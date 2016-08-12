@@ -17,7 +17,7 @@ public interface MoveAbility {
 	 * since no further checks are made.<br />
 	 * For example, the Sugarscape model denotes that only one {@link Agent} can
 	 * be on a {@link GridPoint}. A correct implementation should cater for this.<br />
-	 * See for example {@link DefaultMovementRule} and {@link RandomMovementRule}.</p>
+	 * See for example {@link MovementRule_p30} and {@link RandomMovementRule}.</p>
 	 * @return the {@link GridPoint}  to move to
 	 */
 	public GridPoint move(Agent owner);
