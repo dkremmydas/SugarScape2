@@ -14,7 +14,7 @@
 	<parameter name="minDieAge" displayName="2.4 Minimum age that an agent dies due to aging (p.32-33)" type="int" defaultValue="60" />
 	<parameter name="maxDieAge" displayName="2.5 Maximum age that an agent dies due to aging (p.32-33)" type="int" defaultValue="100" />
 	
-	<parameter name="numberOfAgents" displayName="1.1 Number of initial Agents" type="int" defaultValue="250" />
+	<parameter name="numberOfAgents" displayName="1.1 Number of initial Agents" type="int" defaultValue="100" />
 	
 	<parameter name="growbackRuleClass" 
 		type="String" 

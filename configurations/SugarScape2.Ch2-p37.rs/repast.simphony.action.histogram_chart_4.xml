@@ -3,7 +3,7 @@
   <dataSet>Sugar Wealth Distribution</dataSet>
   <xAxisLabel>sugar holding</xAxisLabel>
   <yAxisLabel>Number of Agents</yAxisLabel>
-  <chartTitle>Sugar Wealth Ditribution</chartTitle>
+  <chartTitle>2. Sugar Wealth Ditribution (Animation II-3)</chartTitle>
   <type>HISTOGRAM</type>
   <background>
     <red>192</red>

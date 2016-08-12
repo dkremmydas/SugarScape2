@@ -1,7 +1,6 @@
 <repast.simphony.data2.engine.DataSetDescriptor>
-  <name>Sugar Wealth Distribution</name>
-  <type>NON_AGGREGATE</type>
-  <sourceType>gr.kremmydas.sugarscape.agents.AgentChapter2_p30</sourceType>
+  <name>Gini</name>
+  <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -12,28 +11,19 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1210645869</hashCode>
+    <hashCode>-1009096091</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
-  <methodDataSources class="linked-hash-map">
-    <entry>
-      <string>Id</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Id</id>
-        <className>gr.kremmydas.sugarscape.agents.AgentChapter2_p30</className>
-        <methodName>getId</methodName>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>SugarWealth</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>SugarWealth</id>
-        <className>gr.kremmydas.sugarscape.agents.AgentChapter2_p30</className>
-        <methodName>getSugarWealth</methodName>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-  </methodDataSources>
+  <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
-  <customAggDataSources class="linked-hash-map"/>
+  <customAggDataSources class="linked-hash-map">
+    <entry>
+      <string>GiniCoefficient</string>
+      <repast.simphony.data2.engine.CustomDataSourceDefinition>
+        <id>GiniCoefficient</id>
+        <dsClassName>gr.kremmydas.sugarscape.utilities.GiniAggregateDataSource</dsClassName>
+      </repast.simphony.data2.engine.CustomDataSourceDefinition>
+    </entry>
+  </customAggDataSources>
 </repast.simphony.data2.engine.DataSetDescriptor>
