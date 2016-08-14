@@ -1,11 +1,10 @@
 package gr.kremmydas.sugarscape.agents.rules.movement;
 
+import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p41;
-
-import java.util.Set;
-
+import repast.simphony.query.space.grid.VNQuery;
 import repast.simphony.space.graph.Network;
 import repast.simphony.space.graph.RepastEdge;
 import repast.simphony.space.grid.GridPoint;
@@ -40,7 +39,8 @@ public class MovementRule_p41 extends MovementRule_p30 {
 		}
 		
 		//build new edges (for the point where the agent will move)
-		Set<Agent> neighs = this.calculateNeighbors(gp);
+		VNQuery<Agent> q = new VNQuery<Agent>(SimulationContext.getInstance().getLandscape().getGrid(), owner, 1,1);
+		Iterable<Agent> neighs = q.query();
 		for(Agent a: neighs ) {
 			n.addEdge(owner, a);
 		}
@@ -48,12 +48,6 @@ public class MovementRule_p41 extends MovementRule_p30 {
 		//make the move
 		return gp;
 	}
-	
-	private Set<Agent> calculateNeighbors(GridPoint gp) {
-		
-		return null;
-	}
-	
-	
+
 
 }

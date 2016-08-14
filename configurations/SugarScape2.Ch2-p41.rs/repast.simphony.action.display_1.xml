@@ -1,10 +1,10 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor>
-  <name>Positions of Agents</name>
+  <name>1. Positions of Agents</name>
   <type>2D</type>
   <styles>
     <entry>
       <string>gr.kremmydas.sugarscape.agents.Agent</string>
-      <string>gr.kremmydas.sugarscape.agents.styles.AgentDefaultStyle</string>
+      <string>gr.kremmydas.sugarscape.agents.styles.AgentStyleChapter2_p30</string>
     </entry>
   </styles>
   <editedStyles>
@@ -23,7 +23,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-674591085</hashCode>
+    <hashCode>1060269606</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>sugarscapeGrid</layoutProjection>

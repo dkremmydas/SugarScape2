@@ -2,3 +2,7 @@
 /launchers/
 /output/
 /test-bin/
+/debug.log
+/ssh_remote_model.log
+/velocity.log
+/velocity.log.1
