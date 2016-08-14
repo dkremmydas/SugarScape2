@@ -54,6 +54,12 @@ public class GiniAggregateDataSource implements AggregateDataSource {
 
 	}
 	
+	/**
+	 * Adapted from http://www.ict.swin.edu.au/personal/mlumpe/jCT/API/jct/util/Gini.html
+	 * @param vs
+	 * @param count
+	 * @return
+	 */
 	private double calcGini(double[] vs, int count) {
 		double ginisum = 0;
 		double sum = 0;
