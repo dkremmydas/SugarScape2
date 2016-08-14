@@ -3,9 +3,9 @@
 
 	<parameter name="randomSeed" displayName="0. Default Random Seed" type="int" defaultValue="__NULL__" />
 	
-	<parameter name="landscapeLoaderClass" displayName="1. Landscape Loader Class" type="String" defaultValue="PGMLandscapeLoaderChapter2_p30"  />
+	<parameter name="landscapeLoaderClass" displayName="1. Landscape Loader Class" type="String" defaultValue="PGMLandscapeLoaderChapter2_p41"  />
 	
-	<parameter name="agentLoaderClass" displayName="2. Agent Loader Class" type="String" defaultValue="SugarscapeAgentsLoaderChapter2_p37" />
+	<parameter name="agentLoaderClass" displayName="2. Agent Loader Class" type="String" defaultValue="SugarscapeAgentsLoaderChapter2_p41" />
 	
 	
 	<parameter name="maxVision" displayName="2.1 Maximum Agent Vision Level" type="int" defaultValue="6" />

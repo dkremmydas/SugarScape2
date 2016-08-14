@@ -4,7 +4,7 @@ package gr.kremmydas.sugarscape.loaders.landscape;
 
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
-import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
+import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p41;
 import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 import gr.kremmydas.sugarscape.utilities.PGMReader;
@@ -22,13 +22,13 @@ import repast.simphony.space.grid.RandomGridAdder;
  * @author Dimitris Kremmydas
  *
  */
-public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
+public class PGMLandscapeLoaderChapter2_p41 implements LandscapeLoader {
 	
 	private String inputFile = "./data/sugarspace.pgm";
 	private PGMReader pgmreader;
 	private String growbackRoot = "gr.kremmydas.sugarscape.landscape.rules.growback.";
 
-	public PGMLandscapeLoaderChapter2_p30() {
+	public PGMLandscapeLoaderChapter2_p41() {
 		pgmreader = new PGMReader(inputFile);
 	}
 	
@@ -36,7 +36,7 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 
 	@Override
 	public Landscape load() {
-		LandscapeChapter2_p30 ls  = new LandscapeChapter2_p30(pgmreader.getxSize(), pgmreader.getySize());
+		LandscapeChapter2_p41 ls  = new LandscapeChapter2_p41(pgmreader.getxSize(), pgmreader.getySize());
 		GrowbackAbility ga;
 		try {
 			ga = (GrowbackAbility) Class.forName(growbackRoot+RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
@@ -70,4 +70,6 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	}
 	
 	
+	
+
 }
