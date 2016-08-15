@@ -1,5 +1,5 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor>
-  <name>1. Positions of Agents</name>
+  <name>Neighbourhood</name>
   <type>2D</type>
   <styles>
     <entry>
@@ -13,8 +13,18 @@
       <null/>
     </entry>
   </editedStyles>
-  <netStyles/>
-  <editedNetStyles/>
+  <netStyles>
+    <entry>
+      <string>neigbours</string>
+      <string>repast.simphony.visualization.editedStyle.EditedEdgeStyle2D</string>
+    </entry>
+  </netStyles>
+  <editedNetStyles>
+    <entry>
+      <string>neigbours</string>
+      <string>neigbours.style_2.xml</string>
+    </entry>
+  </editedNetStyles>
   <frequency>ON_MOVE</frequency>
   <schedParams>
     <start>1.0</start>
@@ -23,7 +33,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1060269606</hashCode>
+    <hashCode>-1660199602</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>sugarscapeGrid</layoutProjection>
@@ -35,6 +45,11 @@
     </entry>
   </layerOrder>
   <projections>
+    <repast.simphony.scenario.data.ProjectionData>
+      <id>neigbours</id>
+      <attributes/>
+      <type>network</type>
+    </repast.simphony.scenario.data.ProjectionData>
     <repast.simphony.scenario.data.ProjectionData>
       <id>sugarscapeGrid</id>
       <attributes/>
@@ -48,7 +63,7 @@
     <entry>
       <string>sugarscapeGrid</string>
       <repast.simphony.visualization.grid.GridProjectionDescriptor>
-        <proj reference="../../../../projections/repast.simphony.scenario.data.ProjectionData"/>
+        <proj reference="../../../../projections/repast.simphony.scenario.data.ProjectionData[2]"/>
         <props>
           <entry>
             <string>repast.simphony.visualization.grid.GridDecorator</string>
@@ -63,12 +78,19 @@
               </entry>
               <entry>
                 <string>COLOR</string>
-                <int>-1</int>
+                <int>-16777216</int>
               </entry>
             </map>
           </entry>
         </props>
       </repast.simphony.visualization.grid.GridProjectionDescriptor>
+    </entry>
+    <entry>
+      <string>neigbours</string>
+      <repast.simphony.visualization.engine.DefaultProjectionDescriptor>
+        <proj reference="../../../../projections/repast.simphony.scenario.data.ProjectionData"/>
+        <props/>
+      </repast.simphony.visualization.engine.DefaultProjectionDescriptor>
     </entry>
   </projectionDescriptors>
   <props/>

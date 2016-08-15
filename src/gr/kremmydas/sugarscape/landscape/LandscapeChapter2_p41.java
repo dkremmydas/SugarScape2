@@ -11,7 +11,7 @@ public class LandscapeChapter2_p41 extends LandscapeChapter2_p30 {
 	
 	public LandscapeChapter2_p41(int x, int y) {
 		super(x, y);
-		NetworkBuilder<Agent> netb = new NetworkBuilder<>("neigbors", SimulationContext.getInstance(), true);
+		NetworkBuilder<Agent> netb = new NetworkBuilder<Agent>("neigbours", SimulationContext.getInstance(), true);
 		net = netb.buildNetwork();
 	}
 

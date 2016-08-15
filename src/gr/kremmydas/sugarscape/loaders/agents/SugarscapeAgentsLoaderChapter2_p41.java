@@ -16,7 +16,7 @@ public class SugarscapeAgentsLoaderChapter2_p41 extends
 	public void addAgents(SimulationContext sc) {
 		super.addAgents(sc);
 		
-		//now for each agent in the landscape, modify the M-rule to p41
+		//now for each agent in the landscape, modify the M-rule to p41 and the Die rule
 		Iterable<Agent> ai = SimulationContext.getInstance().getAgentLayer(Agent.class);
 		for(Agent a : ai) {
 			AgentChapter2_p30 ap30 = (AgentChapter2_p30) a;

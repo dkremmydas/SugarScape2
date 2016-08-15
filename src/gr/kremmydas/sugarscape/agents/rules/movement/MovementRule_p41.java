@@ -4,6 +4,10 @@ import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p41;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import repast.simphony.query.space.grid.VNQuery;
 import repast.simphony.space.graph.Network;
 import repast.simphony.space.graph.RepastEdge;
@@ -33,16 +37,20 @@ public class MovementRule_p41 extends MovementRule_p30 {
 		GridPoint gp = super.move(owner);
 		
 		//delete old edges
-		Iterable<Agent> dai = n.getSuccessors(owner);
-		for(Agent da: dai) {
-			n.removeEdge(new RepastEdge<Agent>(owner, da, true));
+		Iterable<RepastEdge<Agent>> dai = n.getOutEdges(owner);
+		Set<RepastEdge<Agent>> str = new HashSet<>();
+		for(RepastEdge<Agent> da: dai) {
+			str.add(da);
+		}
+		for(RepastEdge<Agent> da: str) {
+			n.removeEdge(da);
 		}
 		
 		//build new edges (for the point where the agent will move)
 		VNQuery<Agent> q = new VNQuery<Agent>(SimulationContext.getInstance().getLandscape().getGrid(), owner, 1,1);
 		Iterable<Agent> neighs = q.query();
 		for(Agent a: neighs ) {
-			n.addEdge(owner, a);
+			if(! a.equals(owner)) n.addEdge(owner, a);
 		}
 		
 		//make the move
