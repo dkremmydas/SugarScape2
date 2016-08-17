@@ -19,8 +19,8 @@
 	<parameter name="growbackRuleClass" 
 		type="String" 
 		displayName="1.2 Growback Rule (default is when the regenaration rate = 1)" 
-		values="ImmediateFullCapacityGrowbackRule DefaultGrowbackRule"
-		defaultValue="DefaultGrowbackRule"  />
+		values="ImmediateFullCapacityGrowbackRule GrowbackRule_p30"
+		defaultValue="GrowbackRule_p30"  />
 	<parameter name="regenerationRate" displayName="1.3 Rate of Landscape regeneration" type="int" defaultValue="1" />
 	
 	

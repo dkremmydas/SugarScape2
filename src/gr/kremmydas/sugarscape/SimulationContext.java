@@ -28,6 +28,11 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 	
 	private Landscape landscape;
 	
+	/**
+	 * The real tick of the simulation. 
+	 */
+	private int realTick = 0;
+	
 	
 	public static SimulationContext getInstance() {
 		if (SimulationContext.instance==null) {SimulationContext.instance=new SimulationContext();}
@@ -123,6 +128,18 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 
 	public Landscape getLandscape() {
 		return landscape;
+	}
+
+	public int getRealTick() {
+		return realTick;
+	}
+
+	public void setRealTick(int realTick) {
+		this.realTick = realTick;
+	}
+	
+	public void incrementTick() {
+		this.realTick++;
 	}
 	
 	

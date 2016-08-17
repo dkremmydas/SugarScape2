@@ -4,10 +4,10 @@ import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import repast.simphony.space.grid.Grid;
 
-public class SugarscapeAgentsLoaderChapter2_p44 extends
+public class SugarscapeAgentsLoaderChapter2_p42 extends
 		SugarscapeAgentsLoaderChapter2_p30 {
 
-	public SugarscapeAgentsLoaderChapter2_p44() {}
+	public SugarscapeAgentsLoaderChapter2_p42() {}
 
 	@Override
 	public void addAgents(SimulationContext sc) {

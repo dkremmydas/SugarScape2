@@ -1,5 +1,6 @@
 package gr.kremmydas.sugarscape.landscape.rules.growback;
 
+import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.products.ProductGridProperties;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -12,10 +13,10 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitris Kremmydas
  *
  */
-public class DefaultGrowbackRule implements GrowbackAbility {
+public class GrowbackRule_p30 implements GrowbackAbility {
 	
 
-	public DefaultGrowbackRule() {
+	public GrowbackRule_p30() {
 		super();
 	}
 
@@ -36,6 +37,9 @@ public class DefaultGrowbackRule implements GrowbackAbility {
 				r.set(nv, i, j);
 			}
 		}
+		
+		//real tick is incremented
+		SimulationContext.getInstance().incrementTick();
 		return r;
 	}
 	
