@@ -3,7 +3,7 @@
 
 	<parameter name="randomSeed" displayName="0. Default Random Seed" type="int" defaultValue="__NULL__" />
 	
-	<parameter name="landscapeLoaderClass" displayName="1. Landscape Loader Class" type="String" defaultValue="PGMLandscapeLoaderChapter2_p30"  />
+	<parameter name="landscapeLoaderClass" displayName="1. Landscape Loader Class" type="String" defaultValue="PGMLandscapeLoaderChapter2_p44"  />
 	
 	<parameter name="agentLoaderClass" displayName="2. Agent Loader Class" type="String" defaultValue="SugarscapeAgentsLoaderChapter2_p30" />
 	
@@ -14,12 +14,10 @@
 
 	<parameter name="numberOfAgents" displayName="1.1 Number of initial Agents" type="int" defaultValue="400" />
 	
-	<parameter name="growbackRuleClass" 
-		type="String" 
-		displayName="1.2 Growback Rule (default is when the regeneration rate = 1)" 
-		values="ImmediateFullCapacityGrowbackRule DefaultGrowbackRule"
-		defaultValue="DefaultGrowbackRule"  />
-	<parameter name="regenerationRate" displayName="1.3 Rate of Landscape regenaration" type="int" defaultValue="1" />
+	<parameter name="growbackRuleClass" type="String" displayName="1.2 Seasonal Growback Rule (p. 44)" defaultValue="GrowbackRule_p44"  />
+	<parameter name="SeasonDuration" displayName="1.3 Seasonal duration (gamma)" type="int" defaultValue="50" />
+	<parameter name="SummerRegenerationRate" displayName="1.4 Rate of Landscape regenaration at Summer (alpha)" type="int" defaultValue="8" />
+	<parameter name="WinterRegenerationRate" displayName="1.5 Rate of Landscape regenaration at Winter (beta)" type="int" defaultValue="1" />
 	
 	
 </parameters>

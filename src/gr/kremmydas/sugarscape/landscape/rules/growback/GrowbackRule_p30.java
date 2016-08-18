@@ -27,7 +27,7 @@ public class GrowbackRule_p30 implements GrowbackAbility {
 		int x = landscape.getDimensions().getWidth();
 		GridValueLayer r = new GridValueLayer("new",true,x,y);
 		
-		//regenerationRate
+		//update current quantity according to regeneration rate
 		for(int i=0;i<x;i++) {
 			for(int j=0;j<y;j++) {
 				double nv =  Math.min(

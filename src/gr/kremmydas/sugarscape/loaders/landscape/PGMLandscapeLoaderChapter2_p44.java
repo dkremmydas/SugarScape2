@@ -6,8 +6,7 @@ import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;
-import gr.kremmydas.sugarscape.products.ProductGridProperties;
-import gr.kremmydas.sugarscape.utilities.PGMReader;
+import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackRule_p44;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.RandomGridAdder;
 
@@ -22,18 +21,8 @@ import repast.simphony.space.grid.RandomGridAdder;
  * @author Dimitris Kremmydas
  *
  */
-public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
+public class PGMLandscapeLoaderChapter2_p44 extends PGMLandscapeLoaderChapter2_p30 {
 	
-	protected String inputFile = "./data/sugarspace.pgm";
-	protected PGMReader pgmreader;
-	protected String growbackRoot = "gr.kremmydas.sugarscape.landscape.rules.growback.";
-
-	public PGMLandscapeLoaderChapter2_p30() {
-		pgmreader = new PGMReader(inputFile);
-	}
-	
-
-
 	@Override
 	public Landscape load() {
 		LandscapeChapter2_p30 ls  = new LandscapeChapter2_p30(pgmreader.getxSize(), pgmreader.getySize());
@@ -41,6 +30,12 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 		try {
 			ga = (GrowbackAbility) Class.forName(growbackRoot+RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
 			ls.setGrowbackRule(ga);
+			
+			GrowbackRule_p44 ga44 = (GrowbackRule_p44) ga;
+			GrowbackRule_p44.setSeasonSummer();
+			ga44.setRegenerationRate(ls);
+			
+			
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 			RunEnvironment.getInstance().endRun();
@@ -51,22 +46,10 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 			RunEnvironment.getInstance().endRun();
 		}
 		
-		this.setInitialSugar(ls);
+		super.setInitialSugar(ls);
 		ls.getGrid().setAdder(new RandomGridAdder<Agent>());
 		
 		return ls;
-	}
-	
-	protected void setInitialSugar(LandscapeChapter2_p30 ls) {
-		ProductGridProperties pgp = ls.getSugarGridProperties();
-		for(int x=0;x<ls.getDimensions().getWidth(); x++) {
-			for(int y=0;y<ls.getDimensions().getHeight(); y++) {
-				int s1 = (int)pgmreader.getMatrix()[x][y];
-				int s2 = (int)pgmreader.getMatrix()[x][y];
-				pgp.getCurrentQuantity().set((double)s1, x,y);
-				pgp.getCapacity().set((double)s2, x,y);
-			}
-		}
 	}
 	
 	
