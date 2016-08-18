@@ -2,7 +2,6 @@ package gr.kremmydas.sugarscape.landscape.rules.growback;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
-import gr.kremmydas.sugarscape.products.ProductGridProperties;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -19,18 +18,18 @@ public class GrowbackRule_p44 extends GrowbackRule_p30 {
 		
 		int gamma = RunEnvironment.getInstance().getParameters().getInteger("SeasonDuration");
 		int realTick = SimulationContext.getInstance().getRealTick();
-		System.out.println(realTick);
+		//System.out.println(realTick + " | check:" + ((realTick%(2*gamma))/gamma) + " | season: " + GrowbackRule_p44.season);
 		
 		//regenerationRate change
-		if(  (((realTick%(2*gamma))/gamma)<1 && season==Season.Winter) 
-			|| (((realTick%(2*gamma))/gamma)>1 && season==Season.Summer) 
+		if(  (((realTick%(2*gamma))/gamma)>=1 && GrowbackRule_p44.season==Season.Winter) 
+			|| (((realTick%(2*gamma))/gamma)<1 && GrowbackRule_p44.season==Season.Summer) 
 				
 		) {doModify = true;}
 		
 		if(doModify){	
 			
 			//flip season
-			if(season==Season.Winter) {season=Season.Summer;} else {season=Season.Winter;}
+			GrowbackRule_p44.changeSeason();
 			this.setRegenerationRate(landscape);	
 			
 		}
@@ -49,7 +48,7 @@ public class GrowbackRule_p44 extends GrowbackRule_p30 {
 	}
 
 	public static Season getSeason() {
-		return season;
+		return GrowbackRule_p44.season;
 	}
 
 	public static void setSeasonSummer() {
@@ -60,27 +59,33 @@ public class GrowbackRule_p44 extends GrowbackRule_p30 {
 		GrowbackRule_p44.season = Season.Winter;
 	}
 	
+	public static void changeSeason() {
+		if(GrowbackRule_p44.season==Season.Winter) 
+			{GrowbackRule_p44.season=Season.Summer;} 
+		else 
+			{GrowbackRule_p44.season=Season.Winter;}
+	}
+	
 	public void setRegenerationRate(LandscapeChapter2_p30 landscape) {
 		
 		int alpha = RunEnvironment.getInstance().getParameters().getInteger("SummerRegenerationRate");
 		int beta = RunEnvironment.getInstance().getParameters().getInteger("WinterRegenerationRate");
-		ProductGridProperties sgp = landscape.getSugarGridProperties();
+		GridValueLayer gvl = landscape.getSugarGridProperties().getRegenerationRate();
+		
 		int y =landscape.getDimensions().getHeight();
 		int x = landscape.getDimensions().getWidth();
-		GridValueLayer r = new GridValueLayer("new",true,x,y);
 		
 		for(int i=0;i<x;i++) {
 			for(int j=0;j<y;j++) {
 				if(j>(y/2)) {
-					if(season==Season.Summer) {r.set(alpha,i,j);} else {r.set(beta,i,j);}
+					if(season==Season.Summer) {gvl.set((double)alpha,i,j);} else {gvl.set((double)beta,i,j);}
 				}
 				else {
-					if(season==Season.Summer) {r.set(beta,i,j);} else {r.set(alpha,i,j);}
+					if(season==Season.Summer) {gvl.set((double)beta,i,j);} else {gvl.set((double)alpha,i,j);}
 				}
 				
 			}
 		}
-		sgp.setRegenerationRate(r);
 	}
 
 }

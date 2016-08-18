@@ -51,13 +51,14 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 			RunEnvironment.getInstance().endRun();
 		}
 		
-		this.setInitialSugar(ls);
+		this.setInitialSugarQuantity(ls);
+		this.setInitialSugarRate(ls);
 		ls.getGrid().setAdder(new RandomGridAdder<Agent>());
 		
 		return ls;
 	}
 	
-	protected void setInitialSugar(LandscapeChapter2_p30 ls) {
+	protected void setInitialSugarQuantity(LandscapeChapter2_p30 ls) {
 		ProductGridProperties pgp = ls.getSugarGridProperties();
 		for(int x=0;x<ls.getDimensions().getWidth(); x++) {
 			for(int y=0;y<ls.getDimensions().getHeight(); y++) {
@@ -67,6 +68,18 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 				pgp.getCapacity().set((double)s2, x,y);
 			}
 		}
+	}
+	
+	protected void setInitialSugarRate(LandscapeChapter2_p30 ls) {
+		ProductGridProperties pgp = ls.getSugarGridProperties();
+		for(int x=0;x<ls.getDimensions().getWidth(); x++) {
+			for(int y=0;y<ls.getDimensions().getHeight(); y++) {
+				pgp.getRegenerationRate().set(
+						(double)RunEnvironment.getInstance().getParameters().getInteger("regenerationRate"), 
+						x,y);
+			}
+		}
+		
 	}
 	
 	

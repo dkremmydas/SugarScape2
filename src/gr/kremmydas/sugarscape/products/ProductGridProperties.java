@@ -23,7 +23,7 @@ public class ProductGridProperties {
 		this.currentQuantity = new GridValueLayer(name + "_quantity", true, x,y);
 		SimulationContext.getInstance().addValueLayer(this.currentQuantity);
 		
-		this.regenerationRate = new GridValueLayer(name + "rate", true, x,y);
+		this.regenerationRate = new GridValueLayer(name + "_rate", true, x,y);
 		SimulationContext.getInstance().addValueLayer(this.regenerationRate);
 		
 		this.capacity = new GridValueLayer(name + "_capacity", true, x,y);
