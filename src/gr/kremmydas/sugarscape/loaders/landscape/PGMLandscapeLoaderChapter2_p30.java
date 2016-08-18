@@ -37,6 +37,20 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	@Override
 	public Landscape load() {
 		LandscapeChapter2_p30 ls  = new LandscapeChapter2_p30(pgmreader.getxSize(), pgmreader.getySize());
+		
+		this.setGrowback(ls);
+		this.setInitialSugarQuantity(ls);
+		this.setInitialSugarRate(ls);
+		ls.getGrid().setAdder(new RandomGridAdder<Agent>());
+		
+		return ls;
+	}
+	
+	/**
+	 * Defines the {@link PGMLandscapeLoaderChapter2_p30} growback rule and set it
+	 * @param ls
+	 */
+	protected void setGrowback(LandscapeChapter2_p30 ls) {
 		GrowbackAbility ga;
 		try {
 			ga = (GrowbackAbility) Class.forName(growbackRoot+RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
@@ -50,12 +64,6 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 			e.printStackTrace();
 			RunEnvironment.getInstance().endRun();
 		}
-		
-		this.setInitialSugarQuantity(ls);
-		this.setInitialSugarRate(ls);
-		ls.getGrid().setAdder(new RandomGridAdder<Agent>());
-		
-		return ls;
 	}
 	
 	protected void setInitialSugarQuantity(LandscapeChapter2_p30 ls) {

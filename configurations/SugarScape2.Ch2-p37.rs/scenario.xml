@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Scenario>
-<repast.simphony.dataLoader.engine.ClassNameDataLoaderAction context="SimulationContext" file="repast.simphony.dataLoader.engine.ClassNameDataLoaderAction_0.xml" />
-<repast.simphony.action.display context="SimulationContext" file="repast.simphony.action.display_1.xml" />
+<repast.simphony.action.data_set context="SimulationContext" file="repast.simphony.action.data_set_0.xml" />
+<repast.simphony.dataLoader.engine.ClassNameDataLoaderAction context="SimulationContext" file="repast.simphony.dataLoader.engine.ClassNameDataLoaderAction_1.xml" />
+<repast.simphony.action.display context="SimulationContext" file="repast.simphony.action.display_2.xml" />
+<repast.simphony.action.histogram_chart context="SimulationContext" file="repast.simphony.action.histogram_chart_3.xml" />
 </Scenario>

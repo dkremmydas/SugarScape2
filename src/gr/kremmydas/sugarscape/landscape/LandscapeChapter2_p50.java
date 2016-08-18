@@ -33,13 +33,10 @@ public class LandscapeChapter2_p50 extends LandscapeChapter2_p30 {
 	}
 	
 	/**
-	 * The sugarscape growsback <br/>
-	 * Before I just set sugarGridProperties.getCurrentQuantity() = {new value layer} but it did not work.
-	 * I had to copy value-by-value the contents of the second valuelayer to the first
+	 * The sugarscape pollution rule on p. 47 <br/
 	 */
 	@ScheduledMethod(start=4.2d,interval=5d)
 	public void pollute() {
-		//System.out.println("Before Growback: " + this.sugarGridProperties.getQuantityDescriptiveStats());
 		
 		ValueLayer newvl = this.pollutionRule.pollute(this);
 		for(int i=0;i<this.pollution.getDimensions().getWidth();i++) {
