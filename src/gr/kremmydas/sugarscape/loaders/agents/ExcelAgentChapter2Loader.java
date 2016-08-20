@@ -2,8 +2,8 @@ package gr.kremmydas.sugarscape.loaders.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
-import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
 import gr.kremmydas.sugarscape.agents.rules.death.DeathAbility;
+import gr.kremmydas.sugarscape.agents.rules.metabolism.MetabolismAbility;
 import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
@@ -58,7 +58,7 @@ public class ExcelAgentChapter2Loader implements AgentLoader {
 			AgentChapter2_p30 a;
 			try {
 				a = new AgentChapter2_p30();
-				a.setConsumptionRule((ConsumeAbility) Class.forName(rulesBase+cr).newInstance());
+				a.setMetabolismRule((MetabolismAbility) Class.forName(rulesBase+cr).newInstance());
 				a.setMovementRule((MoveAbility) Class.forName(rulesBase+mr).newInstance());
 				a.setVisionRule((VisionAbility) Class.forName(rulesBase+vr).newInstance());
 				a.setDeathRule((DeathAbility) Class.forName(rulesBase+dr).newInstance());

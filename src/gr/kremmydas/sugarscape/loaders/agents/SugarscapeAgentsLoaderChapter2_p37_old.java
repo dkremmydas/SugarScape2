@@ -1,8 +1,8 @@
-package gr.kremmydas.sugarscape.agents.rules.death;
+package gr.kremmydas.sugarscape.loaders.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
-import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.AgentChapter2_p37;
+import gr.kremmydas.sugarscape.agents.rules.death.DeathRule_p37;
 import gr.kremmydas.sugarscape.agents.rules.metabolism.MetabolismRule_p30;
 import gr.kremmydas.sugarscape.agents.rules.movement.MovementRule_p37;
 import gr.kremmydas.sugarscape.agents.rules.vision.MooreVisionRule;
@@ -11,31 +11,32 @@ import gr.kremmydas.sugarscape.products.ProductAgentProperties;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
-public class DeathRule_p37 extends DeathRule_p30 {
 
+
+public class SugarscapeAgentsLoaderChapter2_p37_old implements AgentLoader {
+
+	public SugarscapeAgentsLoaderChapter2_p37_old() {
+		
+	}
+
+	/**
+	 * A replication of the agent creation of the book. 400 agents with random 
+	 * genetic characteristics (vision and metabolism) and initial position.
+	 */
 	@Override
-	public boolean die(Agent owner) {
-		AgentChapter2_p37 o = (AgentChapter2_p37) owner;
-		boolean r;
+	public void addAgents(SimulationContext sc) {
+		RandomHelper.createUniform();
 		
-		if(	o.getCurrentAge() > o.getMaxAge()) {
-			r = true;
-		}
-		else {
-			r = super.die(owner);
-		}
-		
-		//if die=true, replace agent
-		if(r) {
-			SimulationContext sc = SimulationContext.getInstance();
+		int n=RunEnvironment.getInstance().getParameters().getInteger("numberOfAgents");
+		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision"); 
+		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
+		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
+		int minDieAge = RunEnvironment.getInstance().getParameters().getInteger("minDieAge");
+		int maxDieAge = RunEnvironment.getInstance().getParameters().getInteger("maxDieAge");
+		for(int i=0;i<n;i++) {
 			AgentChapter2_p37 a = new AgentChapter2_p37();
-			int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision"); 
-			int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
-			int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
-			int minDieAge = RunEnvironment.getInstance().getParameters().getInteger("minDieAge");
-			int maxDieAge = RunEnvironment.getInstance().getParameters().getInteger("maxDieAge");
 			
-			a.setId(sc.getObjects(Agent.class).size() + 1);
+			a.setId(i);
 			a.setMyLandscape((LandscapeChapter2_p30) sc.getLandscape());
 			a.setMetabolismRule(new MetabolismRule_p30());
 			a.setDeathRule(new DeathRule_p37());
@@ -48,8 +49,7 @@ public class DeathRule_p37 extends DeathRule_p30 {
 			
 			sc.add(a);
 		}
-		
-		return r;
-		
 	}
+	
+
 }

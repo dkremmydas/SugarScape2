@@ -21,5 +21,8 @@
 		defaultValue="GrowbackRule_p30"  />
 	<parameter name="regenerationRate" displayName="1.3 Rate of Landscape regenaration" type="int" defaultValue="1" />
 	
+	<parameter name="pollutionAlpha" displayName="1.4 Pollution alpha (p. 47)" type="int" defaultValue="1" />
+	<parameter name="pollutionBeta" displayName="1.5 Pollution beta (p. 47)" type="int" defaultValue="1" />
+	
 	
 </parameters>

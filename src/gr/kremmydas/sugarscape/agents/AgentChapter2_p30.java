@@ -1,8 +1,9 @@
 package gr.kremmydas.sugarscape.agents;
 
 import gr.kremmydas.sugarscape.SimulationContext;
-import gr.kremmydas.sugarscape.agents.rules.consumption.ConsumeAbility;
 import gr.kremmydas.sugarscape.agents.rules.death.DeathAbility;
+import gr.kremmydas.sugarscape.agents.rules.gathering.GatheringAbility;
+import gr.kremmydas.sugarscape.agents.rules.metabolism.MetabolismAbility;
 import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
@@ -16,32 +17,34 @@ public class AgentChapter2_p30 extends Agent {
 	/**
 	 * Properties related to sugar
 	 */
-	private ProductAgentProperties sugarProperties;
+	protected ProductAgentProperties sugarProperties;
 	
 	/**
 	 * Level of vision
 	 */
-	int visionLevel;
+	protected int visionLevel;
 	
 	/**
 	 * Is the agent alive ?
 	 */
-	boolean isAlive = true;
+	protected boolean isAlive = true;
 	
 	/**
 	 * Reference to the parent landscape
 	 */
-	LandscapeChapter2_p30 myLandscape; 
+	protected LandscapeChapter2_p30 myLandscape; 
 	
 	
 	// Rules
-	private ConsumeAbility consumptionRule;
+	protected MetabolismAbility metabolismRule;
 	
-	private MoveAbility movementRule;
+	protected GatheringAbility gatheringRule;
 	
-	private VisionAbility visionRule;
+	protected MoveAbility movementRule;
 	
-	private DeathAbility deathRule;
+	protected VisionAbility visionRule;
+	
+	protected DeathAbility deathRule;
 		
 		
 
@@ -60,20 +63,28 @@ public class AgentChapter2_p30 extends Agent {
 		}
 	}
 	
-	@ScheduledMethod(start=2d,interval=5d)
-	public void consume() {
+	@ScheduledMethod(start=2.5d,interval=5d)
+	public void metabolize() {
 		if(isAlive) {
-			int toConsume = this.consumptionRule.consume(this);
+			int toMetabolize = this.metabolismRule.metabolize(this);
+			
+			//eat necessary sugar
+			this.sugarProperties.setHolding(this.sugarProperties.getHolding()-toMetabolize);
+	
+		}
+	}
+	
+	@ScheduledMethod(start=2d,interval=5d)
+	public void gather() {
+		if(isAlive) {
+			int toGather = this.gatheringRule.gather(this);
 			
 			this.sugarProperties.setHolding(
-					this.sugarProperties.getHolding() + toConsume
+					this.sugarProperties.getHolding() + toGather
 				);
 	
 			//remove sugar from landscape
-			myLandscape.removeSugar(this, toConsume);
-			
-			//eat necessary sugar
-			this.sugarProperties.setHolding(this.sugarProperties.getHolding()-this.sugarProperties.getMetabolism());
+			myLandscape.removeSugar(this, toGather);
 	
 		}
 	}
@@ -126,13 +137,23 @@ public class AgentChapter2_p30 extends Agent {
 	}
 
 
-	public ConsumeAbility getConsumptionRule() {
-		return consumptionRule;
+	public MetabolismAbility getMetabolismRule() {
+		return metabolismRule;
 	}
 
 
-	public void setConsumptionRule(ConsumeAbility consumptionRule) {
-		this.consumptionRule = consumptionRule;
+	public void setMetabolismRule(MetabolismAbility metabolismRule) {
+		this.metabolismRule = metabolismRule;
+	}
+	
+
+	public GatheringAbility getGatheringRule() {
+		return gatheringRule;
+	}
+
+
+	public void setGatheringRule(GatheringAbility gatheringRule) {
+		this.gatheringRule = gatheringRule;
 	}
 
 

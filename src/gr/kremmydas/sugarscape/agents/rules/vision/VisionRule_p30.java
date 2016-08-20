@@ -16,10 +16,10 @@ import repast.simphony.space.grid.GridPointTranslator;
  * @author Dimitris Kremmydas
  *
  */
-public class DefaultVisionRule implements VisionAbility {
+public class VisionRule_p30 implements VisionAbility {
 	
 
-	public DefaultVisionRule() {
+	public VisionRule_p30() {
 		super();
 	}
 

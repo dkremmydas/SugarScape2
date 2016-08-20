@@ -3,12 +3,13 @@ package gr.kremmydas.sugarscape.landscape.rules.pollution;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p50;
 import repast.simphony.valueLayer.GridValueLayer;
 
-public interface PollutionAbility {
+public interface PollutionDiffusionAbility {
 	
 	/**
-	 * Returns the new amount of pollution as a {@link GridValueLayer}
+	 * Returns the new amount of pollution as a {@link GridValueLayer} after diffusion
 	 * @param ls
-	 * @return  {@link GridValueLayer}
+	 * @return
 	 */
-	public GridValueLayer pollute(LandscapeChapter2_p50 ls);
+	public GridValueLayer diffuse(LandscapeChapter2_p50 ls);
+
 }

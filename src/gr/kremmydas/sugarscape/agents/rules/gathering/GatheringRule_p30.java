@@ -1,22 +1,20 @@
-package gr.kremmydas.sugarscape.agents.rules.consumption;
+package gr.kremmydas.sugarscape.agents.rules.gathering;
 
+import repast.simphony.space.grid.DefaultGrid;
+import repast.simphony.space.grid.GridPoint;
 import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.AgentChapter2_p30;
-import repast.simphony.space.grid.DefaultGrid;
-import repast.simphony.space.grid.GridPoint;
 
-public class DefaultSugarConsumptionRule implements ConsumeAbility {
+public class GatheringRule_p30 implements GatheringAbility {
 
-	public DefaultSugarConsumptionRule() {
-		super();
-	}
+	public GatheringRule_p30() {}
 
 	/**
-	 * Consume all existent sugar
+	 * Gather all existent sugar in the site
 	 */
 	@Override
-	public Integer consume(Agent owner) {
+	public Integer gather(Agent owner) {
 		AgentChapter2_p30 o = (AgentChapter2_p30) owner;
 		
 		//get current agent point
@@ -26,7 +24,5 @@ public class DefaultSugarConsumptionRule implements ConsumeAbility {
 		int existQuant = (int)o.getMyLandscape().getSugarGridProperties().getCurrentQuantity().get(gp.getX(),gp.getY());
 		return existQuant;
 	}
-
-
 
 }

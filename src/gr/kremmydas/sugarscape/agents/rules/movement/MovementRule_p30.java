@@ -38,15 +38,23 @@ public class MovementRule_p30 implements MoveAbility {
 		
 		//in order for the inner class to be able to see theLandscape, it has to be final
 		final LandscapeChapter2_p30 theLandscape = o.getMyLandscape();
+		final GridPoint myPoint = theLandscape.getGrid().getLocation(o);
 		
 		//2. Sort the points by available quantity
 		Collections.sort(gps, new Comparator<GridPoint>() {
 			@Override
 			public int compare(GridPoint arg0, GridPoint arg1) {
 				GridValueLayer gvl = theLandscape.getSugarGridProperties().getCurrentQuantity();
+				
 				Double q1 = gvl.get(arg0.getX(),arg0.getY());
 				Double q2 = gvl.get(arg1.getX(),arg1.getY());
-				return q2.compareTo(q1);
+				int tr = q2.compareTo(q1);
+				if(tr==0) { //there is the same amount of sugar, so check distance
+					Double dis1 = theLandscape.getGrid().getDistance(myPoint, arg0);
+					Double dis2 = theLandscape.getGrid().getDistance(myPoint, arg1);
+					tr = dis1.compareTo(dis2);
+				}
+				return tr;
 			}
 		});
 		//GridValueLayer gvl = SimulationContext.getInstance().getLandscape().getSugarGridProperties().getCurrentQuantity();
