@@ -6,6 +6,7 @@
 	<parameter name="landscapeLoaderClass" displayName="1.2 Landscape Loader Class" type="String" defaultValue="PGMLandscapeLoaderChapter2_p30"  />	
 	<parameter name="agentLoaderClass" displayName="1.3 Agent Loader Class" type="String" defaultValue="SugarscapeAgentsLoaderChapter2_p30" />
 	<parameter name="agentClass" type="String" 	displayName="1.4 Agent class" defaultValue="gr.kremmydas.sugarscape.agents.AgentChapter2_p30"  />
+	<parameter name="landscapeClass" type="String" 	displayName="1.5 Landscape class" defaultValue="gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30"  />
 	
 	<!--  2.1 Agent Properties  -->
 	<parameter name="agentClass" type="String" 	displayName="1.2 Agent class" defaultValue="gr.kremmydas.sugarscape.agents.AgentChapter2_p30"  />
