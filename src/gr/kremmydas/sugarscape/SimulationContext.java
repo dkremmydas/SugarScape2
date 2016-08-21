@@ -23,9 +23,9 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 
 	private static SimulationContext instance=null;
 	
-	private String landscapeLoaderRoot="gr.kremmydas.sugarscape.loaders.landscape.";
-	private String agentLoaderRoot="gr.kremmydas.sugarscape.loaders.agents.";
-	
+	/**
+	 * The {@link Landscape}
+	 */
 	private Landscape landscape;
 	
 	/**
@@ -68,15 +68,17 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		
 		LandscapeLoader ll;
 		try {
-			String ls =  landscapeLoaderRoot + RunEnvironment.getInstance().getParameters().getString("landscapeLoaderClass");
+			String ls =  RunEnvironment.getInstance().getParameters().getString("landscapeLoaderClass");
 			ll = (LandscapeLoader) Class.forName(ls).newInstance();
 			landscape = ll.load();
 			sc.landscape = landscape;
 			RunEnvironment.getInstance().getCurrentSchedule().schedule(landscape);
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.err.println("Coud not initialize LandscapeLoader class. Possibly "
+					+ "wrong definition of class in parameters.xml");
+			RunEnvironment.getInstance().endRun();
 		}
 		
 		
@@ -85,7 +87,7 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		
 		AgentLoader al;
 		try {
-			String ls =  agentLoaderRoot + RunEnvironment.getInstance().getParameters().getString("agentLoaderClass");
+			String ls =  RunEnvironment.getInstance().getParameters().getString("agentLoaderClass");
 			al = (AgentLoader) Class.forName(ls).newInstance();
 			al.addAgents(sc);
 			
@@ -99,8 +101,10 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 			}
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.err.println("Coud not initialize AgentLoader class. Possibly "
+					+ "wrong definition of class in parameters.xml");
+			RunEnvironment.getInstance().endRun();
 		}
 		
 		//Since loading has finished, output some details on DEBUG mode

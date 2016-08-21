@@ -61,18 +61,17 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	 */
 	protected void setGrowback(LandscapeChapter2_p30 ls) {
 		GrowbackAbility ga;
-		try {
-			ga = (GrowbackAbility) Class.forName(growbackRuleString+RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
-			ls.setGrowbackRule(ga);
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			RunEnvironment.getInstance().endRun();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			RunEnvironment.getInstance().endRun();
-		}
+		
+			try {
+				ga = (GrowbackAbility) Class.forName(growbackRuleString).newInstance();
+				ls.setGrowbackRule(ga);
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException e) {
+				e.printStackTrace();
+				System.err.println("Coud not initialize Growback rule. Possibly "
+						+ "wrong definition of class in parameters.xml");
+				RunEnvironment.getInstance().endRun();
+			}		
 	}
 	
 	protected void setInitialSugarQuantity(LandscapeChapter2_p30 ls) {
