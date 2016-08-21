@@ -17,5 +17,6 @@ public interface AgentLoader {
 	 * @param sc {@link SimulationContext}
 	 */
 	public void addAgents(SimulationContext sc);
+	
 
 }

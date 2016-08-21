@@ -4,12 +4,11 @@ import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.AgentChapter2_p37;
 import gr.kremmydas.sugarscape.agents.rules.death.DeathRule_p37;
-import gr.kremmydas.sugarscape.agents.rules.movement.MovementRule_p37;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
 public class SugarscapeAgentsLoaderChapter2_p37 extends
-		SugarscapeAgentsLoaderChapter2_p37_old {
+		SugarscapeAgentsLoaderChapter2_p30 {
 
 	public SugarscapeAgentsLoaderChapter2_p37() {}
 
@@ -26,10 +25,10 @@ public class SugarscapeAgentsLoaderChapter2_p37 extends
 		for(Agent a : ai) {
 			AgentChapter2_p37 ap37 = (AgentChapter2_p37) a;
 			ap37.setDeathRule(new DeathRule_p37());
-			ap37.setMovementRule(new MovementRule_p37());
 			ap37.setMaxAge(RandomHelper.nextIntFromTo(minDieAge, maxDieAge));
 		}
 	}
+	
 	
 	
 

@@ -1,5 +1,6 @@
 package gr.kremmydas.sugarscape.agents;
 
+
 public class AgentChapter2_p37 extends AgentChapter2_p30 {
 	
 	private int maxAge;

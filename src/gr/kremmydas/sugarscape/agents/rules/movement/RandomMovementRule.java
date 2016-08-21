@@ -11,7 +11,7 @@ import java.util.List;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
-public class RandomMovementRule implements MoveAbility {
+public class RandomMovementRule implements MovementAbility {
 
 	public RandomMovementRule() {
 		super();

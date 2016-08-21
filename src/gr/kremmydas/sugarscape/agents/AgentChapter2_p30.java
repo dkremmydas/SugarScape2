@@ -4,7 +4,7 @@ import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.agents.rules.death.DeathAbility;
 import gr.kremmydas.sugarscape.agents.rules.gathering.GatheringAbility;
 import gr.kremmydas.sugarscape.agents.rules.metabolism.MetabolismAbility;
-import gr.kremmydas.sugarscape.agents.rules.movement.MoveAbility;
+import gr.kremmydas.sugarscape.agents.rules.movement.MovementAbility;
 import gr.kremmydas.sugarscape.agents.rules.vision.VisionAbility;
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.products.ProductAgentProperties;
@@ -40,7 +40,7 @@ public class AgentChapter2_p30 extends Agent {
 	
 	protected GatheringAbility gatheringRule;
 	
-	protected MoveAbility movementRule;
+	protected MovementAbility movementRule;
 	
 	protected VisionAbility visionRule;
 	
@@ -157,12 +157,12 @@ public class AgentChapter2_p30 extends Agent {
 	}
 
 
-	public MoveAbility getMovementRule() {
+	public MovementAbility getMovementRule() {
 		return movementRule;
 	}
 
 
-	public void setMovementRule(MoveAbility movementRule) {
+	public void setMovementRule(MovementAbility movementRule) {
 		this.movementRule = movementRule;
 	}
 
@@ -203,5 +203,6 @@ public class AgentChapter2_p30 extends Agent {
 	public double getMetabolism() {
 		return this.sugarProperties.getMetabolism();
 	}
+	
 
 }

@@ -9,7 +9,7 @@ import repast.simphony.space.grid.GridPoint;
  * @author Dimitris Kremmydas
  *
  */
-public interface MoveAbility {
+public interface MovementAbility {
 
 	/**
 	 * <p>The {@link GridPoint} that the agent decides to move to.</p>

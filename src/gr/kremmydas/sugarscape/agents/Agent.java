@@ -18,7 +18,7 @@ public class Agent implements RepastElement {
 	protected Integer id;
 	
 	protected int ini_x, ini_y;
-	
+
 	//advanced
 	List<ISchedulableAction> scheduledActions;
 
