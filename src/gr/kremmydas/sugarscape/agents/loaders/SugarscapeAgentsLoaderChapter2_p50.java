@@ -20,7 +20,7 @@ public class SugarscapeAgentsLoaderChapter2_p50 extends
 	public void addAgents(SimulationContext sc) {
 		super.addAgents(sc);
 		
-		//now for each agent in the landscape, modify the M-rule to p41 and the Die rule
+		//now for each agent in the landscape, add the Pollution rule
 		Iterable<Agent> ai = SimulationContext.getInstance().getAgentLayer(Agent.class);
 		
 			try {

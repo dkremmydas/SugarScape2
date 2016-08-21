@@ -22,13 +22,15 @@ public class AgentChapter2_p50 extends AgentChapter2_p30 {
 	
 	@ScheduledMethod(start=4.4d,interval=5d)
 	public void pollute() {
-		int cx = this.myLandscape.getGrid().getLocation(this).getX();
-		int cy = this.myLandscape.getGrid().getLocation(this).getY();
-		LandscapeChapter2_p50 ls = (LandscapeChapter2_p50)this.myLandscape;
-		int new_pollution = this.pollutionRule.pollute(this);
-		int old_pollution = (int) ls.getPollution().get(cx,cy);
-		
-		ls.getPollution().set((old_pollution+new_pollution), cx,cy);
+		if(isAlive){
+			int cx = this.myLandscape.getGrid().getLocation(this).getX();
+			int cy = this.myLandscape.getGrid().getLocation(this).getY();
+			LandscapeChapter2_p50 ls = (LandscapeChapter2_p50)this.myLandscape;
+			int new_pollution = this.pollutionRule.pollute(this);
+			int old_pollution = (int) ls.getPollution().get(cx,cy);
+			
+			ls.getPollution().set((old_pollution+new_pollution), cx,cy);
+		}
 	}
 
 	public int getAmountGathered() {

@@ -4,8 +4,6 @@ import gr.kremmydas.sugarscape.agents.Agent;
 import gr.kremmydas.sugarscape.agents.loaders.AgentLoader;
 import gr.kremmydas.sugarscape.landscape.Landscape;
 import gr.kremmydas.sugarscape.landscape.loaders.LandscapeLoader;
-import gr.kremmydas.sugarscape.loaders.userPanel.Chapter2CustomUserPanel;
-import gr.kremmydas.sugarscape.loaders.userPanel.CustomPanelLoader;
 
 import java.util.List;
 
@@ -16,7 +14,6 @@ import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedulableAction;
-import repast.simphony.ui.RSApplication;
 import simphony.util.messages.MessageCenter;
 
 public class SimulationContext extends DefaultContext<Agent> implements ContextBuilder<Agent>{
@@ -112,16 +109,9 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Agents: " + sc.getObjects(Agent.class).size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
-	
-		
-		//3. load custom panel if not in batch mode
-		if(! RunEnvironment.getInstance().isBatch()) {
-		CustomPanelLoader cpl = new Chapter2CustomUserPanel();
-			RSApplication.getRSApplicationInstance().addCustomUserPanel(cpl.loadPanel());
-		}	
 			
 		
-		//4. If in batch mode, terminate after 1500 ticks
+		//3. If in batch mode, terminate after 1500 ticks
 		if(RunEnvironment.getInstance().isBatch()) {
 			RunEnvironment.getInstance().endAt(1500);
 		}
