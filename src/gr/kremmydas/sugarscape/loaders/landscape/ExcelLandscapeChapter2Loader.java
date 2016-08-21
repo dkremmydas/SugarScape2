@@ -45,7 +45,8 @@ public class ExcelLandscapeChapter2Loader implements LandscapeLoader {
 		int x = (int)row.getCell(1).getNumericCellValue();
 		row = rowItr.next(); 
 		int y = (int)row.getCell(1).getNumericCellValue();
-		this.ls = new LandscapeChapter2_p30(x, y);
+		this.ls = new LandscapeChapter2_p30();
+		this.ls.init(x, y);
 		
 		//load growback rule
 		row = rowItr.next(); 

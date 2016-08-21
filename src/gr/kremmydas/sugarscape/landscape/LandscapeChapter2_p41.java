@@ -9,11 +9,18 @@ public class LandscapeChapter2_p41 extends LandscapeChapter2_p30 {
 	
 	Network<Agent> net ;
 	
-	public LandscapeChapter2_p41(int x, int y) {
-		super(x, y);
+	public LandscapeChapter2_p41() {
+		super();
+	}
+
+	@Override
+	public void init(int x, int y) {
+		super.init(x, y);
 		NetworkBuilder<Agent> netb = new NetworkBuilder<Agent>("neigbours", SimulationContext.getInstance(), true);
 		net = netb.buildNetwork();
 	}
+
+
 
 	public Network<Agent> getNet() {
 		return net;

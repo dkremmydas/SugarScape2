@@ -21,9 +21,10 @@ public class PGMLandscapeLoaderChapter2_p44 extends PGMLandscapeLoaderChapter2_p
 	@Override
 	public Landscape load() {
 		LandscapeChapter2_p30 ls  = new LandscapeChapter2_p30(pgmreader.getxSize(), pgmreader.getySize());
+		
 		GrowbackAbility ga; GrowbackRule_p44 ga44;
 		try {
-			ga = (GrowbackAbility) Class.forName(growbackRoot+RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
+			ga = (GrowbackAbility) Class.forName(RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
 			ls.setGrowbackRule(ga);
 			
 			ga44 = (GrowbackRule_p44) ga;

@@ -11,10 +11,17 @@ public class LandscapeChapter2_p50 extends LandscapeChapter2_p30 {
 	
 	protected PollutionDiffusionAbility pollutionDiffusionRule;
 
-	public LandscapeChapter2_p50(int x, int y) {
-		super(x, y);
+	public LandscapeChapter2_p50() {
+		super();		
+	}
+
+	@Override
+	public void init(int x, int y) {
+		super.init(x, y);
 		this.pollution = new GridValueLayer("pollution", true, x,y);
 	}
+
+
 
 	public GridValueLayer getPollution() {
 		return pollution;

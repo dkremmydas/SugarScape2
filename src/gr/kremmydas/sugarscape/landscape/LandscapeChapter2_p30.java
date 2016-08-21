@@ -20,11 +20,17 @@ public class LandscapeChapter2_p30 extends Landscape {
 	GrowbackAbility growbackRule;
 	
 
-	public LandscapeChapter2_p30(int x, int y) {
-		super(x, y);
+	public LandscapeChapter2_p30() {
+		super();		
+	}
+
+	@Override
+	public void init(int x, int y) {
+		super.init(x, y);
 		this.sugarGridProperties = new ProductGridProperties(x, y, "sugar");
 	}
-	
+
+
 
 	public ProductGridProperties getSugarGridProperties() {
 		return sugarGridProperties;

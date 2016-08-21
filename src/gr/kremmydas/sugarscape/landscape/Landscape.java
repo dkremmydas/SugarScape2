@@ -10,6 +10,7 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridAdder;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridDimensions;
+import repast.simphony.space.grid.RandomGridAdder;
 import repast.simphony.space.grid.WrapAroundBorders;
 
 /**
@@ -35,14 +36,26 @@ public class Landscape implements RepastElement {
 	
 	
 
-	public Landscape(int x, int y) {
-		super();
+	/**
+	 * Costructor. Default values are assigned by calling {@link #init(width, height)}
+	 */
+	public Landscape() {
+		super();		
+	}
+	
+	/**
+	 * Initialize any values from here
+	 * 
+	 * @param x the width of the landscape grid
+	 * @param y the height of the landscape grid
+	 */
+	public void init(int x, int y) {
 		this.x = x;
 		this.y = y;
 		GridFactory gf = GridFactoryFinder.createGridFactory(null);
 		grid = (DefaultGrid<Agent>) gf.createGrid("sugarscapeGrid", 
 				SimulationContext.getInstance(), 
-				new GridBuilderParameters <Agent> (new WrapAroundBorders (),new GridXYAdder(),true , x, y)
+				new GridBuilderParameters <Agent> (new WrapAroundBorders (),new RandomGridAdder<Agent>(),true , x, y)
 			);
 	}
 	

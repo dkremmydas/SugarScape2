@@ -26,24 +26,33 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	
 	protected String inputFile = "./data/sugarspace.pgm";
 	protected PGMReader pgmreader;
-	protected String growbackRoot = "gr.kremmydas.sugarscape.landscape.rules.growback.";
+	protected String growbackRuleString;
+	protected String landscapeClassString;
 
 	public PGMLandscapeLoaderChapter2_p30() {
 		pgmreader = new PGMReader(inputFile);
+		growbackRuleString = RunEnvironment.getInstance().getParameters().getString("growbackRuleClass"); 
+		landscapeClassString = RunEnvironment.getInstance().getParameters().getString("landscapeClass"); 
 	}
 	
 
-
 	@Override
 	public Landscape load() {
-		LandscapeChapter2_p30 ls  = new LandscapeChapter2_p30(pgmreader.getxSize(), pgmreader.getySize());
+		LandscapeChapter2_p30 ls;
+		try {
+			ls = (LandscapeChapter2_p30) Class.forName(landscapeClassString).newInstance();
+			ls.init(pgmreader.getxSize(), pgmreader.getySize());
+			this.setGrowback(ls);
+			this.setInitialSugarQuantity(ls);
+			this.setInitialSugarRate(ls);
+			ls.getGrid().setAdder(new RandomGridAdder<Agent>());	
+			return ls;
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Could not succesfully load Landscape");
+		}		
 		
-		this.setGrowback(ls);
-		this.setInitialSugarQuantity(ls);
-		this.setInitialSugarRate(ls);
-		ls.getGrid().setAdder(new RandomGridAdder<Agent>());
-		
-		return ls;
 	}
 	
 	/**
@@ -53,7 +62,7 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 	protected void setGrowback(LandscapeChapter2_p30 ls) {
 		GrowbackAbility ga;
 		try {
-			ga = (GrowbackAbility) Class.forName(growbackRoot+RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
+			ga = (GrowbackAbility) Class.forName(growbackRuleString+RunEnvironment.getInstance().getParameters().getString("growbackRuleClass")).newInstance();
 			ls.setGrowbackRule(ga);
 		} catch (InstantiationException e) {
 			e.printStackTrace();
