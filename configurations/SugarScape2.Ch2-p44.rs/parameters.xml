@@ -10,7 +10,6 @@
 	<parameter name="landscapeClass" type="String" 	displayName="1.5 Landscape class" defaultValue="gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30"  />
 	
 	<!--  2.1 Agent Properties  -->
-	<parameter name="agentClass" type="String" 	displayName="1.2 Agent class" defaultValue="gr.kremmydas.sugarscape.agents.AgentChapter2_p30"  />
 	<parameter name="maxVision" displayName="2.1.1 Maximum Agent Vision Level" type="int" defaultValue="6" />
 	<parameter name="maxMetabolism" displayName="2.1.2 Maximum Agent Metabolism" type="int" defaultValue="4" />
 	<parameter name="maxInitEndownment" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="25" />
