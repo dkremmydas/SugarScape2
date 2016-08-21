@@ -15,7 +15,7 @@ public class PollutionRule_p50 implements PollutionAbility {
 		int alpha = RunEnvironment.getInstance().getParameters().getInteger("pollutionAlpha");
 		int beta = RunEnvironment.getInstance().getParameters().getInteger("pollutionBeta");
 		
-		r = alpha*owner.getAmount_gathered() + beta*owner.getAmount_consumed();
+		r = alpha*owner.getAmountGathered() + beta*owner.getAmountMetabolized();
 		
 		
 		return r;

@@ -31,19 +31,19 @@ public class AgentChapter2_p50 extends AgentChapter2_p30 {
 		ls.getPollution().set((old_pollution+new_pollution), cx,cy);
 	}
 
-	public int getAmount_gathered() {
+	public int getAmountGathered() {
 		return amount_gathered;
 	}
 
-	public void setAmount_gathered(int amount_gathered) {
+	public void setAmountGathered(int amount_gathered) {
 		this.amount_gathered = amount_gathered;
 	}
 
-	public int getAmount_consumed() {
+	public int getAmountMetabolized() {
 		return amount_consumed;
 	}
 
-	public void setAmount_consumed(int amount_consumed) {
+	public void setAmountMetbolized(int amount_consumed) {
 		this.amount_consumed = amount_consumed;
 	}
 

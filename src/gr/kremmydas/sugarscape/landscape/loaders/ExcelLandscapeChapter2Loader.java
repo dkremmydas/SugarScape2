@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.loaders.landscape;
+package gr.kremmydas.sugarscape.landscape.loaders;
 
 import gr.kremmydas.sugarscape.landscape.LandscapeChapter2_p30;
 import gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackAbility;

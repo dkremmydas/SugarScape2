@@ -35,7 +35,7 @@ public class LandscapeChapter2_p50 extends LandscapeChapter2_p30 {
 		return pollutionDiffusionRule;
 	}
 
-	public void setPollutionRule(PollutionDiffusionAbility pollutionDiffusionRule) {
+	public void setPollutionDiffusionRule(PollutionDiffusionAbility pollutionDiffusionRule) {
 		this.pollutionDiffusionRule = pollutionDiffusionRule;
 	}
 	

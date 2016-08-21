@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.loaders.agents;
+package gr.kremmydas.sugarscape.agents.loaders;
 
 import gr.kremmydas.sugarscape.SimulationContext;
 

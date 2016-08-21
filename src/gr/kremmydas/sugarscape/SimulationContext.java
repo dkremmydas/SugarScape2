@@ -1,9 +1,9 @@
 package gr.kremmydas.sugarscape;
 
 import gr.kremmydas.sugarscape.agents.Agent;
+import gr.kremmydas.sugarscape.agents.loaders.AgentLoader;
 import gr.kremmydas.sugarscape.landscape.Landscape;
-import gr.kremmydas.sugarscape.loaders.agents.AgentLoader;
-import gr.kremmydas.sugarscape.loaders.landscape.LandscapeLoader;
+import gr.kremmydas.sugarscape.landscape.loaders.LandscapeLoader;
 import gr.kremmydas.sugarscape.loaders.userPanel.Chapter2CustomUserPanel;
 import gr.kremmydas.sugarscape.loaders.userPanel.CustomPanelLoader;
 
