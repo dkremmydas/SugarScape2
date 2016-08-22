@@ -22,6 +22,7 @@ public class LandscapeChapter2_p50 extends LandscapeChapter2_p30 {
 	public void init(int x, int y) {
 		super.init(x, y);
 		this.pollution = new GridValueLayer("pollution", true, x,y);
+		SimulationContext.getInstance().addValueLayer(this.pollution);
 	}
 
 
