@@ -11,11 +11,13 @@ import repast.simphony.engine.environment.RunEnvironment;
 public class PGMLandscapeLoaderChapter2_p50 extends PGMLandscapeLoaderChapter2_p30 {
 	
 	String pollutionDiffusionRuleString;
+	int pollutionDiffusionPeriod;
 	
 	
 	public PGMLandscapeLoaderChapter2_p50() {
 		super();
 		pollutionDiffusionRuleString = RunEnvironment.getInstance().getParameters().getString("pollutionDiffusionRuleClass"); 
+		pollutionDiffusionPeriod = RunEnvironment.getInstance().getParameters().getInteger("pollutionDiffusionPeriod");
 	}
 	
 	/**
@@ -24,6 +26,8 @@ public class PGMLandscapeLoaderChapter2_p50 extends PGMLandscapeLoaderChapter2_p
 	@Override
 	public Landscape load() {
 		LandscapeChapter2_p50 ls  = (LandscapeChapter2_p50) super.load();
+		
+		ls.setPollutionDiffusionPeriod(pollutionDiffusionPeriod);
 		
 		PollutionDiffusionAbility pda;
 		try {

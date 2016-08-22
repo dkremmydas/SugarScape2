@@ -1,5 +1,6 @@
 package gr.kremmydas.sugarscape.landscape;
 
+import gr.kremmydas.sugarscape.SimulationContext;
 import gr.kremmydas.sugarscape.landscape.rules.pollution.PollutionDiffusionAbility;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -10,6 +11,8 @@ public class LandscapeChapter2_p50 extends LandscapeChapter2_p30 {
 	protected GridValueLayer pollution;
 	
 	protected PollutionDiffusionAbility pollutionDiffusionRule;
+	
+	protected int pollutionDiffusionPeriod;
 
 	public LandscapeChapter2_p50() {
 		super();		
@@ -38,17 +41,26 @@ public class LandscapeChapter2_p50 extends LandscapeChapter2_p30 {
 	public void setPollutionDiffusionRule(PollutionDiffusionAbility pollutionDiffusionRule) {
 		this.pollutionDiffusionRule = pollutionDiffusionRule;
 	}
-	
+
+	public int getPollutionDiffusionPeriod() {
+		return pollutionDiffusionPeriod;
+	}
+
+	public void setPollutionDiffusionPeriod(int pollutionDiffusionPeriod) {
+		this.pollutionDiffusionPeriod = pollutionDiffusionPeriod;
+	}
+
 	/**
 	 * The sugarscape pollution diffusion (D) rule on p. 48 
 	 */
 	@ScheduledMethod(start=4.5d,interval=5d)
 	public void diffusePollution() {
-		
-		ValueLayer newvl = this.pollutionDiffusionRule.diffuse(this);
-		for(int i=0;i<this.pollution.getDimensions().getWidth();i++) {
-			for(int j=0;j<this.pollution.getDimensions().getHeight();j++) {
-				this.pollution.set(newvl.get(i,j), i,j);
+		if((SimulationContext.getInstance().getRealTick()%this.pollutionDiffusionPeriod)==0) {
+			ValueLayer newvl = this.pollutionDiffusionRule.diffuse(this);
+			for(int i=0;i<this.pollution.getDimensions().getWidth();i++) {
+				for(int j=0;j<this.pollution.getDimensions().getHeight();j++) {
+					this.pollution.set(newvl.get(i,j), i,j);
+				}
 			}
 		}
 	}

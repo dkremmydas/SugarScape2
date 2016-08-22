@@ -27,6 +27,7 @@
 	<!--  3.1 Landscape Properties  -->
 	<parameter name="numberOfAgents" displayName="3.1.1 Number of initial Agents" type="int" defaultValue="400" />
 	<parameter name="regenerationRate" displayName="3.1.2 Rate of Landscape regenaration" type="int" defaultValue="1" />
+	<parameter name="pollutionDiffusionPeriod" displayName="3.1.3 Period of Pollution Diffusion" type="int" defaultValue="10" />
 	
 	
 	<!--  3.2 Landscape Rules  -->
