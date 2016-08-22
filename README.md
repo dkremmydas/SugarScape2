@@ -7,3 +7,5 @@ It has a twofold purpose:
 2. Provide code that can be easily modified and/or extended for exploring the sugar scape model
 
 Presently chapter II is fully implemented. In the future Chapter IV will be also fully implemented.
+
+You can read more on using and extending the code in the [Wiki](https://github.com/dkremmydas/SugarScape2/wiki)
