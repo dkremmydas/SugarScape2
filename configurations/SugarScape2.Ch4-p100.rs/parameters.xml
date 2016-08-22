@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<parameters>
+
+	<!--  1. Loading -->
+	<parameter name="randomSeed" displayName="1.1 Default Random Seed" type="int" defaultValue="__NULL__" />	
+	<parameter name="landscapeLoaderClass" displayName="1.2 Landscape Loader Class" type="String" defaultValue="gr.kremmydas.sugarscape.landscape.loaders.PGMLandscapeLoaderChapter4_p100"  />	
+	<parameter name="agentLoaderClass" displayName="1.3 Agent Loader Class" type="String" defaultValue="gr.kremmydas.sugarscape.agents.loaders.SugarscapeAgentsLoaderChapter2_p30" />
+	<parameter name="agentClass" type="String" 	displayName="1.4 Agent class" defaultValue="gr.kremmydas.sugarscape.agents.AgentChapter2_p30"  />
+	<parameter name="landscapeClass" type="String" 	displayName="1.5 Landscape class" defaultValue="gr.kremmydas.sugarscape.landscape.LandscapeChapter4_p100"  />
+	
+	<!--  2.1 Agent Properties  -->
+	<parameter name="maxVision" displayName="2.1.1 Maximum Agent Vision Level" type="int" defaultValue="6" />
+	<parameter name="maxMetabolism" displayName="2.1.2 Maximum Agent Metabolism" type="int" defaultValue="4" />
+	<parameter name="maxInitEndownment" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="25" />
+
+	<!--  2.2 Agent Rules  -->
+	<parameter name="visionRule" type="String" displayName="2.2.1 Vision Rule" defaultValue="gr.kremmydas.sugarscape.agents.rules.vision.VisionRule_p30"  />
+	<parameter name="movementRule" type="String" displayName="2.2.2 Movement Rule" defaultValue="gr.kremmydas.sugarscape.agents.rules.movement.MovementRule_p30"  />
+	<parameter name="gatheringRule" type="String" displayName="2.2.1 Gathering Rule" defaultValue="gr.kremmydas.sugarscape.agents.rules.gathering.GatheringRule_p30"  />
+	<parameter name="metabolismRule" type="String" displayName="2.2.1 Metabolism Rule" defaultValue="gr.kremmydas.sugarscape.agents.rules.metabolism.MetabolismRule_p30"  />
+	<parameter name="deathRule" type="String" displayName="2.2.1 Death Rule" defaultValue="gr.kremmydas.sugarscape.agents.rules.death.DeathRule_p30"  />
+	
+	
+	<!--  3.1 Landscape Properties  -->
+	<parameter name="numberOfAgents" displayName="3.1.1 Number of initial Agents" type="int" defaultValue="400" />
+	<parameter name="regenerationRate" displayName="3.1.2 Rate of Landscape regenaration" type="int" defaultValue="1" />
+	
+	<!--  3.2 Landscape Rules  -->
+	<parameter name="growbackRuleClass" 
+		type="String" 
+		displayName="3.2.1 Growback Rule (default is when the regeneration rate = 1)" 
+		values="gr.kremmydas.sugarscape.landscape.rules.growback.ImmediateFullCapacityGrowbackRule 
+		gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackRule_p30"
+		defaultValue="gr.kremmydas.sugarscape.landscape.rules.growback.GrowbackRule_p30"  />
+	
+	
+</parameters>
