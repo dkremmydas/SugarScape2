@@ -1,4 +1,4 @@
-package gr.kremmydas.sugarscape.tests;
+package repast.simphony.demos.sugarscape2.tests;
 
 import static org.junit.Assert.*;
 
