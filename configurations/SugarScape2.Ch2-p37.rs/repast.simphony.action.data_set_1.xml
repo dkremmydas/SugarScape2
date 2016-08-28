@@ -1,7 +1,7 @@
 <repast.simphony.data2.engine.DataSetDescriptor>
   <name>wealth</name>
   <type>NON_AGGREGATE</type>
-  <sourceType>gr.kremmydas.sugarscape.agents.AgentChapter2_p37</sourceType>
+  <sourceType>repast.simphony.demos.sugarscape2.agents.AgentChapter2_p37</sourceType>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -20,7 +20,7 @@
       <string>SugarWealth</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>SugarWealth</id>
-        <className>gr.kremmydas.sugarscape.agents.AgentChapter2_p37</className>
+        <className>repast.simphony.demos.sugarscape2.agents.AgentChapter2_p37</className>
         <methodName>getSugarWealth</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>

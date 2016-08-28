@@ -3,13 +3,13 @@
   <type>2D</type>
   <styles>
     <entry>
-      <string>gr.kremmydas.sugarscape.agents.Agent</string>
-      <string>gr.kremmydas.sugarscape.agents.styles.AgentStyleChapter2_p30</string>
+      <string>repast.simphony.demos.sugarscape2.agents.Agent</string>
+      <string>repast.simphony.demos.sugarscape2.agents.styles.AgentStyleChapter2_p30</string>
     </entry>
   </styles>
   <editedStyles>
     <entry>
-      <string>gr.kremmydas.sugarscape.agents.Agent</string>
+      <string>repast.simphony.demos.sugarscape2.agents.Agent</string>
       <null/>
     </entry>
   </editedStyles>
@@ -30,7 +30,7 @@
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
-      <string>gr.kremmydas.sugarscape.agents.Agent</string>
+      <string>repast.simphony.demos.sugarscape2.agents.Agent</string>
       <int>0</int>
     </entry>
   </layerOrder>
@@ -78,7 +78,7 @@
     <blue>255</blue>
     <alpha>255</alpha>
   </backgroundColor>
-  <valueLayerStyleName>gr.kremmydas.sugarscape.landscape.styles.PollutionValueLayerStyle2D</valueLayerStyleName>
+  <valueLayerStyleName>repast.simphony.demos.sugarscape2.landscape.styles.PollutionValueLayerStyle2D</valueLayerStyleName>
   <valueLayers>
     <string>pollution</string>
   </valueLayers>

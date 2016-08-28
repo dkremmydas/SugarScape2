@@ -22,7 +22,7 @@
       <string>GiniCoefficient</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
         <id>GiniCoefficient</id>
-        <dsClassName>gr.kremmydas.sugarscape.utilities.GiniAggregateDataSource</dsClassName>
+        <dsClassName>repast.simphony.demos.sugarscape2.utilities.GiniAggregateDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
   </customAggDataSources>

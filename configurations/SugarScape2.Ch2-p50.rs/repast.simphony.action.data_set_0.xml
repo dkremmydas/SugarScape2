@@ -19,7 +19,7 @@
     <entry>
       <string>agentNumber</string>
       <repast.simphony.data2.engine.CountSourceDefinition>
-        <typeName>gr.kremmydas.sugarscape.agents.Agent</typeName>
+        <typeName>repast.simphony.demos.sugarscape2.agents.Agent</typeName>
         <id>agentNumber</id>
       </repast.simphony.data2.engine.CountSourceDefinition>
     </entry>
