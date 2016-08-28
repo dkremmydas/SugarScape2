@@ -10,7 +10,8 @@ import java.util.StringTokenizer;
 
 /**
 	 * Class for reading PGM files into a 2D array.<br />
-	 * From intiial Sugarscape-repast-demo implementation
+	 * From intial Sugarscape-repast-demo implementation <br />
+	 * On the format see <a target="_blank" href="http://netpbm.sourceforge.net/doc/pgm.html">http://netpbm.sourceforge.net/doc/pgm.html</a>
 	 *
 	 * @author Eric Tatara
 	 * @author Nick Collier
