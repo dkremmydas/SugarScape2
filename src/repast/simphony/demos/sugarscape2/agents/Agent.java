@@ -13,7 +13,7 @@ import repast.simphony.engine.schedule.ISchedulableAction;
  * @author Dimitris Kremmydas
  *
  */
-public class Agent implements RepastElement {
+public abstract class Agent implements RepastElement {
 	
 	protected Integer id;
 	
@@ -26,19 +26,19 @@ public class Agent implements RepastElement {
 	
 	
 
-	public int getIni_x() {
+	final public int getIni_x() {
 		return ini_x;
 	}
 
-	public void setIni_x(int ini_x) {
+	final public void setIni_x(int ini_x) {
 		this.ini_x = ini_x;
 	}
 
-	public int getIni_y() {
+	final public int getIni_y() {
 		return ini_y;
 	}
 
-	public void setIni_y(int ini_y) {
+	final public void setIni_y(int ini_y) {
 		this.ini_y = ini_y;
 	}
 
