@@ -1,5 +1,6 @@
 package repast.simphony.demos.sugarscape2.agents.utilities;
 
+import repast.simphony.demos.sugarscape2.agents.Agent;
 import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DeathAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gathering.GatheringAbility;
@@ -11,12 +12,12 @@ import repast.simphony.demos.sugarscape2.products.ProductAgentProperties;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
-public class RandomAgentCreator<T extends AgentChapter2_p30> {
-	
+public class RandomAgentFactory {
+
 	int maxVision, maxMetabolism, maxInitial;
 	String agentClass, visionRuleString, movementRuleString, gatheringRuleString, metabolismRuleString, deathRuleString;
 
-	public RandomAgentCreator() {
+	public RandomAgentFactory() {
 		maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision"); 
 		maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 		maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
@@ -27,26 +28,39 @@ public class RandomAgentCreator<T extends AgentChapter2_p30> {
 		metabolismRuleString = RunEnvironment.getInstance().getParameters().getString("metabolismRule");
 		deathRuleString = RunEnvironment.getInstance().getParameters().getString("deathRule");
 	}
-	
-	public T getNewAgent(int id, LandscapeChapter2_p30 ls) throws InstantiationException, 
-	IllegalAccessException, ClassNotFoundException {
 
-		@SuppressWarnings("unchecked")
-		T a = (T) Class.forName(agentClass).newInstance();
+	public Agent getAgent(String type, Integer id, LandscapeChapter2_p30 ls) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-		a.setId(id);
-		a.setMyLandscape((LandscapeChapter2_p30) ls);
-		
-		a.setMetabolismRule((MetabolismAbility) Class.forName(metabolismRuleString).newInstance());
-		a.setGatheringRule((GatheringAbility) Class.forName(gatheringRuleString).newInstance());
-		a.setDeathRule((DeathAbility) Class.forName(deathRuleString).newInstance());
-		a.setMovementRule((MovementAbility) Class.forName(movementRuleString).newInstance()); 
-		a.setVisionRule((VisionAbility) Class.forName(visionRuleString).newInstance());
-		
-		a.setSugarProperties(new ProductAgentProperties(RandomHelper.nextIntFromTo(1, maxInitial), RandomHelper.nextIntFromTo(1, maxMetabolism)));
-		a.setVisionLevel(RandomHelper.nextIntFromTo(1, maxVision));
-		
-		return a;
+		switch (type) {
+		case "Chapter2_p30" :
+			AgentChapter2_p30 a = new AgentChapter2_p30.Builder(id)
+			.onLandscape(ls)
+			.atLocationX(RandomHelper.nextIntFromTo(1,ls.getDimensions().getWidth()))
+			.atLocationY((RandomHelper.nextIntFromTo(1,ls.getDimensions().getHeight())))
+			.withVisionLevel(RandomHelper.nextIntFromTo(1, maxVision))
+			.withMetabolismRule((MetabolismAbility) Class.forName(metabolismRuleString).newInstance())
+			.withGatheringRule((GatheringAbility) Class.forName(gatheringRuleString).newInstance())
+			.withDeathRule((DeathAbility) Class.forName(deathRuleString).newInstance())
+			.withMovementRule((MovementAbility) Class.forName(movementRuleString).newInstance())
+			.withVisionRule((VisionAbility) Class.forName(visionRuleString).newInstance())
+			.withSugarProperties(new ProductAgentProperties(
+					RandomHelper.nextIntFromTo(1, maxInitial), 
+					RandomHelper.nextIntFromTo(1, maxMetabolism)
+					)
+					)
+			.build();
+			
+			return(a);
+
+		default:
+			break;
+		}
+
+		return null;
 	}
 
+
+
 }
+
+
