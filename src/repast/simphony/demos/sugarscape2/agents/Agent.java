@@ -22,7 +22,7 @@ public abstract class Agent implements RepastElement {
 	//advanced
 	List<ISchedulableAction> scheduledActions;
 
-	public Agent() {};
+	
 	
 	
 

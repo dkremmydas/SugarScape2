@@ -32,27 +32,109 @@ public class AgentChapter2_p30 extends Agent {
 	/**
 	 * Reference to the parent landscape
 	 */
-	protected LandscapeChapter2_p30 myLandscape; 
-	
+	protected LandscapeChapter2_p30 myLandscape; 	
 	
 	// Rules
-	protected MetabolismAbility metabolismRule;
-	
-	protected GatheringAbility gatheringRule;
-	
-	protected MovementAbility movementRule;
-	
-	protected VisionAbility visionRule;
-	
+	protected MetabolismAbility metabolismRule;	
+	protected GatheringAbility gatheringRule;	
+	protected MovementAbility movementRule;	
+	protected VisionAbility visionRule;	
 	protected DeathAbility deathRule;
 		
 		
 
-	public AgentChapter2_p30() {
-		super();
-	}
-
-
+	//Set a private constructor, so that creating agents is forced through the Builder design pattern
+	private AgentChapter2_p30() {};
+	
+	 public static class Builder {
+		 
+		 	//properties
+		 	private Integer id;
+		 	private int ini_x, ini_y;
+		 	private int visionLevel;
+		 	private ProductAgentProperties sugarProperties;
+		 	private LandscapeChapter2_p30 myLandscape; 	
+			
+			// Rules
+		 	private MetabolismAbility metabolismRule;	
+		 	private GatheringAbility gatheringRule;	
+		 	private MovementAbility movementRule;	
+		 	private VisionAbility visionRule;	
+		 	private DeathAbility deathRule;
+		 	
+	        public Builder(Integer id) {
+	        	this.id=id;
+	        }
+	        
+	        public AgentChapter2_p30 build() {
+	        	AgentChapter2_p30 ag = new AgentChapter2_p30();
+	        	ag.id=this.id;
+	        	ag.ini_x = this.ini_x;
+	        	ag.ini_y = this.ini_y;
+	        	ag.visionLevel = this.visionLevel;
+	        	ag.sugarProperties = this.sugarProperties;
+	        	ag.myLandscape = this.myLandscape;
+	        	ag.metabolismRule = this.metabolismRule;
+	        	ag.gatheringRule = this.gatheringRule;
+	        	ag.movementRule = this.movementRule;
+	        	ag.visionRule = this.visionRule;
+	        	ag.deathRule = this.deathRule;        	
+	        	
+	        	return ag;
+	        }
+	        
+	        public Builder atLocationX(int x) {
+	        	this.ini_x=x;
+	        	return this;
+	        }
+	        
+	        public Builder atLocationY(int y) {
+	        	this.ini_y=y;
+	        	return this;
+	        }
+	        
+	        public Builder withVisionLevel(int visionLevel) {
+	        	this.visionLevel=visionLevel;
+	        	return this;
+	        }
+	        
+	        public Builder withSugarProperties(ProductAgentProperties sugarProperties) {
+	        	this.sugarProperties=sugarProperties;
+	        	return this;
+	        }
+	        
+	        public Builder onLandscape(LandscapeChapter2_p30 myLandscape) {
+	        	this.myLandscape=myLandscape;
+	        	return this;
+	        }
+	        
+	        public Builder withMetabolismRule(MetabolismAbility metabolismRule) {
+	        	this.metabolismRule=metabolismRule;
+	        	return this;
+	        }
+	        
+	        public Builder withGatheringRule(GatheringAbility gatheringRule) {
+	        	this.gatheringRule=gatheringRule;
+	        	return this;
+	        }
+	        
+	        public Builder withMovementRule(MovementAbility movementRule) {
+	        	this.movementRule=movementRule;
+	        	return this;
+	        }
+	        
+	        public Builder withVisionRule(VisionAbility visionRule) {
+	        	this.visionRule=visionRule;
+	        	return this;
+	        }
+	        
+	        public Builder withDeathRule(DeathAbility deathRule) {
+	        	this.deathRule=deathRule;
+	        	return this;
+	        }
+		 
+	 }
+	
 	@ScheduledMethod(start=1d,interval=5d)
 	public void move() {
 		if(isAlive) {
@@ -121,76 +203,34 @@ public class AgentChapter2_p30 extends Agent {
 		return sugarProperties;
 	}
 
-
-	public void setSugarProperties(ProductAgentProperties sugarProperties) {
-		this.sugarProperties = sugarProperties;
-	}
-
-
 	public int getVisionLevel() {
 		return visionLevel;
-	}
- 
-
-	public void setVisionLevel(int visionLevel) {
-		this.visionLevel = visionLevel;
-	}
-
+	} 
 
 	public MetabolismAbility getMetabolismRule() {
 		return metabolismRule;
 	}
 
-
-	public void setMetabolismRule(MetabolismAbility metabolismRule) {
-		this.metabolismRule = metabolismRule;
-	}
-	
-
 	public GatheringAbility getGatheringRule() {
 		return gatheringRule;
 	}
-
-
-	public void setGatheringRule(GatheringAbility gatheringRule) {
-		this.gatheringRule = gatheringRule;
-	}
-
 
 	public MovementAbility getMovementRule() {
 		return movementRule;
 	}
 
-
-	public void setMovementRule(MovementAbility movementRule) {
-		this.movementRule = movementRule;
-	}
-
-
 	public VisionAbility getVisionRule() {
 		return visionRule;
 	}
-
-
-	public void setVisionRule(VisionAbility visionRule) {
-		this.visionRule = visionRule;
-	}
-
 
 	public DeathAbility getDeathRule() {
 		return deathRule;
 	}
 
 
-	public void setDeathRule(DeathAbility deathRule) {
-		this.deathRule = deathRule;
-	}
-
-
 	public LandscapeChapter2_p30 getMyLandscape() {
 		return myLandscape;
 	}
-
 
 	public void setMyLandscape(LandscapeChapter2_p30 myLandscape) {
 		this.myLandscape = myLandscape;
