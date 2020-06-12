@@ -5,8 +5,6 @@ import repast.simphony.demos.sugarscape2.agents.Agent;
 import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p37;
 import repast.simphony.demos.sugarscape2.agents.builders.RandomAgentFactory;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
-import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.random.RandomHelper;
 
 public class DeathRule_p37 extends DeathRule_p30 {
 
@@ -30,9 +28,6 @@ public class DeathRule_p37 extends DeathRule_p30 {
 			AgentChapter2_p37 a;
 			try {
 				a = (AgentChapter2_p37)RandomAgentFactory.getAgent("Chapter2_p37",id, (LandscapeChapter2_p30) sc.getLandscape());
-				int minDieAge = RunEnvironment.getInstance().getParameters().getInteger("minDieAge");
-				int maxDieAge = RunEnvironment.getInstance().getParameters().getInteger("maxDieAge");
-				a.setMaxAge(RandomHelper.nextIntFromTo(minDieAge, maxDieAge));
 				sc.add(a);
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();

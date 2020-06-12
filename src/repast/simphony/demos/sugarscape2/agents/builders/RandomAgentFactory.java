@@ -84,10 +84,14 @@ public class RandomAgentFactory {
 					)
 			.build();
 			
+			int minDieAge = RunEnvironment.getInstance().getParameters().getInteger("minDieAge");
+			int maxDieAge = RunEnvironment.getInstance().getParameters().getInteger("maxDieAge");
+			int cur_maxAge = RandomHelper.nextIntFromTo(minDieAge, maxDieAge);
+			
 			AgentChapter2_p30 a_37 = new AgentChapter2_p37.Builder()
 					.agentCh30(a_30_37)
-					.maxAge(x)
-					.builid();
+					.maxAge(cur_maxAge)
+					.build();
 			
 			return(a_37);
 			

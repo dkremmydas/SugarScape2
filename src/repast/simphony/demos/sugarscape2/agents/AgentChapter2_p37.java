@@ -50,6 +50,12 @@ public class AgentChapter2_p37 extends AgentChapter2_p30 {
 	public void setCurrentAge(int currentAge) {
 		this.currentAge = currentAge;
 	}
+
+	public int getMaxAge() {
+		return maxAge;
+	}
+	
+	
 	
 	
 
