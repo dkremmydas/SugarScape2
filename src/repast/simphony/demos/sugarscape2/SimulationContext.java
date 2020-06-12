@@ -8,7 +8,7 @@ import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.Agent;
-import repast.simphony.demos.sugarscape2.agents.loaders.AgentLoader;
+import repast.simphony.demos.sugarscape2.agents.builders.loaders.AgentLoader;
 import repast.simphony.demos.sugarscape2.landscape.Landscape;
 import repast.simphony.demos.sugarscape2.landscape.loaders.LandscapeLoader;
 import repast.simphony.engine.environment.RunEnvironment;

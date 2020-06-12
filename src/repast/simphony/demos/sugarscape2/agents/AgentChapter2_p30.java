@@ -44,7 +44,7 @@ public class AgentChapter2_p30 extends Agent {
 		
 
 	//Set a private constructor, so that creating agents is forced through the Builder design pattern
-	private AgentChapter2_p30() {};
+	protected AgentChapter2_p30() {};
 	
 	 public static class Builder {
 		 

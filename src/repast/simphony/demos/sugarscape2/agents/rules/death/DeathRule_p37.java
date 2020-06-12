@@ -3,7 +3,7 @@ package repast.simphony.demos.sugarscape2.agents.rules.death;
 import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.Agent;
 import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p37;
-import repast.simphony.demos.sugarscape2.agents.utilities.RandomAgentFactory;
+import repast.simphony.demos.sugarscape2.agents.builders.RandomAgentFactory;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;

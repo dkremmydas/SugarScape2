@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.loaders;
+package repast.simphony.demos.sugarscape2.agents.builders.loaders;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.Agent;

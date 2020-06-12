@@ -1,24 +1,18 @@
-package repast.simphony.demos.sugarscape2.agents.loaders;
+package repast.simphony.demos.sugarscape2.agents.builders.loaders;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
-import repast.simphony.demos.sugarscape2.agents.utilities.RandomAgentFactory;
+import repast.simphony.demos.sugarscape2.agents.builders.RandomAgentFactory;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
+public class SugarscapeAgentsLoaderChapter2_p37 extends
+		SugarscapeAgentsLoaderChapter2_p30 {
 
-
-public class SugarscapeAgentsLoaderChapter2_p30 implements AgentLoader {
-
-	public SugarscapeAgentsLoaderChapter2_p30() {
-		
-	}
-
-	/**
-	 * A replication of the agent creation of the book. 400 agents with random 
-	 * genetic characteristics (vision and metabolism) and initial position.
-	 */
+	public SugarscapeAgentsLoaderChapter2_p37() {}
+	
+	
 	@Override
 	public void addAgents(SimulationContext sc) {
 		RandomHelper.createUniform();
@@ -29,7 +23,7 @@ public class SugarscapeAgentsLoaderChapter2_p30 implements AgentLoader {
 			
 			AgentChapter2_p30 a;
 			try {
-				a = (AgentChapter2_p30)RandomAgentFactory.getAgent("Chapter2_p30",i,(LandscapeChapter2_p30) sc.getLandscape());
+				a = (AgentChapter2_p30)RandomAgentFactory.getAgent("Chapter2_p37",i,(LandscapeChapter2_p30) sc.getLandscape());
 				sc.add(a);
 				
 			} catch (InstantiationException e) {
@@ -47,4 +41,7 @@ public class SugarscapeAgentsLoaderChapter2_p30 implements AgentLoader {
 		}
 	}
 	
+	
+	
+
 }

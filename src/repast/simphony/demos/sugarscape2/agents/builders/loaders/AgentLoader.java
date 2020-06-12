@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.loaders;
+package repast.simphony.demos.sugarscape2.agents.builders.loaders;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
 
@@ -6,7 +6,7 @@ import repast.simphony.demos.sugarscape2.SimulationContext;
  * 
  * Adds agents to the {@link SimulationContext}
  * 
- * @author Dimitris Kremmydas
+ * @author Dimitris Kremmyda s
  *
  */
 public interface AgentLoader {

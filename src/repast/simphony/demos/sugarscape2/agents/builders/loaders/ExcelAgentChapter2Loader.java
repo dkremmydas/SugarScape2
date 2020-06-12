@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.loaders;
+package repast.simphony.demos.sugarscape2.agents.builders.loaders;
 
 import java.io.File;
 import java.io.IOException;

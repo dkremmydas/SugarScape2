@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.utilities;
+package repast.simphony.demos.sugarscape2.agents.builders;
 
 import repast.simphony.demos.sugarscape2.agents.Agent;
 import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
@@ -67,7 +67,7 @@ public class RandomAgentFactory {
 			metabolismRuleString = RunEnvironment.getInstance().getParameters().getString("metabolismRule");
 			deathRuleString = RunEnvironment.getInstance().getParameters().getString("deathRule");
 			
-			AgentChapter2_p37 a_37 = (AgentChapter2_p37)new AgentChapter2_p30.Builder(id)
+			AgentChapter2_p30 a_30_37 = new AgentChapter2_p30.Builder(id)
 			.onLandscape(ls)
 			.atLocationX(RandomHelper.nextIntFromTo(1,ls.getDimensions().getWidth()))
 			.atLocationY((RandomHelper.nextIntFromTo(1,ls.getDimensions().getHeight())))
@@ -83,6 +83,11 @@ public class RandomAgentFactory {
 					)
 					)
 			.build();
+			
+			AgentChapter2_p30 a_37 = new AgentChapter2_p37.Builder()
+					.agentCh30(a_30_37)
+					.maxAge(x)
+					.builid();
 			
 			return(a_37);
 			
