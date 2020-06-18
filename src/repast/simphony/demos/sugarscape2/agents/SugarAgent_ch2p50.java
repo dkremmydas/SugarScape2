@@ -4,7 +4,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionAbility
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p50;
 import repast.simphony.engine.schedule.ScheduledMethod;
 
-public class AgentChapter2_p50 extends AgentChapter2_p30 {
+public class SugarAgent_ch2p50 extends SugarAgent_ch2p30 {
 	
 	protected PollutionAbility pollutionRule;
 
@@ -18,7 +18,7 @@ public class AgentChapter2_p50 extends AgentChapter2_p30 {
 	 */
 	protected int amount_consumed = 0;
 	
-	public AgentChapter2_p50() {}
+	public SugarAgent_ch2p50() {}
 	
 	@ScheduledMethod(start=4.4d,interval=5d)
 	public void pollute() {

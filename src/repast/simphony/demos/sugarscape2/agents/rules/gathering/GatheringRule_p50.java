@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.rules.gathering;
 
-import repast.simphony.demos.sugarscape2.agents.Agent;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p50;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p50;
 
 public class GatheringRule_p50 extends GatheringRule_p30 {
 
@@ -10,8 +10,8 @@ public class GatheringRule_p50 extends GatheringRule_p30 {
 	}
 
 	@Override
-	public Integer gather(Agent owner) {
-		AgentChapter2_p50 a = (AgentChapter2_p50) owner;
+	public Integer gather(SugarAgent owner) {
+		SugarAgent_ch2p50 a = (SugarAgent_ch2p50) owner;
 		int r = super.gather(owner);
 		a.setAmountGathered(r);
 		

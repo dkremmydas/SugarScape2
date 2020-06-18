@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
-import repast.simphony.demos.sugarscape2.agents.Agent;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p41;
 import repast.simphony.query.space.grid.VNQuery;
 import repast.simphony.space.graph.Network;
@@ -27,28 +27,28 @@ public class MovementRule_p41 extends MovementRule_p30 {
 	}
 
 	@Override
-	public GridPoint move(Agent owner) {
+	public GridPoint move(SugarAgent owner) {
 		//get some definitions
-		AgentChapter2_p30 owner30 = (AgentChapter2_p30)owner;		
-		Network<Agent> n = ((LandscapeChapter2_p41)owner30.getMyLandscape()).getNet();
+		SugarAgent_ch2p30 owner30 = (SugarAgent_ch2p30)owner;		
+		Network<SugarAgent> n = ((LandscapeChapter2_p41)owner30.getMyLandscape()).getNet();
 		
 		//calculate the move
 		GridPoint gp = super.move(owner);
 		
 		//delete old edges
-		Iterable<RepastEdge<Agent>> dai = n.getOutEdges(owner);
-		Set<RepastEdge<Agent>> str = new HashSet<>();
-		for(RepastEdge<Agent> da: dai) {
+		Iterable<RepastEdge<SugarAgent>> dai = n.getOutEdges(owner);
+		Set<RepastEdge<SugarAgent>> str = new HashSet<>();
+		for(RepastEdge<SugarAgent> da: dai) {
 			str.add(da);
 		}
-		for(RepastEdge<Agent> da: str) {
+		for(RepastEdge<SugarAgent> da: str) {
 			n.removeEdge(da);
 		}
 		
 		//build new edges (for the point where the agent will move)
-		VNQuery<Agent> q = new VNQuery<Agent>(SimulationContext.getInstance().getLandscape().getGrid(), owner, 1,1);
-		Iterable<Agent> neighs = q.query();
-		for(Agent a: neighs ) {
+		VNQuery<SugarAgent> q = new VNQuery<SugarAgent>(SimulationContext.getInstance().getLandscape().getGrid(), owner, 1,1);
+		Iterable<SugarAgent> neighs = q.query();
+		for(SugarAgent a: neighs ) {
 			if(! a.equals(owner)) n.addEdge(owner, a);
 		}
 		

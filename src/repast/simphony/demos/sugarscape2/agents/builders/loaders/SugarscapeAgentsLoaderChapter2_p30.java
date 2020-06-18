@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.builders.loaders;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 import repast.simphony.demos.sugarscape2.agents.builders.RandomAgentFactory;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
 import repast.simphony.engine.environment.RunEnvironment;
@@ -27,9 +27,9 @@ public class SugarscapeAgentsLoaderChapter2_p30 implements AgentLoader {
 		
 		for(int i=0;i<n;i++) {
 			
-			AgentChapter2_p30 a;
+			SugarAgent_ch2p30 a;
 			try {
-				a = (AgentChapter2_p30)RandomAgentFactory.getAgent("Chapter2_p30",i,(LandscapeChapter2_p30) sc.getLandscape());
+				a = (SugarAgent_ch2p30)RandomAgentFactory.getAgent("Chapter2_p30",i,(LandscapeChapter2_p30) sc.getLandscape());
 				sc.add(a);
 				
 			} catch (InstantiationException e) {

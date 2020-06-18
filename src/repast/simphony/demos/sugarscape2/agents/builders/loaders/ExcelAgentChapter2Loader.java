@@ -11,7 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DeathAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gathering.GatheringAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.metabolism.MetabolismAbility;
@@ -60,7 +60,7 @@ public class ExcelAgentChapter2Loader implements AgentLoader {
 
 			try {
 				
-				AgentChapter2_p30 a = new AgentChapter2_p30.Builder(Integer.valueOf(id))
+				SugarAgent_ch2p30 a = new SugarAgent_ch2p30.Builder(Integer.valueOf(id))
 						.onLandscape((LandscapeChapter2_p30) sc.getLandscape())
 						.atLocationX(x)
 						.atLocationY(y)

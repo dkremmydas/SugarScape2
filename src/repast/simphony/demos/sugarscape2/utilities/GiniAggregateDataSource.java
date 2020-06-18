@@ -3,7 +3,7 @@ package repast.simphony.demos.sugarscape2.utilities;
 import java.util.Arrays;
 
 import repast.simphony.data2.AggregateDataSource;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 
 public class GiniAggregateDataSource implements AggregateDataSource {
 	
@@ -25,7 +25,7 @@ public class GiniAggregateDataSource implements AggregateDataSource {
 
 	@Override
 	public Class<?> getSourceType() {
-		return AgentChapter2_p30.class;
+		return SugarAgent_ch2p30.class;
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class GiniAggregateDataSource implements AggregateDataSource {
 		//collect sugar wealth for every agent
 		int i=0;
 		for(Object o: objs) {
-			AgentChapter2_p30 a = (AgentChapter2_p30) o;
+			SugarAgent_ch2p30 a = (SugarAgent_ch2p30) o;
 			values[i++] = a.getSugarWealth();			
 		}
 		

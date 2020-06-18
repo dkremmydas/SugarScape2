@@ -6,8 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
-import repast.simphony.demos.sugarscape2.agents.Agent;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
@@ -29,8 +29,8 @@ public class MovementRule_p30 implements MovementAbility {
 	 * Move to the visible point with the greatest concentration of sugar
 	 */
 	@Override
-	public GridPoint move(Agent owner) {
-		AgentChapter2_p30 o = (AgentChapter2_p30) owner;
+	public GridPoint move(SugarAgent owner) {
+		SugarAgent_ch2p30 o = (SugarAgent_ch2p30) owner;
 		
 		//1. Get points that the agent can sees
 		List<GridPoint> gps = new ArrayList<GridPoint>(o.getVisionRule().getVisionedPoints(owner));
@@ -64,7 +64,7 @@ public class MovementRule_p30 implements MovementAbility {
 		//System.out.println(Arrays.toString(gps.toArray()));
 		
 		//3. Return the GridPoint that is higher in the list and no one else is there
-		DefaultGrid<Agent> dg = SimulationContext.getInstance().getLandscape().getGrid();
+		DefaultGrid<SugarAgent> dg = SimulationContext.getInstance().getLandscape().getGrid();
 		for(GridPoint gp: gps) {
 			if(! dg.getObjectsAt(gp.getX(),gp.getY()).iterator().hasNext()) return gp;
 		}

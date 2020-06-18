@@ -7,7 +7,7 @@ import org.apache.log4j.Level;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
-import repast.simphony.demos.sugarscape2.agents.Agent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.agents.builders.loaders.AgentLoader;
 import repast.simphony.demos.sugarscape2.landscape.Landscape;
 import repast.simphony.demos.sugarscape2.landscape.loaders.LandscapeLoader;
@@ -15,7 +15,7 @@ import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedulableAction;
 import simphony.util.messages.MessageCenter;
 
-public class SimulationContext extends DefaultContext<Agent> implements ContextBuilder<Agent>{
+public class SimulationContext extends DefaultContext<SugarAgent> implements ContextBuilder<SugarAgent>{
 
 	private static SimulationContext instance=null;
 	
@@ -55,7 +55,7 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 	 * 
 	 */
 	@Override
-	public Context<Agent> build(Context<Agent> context) {
+	public Context<SugarAgent> build(Context<SugarAgent> context) {
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Start building SimulationContext");
 		SimulationContext sc = new SimulationContext();
 		
@@ -88,10 +88,10 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 			al.addAgents(sc);
 			
 			//add any ScheduledActions manually
-			Iterable<Agent> ia = sc.getObjects(Agent.class);
+			Iterable<SugarAgent> ia = sc.getObjects(SugarAgent.class);
 			
 			//advanced
-			for(Agent a : ia) {
+			for(SugarAgent a : ia) {
 				List<ISchedulableAction> sa = RunEnvironment.getInstance().getCurrentSchedule().schedule(a);
 				a.setScheduledActions(sa);
 			}
@@ -106,7 +106,7 @@ public class SimulationContext extends DefaultContext<Agent> implements ContextB
 		//Since loading has finished, output some details on DEBUG mode
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Everything is loaded.");
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Projections: " + sc.getProjections().size());
-		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Agents: " + sc.getObjects(Agent.class).size());
+		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Agents: " + sc.getObjects(SugarAgent.class).size());
 		SimulationContext.logMessage(this.getClass(), Level.DEBUG, "Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 			
 		

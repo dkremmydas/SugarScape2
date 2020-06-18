@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.apache.commons.math3.stat.StatUtils;
 
-import repast.simphony.demos.sugarscape2.agents.Agent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p50;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.space.grid.Grid;
@@ -17,7 +17,7 @@ public class PollutionDiffusionRule_p50 implements PollutionDiffusionAbility {
 
 	@Override
 	public GridValueLayer diffuse(LandscapeChapter2_p50 ls) {
-		Grid<Agent> grid = ls.getGrid();
+		Grid<SugarAgent> grid = ls.getGrid();
 		GridValueLayer oldP = ls.getPollution();
 		GridValueLayer newP = new GridValueLayer("temp", true, ls.getDimensions().getWidth(),ls.getDimensions().getHeight());
 		

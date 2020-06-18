@@ -1,13 +1,13 @@
 package repast.simphony.demos.sugarscape2.agents.rules.death;
 
-import repast.simphony.demos.sugarscape2.agents.Agent;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 
 public class DeathRule_p30 implements DeathAbility {
 
 	@Override
-	public boolean die(Agent owner) {
-		AgentChapter2_p30 o = (AgentChapter2_p30) owner;
+	public boolean die(SugarAgent owner) {
+		SugarAgent_ch2p30 o = (SugarAgent_ch2p30) owner;
 		if(o.getSugarProperties().getHolding()>0) return false;
 		else return true;
 	}

@@ -1,19 +1,19 @@
 package repast.simphony.demos.sugarscape2.agents;
 
-public class AgentChapter2_p37 extends AgentChapter2_p30 {
+public class SugarAgent_ch2p37 extends SugarAgent_ch2p30 {
 	
 	private int maxAge;
 	private int currentAge = 0;
 
-	private AgentChapter2_p37() {
+	private SugarAgent_ch2p37() {
 	}
 	
 	public static class Builder {
 		
-		private AgentChapter2_p30 ag30;
+		private SugarAgent_ch2p30 ag30;
 		private int maxAge;
 		
-		 public Builder agentCh30(AgentChapter2_p30 ag30) {
+		 public Builder agentCh30(SugarAgent_ch2p30 ag30) {
 	        	this.ag30 = ag30;
 	        	return this;
 	        }
@@ -23,8 +23,8 @@ public class AgentChapter2_p37 extends AgentChapter2_p30 {
 	        	return this;
 	        }
 		 
-		 public AgentChapter2_p37 build() {
-	        	AgentChapter2_p37 ag = new AgentChapter2_p37();
+		 public SugarAgent_ch2p37 build() {
+	        	SugarAgent_ch2p37 ag = new SugarAgent_ch2p37();
 	        	ag.id=this.ag30.id;
 	        	ag.ini_x = this.ag30.ini_x;
 	        	ag.ini_y = this.ag30.ini_y;

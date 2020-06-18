@@ -1,6 +1,6 @@
 package repast.simphony.demos.sugarscape2.agents.rules.gathering;
 
-import repast.simphony.demos.sugarscape2.agents.Agent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 
 public interface GatheringAbility {
 
@@ -8,6 +8,6 @@ public interface GatheringAbility {
 	 * Decision of how many units of sugar to gather in an existing site
 	 * @return Integer units of sugar
 	 */
-	public Integer gather(Agent owner);
+	public Integer gather(SugarAgent owner);
 	
 }

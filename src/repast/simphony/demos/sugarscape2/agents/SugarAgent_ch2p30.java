@@ -1,5 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+import java.util.List;
+
 import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DeathAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gathering.GatheringAbility;
@@ -8,11 +10,13 @@ import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
 import repast.simphony.demos.sugarscape2.products.ProductAgentProperties;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedulableAction;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
-public class AgentChapter2_p30 extends Agent {
+public class SugarAgent_ch2p30 extends SugarAgent {
 	
 	/**
 	 * Properties related to sugar
@@ -44,7 +48,7 @@ public class AgentChapter2_p30 extends Agent {
 		
 
 	//Set a private constructor, so that creating agents is forced through the Builder design pattern
-	protected AgentChapter2_p30() {};
+	protected SugarAgent_ch2p30() {};
 	
 	 public static class Builder {
 		 
@@ -66,8 +70,8 @@ public class AgentChapter2_p30 extends Agent {
 	        	this.id=id;
 	        }
 	        
-	        public AgentChapter2_p30 build() {
-	        	AgentChapter2_p30 ag = new AgentChapter2_p30();
+	        public SugarAgent_ch2p30 build() {
+	        	SugarAgent_ch2p30 ag = new SugarAgent_ch2p30();
 	        	ag.id=this.id;
 	        	ag.ini_x = this.ini_x;
 	        	ag.ini_y = this.ini_y;
@@ -138,7 +142,7 @@ public class AgentChapter2_p30 extends Agent {
 	@ScheduledMethod(start=1d,interval=5d)
 	public void move() {
 		if(isAlive) {
-			DefaultGrid<Agent> g = SimulationContext.getInstance().getLandscape().getGrid();
+			DefaultGrid<SugarAgent> g = SimulationContext.getInstance().getLandscape().getGrid();
 			GridPoint gp;
 			gp=this.movementRule.move(this);
 			g.moveTo(this, gp.getX(),gp.getY());
@@ -180,12 +184,14 @@ public class AgentChapter2_p30 extends Agent {
 				
 				//remove from context
 				SimulationContext.getInstance().remove(this);
+				
+				
 			}
 		}
 		
 			
 			//advanced
-		/*
+		
 			//remove scheduled actions of agent
 			List<ISchedulableAction> toR = this.getScheduledActions();
 			for(ISchedulableAction sa: toR) {
@@ -193,9 +199,9 @@ public class AgentChapter2_p30 extends Agent {
 			}
 
 			System.out.println("Tick: " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
-			System.out.println("Number of Agents: " + SimulationContext.getInstance().getObjects(Agent.class).size());
+			System.out.println("Number of Agents: " + SimulationContext.getInstance().getObjects(SugarAgent.class).size());
 			System.out.println("Number of Scheduled Actions: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
-		*/
+		
 	}
 
 

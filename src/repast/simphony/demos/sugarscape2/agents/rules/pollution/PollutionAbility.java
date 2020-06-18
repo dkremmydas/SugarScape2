@@ -1,6 +1,6 @@
 package repast.simphony.demos.sugarscape2.agents.rules.pollution;
 
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p50;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p50;
 import repast.simphony.valueLayer.GridValueLayer;
 
 public interface PollutionAbility {
@@ -10,7 +10,7 @@ public interface PollutionAbility {
 	 * @param ls
 	 * @return  {@link GridValueLayer}
 	 */
-	public int pollute(AgentChapter2_p50 owner);
+	public int pollute(SugarAgent_ch2p50 owner);
 	
 	
 }

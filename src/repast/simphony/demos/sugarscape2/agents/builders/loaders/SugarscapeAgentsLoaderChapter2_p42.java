@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.builders.loaders;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
-import repast.simphony.demos.sugarscape2.agents.Agent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.space.grid.Grid;
 
 public class SugarscapeAgentsLoaderChapter2_p42 extends
@@ -14,11 +14,11 @@ public class SugarscapeAgentsLoaderChapter2_p42 extends
 		super.addAgents(sc);
 		
 		int square_size = (int) Math.ceil(Math.sqrt(sc.size()));
-		Grid<Agent> g = sc.getLandscape().getGrid();
+		Grid<SugarAgent> g = sc.getLandscape().getGrid();
 		
 		int x=1, y=1;
-		Iterable<Agent> ai = SimulationContext.getInstance().getAgentLayer(Agent.class);
-		for(Agent a : ai) {
+		Iterable<SugarAgent> ai = SimulationContext.getInstance().getAgentLayer(SugarAgent.class);
+		for(SugarAgent a : ai) {
 			g.moveTo(a, x, y);
 			x++;
 			if(x>square_size) {x=1; y++;}

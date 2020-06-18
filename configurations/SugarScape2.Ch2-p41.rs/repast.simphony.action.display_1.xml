@@ -3,13 +3,13 @@
   <type>2D</type>
   <styles>
     <entry>
-      <string>repast.simphony.demos.sugarscape2.agents.Agent</string>
+      <string>repast.simphony.demos.sugarscape2.agents.SugarAgent</string>
       <string>repast.simphony.demos.sugarscape2.agents.styles.AgentStyleChapter2_p30</string>
     </entry>
   </styles>
   <editedStyles>
     <entry>
-      <string>repast.simphony.demos.sugarscape2.agents.Agent</string>
+      <string>repast.simphony.demos.sugarscape2.agents.SugarAgent</string>
       <null/>
     </entry>
   </editedStyles>

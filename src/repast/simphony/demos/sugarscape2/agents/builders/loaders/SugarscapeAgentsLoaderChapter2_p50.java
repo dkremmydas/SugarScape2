@@ -1,8 +1,8 @@
 package repast.simphony.demos.sugarscape2.agents.builders.loaders;
 
 import repast.simphony.demos.sugarscape2.SimulationContext;
-import repast.simphony.demos.sugarscape2.agents.Agent;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p50;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p50;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionAbility;
 import repast.simphony.engine.environment.RunEnvironment;
 
@@ -21,11 +21,11 @@ public class SugarscapeAgentsLoaderChapter2_p50 extends
 		super.addAgents(sc);
 		
 		//now for each agent in the landscape, add the Pollution rule
-		Iterable<Agent> ai = SimulationContext.getInstance().getAgentLayer(Agent.class);
+		Iterable<SugarAgent> ai = SimulationContext.getInstance().getAgentLayer(SugarAgent.class);
 		
 			try {
-				for(Agent a : ai) {
-					AgentChapter2_p50 ap50 = (AgentChapter2_p50) a;
+				for(SugarAgent a : ai) {
+					SugarAgent_ch2p50 ap50 = (SugarAgent_ch2p50) a;
 					PollutionAbility pa;
 					pa = (PollutionAbility)Class.forName(pollutionRuleString).newInstance();
 					ap50.setPollutionRule(pa);

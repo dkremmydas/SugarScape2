@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.landscape.loaders;
 
 
 
-import repast.simphony.demos.sugarscape2.agents.Agent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.landscape.Landscape;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
 import repast.simphony.demos.sugarscape2.landscape.rules.growback.GrowbackAbility;
@@ -45,7 +45,7 @@ public class PGMLandscapeLoaderChapter2_p30 implements LandscapeLoader {
 			this.setGrowback(ls);
 			this.setInitialSugarQuantity(ls);
 			this.setInitialSugarRate(ls);
-			ls.getGrid().setAdder(new RandomGridAdder<Agent>());	
+			ls.getGrid().setAdder(new RandomGridAdder<SugarAgent>());	
 			return ls;
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {

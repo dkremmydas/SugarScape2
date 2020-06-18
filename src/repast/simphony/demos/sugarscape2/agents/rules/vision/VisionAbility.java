@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.agents.rules.vision;
 
 import java.util.Set;
 
-import repast.simphony.demos.sugarscape2.agents.Agent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.space.grid.GridPoint;
 
 public interface VisionAbility {
@@ -12,6 +12,6 @@ public interface VisionAbility {
 	 * 
 	 * @return
 	 */
-	public Set<GridPoint> getVisionedPoints(Agent owner);
+	public Set<GridPoint> getVisionedPoints(SugarAgent owner);
 	
 }

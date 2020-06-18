@@ -2,8 +2,8 @@ package repast.simphony.demos.sugarscape2.agents.rules.vision;
 
 import java.util.Set;
 
-import repast.simphony.demos.sugarscape2.agents.Agent;
-import repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
@@ -22,10 +22,10 @@ public class MooreVisionRule implements VisionAbility {
 	}
 
 	@Override
-	public Set<GridPoint> getVisionedPoints(Agent owner) {
-		AgentChapter2_p30 o = (AgentChapter2_p30) owner;
+	public Set<GridPoint> getVisionedPoints(SugarAgent owner) {
+		SugarAgent_ch2p30 o = (SugarAgent_ch2p30) owner;
 		
-		DefaultGrid<Agent> dg = o.getMyLandscape().getGrid();
+		DefaultGrid<SugarAgent> dg = o.getMyLandscape().getGrid();
 		GridPoint gp = dg.getLocation(owner);
 		//System.out.println("Owner Location: " + gp);
 		

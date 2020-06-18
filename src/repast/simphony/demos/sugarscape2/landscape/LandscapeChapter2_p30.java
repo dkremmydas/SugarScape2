@@ -1,6 +1,6 @@
 package repast.simphony.demos.sugarscape2.landscape;
 
-import repast.simphony.demos.sugarscape2.agents.Agent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.landscape.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.products.ProductGridProperties;
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -66,7 +66,7 @@ public class LandscapeChapter2_p30 extends Landscape {
 		//System.out.println("After Growback: " + this.sugarGridProperties.getQuantityDescriptiveStats());
 	}
 	
-	public void removeSugar(Agent a, int q) {
+	public void removeSugar(SugarAgent a, int q) {
 		GridPoint gp = this.grid.getLocation(a);
 		int nq = (int) this.sugarGridProperties.getCurrentQuantity().get(gp.getX(),gp.getY())-q;
 		this.sugarGridProperties.getCurrentQuantity().set(nq, gp.getX(),gp.getY());

@@ -13,7 +13,7 @@ import repast.simphony.engine.schedule.ISchedulableAction;
  * @author Dimitris Kremmydas
  *
  */
-public abstract class Agent implements RepastElement {
+public abstract class SugarAgent implements RepastElement {
 	
 	protected Integer id;
 	
