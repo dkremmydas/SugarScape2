@@ -19,7 +19,7 @@
       <string>meanVision</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>meanVision</id>
-        <className>repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30</className>
+        <className>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30</className>
         <methodName>getVisionLevel</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
@@ -28,7 +28,7 @@
       <string>meanMetabolism</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
         <id>meanMetabolism</id>
-        <className>repast.simphony.demos.sugarscape2.agents.AgentChapter2_p30</className>
+        <className>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30</className>
         <methodName>getMetabolism</methodName>
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>

@@ -15,6 +15,7 @@ import repast.simphony.engine.schedule.ISchedulableAction;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
+import repast.simphony.util.ContextUtils;
 
 public class SugarAgent_ch2p30 extends SugarAgent {
 	
@@ -186,6 +187,7 @@ public class SugarAgent_ch2p30 extends SugarAgent {
 				SimulationContext.getInstance().remove(this);
 				
 				
+				
 			}
 		}
 		
@@ -193,10 +195,10 @@ public class SugarAgent_ch2p30 extends SugarAgent {
 			//advanced
 		
 			//remove scheduled actions of agent
-			List<ISchedulableAction> toR = this.getScheduledActions();
-			for(ISchedulableAction sa: toR) {
-				RunEnvironment.getInstance().getCurrentSchedule().removeAction(sa);
-			}
+//			List<ISchedulableAction> toR = this.getScheduledActions();
+//			for(ISchedulableAction sa: toR) {
+//				RunEnvironment.getInstance().getCurrentSchedule().removeAction(sa);
+//			}
 
 			System.out.println("Tick: " + RunEnvironment.getInstance().getCurrentSchedule().getTickCount());
 			System.out.println("Number of Agents: " + SimulationContext.getInstance().getObjects(SugarAgent.class).size());
