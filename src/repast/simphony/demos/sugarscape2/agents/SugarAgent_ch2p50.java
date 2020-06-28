@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents;
 
-import repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionAbility;
-import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p50;
+import repast.simphony.demos.sugarscape2.agents.rules.old.pollution.PollutionAbility;
+import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p50;
 import repast.simphony.engine.schedule.ScheduledMethod;
 
 public class SugarAgent_ch2p50 extends SugarAgent_ch2p30 {
