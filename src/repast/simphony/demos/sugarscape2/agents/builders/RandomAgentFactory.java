@@ -9,7 +9,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.metabolism.MetabolismAbili
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
-import repast.simphony.demos.sugarscape2.products.ProductAgentProperties;
+import repast.simphony.demos.sugarscape2.products.Resource;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
@@ -46,7 +46,7 @@ public class RandomAgentFactory {
 			.withDeathRule((DeathAbility) Class.forName(deathRuleString).newInstance())
 			.withMovementRule((MovementAbility) Class.forName(movementRuleString).newInstance())
 			.withVisionRule((VisionAbility) Class.forName(visionRuleString).newInstance())
-			.withSugarProperties(new ProductAgentProperties(
+			.withSugarProperties(new Resource(
 					RandomHelper.nextIntFromTo(1, maxInitial), 
 					RandomHelper.nextIntFromTo(1, maxMetabolism)
 					)

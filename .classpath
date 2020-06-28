@@ -7,5 +7,6 @@
 	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
 	<classpathentry kind="con" path="REPAST_SIMPHONY_SUPPORT"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Guava 23"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

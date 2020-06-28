@@ -5,6 +5,7 @@ import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridAdder;
@@ -32,7 +33,7 @@ public class Landscape implements RepastElement {
 	/**
 	 * The grid of the landscape
 	 */
-	protected DefaultGrid<SugarAgent> grid;
+	protected DefaultGrid<SugarAgent_ch2> grid;
 	
 	
 
@@ -53,9 +54,9 @@ public class Landscape implements RepastElement {
 		this.x = x;
 		this.y = y;
 		GridFactory gf = GridFactoryFinder.createGridFactory(null);
-		grid = (DefaultGrid<SugarAgent>) gf.createGrid("sugarscapeGrid", 
+		grid = (DefaultGrid<SugarAgent_ch2>) gf.createGrid("sugarscapeGrid", 
 				SimulationContext.getInstance(), 
-				new GridBuilderParameters <SugarAgent> (new WrapAroundBorders (),new RandomGridAdder<SugarAgent>(),true , x, y)
+				new GridBuilderParameters <SugarAgent_ch2> (new WrapAroundBorders (),new RandomGridAdder<SugarAgent_ch2>(),true , x, y)
 			);
 	}
 	
@@ -65,7 +66,7 @@ public class Landscape implements RepastElement {
 	}
 
 
-	public DefaultGrid<SugarAgent> getGrid() {
+	public DefaultGrid<SugarAgent_ch2> getGrid() {
 		return grid;
 	}
 
@@ -81,10 +82,10 @@ public class Landscape implements RepastElement {
 		return this.id;
 	}
 	
-	class GridXYAdder implements GridAdder<SugarAgent> {
+	class GridXYAdder implements GridAdder<SugarAgent_ch2> {
 
 		@Override
-		public void add(Grid<SugarAgent> destination, SugarAgent object) {
+		public void add(Grid<SugarAgent_ch2> destination, SugarAgent_ch2 object) {
 			destination.moveTo(object, object.getIni_x(),object.getIni_y());
 		}	
 	} //end inner class

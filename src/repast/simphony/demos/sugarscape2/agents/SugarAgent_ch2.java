@@ -2,6 +2,8 @@ package repast.simphony.demos.sugarscape2.agents;
 
 import java.util.List;
 
+import com.google.common.collect.Sets;
+
 import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DeathAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gathering.GatheringAbility;
@@ -9,7 +11,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.metabolism.MetabolismAbili
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
-import repast.simphony.demos.sugarscape2.products.ProductAgentProperties;
+import repast.simphony.demos.sugarscape2.products.Resource;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedulableAction;
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -17,17 +19,30 @@ import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
 
-public class SugarAgent_ch2p30 extends SugarAgent {
+public class SugarAgent_ch2 {
 	
+	
+	protected String id;
+	
+	/**
+	 * We store the location as a Repast Simphony GridPoint
+	 * TODO[explain why this is an advantage ... code reuse]
+	 */
+	protected GridPoint location;
+	
+	protected int metabolism;
+	
+	protected int levelOfVision;
+	
+
 	/**
 	 * Properties related to sugar
+	 * We have abstracted the properties and the operations related to a resource into a Resource class.
+	 * TODO[explain the flexibility of this approach: We can use many resources in the future]
 	 */
-	protected ProductAgentProperties sugarProperties;
+	protected Resource sugar;
 	
-	/**
-	 * Level of vision
-	 */
-	protected int visionLevel;
+	
 	
 	/**
 	 * Is the agent alive ?
@@ -41,15 +56,12 @@ public class SugarAgent_ch2p30 extends SugarAgent {
 	
 	// Rules
 	protected MetabolismAbility metabolismRule;	
-	protected GatheringAbility gatheringRule;	
-	protected MovementAbility movementRule;	
-	protected VisionAbility visionRule;	
 	protected DeathAbility deathRule;
 		
 		
 
 	//Set a private constructor, so that creating agents is forced through the Builder design pattern
-	protected SugarAgent_ch2p30() {};
+	protected SugarAgent_ch2() {};
 	
 	 public static class Builder {
 		 
@@ -57,7 +69,7 @@ public class SugarAgent_ch2p30 extends SugarAgent {
 		 	private Integer id;
 		 	private int ini_x, ini_y;
 		 	private int visionLevel;
-		 	private ProductAgentProperties sugarProperties;
+		 	private Resource sugarProperties;
 		 	private LandscapeChapter2_p30 myLandscape; 	
 			
 			// Rules
@@ -71,8 +83,8 @@ public class SugarAgent_ch2p30 extends SugarAgent {
 	        	this.id=id;
 	        }
 	        
-	        public SugarAgent_ch2p30 build() {
-	        	SugarAgent_ch2p30 ag = new SugarAgent_ch2p30();
+	        public SugarAgent_ch2 build() {
+	        	SugarAgent_ch2 ag = new SugarAgent_ch2();
 	        	ag.id=this.id;
 	        	ag.ini_x = this.ini_x;
 	        	ag.ini_y = this.ini_y;
@@ -103,7 +115,7 @@ public class SugarAgent_ch2p30 extends SugarAgent {
 	        	return this;
 	        }
 	        
-	        public Builder withSugarProperties(ProductAgentProperties sugarProperties) {
+	        public Builder withSugarProperties(Resource sugarProperties) {
 	        	this.sugarProperties=sugarProperties;
 	        	return this;
 	        }
@@ -143,7 +155,7 @@ public class SugarAgent_ch2p30 extends SugarAgent {
 	@ScheduledMethod(start=1d,interval=5d)
 	public void move() {
 		if(isAlive) {
-			DefaultGrid<SugarAgent> g = SimulationContext.getInstance().getLandscape().getGrid();
+			DefaultGrid<SugarAgent_ch2> g = SimulationContext.getInstance().getLandscape().getGrid();
 			GridPoint gp;
 			gp=this.movementRule.move(this);
 			g.moveTo(this, gp.getX(),gp.getY());
@@ -207,42 +219,17 @@ public class SugarAgent_ch2p30 extends SugarAgent {
 	}
 
 
-	public ProductAgentProperties getSugarProperties() {
-		return sugarProperties;
-	}
 
 	public int getVisionLevel() {
 		return visionLevel;
 	} 
 
-	public MetabolismAbility getMetabolismRule() {
-		return metabolismRule;
-	}
-
-	public GatheringAbility getGatheringRule() {
-		return gatheringRule;
-	}
-
-	public MovementAbility getMovementRule() {
-		return movementRule;
-	}
-
-	public VisionAbility getVisionRule() {
-		return visionRule;
-	}
-
-	public DeathAbility getDeathRule() {
-		return deathRule;
-	}
 
 
 	public LandscapeChapter2_p30 getMyLandscape() {
 		return myLandscape;
 	}
 
-	public void setMyLandscape(LandscapeChapter2_p30 myLandscape) {
-		this.myLandscape = myLandscape;
-	}
 	
 	public double getSugarWealth() {
 		return this.sugarProperties.getHolding();

@@ -18,7 +18,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.metabolism.MetabolismAbili
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30;
-import repast.simphony.demos.sugarscape2.products.ProductAgentProperties;
+import repast.simphony.demos.sugarscape2.products.Resource;
 
 public class ExcelAgentChapter2Loader implements AgentLoader {
 	
@@ -70,7 +70,7 @@ public class ExcelAgentChapter2Loader implements AgentLoader {
 						.withDeathRule((DeathAbility) Class.forName(rulesBase+dr).newInstance())
 						.withMovementRule((MovementAbility) Class.forName(rulesBase+mr).newInstance())
 						.withVisionRule((VisionAbility) Class.forName(rulesBase+vr).newInstance())
-						.withSugarProperties(new ProductAgentProperties(initSugar, metabSugar))
+						.withSugarProperties(new Resource(initSugar, metabSugar))
 						.build();
 						
 				sc.add(a);

@@ -1,6 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.rules.death;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 
 /**
  * A rule deciding on the death of agent
@@ -15,6 +16,6 @@ public interface DeathAbility {
 	 * @param {@link SugarAgent} owner
 	 * @return true if agent should die, false if not
 	 */
-	public boolean die(SugarAgent owner);
+	public boolean die(SugarAgent_ch2 sugarAgent_ch2);
 	
 }

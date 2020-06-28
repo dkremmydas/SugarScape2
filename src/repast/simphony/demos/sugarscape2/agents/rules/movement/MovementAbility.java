@@ -1,6 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.rules.movement;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.space.grid.GridPoint;
 
 /**
@@ -20,6 +21,6 @@ public interface MovementAbility {
 	 * See for example {@link MovementRule_p30} and {@link RandomMovementRule}.</p>
 	 * @return the {@link GridPoint}  to move to
 	 */
-	public GridPoint move(SugarAgent owner);
+	public GridPoint move(SugarAgent_ch2 sugarAgent_ch2);
 
 }
