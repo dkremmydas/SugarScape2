@@ -3,6 +3,8 @@ package repast.simphony.demos.sugarscape2.builders;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.landscape.Landscape_ch2;
+import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
@@ -75,7 +77,11 @@ public class SugarscapeBuilder implements ContextBuilder<Object>{
 		
 		
 		//2. create the landscape of sugarscape
+		PGMReader pgmreader = new PGMReader( "./data/sugarspace.pgm");
 		
+		Landscape_ch2 landscape = new Landscape_ch2(pgmreader.getxSize(),pgmreader.getySize());
+		landscape.updateSugarCapacity(pgmreader.getMatrix());
+		landscape.updateSugarLevel(pgmreader.getMatrix());
 		
 		
 		//3. add the agents to the sugarscape

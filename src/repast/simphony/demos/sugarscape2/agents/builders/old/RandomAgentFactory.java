@@ -8,7 +8,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.old.death.DeathAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.old.gathering.GatheringAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.old.metabolism.MetabolismAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.old.movement.MovementAbility;
-import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.old.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p30;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;

@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.rules.vision;
+package repast.simphony.demos.sugarscape2.agents.rules.old.vision;
 
 import java.util.Set;
 
@@ -9,15 +9,14 @@ import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
 /**
- * The vision of the agent is the Moore neighborhood 
- * (as opposed to von Neumann neighborhood that is used in the book).
- * 
+ * The default vision rule (implied in the movement rule)
  * @author Dimitris Kremmydas
  *
  */
-public class MooreVisionRule implements VisionAbility {
+public class VisionRule_p30 implements VisionAbility {
+	
 
-	public MooreVisionRule() {
+	public VisionRule_p30() {
 		super();
 	}
 
@@ -29,9 +28,9 @@ public class MooreVisionRule implements VisionAbility {
 		GridPoint gp = dg.getLocation(owner);
 		//System.out.println("Owner Location: " + gp);
 		
-		return NeighbourhoodFunctions.getMoorePoints(gp, dg, o.getVisionLevel());
+		return NeighbourhoodFunctions.getVonNeumanPoints(gp, dg, o.getVisionLevel());
+		
 		
 	}
-	
 
 }

@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.rules.vision;
+package repast.simphony.demos.sugarscape2.agents.rules.old.vision;
 
 import java.util.Set;
 
