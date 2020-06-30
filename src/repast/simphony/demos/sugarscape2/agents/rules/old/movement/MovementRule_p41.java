@@ -3,10 +3,10 @@ package repast.simphony.demos.sugarscape2.agents.rules.old.movement;
 import java.util.HashSet;
 import java.util.Set;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p41;
+import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 import repast.simphony.query.space.grid.VNQuery;
 import repast.simphony.space.graph.Network;
 import repast.simphony.space.graph.RepastEdge;

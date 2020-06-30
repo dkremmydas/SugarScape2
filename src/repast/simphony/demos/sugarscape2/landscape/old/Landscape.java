@@ -3,7 +3,6 @@ package repast.simphony.demos.sugarscape2.landscape.old;
 import repast.simphony.context.RepastElement;
 import repast.simphony.context.space.grid.GridFactory;
 import repast.simphony.context.space.grid.GridFactoryFinder;
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.space.grid.DefaultGrid;

@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.agents.styles;
 
 import java.awt.Color;
 
-import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p37;
+import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p37;
 import repast.simphony.visualizationOGL2D.DefaultStyleOGL2D;
 
 public class AgentStyleChapter2_p37 extends DefaultStyleOGL2D {

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
+import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 

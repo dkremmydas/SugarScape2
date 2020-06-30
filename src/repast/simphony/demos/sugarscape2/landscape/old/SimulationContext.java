@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2;
+package repast.simphony.demos.sugarscape2.landscape.old;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.agents.builders.old.AgentLoader;
-import repast.simphony.demos.sugarscape2.landscape.old.Landscape;
 import repast.simphony.demos.sugarscape2.landscape.old.loaders.LandscapeLoader;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedulableAction;

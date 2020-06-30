@@ -3,7 +3,7 @@ package repast.simphony.demos.sugarscape2.agents.builders.old;
 import repast.simphony.demos.sugarscape2.agents.AgentResource;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
-import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p37;
+import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p37;
 import repast.simphony.demos.sugarscape2.agents.rules.old.death.DeathAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.old.gathering.GatheringAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.old.metabolism.MetabolismAbility;

@@ -1,6 +1,5 @@
 package repast.simphony.demos.sugarscape2.landscape.old;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.landscape.old.rules.pollution.PollutionDiffusionAbility;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.valueLayer.GridValueLayer;

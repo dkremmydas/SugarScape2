@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents;
+package repast.simphony.demos.sugarscape2.agents.old;
 
 public class SugarAgent_ch2p37 extends SugarAgent_ch2p30 {
 	

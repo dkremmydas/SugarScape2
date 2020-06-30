@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.builders.old;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 import repast.simphony.space.grid.Grid;
 
 public class SugarscapeAgentsLoaderChapter2_p42 extends

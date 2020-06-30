@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.landscape.old.rules.growback;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p30;
+import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.valueLayer.GridValueLayer;
 

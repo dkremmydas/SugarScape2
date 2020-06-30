@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.AgentResource;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 import repast.simphony.demos.sugarscape2.agents.rules.old.death.DeathAbility;
@@ -19,6 +18,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.old.metabolism.MetabolismA
 import repast.simphony.demos.sugarscape2.agents.rules.old.movement.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.old.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p30;
+import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 
 public class ExcelAgentChapter2Loader implements AgentLoader {
 	

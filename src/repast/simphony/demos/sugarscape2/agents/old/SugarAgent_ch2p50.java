@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents;
+package repast.simphony.demos.sugarscape2.agents.old;
 
 import repast.simphony.demos.sugarscape2.agents.rules.old.pollution.PollutionAbility;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p50;

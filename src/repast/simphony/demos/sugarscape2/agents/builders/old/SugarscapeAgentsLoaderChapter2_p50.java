@@ -1,9 +1,9 @@
 package repast.simphony.demos.sugarscape2.agents.builders.old;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
-import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p50;
+import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p50;
 import repast.simphony.demos.sugarscape2.agents.rules.old.pollution.PollutionAbility;
+import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 import repast.simphony.engine.environment.RunEnvironment;
 
 public class SugarscapeAgentsLoaderChapter2_p50 extends

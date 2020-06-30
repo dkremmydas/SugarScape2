@@ -1,7 +1,6 @@
 package repast.simphony.demos.sugarscape2.landscape.old;
 
 import repast.simphony.context.space.graph.NetworkBuilder;
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.space.graph.Network;
 

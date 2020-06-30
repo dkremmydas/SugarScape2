@@ -1,10 +1,10 @@
 package repast.simphony.demos.sugarscape2.agents.rules.old.death;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
-import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p37;
 import repast.simphony.demos.sugarscape2.agents.builders.old.RandomAgentFactory;
+import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p37;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p30;
+import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 
 public class DeathRule_p37 extends DeathRule_p30 {
 

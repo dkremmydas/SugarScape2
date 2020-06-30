@@ -1,8 +1,8 @@
 package repast.simphony.demos.sugarscape2.agents.builders.old;
 
-import repast.simphony.demos.sugarscape2.SimulationContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p30;
+import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 
