@@ -15,6 +15,13 @@ import repast.simphony.space.grid.RandomGridAdder;
 import repast.simphony.space.grid.WrapAroundBorders;
 import repast.simphony.valueLayer.GridValueLayer;
 
+/**
+ * The concern of this class is to create the Sugarscape {@link}Context
+ * 
+ * 
+ * @author Dimitrios Kremmydas
+ *
+ */
 public class SugarscapeBuilder implements ContextBuilder<Object>{
 
 
@@ -110,7 +117,7 @@ public class SugarscapeBuilder implements ContextBuilder<Object>{
 		DefaultContext<SugarAgent_ch2> agentsContext = new DefaultContext<SugarAgent_ch2>("agents");
 		
 		Grid<SugarAgent_ch2> sugargrid = GridFactoryFinder.createGridFactory(null)
-				.createGrid("sugar grid", agentsContext, new GridBuilderParameters<SugarAgent_ch2>(
+				.createGrid("sugarscape", agentsContext, new GridBuilderParameters<SugarAgent_ch2>(
 						new WrapAroundBorders(), new RandomGridAdder<SugarAgent_ch2>(), true, pgmreader.getxSize(),pgmreader.getySize()));
 
 
@@ -138,7 +145,9 @@ public class SugarscapeBuilder implements ContextBuilder<Object>{
 		}
 
 		
-		//2.4 add the 'agents' context and the Gird projection of 'sugargrid' to the top-level context
+		//2.4 add the 'agents' context to the top-level context
+		//		when adding the context,  the Gird projection of 'sugargrid' is added automatically, since 
+		//		they are contained inside the 'agent' context
 		//agentsContext.addProjection(sugargrid);
 		this.initialContext.addSubContext(agentsContext);
 
