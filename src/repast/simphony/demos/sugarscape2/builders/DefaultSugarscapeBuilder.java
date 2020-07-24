@@ -1,10 +1,14 @@
 package repast.simphony.demos.sugarscape2.builders;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.MetabolismRule_ch2;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
@@ -22,7 +26,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitrios Kremmydas
  *
  */
-public class SugarscapeBuilder implements ContextBuilder<Object>{
+public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 
 
 
@@ -32,12 +36,11 @@ public class SugarscapeBuilder implements ContextBuilder<Object>{
 	private Context<Object> initialContext;
 
 
-	public SugarscapeBuilder() {
+	public DefaultSugarscapeBuilder() {
 
 		//TODO[check if parameters return valid values]
 
-		this.chapter = RunEnvironment.getInstance().getParameters().getInteger("Chapter");
-		this.variant = RunEnvironment.getInstance().getParameters().getString("Variant");
+		
 
 	}
 
@@ -49,7 +52,11 @@ public class SugarscapeBuilder implements ContextBuilder<Object>{
 	@Override
 	public Context<Object> build(Context<Object> context) {
 
-		this.initialContext = context;		
+		this.initialContext = context;	
+		this.initialContext.setId("SimulationContext");
+		
+		this.chapter = RunEnvironment.getInstance().getParameters().getInteger("Chapter");
+		this.variant = RunEnvironment.getInstance().getParameters().getString("Variant");
 
 		if(this.chapter==2) {
 			if (this.variant.equalsIgnoreCase("p30")) {
@@ -128,15 +135,35 @@ public class SugarscapeBuilder implements ContextBuilder<Object>{
 		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision"); 
 		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
+		
+		String MetabolismRule_ch2_classString = RunEnvironment.getInstance().getParameters().getString("MetabolismRule");
+		Constructor<MetabolismRule_ch2> c;
+		try {
+			c = (Constructor<MetabolismRule_ch2>) Class.forName(MetabolismRule_ch2_classString).getConstructor(String.class);
+		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 
 
 		//2.3 create the agents and add them to the context and to the Grid projection
 		for(int i=0;i<n;i++) {
+			
+			MetabolismRule_ch2 mr;
+			
+			try {
+				mr = (MetabolismRule_ch2) c.newInstance("sugar level");
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 
 			SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
 					.withVisionLevel(RandomHelper.nextIntFromTo(1, maxVision))
 					.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 					.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
+					.set_SugarMetabolismRule(mr)
 					.build();
 
 			agentsContext.add(agent);

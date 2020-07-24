@@ -9,7 +9,7 @@ import org.junit.Test;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.builders.SugarscapeBuilder;
+import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.Schedule;
@@ -28,6 +28,7 @@ public class TestSugarscapeBuilder_Ch2 {
 		parms_ch2_p30.addParameter("maxVision", "maxVision",  Integer.class, 5, true);
 		parms_ch2_p30.addParameter("maxMetabolism", "maxMetabolism", Integer.class,5, true);
 		parms_ch2_p30.addParameter("maxInitEndownment", "maxInitEndownment", Integer.class, 10, true);
+		parms_ch2_p30.addParameter("MetabolismRule","MetabolismRule",String.class,"repast.simphony.demos.sugarscape2.agents.rules.MetabolismRule_ch2",true);
 		
 		
 		RunEnvironment . init ( schedule , null , parms_ch2_p30 , true );
@@ -38,14 +39,14 @@ public class TestSugarscapeBuilder_Ch2 {
 
 	@Test
 	public void builder_creation() {
-		SugarscapeBuilder builder = new SugarscapeBuilder();
+		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
 		assertNotNull(builder);
 	}
 	
 	
 	@Test
 	public void builder_build() {
-		SugarscapeBuilder builder = new SugarscapeBuilder();
+		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
 		
 		DefaultContext<Object> returned_context =  (DefaultContext<Object>) builder.build(new DefaultContext<Object>());
 		

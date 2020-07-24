@@ -24,6 +24,7 @@ public class AgentResource {
 	 */
 	int metabolism;	
 	
+	
 
 	public AgentResource(int initialEndownment, int metabolism) {
 		this.initial = initialEndownment;

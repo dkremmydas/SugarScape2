@@ -1,14 +1,16 @@
 package repast.simphony.demos.sugarscape2.agents.abilities;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.space.grid.GridPoint;
 
 public interface GatherAbility {
 	
 	/**
 	 * 
 	 * @param a {@link SugarAgent_ch2}
-	 * @return the number of sugar it will gather from the point he is located
+	 * @param g the {@link GridPoint} from which to gather the sugar
+	 * @return the quantity of sugar the agent will gather
 	 */
-	public int gather(SugarAgent_ch2 a);
+	public int gather(SugarAgent_ch2 a,GridPoint g);
 
 }

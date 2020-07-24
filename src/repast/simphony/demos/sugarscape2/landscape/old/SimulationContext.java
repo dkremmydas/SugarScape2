@@ -7,6 +7,7 @@ import org.apache.log4j.Level;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.dataLoader.ContextBuilder;
+import repast.simphony.demos.sugarscape2.agents.Landscape;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
 import repast.simphony.demos.sugarscape2.agents.builders.old.AgentLoader;
 import repast.simphony.demos.sugarscape2.landscape.old.loaders.LandscapeLoader;

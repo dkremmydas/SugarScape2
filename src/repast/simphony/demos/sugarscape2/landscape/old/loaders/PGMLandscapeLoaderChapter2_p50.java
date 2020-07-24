@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.landscape.old.loaders;
 
 
 
-import repast.simphony.demos.sugarscape2.landscape.old.Landscape;
+import repast.simphony.demos.sugarscape2.agents.Landscape;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p50;
 import repast.simphony.demos.sugarscape2.landscape.old.rules.pollution.PollutionDiffusionAbility;
 import repast.simphony.engine.environment.RunEnvironment;

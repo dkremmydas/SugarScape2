@@ -1,6 +1,6 @@
 package repast.simphony.demos.sugarscape2.landscape.old.loaders;
 
-import repast.simphony.demos.sugarscape2.landscape.old.Landscape;
+import repast.simphony.demos.sugarscape2.agents.Landscape;
 
 /**
  * A class that loads a {@link Landscape} should implement this interface
