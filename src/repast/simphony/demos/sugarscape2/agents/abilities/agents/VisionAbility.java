@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.abilities;
+package repast.simphony.demos.sugarscape2.agents.abilities.agents;
 
 import java.util.HashSet;
 import java.util.Set;

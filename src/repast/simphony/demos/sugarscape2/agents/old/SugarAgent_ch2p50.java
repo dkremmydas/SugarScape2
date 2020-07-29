@@ -1,6 +1,6 @@
 package repast.simphony.demos.sugarscape2.agents.old;
 
-import repast.simphony.demos.sugarscape2.agents.abilities.PollutionAbility;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.PollutionAbility;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p50;
 import repast.simphony.engine.schedule.ScheduledMethod;
 

@@ -1,6 +1,6 @@
 package repast.simphony.demos.sugarscape2.agents.rules.old.pollution;
 
-import repast.simphony.demos.sugarscape2.agents.abilities.PollutionAbility;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.PollutionAbility;
 import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p50;
 import repast.simphony.engine.environment.RunEnvironment;
 

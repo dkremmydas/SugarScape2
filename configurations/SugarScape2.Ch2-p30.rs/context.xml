@@ -1,4 +1,4 @@
-<context id="SimulationContext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context">
+<context id="agents" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context">
   		<projection id="sugarscape" type="grid" />
 		<projection id="sugar level" type="value layer" />
 		<projection id="sugar capacity" type="value layer" />

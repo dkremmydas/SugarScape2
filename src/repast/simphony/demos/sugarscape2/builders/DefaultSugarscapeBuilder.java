@@ -3,20 +3,19 @@ package repast.simphony.demos.sugarscape2.builders;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.management.RuntimeErrorException;
+
 import repast.simphony.context.Context;
-import repast.simphony.context.DefaultContext;
-import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.dataLoader.ContextBuilder;
+import repast.simphony.demos.sugarscape2.agents.SpaceResource;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.agents.rules.MetabolismRule_ch2;
+import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.SpaceBehavior_ch2;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
-import repast.simphony.space.grid.Grid;
-import repast.simphony.space.grid.GridBuilderParameters;
-import repast.simphony.space.grid.RandomGridAdder;
-import repast.simphony.space.grid.WrapAroundBorders;
 import repast.simphony.valueLayer.GridValueLayer;
 
 /**
@@ -33,51 +32,37 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 	private int chapter;
 	private String variant; 
 
-	private Context<Object> initialContext;
 
-
-	public DefaultSugarscapeBuilder() {
-
-		//TODO[check if parameters return valid values]
-
-		
-
-	}
-
-
-
+	
 
 
 
 	@Override
 	public Context<Object> build(Context<Object> context) {
 
-		this.initialContext = context;	
-		this.initialContext.setId("SimulationContext");
 		
 		this.chapter = RunEnvironment.getInstance().getParameters().getInteger("Chapter");
 		this.variant = RunEnvironment.getInstance().getParameters().getString("Variant");
 
 		if(this.chapter==2) {
 			if (this.variant.equalsIgnoreCase("p30")) {
-				constructChapter2_p30();				
+				return(constructChapter2_p30());				
 			}
 		}
 
 
-		return(this.initialContext);
+		throw new RuntimeErrorException(null, "The Chapter and Variant parameters provided, are not yet implemented" );
 	}
 
 
 
-	private boolean constructChapter2_p30() {
+	private SugarSpace_ch2 constructChapter2_p30() {
 
 
-		//1. create the sugarscape landscape
-		
+				
 		//1.1 read the pgm file
 		PGMReader pgmreader = new PGMReader( "./data/sugarspace.pgm");
-
+				
 
 		//1.2 create GridValueLayer of 'sugar capacity'
 		GridValueLayer landscape_sugarCapacity = new  GridValueLayer("sugar capacity", true, pgmreader.getxSize(),pgmreader.getySize());
@@ -109,11 +94,28 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 						0, 
 						x,y);
 
+		
+		//1.5 create the sugar SpaceResource
+		SpaceResource sugar = new SpaceResource(landscape_sugarCapacity, landscape_sugarLevel);
+		
+		//1.6 instatianate the SugarSpace behavior
+		String  spaceBehavior_classString = RunEnvironment.getInstance().getParameters().getString("SpaceBehavior");
+		
+		SpaceBehavior_ch2 b;
+		try {
+			b = (SpaceBehavior_ch2) Class.forName(spaceBehavior_classString).newInstance();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+			e1.printStackTrace();
+			throw new RuntimeException(e1);
+		}
+		
+		
+		
+		//1.7 create the SugarSpace
+		SugarSpace_ch2 agentsContext = new SugarSpace_ch2("agents",sugar,b);
+		
 
-		//1.5 add the above ValueLayers to the context
-		this.initialContext.addValueLayer(landscape_sugarCapacity);
-		this.initialContext.addValueLayer(landscape_sugarLevel);
-		this.initialContext.addValueLayer(landscape_pollution);
+
 		
 
 
@@ -121,11 +123,7 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		//2. create the agents
 		
 		//2.1 create the 'agents' context and the Gird projection of 'sugargrid'
-		DefaultContext<SugarAgent_ch2> agentsContext = new DefaultContext<SugarAgent_ch2>("agents");
 		
-		Grid<SugarAgent_ch2> sugargrid = GridFactoryFinder.createGridFactory(null)
-				.createGrid("sugarscape", agentsContext, new GridBuilderParameters<SugarAgent_ch2>(
-						new WrapAroundBorders(), new RandomGridAdder<SugarAgent_ch2>(), true, pgmreader.getxSize(),pgmreader.getySize()));
 
 
 		//2.2 read user parameters on the properties of the simulation (e.g. number of agents, maximum vision, etc.)
@@ -136,10 +134,10 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
 		
-		String MetabolismRule_ch2_classString = RunEnvironment.getInstance().getParameters().getString("MetabolismRule");
-		Constructor<MetabolismRule_ch2> c;
+		String agentBehavior_ch2_classString = RunEnvironment.getInstance().getParameters().getString("AgentBehavior");
+		Constructor<AgentBehavior_ch2> c;
 		try {
-			c = (Constructor<MetabolismRule_ch2>) Class.forName(MetabolismRule_ch2_classString).getConstructor(String.class);
+			c = (Constructor<AgentBehavior_ch2>) Class.forName(agentBehavior_ch2_classString).getConstructor(String.class);
 		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
@@ -149,10 +147,10 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		//2.3 create the agents and add them to the context and to the Grid projection
 		for(int i=0;i<n;i++) {
 			
-			MetabolismRule_ch2 mr;
+			AgentBehavior_ch2 mr;
 			
 			try {
-				mr = (MetabolismRule_ch2) c.newInstance("sugar level");
+				mr = (AgentBehavior_ch2) c.newInstance("sugar level");
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException e) {
 				e.printStackTrace();
@@ -167,21 +165,14 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 					.build();
 
 			agentsContext.add(agent);
-			sugargrid.getAdder().add(sugargrid, agent);
+			//agentsContext.getGrid().getAdder().add(agentsContext.getGrid(), agent);
 
 		}
 
 		
-		//2.4 add the 'agents' context to the top-level context
-		//		when adding the context,  the Gird projection of 'sugargrid' is added automatically, since 
-		//		they are contained inside the 'agent' context
-		//agentsContext.addProjection(sugargrid);
-		this.initialContext.addSubContext(agentsContext);
-
-
 
 		//3. if everything is ok, return true
-		return true;
+		return agentsContext;
 
 	}
 

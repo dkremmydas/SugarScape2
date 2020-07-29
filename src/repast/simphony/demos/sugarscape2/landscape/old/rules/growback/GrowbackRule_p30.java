@@ -1,5 +1,6 @@
 package repast.simphony.demos.sugarscape2.landscape.old.rules.growback;
 
+import repast.simphony.demos.sugarscape2.agents.abilities.space.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeResource;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p30;
 import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;

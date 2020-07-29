@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.abilities;
+package repast.simphony.demos.sugarscape2.agents.abilities.agents;
 
 import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p50;
 import repast.simphony.valueLayer.GridValueLayer;

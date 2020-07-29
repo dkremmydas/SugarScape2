@@ -8,9 +8,9 @@ import java.util.Set;
 
 import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.agents.abilities.GatherAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.MovementAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.VisionAbility;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.GatherAbility;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.MovementAbility;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.VisionAbility;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.engine.environment.RunState;
 import repast.simphony.space.grid.DefaultGrid;
@@ -18,7 +18,7 @@ import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 import repast.simphony.valueLayer.ValueLayer;
 
-public class MetabolismRule_ch2 implements VisionAbility,MovementAbility,GatherAbility {
+public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAbility {
 	
 	
 	private DefaultContext<SugarAgent_ch2> context ;
@@ -32,8 +32,7 @@ public class MetabolismRule_ch2 implements VisionAbility,MovementAbility,GatherA
 	
 	
 	
-	@SuppressWarnings("unchecked")
-	public MetabolismRule_ch2(String valueLayerName) {
+	public AgentBehavior_ch2(String valueLayerName) {
 		this.valueLayerName=valueLayerName;
 	}	
 	
@@ -105,6 +104,7 @@ public class MetabolismRule_ch2 implements VisionAbility,MovementAbility,GatherA
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	private void setReferences() {
 		
 		if(this.context==null) {
