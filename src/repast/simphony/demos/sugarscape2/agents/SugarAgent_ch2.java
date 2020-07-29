@@ -2,11 +2,8 @@ package repast.simphony.demos.sugarscape2.agents;
 
 import java.util.Set;
 
-import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2;
-import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.ScheduledMethod;
-import repast.simphony.space.grid.DefaultGrid;
 import repast.simphony.space.grid.GridPoint;
 
 public class SugarAgent_ch2 {
@@ -46,6 +43,10 @@ public class SugarAgent_ch2 {
 	// Rules
 	protected AgentBehavior_ch2 behavior;	
 	
+	
+	
+	//keep a reference to the context
+	protected SugarSpace_ch2 context;
 		
 		
 
@@ -69,9 +70,18 @@ public class SugarAgent_ch2 {
 	}
 	
 	
+	public SugarSpace_ch2 getContext() {
+		return context;
+	}
+
+
+
+
+	
+	
 	/* Scheduled actions of the agent */
 	
-	@SuppressWarnings("unchecked")
+
 	@ScheduledMethod(start=1d,interval=5d)
 	public void applyRuleM() {
 		
@@ -80,8 +90,7 @@ public class SugarAgent_ch2 {
 		
 		GridPoint new_position = this.behavior.move(this, points_seen);
 		
-		DefaultContext<SugarAgent_ch2>context = (DefaultContext<SugarAgent_ch2>) RunState.getInstance().getMasterContext().getSubContext("agents"); 
-		((DefaultGrid<SugarAgent_ch2>) context.getProjection("sugarscape")).moveTo(this, new_position.getX(),new_position.getY());
+		context.getGrid().moveTo(this, new_position.getX(),new_position.getY());
 		
 		this.sugar.store(this.behavior.gather(this, new_position));
 		
@@ -93,6 +102,8 @@ public class SugarAgent_ch2 {
 		}
 					
 	}
+	
+	
 	
 	
 	
@@ -112,13 +123,15 @@ public class SugarAgent_ch2 {
 	 	private int visionLevel;
 	 	private int sugarInitial;
 	 	private int sugarMetabolism;
+	 	private SugarSpace_ch2 context;
 		
 		// Rules
 	 	private AgentBehavior_ch2 behavior_builder;
 
 	 	
-        public Builder(String id) {
+        public Builder(String id,SugarSpace_ch2 context) {
         	this.id=id;
+        	this.context=context;
         }
         
         public SugarAgent_ch2 build() {
@@ -126,6 +139,7 @@ public class SugarAgent_ch2 {
         	
         	//TODO check that all required fields have been defined
         	
+        	ag.context=this.context;
         	ag.id=this.id;
         	ag.levelOfVision = this.visionLevel;
         	ag.sugar = new AgentResource(this.sugarInitial, this.sugarMetabolism);

@@ -87,12 +87,24 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		return taken;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public SpaceResource getSugar() {
 		return sugar;
 	}
+
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public Grid<Object> getGrid() {
+		return grid;
+	}
 	
-	
+		
 	
 
 	

@@ -1,12 +1,8 @@
-/**
- * 
- */
 package repast.simphony.demos.sugarscape2.tests;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,23 +11,19 @@ import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2;
 import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.environment.RunState;
-import repast.simphony.engine.schedule.ISchedulableAction;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
 import repast.simphony.space.grid.GridPoint;
 
-/**
- * @author jkr
- *
- */
-public class TestSugarAgent_ch2 {
-	
+public class TestAgentBehavior_ch2 {
 
 	SugarSpace_ch2 context;
 	SugarAgent_ch2 a;
+	AgentBehavior_ch2 b;
 
 	/**
 	 * @throws java.lang.Exception
@@ -59,44 +51,33 @@ public class TestSugarAgent_ch2 {
 		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
 		this.context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
 		this.a = (SugarAgent_ch2) this.context.getObjects(SugarAgent_ch2.class).get(0);
+		this.b = new AgentBehavior_ch2("sugar level");
 	}
 
 
+
+	@Test
+	public void testSetReferences() {
+		Object s = RunState.getInstance().getMasterContext();
+		assertEquals( "repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2",s.getClass().toString() );
+		System.out.println(s.getClass().toString());
+	}
 	
-
-	/**
-	 * Test method for {@link repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2#SugarAgent_ch2()}.
-	 */
-	@Test
-	public void testSugarAgent_ch2() {
-		assertNotNull(a);
-	}
-
-	/**
-	 * Test method for {@link repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2#applyRuleM()}.
-	 */
-	@Test
-	public void HasScheduledActions() {
-		List<ISchedulableAction> sa = RunEnvironment.getInstance().getCurrentSchedule().schedule(a);
-		assertNotNull(sa);
-		System.out.println(sa);
-	}
 	
 	@Test
-	public void testapplyRuleM() {
-		GridPoint old_position = this.context.getGrid().getLocation(this.a);
-		this.a.applyRuleM();
-		GridPoint new_position = this.context.getGrid().getLocation(this.a);	
-		
-		assertNotEquals(old_position, new_position);
-		System.out.println("Old position: ("+old_position.getX()+
-				","+old_position.getY()+
-				") / New positions: ("+
-				new_position.getX()+","
-				+new_position.getY()+")"
-				);
+	public void testSee() {
+		Set<GridPoint> seen = this.b.see(a);
+		assertNotNull(seen);
 	}
-	
-	
+
+	@Test
+	public void testMove() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGather() {
+		fail("Not yet implemented");
+	}
 
 }

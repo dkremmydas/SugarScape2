@@ -28,12 +28,8 @@ import repast.simphony.valueLayer.GridValueLayer;
 public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 
 
-
 	private int chapter;
 	private String variant; 
-
-
-	
 
 
 
@@ -117,16 +113,9 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 
 
 		
-
-
-
 		//2. create the agents
 		
-		//2.1 create the 'agents' context and the Gird projection of 'sugargrid'
-		
-
-
-		//2.2 read user parameters on the properties of the simulation (e.g. number of agents, maximum vision, etc.)
+		//2.1 read user parameters on the properties of the simulation (e.g. number of agents, maximum vision, etc.)
 		int n=RunEnvironment.getInstance().getParameters().getInteger("numberOfAgents");
 		RandomHelper.createUniform();
 
@@ -144,7 +133,7 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		}
 
 
-		//2.3 create the agents and add them to the context and to the Grid projection
+		//2.2 create the agents and add them to the context and to the Grid projection
 		for(int i=0;i<n;i++) {
 			
 			AgentBehavior_ch2 mr;
@@ -157,7 +146,7 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 				throw new RuntimeException(e);
 			}
 
-			SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
+			SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
 					.withVisionLevel(RandomHelper.nextIntFromTo(1, maxVision))
 					.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 					.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))

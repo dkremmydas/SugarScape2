@@ -9,6 +9,7 @@ import org.junit.Test;
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.environment.RunState;
@@ -50,8 +51,9 @@ public class TestSugarscapeBuilder_Ch2 {
 	public void builder_build() {
 		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
 		
-		DefaultContext<Object> returned_context =  (DefaultContext<Object>) builder.build(new DefaultContext<Object>());
-			
+		SugarSpace_ch2 returned_context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
+		
+					
 		assertNotNull("'sugar capacity' ValueLayer has been added",returned_context.getValueLayer("sugar capacity"));
 		
 		assertEquals(400, returned_context.getObjects(SugarAgent_ch2.class).size());
