@@ -10,11 +10,12 @@ import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.SpaceResource;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2;
-import repast.simphony.demos.sugarscape2.agents.rules.SpaceBehavior_ch2;
+import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
+import repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -108,7 +109,7 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		
 		
 		//1.7 create the SugarSpace
-		SugarSpace_ch2 agentsContext = new SugarSpace_ch2("agents",sugar,b);
+		SugarSpace_ch2 agentsContext = new SugarSpace_ch2(sugar,b);
 		
 
 
@@ -134,6 +135,8 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 
 
 		//2.2 create the agents and add them to the context and to the Grid projection
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
+		
 		for(int i=0;i<n;i++) {
 			
 			AgentBehavior_ch2 mr;
@@ -153,8 +156,8 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 					.set_SugarMetabolismRule(mr)
 					.build();
 
-			agentsContext.add(agent);
-			//agentsContext.getGrid().getAdder().add(agentsContext.getGrid(), agent);
+			agentsContext.add(agent);			
+			schedule.schedule(agent); //TODO why do we have to add the annotated methods to the schedule manually?
 
 		}
 

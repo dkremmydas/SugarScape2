@@ -1,10 +1,13 @@
-package repast.simphony.demos.sugarscape2.agents.rules;
+package repast.simphony.demos.sugarscape2.agents.behaviors;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.google.common.collect.Iterables;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.abilities.agents.GatherAbility;
@@ -36,7 +39,21 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 	@Override
 	public Set<GridPoint> see(SugarAgent_ch2 a) {
 		
-		return NeighbourhoodFunctions.getVonNeumanPoints(a.getContext().getGrid().getLocation(a), a.getContext().getGrid(), a.getVisionLevel());
+		//add neighboring points
+		Set<GridPoint> seen_all = NeighbourhoodFunctions.getVonNeumanPoints(a.getContext().getGrid().getLocation(a), a.getContext().getGrid(), a.getVisionLevel());
+	
+		Set<GridPoint> seen_empty = new HashSet<GridPoint>();
+		//remove occupied space
+		for(GridPoint s : seen_all) {
+			if(  Iterables.size(a.getContext().getGrid().getObjectsAt(s.getX(),s.getY()))==0 ) {
+				seen_empty.add(s);
+			}
+		}
+		
+		//add the location of the agent
+		seen_empty.add(a.getContext().getGrid().getLocation(a));
+		
+		return seen_empty;
 		
 	}
 	

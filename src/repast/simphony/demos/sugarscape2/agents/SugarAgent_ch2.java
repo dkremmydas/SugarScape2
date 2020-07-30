@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.agents;
 
 import java.util.Set;
 
-import repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2;
+import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;
 
@@ -38,19 +38,20 @@ public class SugarAgent_ch2 {
 	 */
 	protected boolean isAlive = true;
 	
-	
-	
-	// Rules
+	/**
+	 * The behavior of the Agent 
+	 */
 	protected AgentBehavior_ch2 behavior;	
 	
-	
-	
-	//keep a reference to the context
+	/**
+	 * Reference to the context
+	 */
 	protected SugarSpace_ch2 context;
 		
 		
-
-	//Set a private constructor, so that creating agents is forced through the Builder design pattern
+	/**
+	 * Set a private constructor, so that creating agents is forced through the Builder design pattern 
+	 */
 	protected SugarAgent_ch2() {};
 	
 
@@ -69,11 +70,18 @@ public class SugarAgent_ch2 {
 		return this.sugar.getMetabolism();
 	}
 	
+	public boolean isAlive() {
+		return isAlive;
+	}
+	
 	
 	public SugarSpace_ch2 getContext() {
 		return context;
 	}
-
+	
+	
+	
+	
 
 
 
@@ -81,6 +89,26 @@ public class SugarAgent_ch2 {
 	
 	/* Scheduled actions of the agent */
 	
+
+	@Override
+	public String toString() {
+		
+		int x = this.context.getGrid().getLocation(this).getX(); 
+		int y = this.context.getGrid().getLocation(this).getY();
+		
+		String r = "{Id:"+this.id+", Vision: "+this.levelOfVision +
+				", Sugar.metab: " + this.sugar.metabolism + 
+				", Sugar.hold: " + this.sugar.holding + 
+				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.getSugar().getHolding().get(x,y)+"]"+
+				"}";
+		
+		
+		
+		return r;
+	}
+
+
+
 
 	@ScheduledMethod(start=1d,interval=5d)
 	public void applyRuleM() {
@@ -96,7 +124,7 @@ public class SugarAgent_ch2 {
 		
 		if(this.getSugarWealth() < this.sugar.getMetabolism()) {
 			this.isAlive=false;
-			context.remove(this);
+			this.context.remove(this);			
 		} else {
 			this.sugar.use(this.getMetabolism());
 		}

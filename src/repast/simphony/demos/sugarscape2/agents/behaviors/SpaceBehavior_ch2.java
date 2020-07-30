@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.rules;
+package repast.simphony.demos.sugarscape2.agents.behaviors;
 
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.agents.abilities.space.GrowbackAbility;

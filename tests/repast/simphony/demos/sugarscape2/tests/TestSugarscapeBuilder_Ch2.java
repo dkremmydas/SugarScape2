@@ -29,9 +29,9 @@ public class TestSugarscapeBuilder_Ch2 {
 		parms_ch2_p30.addParameter("maxVision", "maxVision",  Integer.class, 5, true);
 		parms_ch2_p30.addParameter("maxMetabolism", "maxMetabolism", Integer.class,5, true);
 		parms_ch2_p30.addParameter("maxInitEndownment", "maxInitEndownment", Integer.class, 10, true);
-		parms_ch2_p30.addParameter("MetabolismRule","MetabolismRule",String.class,"repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2",true);
-		parms_ch2_p30.addParameter("AgentBehavior","AgentBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2",true);
-		parms_ch2_p30.addParameter("SpaceBehavior","SpaceBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.rules.SpaceBehavior_ch2",true);
+		parms_ch2_p30.addParameter("MetabolismRule","MetabolismRule",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2",true);
+		parms_ch2_p30.addParameter("AgentBehavior","AgentBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2",true);
+		parms_ch2_p30.addParameter("SpaceBehavior","SpaceBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2",true);
 		
 		
 		RunEnvironment . init ( schedule , null , parms_ch2_p30 , true );
@@ -56,7 +56,9 @@ public class TestSugarscapeBuilder_Ch2 {
 					
 		assertNotNull("'sugar capacity' ValueLayer has been added",returned_context.getValueLayer("sugar capacity"));
 		
-		assertEquals(400, returned_context.getObjects(SugarAgent_ch2.class).size());
+		assertEquals("Number of Agents", 400, returned_context.getObjects(SugarAgent_ch2.class).size());
+		
+		assertEquals("Number of Behaviors", 400, RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 	}
 	
 	

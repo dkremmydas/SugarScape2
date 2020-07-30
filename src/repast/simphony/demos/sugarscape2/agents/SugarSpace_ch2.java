@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.agents;
 
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactoryFinder;
-import repast.simphony.demos.sugarscape2.agents.rules.SpaceBehavior_ch2;
+import repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
@@ -30,8 +30,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	protected Grid<Object> grid;
 		
 
-	public SugarSpace_ch2(Object name,SpaceResource sugar,SpaceBehavior_ch2 behavior ) {
-		super(name);
+	public SugarSpace_ch2(SpaceResource sugar,SpaceBehavior_ch2 behavior ) {
+		super("sugarspace");
 		
 		this.sugar = sugar;
 		this.addValueLayer(sugar.capacity);

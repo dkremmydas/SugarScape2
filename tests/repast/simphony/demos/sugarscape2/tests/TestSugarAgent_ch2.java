@@ -47,9 +47,9 @@ public class TestSugarAgent_ch2 {
 		parms_ch2_p30.addParameter("maxVision", "maxVision",  Integer.class, 5, true);
 		parms_ch2_p30.addParameter("maxMetabolism", "maxMetabolism", Integer.class,5, true);
 		parms_ch2_p30.addParameter("maxInitEndownment", "maxInitEndownment", Integer.class, 10, true);
-		parms_ch2_p30.addParameter("MetabolismRule","MetabolismRule",String.class,"repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2",true);
-		parms_ch2_p30.addParameter("AgentBehavior","AgentBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.rules.AgentBehavior_ch2",true);
-		parms_ch2_p30.addParameter("SpaceBehavior","SpaceBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.rules.SpaceBehavior_ch2",true);
+		parms_ch2_p30.addParameter("MetabolismRule","MetabolismRule",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2",true);
+		parms_ch2_p30.addParameter("AgentBehavior","AgentBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2",true);
+		parms_ch2_p30.addParameter("SpaceBehavior","SpaceBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2",true);
 		
 		
 		RunEnvironment . init ( schedule , null , parms_ch2_p30 , true );
@@ -73,7 +73,7 @@ public class TestSugarAgent_ch2 {
 	}
 
 	/**
-	 * Test method for {@link repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2#applyRuleM()}.
+	 * Test to verify the number of scheduled actions.
 	 */
 	@Test
 	public void HasScheduledActions() {
@@ -82,19 +82,30 @@ public class TestSugarAgent_ch2 {
 		System.out.println(sa);
 	}
 	
+	/**
+	 * Test method for {@link repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2#applyRuleM()}.
+	 */
 	@Test
 	public void testapplyRuleM() {
 		GridPoint old_position = this.context.getGrid().getLocation(this.a);
+		System.out.println("Agent before Move:\n"+a.toString()+"\n");
 		this.a.applyRuleM();
-		GridPoint new_position = this.context.getGrid().getLocation(this.a);	
+		System.out.println("Agent after Move:\n"+a.toString()+"\n");
 		
-		assertNotEquals(old_position, new_position);
-		System.out.println("Old position: ("+old_position.getX()+
-				","+old_position.getY()+
-				") / New positions: ("+
-				new_position.getX()+","
-				+new_position.getY()+")"
-				);
+		if(this.a.isAlive()) {
+			GridPoint new_position = this.context.getGrid().getLocation(this.a);	
+			
+			assertNotEquals(old_position, new_position);
+			System.out.println("Old position: ("+old_position.getX()+
+					","+old_position.getY()+
+					") / New positions: ("+
+					new_position.getX()+","
+					+new_position.getY()+")"
+					);
+		} else {
+			System.out.println("The agent died");
+		}
+		
 	}
 	
 	
