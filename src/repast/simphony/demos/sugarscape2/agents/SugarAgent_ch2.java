@@ -6,6 +6,13 @@ import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;
 
+
+/**
+ * 
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public class SugarAgent_ch2 {
 	
 	
@@ -79,16 +86,7 @@ public class SugarAgent_ch2 {
 		return context;
 	}
 	
-	
-	
-	
 
-
-
-	
-	
-	/* Scheduled actions of the agent */
-	
 
 	@Override
 	public String toString() {
@@ -106,9 +104,12 @@ public class SugarAgent_ch2 {
 		
 		return r;
 	}
+	
 
-
-
+	
+	
+	/* Scheduled actions of the agent */
+	
 
 	@ScheduledMethod(start=1d,interval=5d)
 	public void applyRuleM() {
@@ -116,19 +117,22 @@ public class SugarAgent_ch2 {
 		
 		Set<GridPoint> points_seen = this.behavior.see(this);
 		
-		GridPoint new_position = this.behavior.move(this, points_seen);
+		GridPoint new_pos = this.behavior.move(this, points_seen);
 		
-		context.getGrid().moveTo(this, new_position.getX(),new_position.getY());
+		context.getGrid().moveTo(this, new_pos.getX(),new_pos.getY());
 		
-		this.sugar.store(this.behavior.gather(this, new_position));
+		int sugar_gathered = this.behavior.gather(this, new_pos);
 		
-		if(this.getSugarWealth() < this.sugar.getMetabolism()) {
+		this.sugar.store(sugar_gathered);
+		this.context.sugar.gatherFromXY(new_pos.getX(), new_pos.getY(), sugar_gathered);
+		
+		this.sugar.use(this.getMetabolism());
+		
+		//die if sugar holding<0
+		if(this.getSugarWealth() < 0) {
 			this.isAlive=false;
 			this.context.remove(this);			
-		} else {
-			this.sugar.use(this.getMetabolism());
-		}
-					
+		} 			
 	}
 	
 	
@@ -141,7 +145,7 @@ public class SugarAgent_ch2 {
 	/**
 	 * Builder design pattern
 	 * 
-	 * @author jkr
+	 * @author Dimitris Kremmydas
 	 *
 	 */
 	public static class Builder {

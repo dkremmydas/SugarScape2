@@ -18,10 +18,15 @@ import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 import repast.simphony.valueLayer.ValueLayer;
 
+
+/**
+ * Methods of this class should not change the state of agents
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAbility {
 	
-	
-
 	
 	/**
 	 * The name of the {@link ValueLayer} of the resource
@@ -39,8 +44,10 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 	@Override
 	public Set<GridPoint> see(SugarAgent_ch2 a) {
 		
+		GridPoint agent_loc = a.getContext().getGrid().getLocation(a);
+		
 		//add neighboring points
-		Set<GridPoint> seen_all = NeighbourhoodFunctions.getVonNeumanPoints(a.getContext().getGrid().getLocation(a), a.getContext().getGrid(), a.getVisionLevel());
+		Set<GridPoint> seen_all = NeighbourhoodFunctions.getVonNeumanPoints(agent_loc, a.getContext().getGrid(), a.getVisionLevel());
 	
 		Set<GridPoint> seen_empty = new HashSet<GridPoint>();
 		//remove occupied space
@@ -87,14 +94,9 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 		});
 
 		
-		//3. Return the GridPoint that is higher in the list and no one else is there
-
-		for(GridPoint gp: gps) {
-			if(! a.getContext().getGrid().getObjectsAt(gp.getX(),gp.getY()).iterator().hasNext()) return gp;
-		}
-		
-		//4. If everything else is occupied by others, stay at the same point
-		return myPoint;
+		//3. Return the GridPoint that is higher in the list
+		//	 Since the points passed to the method contain only empty GridPoints, we do not check for emptyness
+		return gps.get(0);
 	}
 		
 

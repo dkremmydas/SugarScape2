@@ -1,10 +1,11 @@
 package repast.simphony.demos.sugarscape2.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Set;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import repast.simphony.context.Context;
@@ -21,15 +22,15 @@ import repast.simphony.space.grid.GridPoint;
 
 public class TestAgentBehavior_ch2 {
 
-	SugarSpace_ch2 context;
-	SugarAgent_ch2 a;
-	AgentBehavior_ch2 b;
+	static SugarSpace_ch2 context;
+	static SugarAgent_ch2 a;
+	static AgentBehavior_ch2 b;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@Before
-	public void setUp () throws Exception {
+	@BeforeClass
+	public static void setUp () throws Exception {
 		Schedule schedule = new Schedule ();
 		
 		DefaultParameters parms_ch2_p30 = new DefaultParameters();
@@ -49,9 +50,9 @@ public class TestAgentBehavior_ch2 {
 		RunState.init().setMasterContext (context);
 		
 		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
-		this.context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
-		this.a = (SugarAgent_ch2) this.context.getObjects(SugarAgent_ch2.class).get(0);
-		this.b = new AgentBehavior_ch2("sugar level");
+		context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
+		a = (SugarAgent_ch2) context.getObjects(SugarAgent_ch2.class).get(0);
+		b = new AgentBehavior_ch2("sugar level");
 	}
 
 
@@ -60,35 +61,41 @@ public class TestAgentBehavior_ch2 {
 	public void testSetReferences() {
 		Object s = a.getContext();
 		assertEquals( "class repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2",s.getClass().toString() );
-		System.out.println(s.getClass().toString());
 	}
 	
 	
 	@Test
 	public void testSee() {
+		
+		System.out.println("Agent @ testSee: " + a);		
+		
 		Set<GridPoint> seen = this.b.see(a);
 		assertNotNull(seen);
 		
 		System.out.println("Points seen:");
-		
 		for(GridPoint s: seen) {
 			System.out.printf(" (%d,%d,s=%d) ",s.getX(),s.getY(),a.getContext().getSugar().availableAtXY(s.getX(), s.getY()));
 		}
+		System.out.println();
 		
 	}
 
 	@Test
 	public void testMove() {
 		
+		System.out.println("Agent @ testMove: " + a);
+		
 		GridPoint old_pos = a.getContext().getGrid().getLocation(a);		
 		GridPoint new_pos = b.move(a, b.see(a));
 		
-		assertNotEquals(old_pos, new_pos);		
+		assertNotNull(new_pos);		
 				
 	}
 
 	@Test
 	public void testGather() {
+		
+		System.out.println("Agent before moving: " + a);
 		
 		GridPoint old_pos = a.getContext().getGrid().getLocation(a);		
 		GridPoint new_pos = b.move(a, b.see(a));
@@ -98,13 +105,12 @@ public class TestAgentBehavior_ch2 {
 		
 		int old_agent_sugar = a.getSugarWealth();
 		
-		System.out.println(a);
 		System.out.printf("Sugar before moving: %n Point from (%d,%d)=%d / Point to (%d,%d)=%d %n ",
 				old_pos.getX(),old_pos.getY(),old_pos_sugar,new_pos.getX(),new_pos.getY(),new_pos_sugar);
 		
-		context.getGrid().moveTo(a, new_pos.getX(),new_pos.getY());
-		
-		assertEquals("Gather all sugar", new_pos_sugar, b.gather(a, b.move(a, b.see(a))));
+		int sugar_gathered = b.gather(a, b.move(a, b.see(a)));
+		System.out.printf("Sugar Gathered: %d%n",sugar_gathered);
+		assertEquals("Gather all sugar", new_pos_sugar, sugar_gathered);
 		
 		//apply ruleM
 		a.applyRuleM();
@@ -119,6 +125,8 @@ public class TestAgentBehavior_ch2 {
 			
 			
 			assertEquals("Expected change of agent's sugar wealth",old_agent_sugar-a.getMetabolism()+new_pos_sugar, new_agent_sugar);
+			
+			System.out.println("Agent after moving: " +a);
 		}
 		else {
 			System.out.println("Agent died. Rerun the test.");

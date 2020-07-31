@@ -39,30 +39,20 @@ public class AgentResource {
 	 * @param int quantity
 	 * @return int The quantity of resource that has been subtracted from the resource olding
 	 */
-	public int use (int quantity) {
-		int used = 0;
-		
-		if(quantity<0) {
-			used=0;
-		}
-		else if(quantity>this.holding) {
-			used = this.holding;
-		} else {
-			used=quantity;
-		}
-		
-		this.holding =- used;
-		return(used);
-	}
-	
-	public void store(int quantity) {
-		int stored = 0;
+	public void use (int quantity) {
 		
 		if(quantity>0) {
-			stored=quantity;
-		}
+			holding -= quantity;
+		}	
+
+	}
+	
+	public void store(int quantity) {	
 		
-		this.holding =+ stored;
+		if(quantity>0) {
+			holding += quantity;
+		}		
+		
 	}
 
 	

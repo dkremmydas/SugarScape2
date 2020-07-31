@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import repast.simphony.context.Context;
@@ -18,8 +19,8 @@ import repast.simphony.parameter.DefaultParameters;
 
 public class TestSugarscapeBuilder_Ch2 {
 	
-	@Before
-	public void setUp () throws Exception {
+	@BeforeClass
+	public static void setUp () throws Exception {
 		Schedule schedule = new Schedule ();
 		
 		DefaultParameters parms_ch2_p30 = new DefaultParameters();
