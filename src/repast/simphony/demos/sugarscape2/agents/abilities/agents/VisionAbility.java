@@ -10,7 +10,9 @@ public interface VisionAbility {
 	
 
 	/**
-	 * 
+	 * The {@link GridPoint}s that the agent can see
+	 * It shall not contain the position where the agent is
+	 * It shall not contain points occupied by other agents
 	 * @param a
 	 * @return a {@link HashSet} of {@link GridPoint}s that the agent is able to see
 	 */

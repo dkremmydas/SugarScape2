@@ -85,7 +85,7 @@ public class TestAgentBehavior_ch2 {
 		
 		System.out.println("Agent @ testMove: " + a);
 		
-		GridPoint old_pos = a.getContext().getGrid().getLocation(a);		
+		GridPoint old_pos = a.getCurrentPosition();		
 		GridPoint new_pos = b.move(a, b.see(a));
 		
 		assertNotNull(new_pos);		
@@ -97,7 +97,7 @@ public class TestAgentBehavior_ch2 {
 		
 		System.out.println("Agent before moving: " + a);
 		
-		GridPoint old_pos = a.getContext().getGrid().getLocation(a);		
+		GridPoint old_pos = a.getCurrentPosition();		
 		GridPoint new_pos = b.move(a, b.see(a));
 		
 		int old_pos_sugar = a.getContext().getSugar().availableAtXY(old_pos.getX(), old_pos.getY());

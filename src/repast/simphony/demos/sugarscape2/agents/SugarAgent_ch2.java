@@ -2,9 +2,11 @@ package repast.simphony.demos.sugarscape2.agents;
 
 import java.util.Set;
 
+import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;
+import repast.simphony.util.ContextUtils;
 
 
 /**
@@ -86,13 +88,17 @@ public class SugarAgent_ch2 {
 		return context;
 	}
 	
+	public GridPoint getCurrentPosition() {
+		return this.context.grid.getLocation(this);
+	}
+	
 
 
 	@Override
 	public String toString() {
 		
-		int x = this.context.getGrid().getLocation(this).getX(); 
-		int y = this.context.getGrid().getLocation(this).getY();
+		int x = this.getCurrentPosition().getX(); 
+		int y = this.getCurrentPosition().getY();
 		
 		String r = "{Id:"+this.id+", Vision: "+this.levelOfVision +
 				", Sugar.metab: " + this.sugar.metabolism + 
@@ -114,27 +120,35 @@ public class SugarAgent_ch2 {
 	@ScheduledMethod(start=1d,interval=5d)
 	public void applyRuleM() {
 		
-		
-		Set<GridPoint> points_seen = this.behavior.see(this);
-		
-		GridPoint new_pos = this.behavior.move(this, points_seen);
-		
-		context.getGrid().moveTo(this, new_pos.getX(),new_pos.getY());
-		
-		int sugar_gathered = this.behavior.gather(this, new_pos);
-		
-		this.sugar.store(sugar_gathered);
-		this.context.sugar.gatherFromXY(new_pos.getX(), new_pos.getY(), sugar_gathered);
-		
-		this.sugar.use(this.getMetabolism());
-		
-		//die if sugar holding<0
-		if(this.getSugarWealth() < 0) {
-			this.isAlive=false;
-			this.context.remove(this);			
-		} 			
+		if(isAlive) {
+			Set<GridPoint> points_seen = this.behavior.see(this);
+			
+			GridPoint new_pos = this.behavior.move(this, points_seen);
+			
+			context.getGrid().moveTo(this, new_pos.getX(),new_pos.getY());
+			
+			int sugar_gathered = this.behavior.gather(this, new_pos);
+			
+			this.sugar.store(sugar_gathered);
+			this.context.sugar.gatherFromXY(new_pos.getX(), new_pos.getY(), sugar_gathered);
+			
+			this.sugar.use(this.getMetabolism());
+			
+			//die if sugar holding<0
+			if(this.getSugarWealth() < 0) {
+				this.die();		
+			} 	
+		}
+				
 	}
 	
+	
+	
+	private void die() {
+		this.isAlive=false;
+		this.context.remove(this);	
+		//System.out.println("DIED: " + this);
+	}
 	
 	
 	
