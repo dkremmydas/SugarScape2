@@ -44,7 +44,7 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 	@Override
 	public Set<GridPoint> see(SugarAgent_ch2 a) {
 		
-		GridPoint agent_loc = a.getContext().getGrid().getLocation(a);
+		GridPoint agent_loc = a.getCurrentPosition();
 		
 		//add neighboring points
 		Set<GridPoint> seen_all = NeighbourhoodFunctions.getVonNeumanPoints(agent_loc, a.getContext().getGrid(), a.getVisionLevel());
@@ -57,10 +57,12 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 			}
 		}
 		
-		//add the location of the agent
-		seen_empty.add(a.getContext().getGrid().getLocation(a));
+		if(seen_empty.size()==0) {
+			seen_empty.add(a.getCurrentPosition());
+		}
 		
 		return seen_empty;
+		
 		
 	}
 	
@@ -72,7 +74,7 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 		//1. Get points that the agent can sees
 		List<GridPoint> gps = new ArrayList<GridPoint>(gs);
 		
-		GridPoint myPoint = a.getContext().getGrid().getLocation(a);
+		GridPoint myPoint = a.getCurrentPosition();
 		
 		
 		//2. Sort the points by available quantity

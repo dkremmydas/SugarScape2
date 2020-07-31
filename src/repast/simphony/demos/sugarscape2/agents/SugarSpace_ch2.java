@@ -49,7 +49,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	}
 
 	// The actual implementation of growback rule G, pg 182 (Appendix B).
-	@ScheduledMethod(start=0,interval=1)
+	@ScheduledMethod(start=2d,interval=5d)
 	public void updateSugar() {	
 		
 		GridValueLayer sugarHoldingNew = this.behavior.growback(this);
@@ -103,6 +103,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public Grid<Object> getGrid() {
 		return grid;
 	}
+	
+	
+	
 	
 		
 	
