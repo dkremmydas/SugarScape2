@@ -6,9 +6,12 @@ import repast.simphony.valueLayer.GridValueLayer;
 public interface GrowbackAbility {
 
 	/**
-	 * Returns the new amount of Sugar (e.g. old amount + growback)
+	 * Returns the new amount of Sugar (e.g. old amount + growback rate) 
+	 * 
+	 * @param s the SugarSpace agent
+	 * @param rate the rate of growback. If ==-1, then growback to capacity
 	 * @return
 	 */
-	public GridValueLayer growback(SugarSpace_ch2 s);
+	public GridValueLayer growback(SugarSpace_ch2 s, int rate);
 	
 }

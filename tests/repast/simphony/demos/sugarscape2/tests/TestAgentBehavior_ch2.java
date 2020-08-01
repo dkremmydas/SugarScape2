@@ -43,7 +43,7 @@ public class TestAgentBehavior_ch2 {
 		parms_ch2_p30.addParameter("MetabolismRule","MetabolismRule",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2",true);
 		parms_ch2_p30.addParameter("AgentBehavior","AgentBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2",true);
 		parms_ch2_p30.addParameter("SpaceBehavior","SpaceBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2",true);
-		
+		parms_ch2_p30.addParameter("regenerationRate", "regenerationRate", Integer.class, 3, true);
 		
 		RunEnvironment . init ( schedule , null , parms_ch2_p30 , true );
 		Context<Object> context = new DefaultContext<Object>();

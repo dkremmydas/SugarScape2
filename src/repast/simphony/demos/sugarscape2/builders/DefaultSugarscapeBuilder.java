@@ -109,7 +109,9 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		
 		
 		//1.7 create the SugarSpace
-		SugarSpace_ch2 agentsContext = new SugarSpace_ch2(sugar,b);
+		int sugar_regeneration_rate = RunEnvironment.getInstance().getParameters().getInteger("regenerationRate");
+		
+		SugarSpace_ch2 agentsContext = new SugarSpace_ch2(sugar,b,sugar_regeneration_rate);
 		
 
 

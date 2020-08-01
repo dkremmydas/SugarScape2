@@ -6,12 +6,18 @@ import repast.simphony.valueLayer.GridValueLayer;
 
 public class SpaceBehavior_ch2 implements GrowbackAbility{
 	
-	
+		
 
 	@Override
-	public GridValueLayer growback(SugarSpace_ch2 s) {
+	public GridValueLayer growback(SugarSpace_ch2 s,int rate) {
 
-		return s.getSugar().getCapacity();
+		if(rate<0) {
+			return s.getSugar().getCapacity();
+		} else {
+			s.getSugar().addEverywhere(rate);
+			return s.getSugar().getHolding();
+		}
+		
 	}
 	
 	

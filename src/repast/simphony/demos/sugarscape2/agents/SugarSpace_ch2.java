@@ -28,9 +28,11 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	protected SpaceBehavior_ch2 behavior;
 	
 	protected Grid<Object> grid;
+	
+	protected int regeneration_rate;
 		
 
-	public SugarSpace_ch2(SpaceResource sugar,SpaceBehavior_ch2 behavior ) {
+	public SugarSpace_ch2(SpaceResource sugar,SpaceBehavior_ch2 behavior, int regeneration_rate) {
 		super("sugarspace");
 		
 		this.sugar = sugar;
@@ -52,7 +54,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	@ScheduledMethod(start=2d,interval=5d)
 	public void updateSugar() {	
 		
-		GridValueLayer sugarHoldingNew = this.behavior.growback(this);
+		GridValueLayer sugarHoldingNew = this.behavior.growback(this,regeneration_rate);
 		
 		this.sugar.updateHolding(sugarHoldingNew);
 		
