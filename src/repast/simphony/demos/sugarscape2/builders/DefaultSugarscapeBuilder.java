@@ -54,7 +54,8 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 
 
 	private SugarSpace_ch2 constructChapter2_p30() {
-
+		
+		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 
 				
 		//1.1 read the pgm file
@@ -112,7 +113,6 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		int sugar_regeneration_rate = RunEnvironment.getInstance().getParameters().getInteger("regenerationRate");
 		
 		SugarSpace_ch2 agentsContext = new SugarSpace_ch2(sugar,b,sugar_regeneration_rate);
-		
 
 
 		
@@ -137,8 +137,7 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 
 
 		//2.2 create the agents and add them to the context and to the Grid projection
-		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
-		
+				
 		for(int i=0;i<n;i++) {
 			
 			AgentBehavior_ch2 mr;

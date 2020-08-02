@@ -6,6 +6,8 @@ import repast.simphony.valueLayer.GridValueLayer;
 
 public class SpaceBehavior_ch2 implements GrowbackAbility{
 	
+	
+	
 		
 
 	@Override

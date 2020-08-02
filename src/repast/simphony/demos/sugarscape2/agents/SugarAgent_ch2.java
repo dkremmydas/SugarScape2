@@ -2,11 +2,9 @@ package repast.simphony.demos.sugarscape2.agents;
 
 import java.util.Set;
 
-import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;
-import repast.simphony.util.ContextUtils;
 
 
 /**

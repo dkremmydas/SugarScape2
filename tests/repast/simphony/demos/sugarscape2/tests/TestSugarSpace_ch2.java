@@ -1,10 +1,8 @@
 package repast.simphony.demos.sugarscape2.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import repast.simphony.context.Context;
@@ -17,10 +15,16 @@ import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
 
-public class TestSugarscapeBuilder_Ch2 {
-	
-	@BeforeClass
-	public static void setUp () throws Exception {
+public class TestSugarSpace_ch2 {
+
+	SugarSpace_ch2 context;
+	SugarAgent_ch2 a;
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp () throws Exception {
 		Schedule schedule = new Schedule ();
 		
 		DefaultParameters parms_ch2_p30 = new DefaultParameters();
@@ -35,33 +39,42 @@ public class TestSugarscapeBuilder_Ch2 {
 		parms_ch2_p30.addParameter("SpaceBehavior","SpaceBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2",true);
 		parms_ch2_p30.addParameter("regenerationRate", "regenerationRate", Integer.class, 3, true);
 		
+		
 		RunEnvironment . init ( schedule , null , parms_ch2_p30 , true );
 		Context<Object> context = new DefaultContext<Object>();
 		RunState.init().setMasterContext (context);
+		
+		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
+		this.context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
+		this.a = (SugarAgent_ch2) this.context.getObjects(SugarAgent_ch2.class).get(0);
 	}
 
+	
 
 	@Test
-	public void builder_creation() {
-		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
-		assertNotNull(builder);
+	public void testUpdateSugar() {
+		//TODO
+		int sugar0 = context.getSugar().availableAtXY(0, 0);
 	}
-	
-	
+
 	@Test
-	public void builder_build() {
-		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
-		
-		SugarSpace_ch2 returned_context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
-		
-					
-		assertNotNull("'sugar capacity' ValueLayer has been added",returned_context.getValueLayer("sugar capacity"));
-		
-		assertEquals("Number of Agents", 400, returned_context.getObjects(SugarAgent_ch2.class).size());
-		
-		assertEquals("Number of Behaviors", 400, RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+	public void testTakeAllSugarAt() {
+		fail("Not yet implemented");
 	}
-	
-	
+
+	@Test
+	public void testTakeSomeSugarAt() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetSugar() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetGrid() {
+		fail("Not yet implemented");
+	}
 
 }

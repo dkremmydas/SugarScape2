@@ -24,6 +24,8 @@ public class SpaceResource {
 		
 	public int gatherFromXY(int x,int y,int amountRequested) {
 		
+		if(amountRequested<0) {amountRequested=0;}
+		
 		int amountGathered;
 		
 		int amountAvailable = (int) this.holding.get(x,y);
@@ -60,13 +62,14 @@ public class SpaceResource {
 		
 		int added;
 		
-		if((this.holding.get(x,y)+quant>this.capacity.get(x,y))) {
+		if( (this.holding.get(x,y)+quant) > this.capacity.get(x,y) ) {
 			added = (int) (this.capacity.get(x,y)-this.holding.get(x,y));
 		} else {
 			added = quant;
 		}
 		
-		this.holding.set(this.holding.get(x,y,added),x, y );
+		
+		this.holding.set(this.holding.get(x,y)+added,x, y );
 		
 		return added;
 		
@@ -91,9 +94,11 @@ public class SpaceResource {
 	 */
 	public void addEverywhere(int quant) {
 		int x,y;
+		int x_max= (int) this.holding.getDimensions().getWidth();
+		int y_max=(int) this.holding.getDimensions().getHeight();
 		
-		for( x=0; x< this.holding.getDimensions().getWidth();x++) {
-			for( y=0; y< this.holding.getDimensions().getHeight();y++) {
+		for( x=0; x< x_max;x++) {
+			for( y=0; y< y_max;y++) {
 				this.addToXY(x, y, quant);
 			}
 		}

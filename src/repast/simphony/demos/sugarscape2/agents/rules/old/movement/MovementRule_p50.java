@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p50;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p50;
 import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;

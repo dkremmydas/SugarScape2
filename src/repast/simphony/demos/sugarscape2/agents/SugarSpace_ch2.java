@@ -41,6 +41,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		
 		this.behavior = behavior;
 		
+		this.regeneration_rate = regeneration_rate;
+		
 		this.grid = GridFactoryFinder.createGridFactory(null)
 				.createGrid("sugarscape", this, new GridBuilderParameters<Object>(
 						new WrapAroundBorders(), new RandomGridAdder<Object>(), true, 
