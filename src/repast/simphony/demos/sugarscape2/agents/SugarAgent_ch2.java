@@ -101,10 +101,8 @@ public class SugarAgent_ch2 {
 		String r = "{Id:"+this.id+", Vision: "+this.levelOfVision +
 				", Sugar.metab: " + this.sugar.metabolism + 
 				", Sugar.hold: " + this.sugar.holding + 
-				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.getSugar().getHolding().get(x,y)+"]"+
+				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.getSugar().availableAtXY(x,y)+"]"+
 				"}";
-		
-		
 		
 		return r;
 	}
@@ -125,15 +123,16 @@ public class SugarAgent_ch2 {
 			
 			context.getGrid().moveTo(this, new_pos.getX(),new_pos.getY());
 			
-			int sugar_gathered = this.behavior.gather(this, new_pos);
+			int sugar_to_gather = this.behavior.gather(this, new_pos);
+			
+			int sugar_gathered = this.context.getSugar().gatherFromXY(new_pos.getX(), new_pos.getY(), sugar_to_gather);
 			
 			this.sugar.store(sugar_gathered);
-			this.context.sugar.gatherFromXY(new_pos.getX(), new_pos.getY(), sugar_gathered);
 			
 			this.sugar.use(this.getMetabolism());
 			
 			//die if sugar holding<0
-			if(this.getSugarWealth() < 0) {
+			if(this.behavior.shallDie(this)) {
 				this.die();		
 			} 	
 		}

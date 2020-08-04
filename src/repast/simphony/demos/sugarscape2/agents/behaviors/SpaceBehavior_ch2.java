@@ -12,6 +12,7 @@ public class SpaceBehavior_ch2 implements GrowbackAbility{
 
 	@Override
 	public GridValueLayer growback(SugarSpace_ch2 s,int rate) {
+		
 
 		if(rate<0) {
 			return s.getSugar().getCapacity();

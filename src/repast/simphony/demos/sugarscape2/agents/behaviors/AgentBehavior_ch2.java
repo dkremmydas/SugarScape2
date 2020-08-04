@@ -10,6 +10,7 @@ import java.util.Set;
 import com.google.common.collect.Iterables;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.abilities.agents.GatherAbility;
 import repast.simphony.demos.sugarscape2.agents.abilities.agents.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.abilities.agents.VisionAbility;
@@ -25,7 +26,7 @@ import repast.simphony.valueLayer.ValueLayer;
  * @author Dimitris Kremmydas
  *
  */
-public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAbility {
+public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAbility,DieAbility {
 	
 	
 	/**
@@ -112,7 +113,19 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 		
 	}
 
+
+
+	@Override
+	public boolean shallDie(SugarAgent_ch2 a) {
+		if(a.getSugarWealth() < 0) {
+			return  true;	
+		} 	else {
+			return false;
+		}
+	}
 	
+	
+		
 	
 
 	
