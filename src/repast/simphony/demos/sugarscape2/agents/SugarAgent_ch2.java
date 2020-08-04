@@ -1,5 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
 import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
@@ -8,14 +10,16 @@ import repast.simphony.space.grid.GridPoint;
 
 
 /**
- * 
+ * The Agent of the Sugarscape
  * 
  * @author Dimitris Kremmydas
  *
  */
 public class SugarAgent_ch2 {
 	
-	
+	/**
+	 * A 10-character string id
+	 */
 	protected String id;
 	
 //	/**
@@ -24,11 +28,6 @@ public class SugarAgent_ch2 {
 //	 */
 //	protected GridPoint location;
 //	
-	
-	/**
-	 * How many lattices they can see 
-	 */
-	protected int levelOfVision;
 	
 
 	/**
@@ -63,42 +62,66 @@ public class SugarAgent_ch2 {
 	
 
 
-
-	public int getVisionLevel() {
-		return levelOfVision;
+    /**
+     * 
+     * @return
+     */
+	public int getSugarVisionLevel() {
+		return behavior.getLevelOfVision();
 	} 
 
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getSugarWealth() {
 		return this.sugar.getHolding();
 	}
 	
-	public int getMetabolism() {
+	/**
+	 * 
+	 * @return
+	 */
+	public int getSugarMetabolism() {
 		return this.sugar.getMetabolism();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isAlive() {
 		return isAlive;
 	}
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public SugarSpace_ch2 getContext() {
 		return context;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public GridPoint getCurrentPosition() {
 		return this.context.grid.getLocation(this);
 	}
 	
 
 
+	/**
+	 * 
+	 */
 	@Override
 	public String toString() {
 		
 		int x = this.getCurrentPosition().getX(); 
 		int y = this.getCurrentPosition().getY();
 		
-		String r = "{Id:"+this.id+", Vision: "+this.levelOfVision +
+		String r = "{Id:"+this.id+", Sugar Vision: "+this.behavior.getLevelOfVision() +
 				", Sugar.metab: " + this.sugar.metabolism + 
 				", Sugar.hold: " + this.sugar.holding + 
 				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.getSugar().availableAtXY(x,y)+"]"+
@@ -129,7 +152,7 @@ public class SugarAgent_ch2 {
 			
 			this.sugar.store(sugar_gathered);
 			
-			this.sugar.use(this.getMetabolism());
+			this.sugar.use(this.getSugarMetabolism());
 			
 			//die if sugar holding<0
 			if(this.behavior.shallDie(this)) {
@@ -140,7 +163,9 @@ public class SugarAgent_ch2 {
 	}
 	
 	
-	
+	/**
+	 * 
+	 */
 	private void die() {
 		this.isAlive=false;
 		this.context.remove(this);	
@@ -150,6 +175,75 @@ public class SugarAgent_ch2 {
 	
 	
 	
+	
+	
+	
+	/**
+	 * The set of agent's properties (fixed or variables) that are related to a product
+	 * 
+	 * @author Dimitris Kremmydas
+	 *
+	 */
+	public class AgentResource {
+		
+		/**
+		 * Initial endowment
+		 */
+		int initial;
+		
+		
+		/**
+		 * Product stored (p. 24)
+		 */
+		int holding;
+		
+		/**
+		 * Amount of product consumed per time step (p. 24)
+		 */
+		int metabolism;	
+		
+		
+
+		public AgentResource(int initialEndownment, int metabolism) {
+			this.initial = initialEndownment;
+			this.holding = initialEndownment;
+			this.metabolism = metabolism;
+		}
+
+
+		/**
+		 * Use (metabolize) some resource
+		 * 
+		 * @param int quantity
+		 */
+		public void use (int quantity) {
+			
+			if(quantity>0) {
+				holding -= quantity;
+			}	
+
+		}
+		
+		public void store(int quantity) {	
+			
+			if(quantity>0) {
+				holding += quantity;
+			}		
+			
+		}
+
+		
+		public int getMetabolism() {
+			return metabolism;
+		}
+
+		
+		public int getHolding() {
+			return holding;
+		}
+
+		
+	}
 	
 	
 	
@@ -166,11 +260,10 @@ public class SugarAgent_ch2 {
 	 	private int visionLevel;
 	 	private int sugarInitial;
 	 	private int sugarMetabolism;
-	 	private SugarSpace_ch2 context;
+	 	private String behaviorClass;
+	 	SugarSpace_ch2 context;
 		
-		// Rules
-	 	private AgentBehavior_ch2 behavior_builder;
-
+		
 	 	
         public Builder(String id,SugarSpace_ch2 context) {
         	this.id=id;
@@ -184,15 +277,24 @@ public class SugarAgent_ch2 {
         	
         	ag.context=this.context;
         	ag.id=this.id;
-        	ag.levelOfVision = this.visionLevel;
-        	ag.sugar = new AgentResource(this.sugarInitial, this.sugarMetabolism);
-        	ag.behavior=this.behavior_builder;
+        	
+        	ag.sugar = ag.new AgentResource(this.sugarInitial, this.sugarMetabolism);
+        	 		
+        	try {
+        		Constructor<AgentBehavior_ch2> bc = (Constructor<AgentBehavior_ch2>) Class.forName(this.behaviorClass).getConstructor(String.class,int.class);
+    			ag.behavior = bc.newInstance("sugar level", this.visionLevel);
+    		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+    			e.printStackTrace();
+    			throw new RuntimeException(e);
+    		}   	
+    		
+        	
       	
         	return ag;
         }
         
                
-        public Builder withVisionLevel(int visionLevel) {
+        public Builder withSugarVisionLevel(int visionLevel) {
         	this.visionLevel=visionLevel;
         	return this;
         }
@@ -207,8 +309,8 @@ public class SugarAgent_ch2 {
         	return this;
         }
         
-        public Builder set_SugarMetabolismRule(AgentBehavior_ch2 behavior) {
-        	this.behavior_builder=behavior;
+        public Builder withBehaviorClass(String behaviorClass) {
+        	this.behaviorClass=behaviorClass;
         	return this;
         }
         

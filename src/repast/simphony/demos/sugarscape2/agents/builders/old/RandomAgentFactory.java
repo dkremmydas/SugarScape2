@@ -40,7 +40,7 @@ public class RandomAgentFactory {
 			.onLandscape(ls)
 			.atLocationX(RandomHelper.nextIntFromTo(1,ls.getDimensions().getWidth()))
 			.atLocationY((RandomHelper.nextIntFromTo(1,ls.getDimensions().getHeight())))
-			.withVisionLevel(RandomHelper.nextIntFromTo(1, maxVision))
+			.withSugarVisionLevel(RandomHelper.nextIntFromTo(1, maxVision))
 			.withMetabolismRule((MetabolismAbility) Class.forName(metabolismRuleString).newInstance())
 			.withGatheringRule((GatheringAbility) Class.forName(gatheringRuleString).newInstance())
 			.withDeathRule((DeathAbility) Class.forName(deathRuleString).newInstance())

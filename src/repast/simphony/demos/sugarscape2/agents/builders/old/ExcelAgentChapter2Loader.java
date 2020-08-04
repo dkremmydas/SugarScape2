@@ -64,7 +64,7 @@ public class ExcelAgentChapter2Loader implements AgentLoader {
 						.onLandscape((LandscapeChapter2_p30) sc.getLandscape())
 						.atLocationX(x)
 						.atLocationY(y)
-						.withVisionLevel(vis)
+						.withSugarVisionLevel(vis)
 						.withMetabolismRule((MetabolismAbility) Class.forName(rulesBase+cr).newInstance())
 						.withGatheringRule((GatheringAbility) Class.forName(rulesBase+gr).newInstance())
 						.withDeathRule((DeathAbility) Class.forName(rulesBase+dr).newInstance())

@@ -36,8 +36,17 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 	
 	
 	
-	public AgentBehavior_ch2(String valueLayerName) {
-		this.valueLayerName=valueLayerName;
+	/**
+	 * How many lattices they can see 
+	 */
+	protected int levelOfVision;
+	
+	
+	
+	
+	public AgentBehavior_ch2(String valueLayerName, int levelOfVision) {
+		this.valueLayerName  =valueLayerName;
+		this.levelOfVision = levelOfVision;
 	}	
 	
 	
@@ -48,7 +57,7 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 		GridPoint agent_loc = a.getCurrentPosition();
 		
 		//add neighboring points
-		Set<GridPoint> seen_all = NeighbourhoodFunctions.getVonNeumanPoints(agent_loc, a.getContext().getGrid(), a.getVisionLevel());
+		Set<GridPoint> seen_all = NeighbourhoodFunctions.getVonNeumanPoints(agent_loc, a.getContext().getGrid(), levelOfVision);
 	
 		Set<GridPoint> seen_empty = new HashSet<GridPoint>();
 		//remove occupied space
@@ -123,7 +132,23 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 			return false;
 		}
 	}
+
+
 	
+
+	public String getValueLayerName() {
+		return valueLayerName;
+	}
+
+
+
+	public int getLevelOfVision() {
+		return levelOfVision;
+	}
+	
+	
+	
+		
 	
 		
 	

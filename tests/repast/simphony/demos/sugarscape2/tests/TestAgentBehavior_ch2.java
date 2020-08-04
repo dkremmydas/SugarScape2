@@ -52,7 +52,7 @@ public class TestAgentBehavior_ch2 {
 		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
 		context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
 		a = (SugarAgent_ch2) context.getObjects(SugarAgent_ch2.class).get(0);
-		b = new AgentBehavior_ch2("sugar level");
+		b = new AgentBehavior_ch2("sugar level",parms_ch2_p30.getInteger("maxVision"));
 	}
 
 
@@ -124,7 +124,7 @@ public class TestAgentBehavior_ch2 {
 					old_pos.getX(),old_pos.getY(),old_pos_sugar,new_pos.getX(),new_pos.getY(),new_pos_sugar);
 			
 			
-			assertEquals("Expected change of agent's sugar wealth",old_agent_sugar-a.getMetabolism()+new_pos_sugar, new_agent_sugar);
+			assertEquals("Expected change of agent's sugar wealth",old_agent_sugar-a.getSugarMetabolism()+new_pos_sugar, new_agent_sugar);
 			
 			System.out.println("Agent after moving: " +a);
 		}

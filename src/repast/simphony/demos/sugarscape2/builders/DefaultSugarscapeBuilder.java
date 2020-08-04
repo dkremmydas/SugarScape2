@@ -1,8 +1,5 @@
 package repast.simphony.demos.sugarscape2.builders;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import javax.management.RuntimeErrorException;
 
 import repast.simphony.context.Context;
@@ -10,7 +7,6 @@ import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.SpaceResource;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
 import repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
@@ -125,36 +121,18 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision"); 
 		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
-		
 		String agentBehavior_ch2_classString = RunEnvironment.getInstance().getParameters().getString("AgentBehavior");
-		Constructor<AgentBehavior_ch2> c;
-		try {
-			c = (Constructor<AgentBehavior_ch2>) Class.forName(agentBehavior_ch2_classString).getConstructor(String.class);
-		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
+		
 
 		//2.2 create the agents and add them to the context and to the Grid projection
 				
 		for(int i=0;i<n;i++) {
-			
-			AgentBehavior_ch2 mr;
-			
-			try {
-				mr = (AgentBehavior_ch2) c.newInstance("sugar level");
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
 
 			SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
-					.withVisionLevel(RandomHelper.nextIntFromTo(1, maxVision))
+					.withSugarVisionLevel(RandomHelper.nextIntFromTo(1, maxVision))
 					.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 					.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
-					.set_SugarMetabolismRule(mr)
+					.withBehaviorClass(agentBehavior_ch2_classString)
 					.build();
 
 			agentsContext.add(agent);			

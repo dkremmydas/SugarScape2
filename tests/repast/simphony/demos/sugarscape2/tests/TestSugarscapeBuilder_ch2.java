@@ -29,7 +29,6 @@ public class TestSugarscapeBuilder_ch2 {
 		parms_ch2_p30.addParameter("maxVision", "maxVision",  Integer.class, 5, true);
 		parms_ch2_p30.addParameter("maxMetabolism", "maxMetabolism", Integer.class,5, true);
 		parms_ch2_p30.addParameter("maxInitEndownment", "maxInitEndownment", Integer.class, 10, true);
-		parms_ch2_p30.addParameter("MetabolismRule","MetabolismRule",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2",true);
 		parms_ch2_p30.addParameter("AgentBehavior","AgentBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2",true);
 		parms_ch2_p30.addParameter("SpaceBehavior","SpaceBehavior",String.class,"repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2",true);
 		parms_ch2_p30.addParameter("regenerationRate", "regenerationRate", Integer.class, 3, true);
@@ -51,8 +50,7 @@ public class TestSugarscapeBuilder_ch2 {
 	public void builder_build() {
 		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
 		
-		SugarSpace_ch2 returned_context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
-		
+		SugarSpace_ch2 returned_context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());		
 					
 		assertNotNull("'sugar capacity' ValueLayer has been added",returned_context.getValueLayer("sugar capacity"));
 		
