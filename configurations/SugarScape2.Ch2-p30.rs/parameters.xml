@@ -11,6 +11,7 @@
 	<parameter name="maxVision" displayName="2.1.1 Maximum Agent Vision Level" type="int" defaultValue="6" />
 	<parameter name="maxMetabolism" displayName="2.1.2 Maximum Agent Metabolism" type="int" defaultValue="4" />
 	<parameter name="maxInitEndownment" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="25" />
+	<parameter name="maxAge" displayName="2.1.4 Maximum Agent Age" type="int" defaultValue="40" />
 
 	<!--  2.2 Agent Rules  -->
 	<parameter name="AgentBehavior" type="String" displayName="2.2 Agent Behavior Class" defaultValue="repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2"  />

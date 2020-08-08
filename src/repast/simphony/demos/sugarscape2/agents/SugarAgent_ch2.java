@@ -1,9 +1,11 @@
 package repast.simphony.demos.sugarscape2.agents;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.DieAbility;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.GatherAbility;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.MovementAbility;
+import repast.simphony.demos.sugarscape2.agents.abilities.agents.VisionAbility;
 import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;
@@ -22,12 +24,18 @@ public class SugarAgent_ch2 {
 	 */
 	protected String id;
 	
-//	/**
-//	 * We store the location as a Repast Simphony GridPoint
-//	 * TODO[explain why this is an advantage ... code reuse]
-//	 */
-//	protected GridPoint location;
-//	
+	
+	protected DieAbility dieRule;
+	
+	
+	protected GatherAbility gatherRule;
+	
+	
+	protected VisionAbility visionRule;
+	
+	
+	protected MovementAbility movementRule;
+	
 	
 
 	/**
@@ -44,10 +52,6 @@ public class SugarAgent_ch2 {
 	 */
 	protected boolean isAlive = true;
 	
-	/**
-	 * The behavior of the Agent 
-	 */
-	protected AgentBehavior_ch2 behavior;	
 	
 	/**
 	 * Reference to the context
@@ -66,8 +70,8 @@ public class SugarAgent_ch2 {
      * 
      * @return
      */
-	public int getSugarVisionLevel() {
-		return behavior.getLevelOfVision();
+	public int getVisionLevel() {
+		return visionRule.getVisionLevel(this);
 	} 
 
 	/**
@@ -121,7 +125,7 @@ public class SugarAgent_ch2 {
 		int x = this.getCurrentPosition().getX(); 
 		int y = this.getCurrentPosition().getY();
 		
-		String r = "{Id:"+this.id+", Sugar Vision: "+this.behavior.getLevelOfVision() +
+		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVisionLevel() +
 				", Sugar.metab: " + this.sugar.metabolism + 
 				", Sugar.hold: " + this.sugar.holding + 
 				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.getSugar().availableAtXY(x,y)+"]"+
@@ -140,13 +144,13 @@ public class SugarAgent_ch2 {
 	public void applyRuleM() {
 		
 		if(isAlive) {
-			Set<GridPoint> points_seen = this.behavior.see(this);
+			Set<GridPoint> points_seen = this.visionRule.see(this);
 			
-			GridPoint new_pos = this.behavior.move(this, points_seen);
+			GridPoint new_pos = this.movementRule.move(this, points_seen);
 			
 			context.getGrid().moveTo(this, new_pos.getX(),new_pos.getY());
 			
-			int sugar_to_gather = this.behavior.gather(this, new_pos);
+			int sugar_to_gather = this.gatherRule.gather(this, new_pos);
 			
 			int sugar_gathered = this.context.getSugar().gatherFromXY(new_pos.getX(), new_pos.getY(), sugar_to_gather);
 			
@@ -155,7 +159,7 @@ public class SugarAgent_ch2 {
 			this.sugar.use(this.getSugarMetabolism());
 			
 			//die if sugar holding<0
-			if(this.behavior.shallDie(this)) {
+			if(this.dieRule.shallDie(this)) {
 				this.die();		
 			} 	
 		}
@@ -257,10 +261,12 @@ public class SugarAgent_ch2 {
 		 
 	 	//properties
 	 	private String id;
-	 	private int visionLevel;
 	 	private int sugarInitial;
 	 	private int sugarMetabolism;
-	 	private String behaviorClass;
+	 	private DieAbility dieRule;
+	 	private VisionAbility visionRule;
+	 	private MovementAbility movementRule;
+	 	private GatherAbility gatherRule;
 	 	SugarSpace_ch2 context;
 		
 		
@@ -280,25 +286,15 @@ public class SugarAgent_ch2 {
         	
         	ag.sugar = ag.new AgentResource(this.sugarInitial, this.sugarMetabolism);
         	 		
-        	try {
-        		Constructor<AgentBehavior_ch2> bc = (Constructor<AgentBehavior_ch2>) Class.forName(this.behaviorClass).getConstructor(String.class,int.class);
-    			ag.behavior = bc.newInstance("sugar level", this.visionLevel);
-    		} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-    			e.printStackTrace();
-    			throw new RuntimeException(e);
-    		}   	
+        	ag.dieRule = dieRule;
+        	ag.visionRule = visionRule;
+        	ag.gatherRule = gatherRule;
+        	ag.movementRule = movementRule;
     		
-        	
-      	
         	return ag;
         }
         
-               
-        public Builder withSugarVisionLevel(int visionLevel) {
-        	this.visionLevel=visionLevel;
-        	return this;
-        }
-        
+                       
         public Builder withSugarInitial(int sugar) {
         	this.sugarInitial=sugar;
         	return this;
@@ -309,13 +305,25 @@ public class SugarAgent_ch2 {
         	return this;
         }
         
-        public Builder withBehaviorClass(String behaviorClass) {
-        	this.behaviorClass=behaviorClass;
+        public Builder withDieRule(DieAbility dieRule) {
+        	this.dieRule=dieRule;
         	return this;
         }
         
+        public Builder withVisionRule(VisionAbility visionRule) {
+        	this.visionRule=visionRule;
+        	return this;
+        }       
        
+        public Builder withMovementRule(MovementAbility movementRule) {
+        	this.movementRule=movementRule;
+        	return this;
+        } 
         
+        public Builder withGatherRule(GatherAbility gatherRule) {
+        	this.gatherRule=gatherRule;
+        	return this;
+        } 
 	 
  }
 

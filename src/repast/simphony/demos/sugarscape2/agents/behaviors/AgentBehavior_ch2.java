@@ -15,6 +15,8 @@ import repast.simphony.demos.sugarscape2.agents.abilities.agents.GatherAbility;
 import repast.simphony.demos.sugarscape2.agents.abilities.agents.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.abilities.agents.VisionAbility;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 import repast.simphony.valueLayer.ValueLayer;
@@ -142,14 +144,22 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 
 
 
-	public int getLevelOfVision() {
+
+	@Override
+	public int getVisionLevel(SugarAgent_ch2 a) {
 		return levelOfVision;
 	}
 	
 	
 	
 		
-	
+	public static AgentBehavior_ch2 fromRunenvParameters(String valueLayerName) {
+		
+		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
+		
+		return new AgentBehavior_ch2(valueLayerName, RandomHelper.nextIntFromTo(1, maxVision));
+		
+	}
 		
 	
 

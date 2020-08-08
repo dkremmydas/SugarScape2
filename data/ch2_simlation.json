@@ -1,0 +1,35 @@
+{
+	"config": {
+		"class_root": "repast.simphony.demos.sugarscape2"
+	},
+	"sugarspace": {
+		"class": "agents.SugarSpace_ch2",
+		"pgm_file": "./data/sugarspace.pgm",
+		"abilities": {
+			"growback": {
+				"class": "",
+				"rate": 1
+			}
+		}
+	},
+	"agents": [
+		{
+			"number": 400,
+			"agent_class": "",
+			"die": {
+				"class": ""
+			},
+			"gather": {
+				"class": ""
+			},
+			"movement": {
+				"class": ""
+			},
+			"vision": {
+				"class": "",
+				"visionLevel_min": 1,
+				"visionLevel_max": 6
+			}
+		}
+	]
+}

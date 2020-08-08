@@ -12,6 +12,6 @@ public interface GrowbackAbility {
 	 * @param rate the rate of growback. If ==-1, then growback to capacity
 	 * @return
 	 */
-	public GridValueLayer growback(SugarSpace_ch2 s, int rate);
+	public GridValueLayer growback(SugarSpace_ch2 s);
 	
 }

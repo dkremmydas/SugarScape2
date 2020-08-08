@@ -1,0 +1,9 @@
+model.archive = C:/Users/jkr/git/SugarScape2/configurations/output/complete_model.jar
+batch.params.file = scenario.rs/batch_params.xml
+ssh.key_dir = C:/Users/jkr/.ssh
+poll.frequency = 60.0
+model.output = C:/Users/jkr/git/SugarScape2/configurations/output
+
+vm.arguments = 
+local.0.instances = 2
+local.0.working_directory = C:/Users/jkr/AppData/Local/Temp/
