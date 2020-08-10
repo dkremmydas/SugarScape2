@@ -1,6 +1,7 @@
-<repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Number of Alive Agents</name>
-  <type>AGGREGATE</type>
+<repast.simphony.data2.engine.DataSetDescriptor>
+  <name>wealth</name>
+  <type>NON_AGGREGATE</type>
+  <sourceType>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p37</sourceType>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -11,17 +12,16 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1109648700</hashCode>
+    <hashCode>-1074301115</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>Count of Alive</string>
+      <string>SugarWealth</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Count of Alive</id>
-        <className>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2</className>
-        <methodName>isAlive</methodName>
-        <aggType>SUM</aggType>
+        <id>SugarWealth</id>
+        <className>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p37</className>
+        <methodName>getSugarWealth</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

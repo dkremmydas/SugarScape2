@@ -3,24 +3,18 @@
 
 	<!--  1. Loading -->
 	<parameter name="randomSeed" displayName="1.1 Default Random Seed" type="int" defaultValue="__NULL__" />	
-	<parameter name="landscapeLoaderClass" displayName="1.2 Landscape Loader Class" type="String" defaultValue="repast.simphony.demos.sugarscape2.landscape.loaders.PGMLandscapeLoaderChapter2_p30"  />	
-	<parameter name="agentLoaderClass" displayName="1.3 Agent Loader Class" type="String" defaultValue="repast.simphony.demos.sugarscape2.agents.builders.loaders.SugarscapeAgentsLoaderChapter2_p37" />
-	<parameter name="agentClass" type="String" 	displayName="1.4 Agent class" defaultValue="repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p37"  />
-	<parameter name="landscapeClass" type="String" 	displayName="1.5 Landscape class" defaultValue="repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p30"  />
+	<parameter name="Chapter" type="int" displayName="Chapter" defaultValue="2"  />
+	<parameter name="Variant" type="String" displayName="Variant" defaultValue="p37"  />
+	
 	
 	<!--  2.1 Agent Properties  -->
 	<parameter name="maxVision" displayName="2.1.1 Maximum Agent Vision Level" type="int" defaultValue="6" />
 	<parameter name="maxMetabolism" displayName="2.1.2 Maximum Agent Metabolism" type="int" defaultValue="4" />
 	<parameter name="maxInitEndownment" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="25" />
-	<parameter name="minDieAge" displayName="2.1.4 Minimum age that an agent dies due to aging (p.32-33)" type="int" defaultValue="60" />
-	<parameter name="maxDieAge" displayName="2.1.5 Maximum age that an agent dies due to aging (p.32-33)" type="int" defaultValue="100" />
+	<parameter name="maxAge" displayName="2.1.4 Maximum Agent Age" type="int" defaultValue="40" />
 
 	<!--  2.2 Agent Rules  -->
-	<parameter name="visionRule" type="String" displayName="2.2.1 Vision Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.vision.VisionRule_p30"  />
-	<parameter name="movementRule" type="String" displayName="2.2.2 Movement Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.movement.MovementRule_p30"  />
-	<parameter name="gatheringRule" type="String" displayName="2.2.1 Gathering Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.gathering.GatheringRule_p30"  />
-	<parameter name="metabolismRule" type="String" displayName="2.2.1 Metabolism Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.metabolism.MetabolismRule_p30"  />
-	<parameter name="deathRule" type="String" displayName="2.2.1 Death Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.death.DeathRule_p37"  />
+	<parameter name="AgentBehavior" type="String" displayName="2.2 Agent Behavior Class" defaultValue="repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2"  />
 	
 	
 	<!--  3.1 Landscape Properties  -->
@@ -28,15 +22,8 @@
 	<parameter name="regenerationRate" displayName="3.1.2 Rate of Landscape regenaration" type="int" defaultValue="1" />
 	
 	<!--  3.2 Landscape Rules  -->
-	<parameter name="growbackRuleClass" 
-		type="String" 
-		displayName="3.2.1 Growback Rule (default is when the regeneration rate = 1)" 
-		values="repast.simphony.demos.sugarscape2.landscape.rules.growback.ImmediateFullCapacityGrowbackRule 
-		repast.simphony.demos.sugarscape2.landscape.rules.growback.GrowbackRule_p30"
-		defaultValue="repast.simphony.demos.sugarscape2.landscape.rules.growback.GrowbackRule_p30"  />
+	<parameter name="SpaceBehavior" type="String" displayName="3.2 Space Behavior Class" defaultValue="repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2"  />
 	
 	
-	
-
 	
 </parameters>

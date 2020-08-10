@@ -45,6 +45,10 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 	
 	
 	
+	protected int age=1;
+	
+	
+	
 	
 	public AgentBehavior_ch2(String valueLayerName, int levelOfVision) {
 		this.valueLayerName  =valueLayerName;
@@ -151,8 +155,20 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 	}
 	
 	
-	
 		
+	@Override
+	public int getAge(SugarAgent_ch2 a) {
+		return this.age;
+	}
+
+	
+	@Override
+	public void incrementAge(SugarAgent_ch2 a) {
+		this.age++;
+	}
+
+
+
 	public static AgentBehavior_ch2 fromRunenvParameters(String valueLayerName) {
 		
 		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
@@ -160,7 +176,10 @@ public class AgentBehavior_ch2 implements VisionAbility,MovementAbility,GatherAb
 		return new AgentBehavior_ch2(valueLayerName, RandomHelper.nextIntFromTo(1, maxVision));
 		
 	}
-		
+	
+	
+	
+	
 	
 
 	

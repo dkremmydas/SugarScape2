@@ -16,7 +16,7 @@ import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
 
-public class TestSugarscapeBuilder_ch2 {
+public class TestDefaultSugarscapeBuilder {
 	
 	@BeforeClass
 	public static void setUp () throws Exception {

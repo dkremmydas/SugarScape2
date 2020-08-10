@@ -114,6 +114,16 @@ public class SugarAgent_ch2 {
 		return this.context.grid.getLocation(this);
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getAge() {
+		return dieRule.getAge(this);
+	}
+
 
 
 	/**
@@ -161,7 +171,9 @@ public class SugarAgent_ch2 {
 			//die if sugar holding<0
 			if(this.dieRule.shallDie(this)) {
 				this.die();		
-			} 	
+			} else {
+				this.dieRule.incrementAge(this);
+			}
 		}
 				
 	}
