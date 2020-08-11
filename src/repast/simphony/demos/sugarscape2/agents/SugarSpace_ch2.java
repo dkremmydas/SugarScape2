@@ -6,8 +6,8 @@ import org.json.simple.parser.ParseException;
 
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactoryFinder;
-import repast.simphony.demos.sugarscape2.agents.abilities.space.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;

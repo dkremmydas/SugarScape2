@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.behaviors;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.DieAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 

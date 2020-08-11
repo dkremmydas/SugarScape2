@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.abilities.agents;
+package repast.simphony.demos.sugarscape2.agents.rules.gather;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.space.grid.GridPoint;

@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.rules.old.pollution;
 
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.PollutionAbility;
 import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p50;
+import repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionAbility;
 import repast.simphony.engine.environment.RunEnvironment;
 
 public class PollutionRule_p50 implements PollutionAbility {

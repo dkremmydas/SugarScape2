@@ -2,11 +2,11 @@ package repast.simphony.demos.sugarscape2.agents;
 
 import java.util.Set;
 
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.DieAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.GatherAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.MovementAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.VisionAbility;
 import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;
 

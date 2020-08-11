@@ -1,7 +1,7 @@
 package repast.simphony.demos.sugarscape2.landscape.old;
 
 import repast.simphony.demos.sugarscape2.agents.Landscape;
-import repast.simphony.demos.sugarscape2.agents.abilities.space.GrowbackAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeResource;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;

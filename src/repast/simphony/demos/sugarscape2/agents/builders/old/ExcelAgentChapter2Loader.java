@@ -12,11 +12,11 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import repast.simphony.demos.sugarscape2.agents.AgentResource;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2p30;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.MovementAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.VisionAbility;
 import repast.simphony.demos.sugarscape2.agents.behaviors.old.death.DeathAbility;
 import repast.simphony.demos.sugarscape2.agents.behaviors.old.gathering.GatheringAbility;
 import repast.simphony.demos.sugarscape2.agents.behaviors.old.metabolism.MetabolismAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p30;
 import repast.simphony.demos.sugarscape2.landscape.old.SimulationContext;
 

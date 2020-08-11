@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import repast.simphony.demos.sugarscape2.agents.abilities.space.GrowbackAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.landscape.LandscapeResource;
 import repast.simphony.demos.sugarscape2.landscape.old.LandscapeChapter2_p30;
 

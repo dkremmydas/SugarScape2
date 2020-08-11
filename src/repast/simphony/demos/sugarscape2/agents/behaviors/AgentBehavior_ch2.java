@@ -10,10 +10,10 @@ import java.util.Set;
 import com.google.common.collect.Iterables;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.DieAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.GatherAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.MovementAbility;
-import repast.simphony.demos.sugarscape2.agents.abilities.agents.VisionAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
