@@ -16,5 +16,8 @@ public interface MovementAbility {
 	 * @return {@link GridPoint}
 	 */
 	public GridPoint move(SugarAgent_ch2 a,Set<GridPoint> g);
+	
+	
+	public String getValueLayerName();
 
 }

@@ -13,7 +13,7 @@ import repast.simphony.space.grid.GridPoint;
 
 
 /**
- * Methods of this class should not change the state of agents
+ * The vision of the agent is determined in the beginning of his life
  * 
  * @author Dimitris Kremmydas
  *
@@ -52,7 +52,13 @@ public class DefaultVision implements VisionAbility {
 		GridPoint agent_loc = a.getCurrentPosition();
 		
 		//add neighboring points
-		Set<GridPoint> seen_all = NeighbourhoodFunctions.getVonNeumanPoints(agent_loc, a.getContext().getGrid(), levelOfVision);
+		Set<GridPoint> seen_all;
+		if(this.typeOfVision==TypeOfVision.MOORE) {
+			seen_all = NeighbourhoodFunctions.getVonNeumanPoints(agent_loc, a.getContext().getGrid(), levelOfVision);
+		} else {
+			seen_all = NeighbourhoodFunctions.getMoorePoints(agent_loc, a.getContext().getGrid(), levelOfVision);
+		}
+		
 	
 		Set<GridPoint> seen_empty = new HashSet<GridPoint>();
 		//remove occupied space
@@ -82,7 +88,7 @@ public class DefaultVision implements VisionAbility {
 	
 
 
-	public static DefaultVision fromRunenvParameters(String valueLayerName) {
+	public static DefaultVision fromRunenvParameters() {
 		
 		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
 		

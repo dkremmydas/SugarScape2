@@ -12,5 +12,8 @@ public interface GatherAbility {
 	 * @return the quantity of sugar the agent will gather
 	 */
 	public int gather(SugarAgent_ch2 a,GridPoint g);
+	
+	
+	public String getValueLayerName() ;
 
 }
