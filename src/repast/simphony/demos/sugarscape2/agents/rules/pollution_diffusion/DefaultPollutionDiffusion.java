@@ -62,7 +62,8 @@ public class DefaultPollutionDiffusion implements PollutionDiffusionAbility {
 
 		int i=0;
 		for(GridPoint gp: neigh) {
-			values[i++] = gvl.get(gp.getX(),gp.getY());
+			int pol = (int) gvl.get(gp.getX(),gp.getY());
+			values[i++] = (pol>0)?(pol-1):0;
 		}
 
 		return StatUtils.mean(values);
