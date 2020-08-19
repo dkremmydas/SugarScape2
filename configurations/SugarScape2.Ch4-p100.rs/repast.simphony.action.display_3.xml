@@ -78,7 +78,7 @@
     <blue>255</blue>
     <alpha>255</alpha>
   </backgroundColor>
-  <valueLayerStyleName>repast.simphony.demos.sugarscape2.landscape.styles.SugarQuantityValueLayerStyle2D</valueLayerStyleName>
+  <valueLayerStyleName>repast.simphony.demos.sugarscape2.agents.styles.SugarQuantityValueLayerStyle2D</valueLayerStyleName>
   <valueLayers>
     <string>sugar_quantity</string>
   </valueLayers>
