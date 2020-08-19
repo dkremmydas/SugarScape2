@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.agents.rules.replacement;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder;
+import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter2;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 
@@ -24,7 +24,7 @@ public class DefaultReplacement implements ReplacementAbility{
 		
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 
-		SugarAgent_ch2 new_agent = DefaultSugarscapeBuilder.createAgent(this.chapter, this.variant, old_agent.getContext());
+		SugarAgent_ch2 new_agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.chapter, this.variant, old_agent.getContext());
 		
 		old_agent.getContext().add(new_agent);	
 		//new_agent.getContext().getGrid().moveTo(new_agent, old_agent.getCurrentPosition().getX(),old_agent.getCurrentPosition().getY());

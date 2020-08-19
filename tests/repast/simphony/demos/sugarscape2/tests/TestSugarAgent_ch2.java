@@ -15,7 +15,7 @@ import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder;
+import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter2;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.ISchedulableAction;
@@ -57,7 +57,7 @@ public class TestSugarAgent_ch2 {
 		Context<Object> context = new DefaultContext<Object>();
 		RunState.init().setMasterContext (context);
 		
-		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
+		DefaultSugarscapeBuilder_chapter2 builder = new DefaultSugarscapeBuilder_chapter2();
 		this.context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
 		this.a = (SugarAgent_ch2) this.context.getObjects(SugarAgent_ch2.class).get(0);
 	}

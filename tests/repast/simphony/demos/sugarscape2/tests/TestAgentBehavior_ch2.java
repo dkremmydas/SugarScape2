@@ -13,7 +13,7 @@ import repast.simphony.context.DefaultContext;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
-import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder;
+import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter2;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.Schedule;
@@ -49,7 +49,7 @@ public class TestAgentBehavior_ch2 {
 		Context<Object> context = new DefaultContext<Object>();
 		RunState.init().setMasterContext (context);
 		
-		DefaultSugarscapeBuilder builder = new DefaultSugarscapeBuilder();
+		DefaultSugarscapeBuilder_chapter2 builder = new DefaultSugarscapeBuilder_chapter2();
 		context =  (SugarSpace_ch2) builder.build(new DefaultContext<Object>());
 		a = (SugarAgent_ch2) context.getObjects(SugarAgent_ch2.class).get(0);
 		b = new AgentBehavior_ch2("sugar level",parms_ch2_p30.getInteger("maxVision"));

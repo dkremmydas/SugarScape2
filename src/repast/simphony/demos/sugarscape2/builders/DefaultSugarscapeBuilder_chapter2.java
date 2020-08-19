@@ -49,7 +49,7 @@ import repast.simphony.space.graph.Network;
  * @author Dimitrios Kremmydas
  *
  */
-public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
+public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>{
 
 
 	private int chapter;
@@ -67,14 +67,14 @@ public class DefaultSugarscapeBuilder implements ContextBuilder<Object>{
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		RandomHelper.createUniform();
 
-		SugarSpace_ch2 agentsContext = DefaultSugarscapeBuilder.createSugarSpace(chapter, variant, "./data/sugarspace.pgm");
+		SugarSpace_ch2 agentsContext = DefaultSugarscapeBuilder_chapter2.createSugarSpace(chapter, variant, "./data/sugarspace.pgm");
 
 		int n=RunEnvironment.getInstance().getParameters().getInteger("numberOfAgents");
 
 		//2.2 create the agents and add them to the context and to the Grid projection
 		for(int i=0;i<n;i++) {
 
-			SugarAgent_ch2 agent = DefaultSugarscapeBuilder.createAgent(this.chapter, this.variant, agentsContext);
+			SugarAgent_ch2 agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.chapter, this.variant, agentsContext);
 
 			agentsContext.add(agent);			
 			schedule.schedule(agent); //TODO why do we have to add the annotated methods to the schedule manually?
