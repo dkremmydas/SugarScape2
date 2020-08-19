@@ -1,14 +1,16 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+import java.util.Map;
 import java.util.Set;
 
-import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;
+import repast.simphony.valueLayer.GridValueLayer;
 
 
 /**
@@ -35,6 +37,9 @@ public class SugarAgent_ch2 {
 	
 	
 	protected MovementAbility movementRule;
+	
+	
+	protected PollutionAbility pollutionRule;
 	
 	
 
@@ -66,30 +71,13 @@ public class SugarAgent_ch2 {
 	
 
 
-    /**
-     * 
-     * @return
-     */
-	public int getVisionLevel() {
-		return visionRule.getVisionLevel(this);
-	} 
+   
+	
+	
+	public String getId() {
+		return id;
+	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public int getSugarWealth() {
-		return this.sugar.getHolding();
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public int getSugarMetabolism() {
-		return this.sugar.getMetabolism();
-	}
-	
 	/**
 	 * 
 	 * @return
@@ -116,14 +104,39 @@ public class SugarAgent_ch2 {
 	
 	
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public int getAge() {
-		return dieRule.getAge(this);
+	public DieAbility getDieRule() {
+		return dieRule;
 	}
 
+
+
+	public GatherAbility getGatherRule() {
+		return gatherRule;
+	}
+
+
+
+	public VisionAbility getVisionRule() {
+		return visionRule;
+	}
+
+
+
+	public MovementAbility getMovementRule() {
+		return movementRule;
+	}
+	
+	
+	
+	public AgentResource getSugar() {
+		return sugar;
+	}
+
+
+
+	public int getSugarWealth() {
+		return this.sugar.getHolding();
+	}
 
 
 	/**
@@ -135,7 +148,7 @@ public class SugarAgent_ch2 {
 		int x = this.getCurrentPosition().getX(); 
 		int y = this.getCurrentPosition().getY();
 		
-		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVisionLevel() +
+		String r = "{Id:"+this.id+", Sugar Vision: "+this.visionRule.getVisionLevel(this) +
 				", Sugar.metab: " + this.sugar.metabolism + 
 				", Sugar.hold: " + this.sugar.holding + 
 				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.getSugar().availableAtXY(x,y)+"]"+
@@ -166,7 +179,9 @@ public class SugarAgent_ch2 {
 			
 			this.sugar.store(sugar_gathered);
 			
-			this.sugar.use(this.getSugarMetabolism());
+			this.sugar.use(this.sugar.getMetabolism());
+			
+			this.pollute();
 			
 			//die if sugar holding<0
 			if(this.dieRule.shallDie(this)) {
@@ -176,6 +191,23 @@ public class SugarAgent_ch2 {
 			}
 		}
 				
+	}
+	
+	private void pollute() {
+		
+		Map<GridPoint,Integer> pollution = this.pollutionRule.pollute(this);
+		
+		GridValueLayer pollution_gvl = (GridValueLayer) this.context.getValueLayer("pollution");
+		
+		for (GridPoint gp: pollution.keySet()) {
+			
+			int pollution_cur = (int) pollution_gvl.get(gp.getX(),gp.getY());
+			
+			int pollution_new = pollution.get(gp);
+			
+			pollution_gvl.set(pollution_cur+pollution_new, gp.getX(),gp.getY());
+			
+		}
 	}
 	
 	
@@ -279,6 +311,7 @@ public class SugarAgent_ch2 {
 	 	private VisionAbility visionRule;
 	 	private MovementAbility movementRule;
 	 	private GatherAbility gatherRule;
+	 	private PollutionAbility pollutionRule;
 	 	SugarSpace_ch2 context;
 		
 		
@@ -302,6 +335,7 @@ public class SugarAgent_ch2 {
         	ag.visionRule = visionRule;
         	ag.gatherRule = gatherRule;
         	ag.movementRule = movementRule;
+        	ag.pollutionRule = pollutionRule;
     		
         	return ag;
         }
@@ -334,6 +368,11 @@ public class SugarAgent_ch2 {
         
         public Builder withGatherRule(GatherAbility gatherRule) {
         	this.gatherRule=gatherRule;
+        	return this;
+        } 
+        
+        public Builder withPollutionRule(PollutionAbility pollutionRule) {
+        	this.pollutionRule=pollutionRule;
         	return this;
         } 
 	 

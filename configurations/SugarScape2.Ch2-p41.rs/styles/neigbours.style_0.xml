@@ -2,11 +2,11 @@
   <lineStyle>SOLID</lineStyle>
   <size>1.0</size>
   <sizeMax>1.0</sizeMax>
-  <sizeMin>0.0</sizeMin>
+  <sizeMin>1.0</sizeMin>
   <sizeScale>1.0</sizeScale>
   <color>
     <float>0.0</float>
-    <float>0.0</float>
+    <float>1.0</float>
     <float>0.0</float>
   </color>
   <colorMax>

@@ -36,9 +36,9 @@ public class DefaultDeath implements DieAbility {
 
 
 
-	public static DieAbility fromRunenvParameters() {
-		return new DefaultDeath();
-	}
+
+	@Override
+	public void configureFromEnvironment() {}
 	
 	
 	

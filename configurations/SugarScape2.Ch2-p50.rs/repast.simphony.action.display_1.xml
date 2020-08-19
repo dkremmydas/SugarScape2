@@ -1,10 +1,10 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor simphonyVersion="2.7.0">
-  <name>New Display</name>
+  <name>Agents</name>
   <type>2D</type>
   <styles>
     <entry>
       <string>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2</string>
-      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
+      <string>repast.simphony.demos.sugarscape2.agents.styles.AgentStyleChapter2_p30</string>
     </entry>
   </styles>
   <editedStyles>
@@ -23,7 +23,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-384060193</hashCode>
+    <hashCode>1501371578</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>sugarscape</layoutProjection>
@@ -78,8 +78,5 @@
     <blue>255</blue>
     <alpha>255</alpha>
   </backgroundColor>
-  <valueLayerStyleName>repast.simphony.demos.sugarscape2.landscape.styles.SugarQuantityValueLayerStyle2D</valueLayerStyleName>
-  <valueLayers>
-    <string>sugar level</string>
-  </valueLayers>
+  <valueLayers/>
 </repast.simphony.visualization.engine.CartesianDisplayDescriptor>

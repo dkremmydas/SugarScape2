@@ -14,6 +14,8 @@ import repast.simphony.valueLayer.ValueLayer;
  */
 public class DefaultGather implements GatherAbility {
 	
+	int gathered_last_time = 0;
+	
 	
 	/**
 	 * The name of the {@link ValueLayer} of the resource
@@ -32,7 +34,9 @@ public class DefaultGather implements GatherAbility {
 		
 		GridValueLayer gvl = (GridValueLayer) a.getContext().getValueLayer(valueLayerName);
 		
-		return (int) gvl.get(g.getX(),g.getY());
+		gathered_last_time = (int) gvl.get(g.getX(),g.getY());
+		
+		return gathered_last_time;
 		
 	}
 
@@ -45,10 +49,16 @@ public class DefaultGather implements GatherAbility {
 
 
 
-	public static DefaultGather fromRunenvParameters(String valueLayerName) {
+
+	@Override
+	public void configureFromEnvironment() {
 		
-		return new DefaultGather(valueLayerName);
-		
+	}
+
+
+	@Override
+	public int getAmountGathered(SugarAgent_ch2 a) {
+		return gathered_last_time;
 	}
 	
 	

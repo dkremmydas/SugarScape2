@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.agents.styles;
 
 import java.awt.Color;
 
-import repast.simphony.demos.sugarscape2.agents.old.SugarAgent_ch2p37;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.visualizationOGL2D.DefaultStyleOGL2D;
 
 public class AgentStyleChapter2_p37 extends DefaultStyleOGL2D {
@@ -15,7 +15,7 @@ public class AgentStyleChapter2_p37 extends DefaultStyleOGL2D {
 	@Override
 	public Color getColor(Object agent) {
 		double maxthesh=250d;
-		SugarAgent_ch2p37 ag = (SugarAgent_ch2p37) agent;
+		SugarAgent_ch2 ag = (SugarAgent_ch2) agent;
 		float value = Math.min(Math.max((float)(ag.getSugarWealth()/maxthesh),0f), 1f);
 		//System.out.println(value);
 		

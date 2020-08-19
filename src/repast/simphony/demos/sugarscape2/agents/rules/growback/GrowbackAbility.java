@@ -3,15 +3,31 @@ package repast.simphony.demos.sugarscape2.agents.rules.growback;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
 import repast.simphony.valueLayer.GridValueLayer;
 
+/**
+ * Computes the new {@link GridValueLayer}, after the growback rule has been applied.
+ * 
+ * The name of the {@link GridValueLayer} is variant. That means that the {@link GrowbackAbility}
+ * does not explicitly refer to a specific resource (e.g. sugar, spice, etc.).
+ * 
+ * @author Dimitris Kremmydas
+ *
+ */
 public interface GrowbackAbility {
 
 	/**
-	 * Returns the new amount of Sugar (e.g. old amount + growback rate) 
+	 * Compute the new {@link GridValueLayer} of the resource, after the growback
+	 * has taken place
 	 * 
 	 * @param s the SugarSpace agent
-	 * @param rate the rate of growback. If ==-1, then growback to capacity
 	 * @return
 	 */
 	public GridValueLayer growback(SugarSpace_ch2 s);
+	
+	
+	/**
+	 * In this method, the Repast Simphony environmental variables should be used
+	 * in order to give values to the object 
+	 */
+	public void configureFromEnvironment();
 	
 }

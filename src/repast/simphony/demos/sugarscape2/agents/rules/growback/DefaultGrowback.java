@@ -25,6 +25,8 @@ public class DefaultGrowback implements GrowbackAbility{
 	public DefaultGrowback(int regeneration_rate) {
 		this.regeneration_rate = regeneration_rate;
 	}
+	
+	public DefaultGrowback() {	}
 
 
 
@@ -44,11 +46,10 @@ public class DefaultGrowback implements GrowbackAbility{
 
 
 
-	public static GrowbackAbility fromRunenvParameters() {
 
-		int sugar_regeneration_rate = RunEnvironment.getInstance().getParameters().getInteger("regenerationRate");
-		return new DefaultGrowback(sugar_regeneration_rate);
-
+	@Override
+	public void configureFromEnvironment() {
+		regeneration_rate = RunEnvironment.getInstance().getParameters().getInteger("regenerationRate");		
 	}
 
 

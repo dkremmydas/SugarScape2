@@ -2,7 +2,11 @@ package repast.simphony.demos.sugarscape2.utilities;
 
 import java.util.Random;
 
+import repast.simphony.valueLayer.GridValueLayer;
+
 public class Utility {
+	
+	public static enum TypeOfVision {  MOORE, NEUMMAN }
 
 	/**
 	 * Get a random string with certain length
@@ -23,6 +27,25 @@ public class Utility {
 	        }
 	        String saltStr = salt.toString();
 	        return saltStr;
+	}
+	
+	
+	
+	/**
+	 * Replace the values of a {@link GridValueLayer} with those of another one
+	 * @param gvl_old The {@link GridValueLayer} to update
+	 * @param gvl_new The {@link GridValueLayer} to take values from
+	 */
+	public static void updateGridValueLayer(GridValueLayer gvl_old, GridValueLayer gvl_new) {
+		
+		int x,y;
+		
+		for( x=0; x< gvl_old.getDimensions().getWidth();x++) {
+			for( y=0; y< gvl_old.getDimensions().getHeight();y++) {
+				gvl_old.set(gvl_new.get(x,y), x,y);
+			}
+		}
+		
 	}
 	
 	

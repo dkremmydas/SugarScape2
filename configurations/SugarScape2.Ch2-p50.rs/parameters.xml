@@ -2,26 +2,19 @@
 <parameters>
 
 	<!--  1. Loading -->
-	<parameter name="randomSeed" displayName="1.1 Default Random Seed" type="int" defaultValue="__NULL__" />	
-	<parameter name="landscapeLoaderClass" displayName="1.2 Landscape Loader Class" type="String" defaultValue="repast.simphony.demos.sugarscape2.landscape.loaders.PGMLandscapeLoaderChapter2_p50"  />	
-	<parameter name="agentLoaderClass" displayName="1.3 Agent Loader Class" type="String" defaultValue="repast.simphony.demos.sugarscape2.agents.builders.loaders.SugarscapeAgentsLoaderChapter2_p50" />
-	<parameter name="agentClass" type="String" 	displayName="1.4 Agent class" defaultValue="repast.simphony.demos.sugarscape2.agents.AgentChapter2_p50"  />
-	<parameter name="landscapeClass" type="String" 	displayName="1.5 Landscape class" defaultValue="repast.simphony.demos.sugarscape2.landscape.LandscapeChapter2_p50"  />
+	<parameter name="randomSeed" displayName="1.1 Default Random Seed" type="int" defaultValue="__NULL__" />
+	<parameter name="Chapter" type="int" displayName="Chapter" defaultValue="2"  />
+	<parameter name="Variant" type="String" displayName="Variant" defaultValue="p50"  />	
 	
 	<!--  2.1 Agent Properties  -->
 	<parameter name="maxVision" displayName="2.1.1 Maximum Agent Vision Level" type="int" defaultValue="6" />
+	<parameter name="VisionType" displayName="2.1.1 Vision Type (Moore or von-Neumam)" type="String" defaultValue="Moore" />
+	
 	<parameter name="maxMetabolism" displayName="2.1.2 Maximum Agent Metabolism" type="int" defaultValue="4" />
 	<parameter name="maxInitEndownment" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="25" />
+	
 	<parameter name="pollutionAlpha" displayName="2.1.4 Pollution alpha (p. 47)" type="int" defaultValue="1" />
 	<parameter name="pollutionBeta" displayName="2.1.5 Pollution beta (p. 47)" type="int" defaultValue="1" />
-	
-	<!--  2.2 Agent Rules  -->
-	<parameter name="visionRule" type="String" displayName="2.2.1 Vision Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.vision.VisionRule_p30"  />
-	<parameter name="movementRule" type="String" displayName="2.2.2 Movement Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.movement.MovementRule_p50"  />
-	<parameter name="gatheringRule" type="String" displayName="2.2.3 Gathering Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.gathering.GatheringRule_p50"  />
-	<parameter name="metabolismRule" type="String" displayName="2.2.4 Metabolism Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.metabolism.MetabolismRule_p50"  />
-	<parameter name="deathRule" type="String" displayName="2.2.5 Death Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.death.DeathRule_p30"  />
-	<parameter name="pollutionRule" type="String" displayName="2.2.6 Pollution Rule" defaultValue="repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionRule_p50"  />
 	
 	
 	<!--  3.1 Landscape Properties  -->
@@ -29,14 +22,5 @@
 	<parameter name="regenerationRate" displayName="3.1.2 Rate of Landscape regenaration" type="int" defaultValue="1" />
 	<parameter name="pollutionDiffusionPeriod" displayName="3.1.3 Period of Pollution Diffusion" type="int" defaultValue="10" />
 	
-	
-	<!--  3.2 Landscape Rules  -->
-	<parameter name="growbackRuleClass" 
-		type="String" 
-		displayName="3.2.1 Growback Rule (default is when the regeneration rate = 1)" 
-		values="repast.simphony.demos.sugarscape2.landscape.rules.growback.ImmediateFullCapacityGrowbackRule 
-		repast.simphony.demos.sugarscape2.landscape.rules.growback.GrowbackRule_p30"
-		defaultValue="repast.simphony.demos.sugarscape2.landscape.rules.growback.GrowbackRule_p30"  />
-	<parameter name="pollutionDiffusionRuleClass" displayName="3.2.2 Pollution Diffusion Rule" type="String" defaultValue="repast.simphony.demos.sugarscape2.landscape.rules.pollution.PollutionDiffusionRule_p50"  />
 	
 </parameters>
