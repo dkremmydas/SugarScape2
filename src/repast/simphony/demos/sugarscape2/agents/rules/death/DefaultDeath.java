@@ -14,24 +14,11 @@ public class DefaultDeath implements DieAbility {
 	
 	@Override
 	public boolean shallDie(SugarAgent_ch2 a) {
-		if(a.getSugarWealth() < 0) {
+		if(a.getResourceHolding("sugar") < 0) {
 			return  true;	
 		} 	else {
 			return false;
 		}
-	}
-
-
-	
-		
-	@Override
-	public int getAge(SugarAgent_ch2 a) {
-		return 1;
-	}
-
-	
-	@Override
-	public void incrementAge(SugarAgent_ch2 a) {
 	}
 
 

@@ -10,21 +10,7 @@ public interface DieAbility {
 	 * @return
 	 */
 	public boolean shallDie(SugarAgent_ch2 a);
-	
-	
-	/**
-	 * 
-	 * @param a
-	 * @return
-	 */
-	public int getAge(SugarAgent_ch2 a);
-	
-	
-	/**
-	 * 
-	 * @param a
-	 */
-	public void incrementAge(SugarAgent_ch2 a);
+
 	
 	
 	/**

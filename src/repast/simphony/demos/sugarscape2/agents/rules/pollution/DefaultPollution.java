@@ -23,7 +23,7 @@ public class DefaultPollution implements PollutionAbility {
 		HashedMap<GridPoint, Integer> r = new HashedMap<GridPoint, Integer>();
 
 		//int pollution = alpha*owner.getAmountGathered() + beta*owner.getAmountMetabolized();
-		int pollution = alpha*a.getGatherRule().getAmountGathered(a) + beta*a.getSugar().getMetabolism();
+		int pollution = alpha*a.getGatherRule().getAmountGathered(a) + beta*a.getResourceMetabolism("sugar");
 
 		r.put(a.getCurrentPosition(), pollution);
 

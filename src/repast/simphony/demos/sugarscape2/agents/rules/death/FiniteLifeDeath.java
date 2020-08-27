@@ -12,8 +12,6 @@ import repast.simphony.engine.environment.RunEnvironment;
  */
 public class FiniteLifeDeath implements DieAbility {
 	
-	int age = 1;
-	
 	int age_max;
 	
 	
@@ -21,9 +19,8 @@ public class FiniteLifeDeath implements DieAbility {
 	
 	public FiniteLifeDeath() {}
 	
-	public FiniteLifeDeath(int age, int age_max) {
+	public FiniteLifeDeath(int age_max) {
 		super();
-		this.age = age;
 		this.age_max = age_max;
 	}
 
@@ -33,9 +30,9 @@ public class FiniteLifeDeath implements DieAbility {
 	@Override
 	public boolean shallDie(SugarAgent_ch2 a) {
 
-		boolean dieFromStavation = (a.getSugarWealth() < 0);
+		boolean dieFromStavation = (a.getResourceHolding("sugar") < 0);
 
-		boolean dieFromAge = ((a.getDieRule().getAge(a)>=age_max)?true:false);
+		boolean dieFromAge = ((a.getAge()>=age_max)?true:false);
 		
 		return (dieFromStavation|dieFromAge);
 		
@@ -43,18 +40,6 @@ public class FiniteLifeDeath implements DieAbility {
 
 
 	
-		
-	@Override
-	public int getAge(SugarAgent_ch2 a) {
-		return age;
-	}
-
-	
-	@Override
-	public void incrementAge(SugarAgent_ch2 a) {
-		this.age++;		
-	}
-
 
 
 
