@@ -9,7 +9,6 @@ import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
 
 
@@ -21,14 +20,7 @@ import repast.simphony.space.grid.GridPoint;
  */
 public class DefaultVision implements VisionAbility {
 		
-	
-	
-	/**
-	 * How many lattices they can see 
-	 */
-	protected int levelOfVision;
-	
-	
+		
 	/**
 	 * Moore or von-Neumman
 	 */
@@ -37,7 +29,6 @@ public class DefaultVision implements VisionAbility {
 	
 	public DefaultVision(int levelOfVision, Utility.TypeOfVision typeOfVision) {
 		this.typeOfVision  = typeOfVision;
-		this.levelOfVision = levelOfVision;
 	}	
 	
 
@@ -53,9 +44,9 @@ public class DefaultVision implements VisionAbility {
 		//add neighboring points
 		Set<GridPoint> seen_all;
 		if(this.typeOfVision==Utility.TypeOfVision.MOORE) {
-			seen_all = NeighbourhoodFunctions.getVonNeumanPoints(agent_loc, a.getContext().getGrid(), levelOfVision);
+			seen_all = NeighbourhoodFunctions.getVonNeumanPoints(agent_loc, a.getContext().getGrid(), a.getVision());
 		} else {
-			seen_all = NeighbourhoodFunctions.getMoorePoints(agent_loc, a.getContext().getGrid(), levelOfVision);
+			seen_all = NeighbourhoodFunctions.getMoorePoints(agent_loc, a.getContext().getGrid(), a.getVision());
 		}
 		
 	
@@ -75,28 +66,20 @@ public class DefaultVision implements VisionAbility {
 		
 		
 	}
-	
-	
-
-
-	@Override
-	public int getVisionLevel(SugarAgent_ch2 a) {
-		return levelOfVision;
-	}
-	
+		
 	
 
 
 	@Override
 	public void configureFromEnvironment() {
 		
-		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
+		
 		
 		String typeOfVision_str = RunEnvironment.getInstance().getParameters().getString("VisionType");
 		
 		typeOfVision = (typeOfVision_str.equalsIgnoreCase("Moore"))?Utility.TypeOfVision.MOORE:Utility.TypeOfVision.NEUMMAN;
 		
-		levelOfVision = RandomHelper.nextIntFromTo(1, maxVision);
+
 		
 	}
 	

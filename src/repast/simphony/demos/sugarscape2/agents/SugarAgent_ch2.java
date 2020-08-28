@@ -93,11 +93,13 @@ public class SugarAgent_ch2 {
 	public String getId() {
 		return id;
 	}
+	
+	
+	public int getVision() {
+		return vision;
+	}
 
-	/**
-	 * 
-	 * @return
-	 */
+
 	public boolean isAlive() {
 		return isAlive;
 	}
@@ -221,7 +223,7 @@ public class SugarAgent_ch2 {
 		int x = this.getCurrentPosition().getX(); 
 		int y = this.getCurrentPosition().getY();
 
-		String r = "{Id:"+this.id+", Sugar Vision: "+this.visionRule.getVisionLevel(this) +
+		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVision() +
 				", Sugar.metab: " + this.sugar.metabolism + 
 				", Sugar.hold: " + this.sugar.holding + 
 				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.getSugar().availableAtXY(x,y)+"]"+
@@ -237,7 +239,7 @@ public class SugarAgent_ch2 {
 
 
 	@ScheduledMethod(start=1d,interval=5d)
-	public void applyRuleM() {
+	public void step() {
 
 		if(isAlive) {
 			Set<GridPoint> points_seen = this.visionRule.see(this);
@@ -380,6 +382,9 @@ public class SugarAgent_ch2 {
 		private String id;
 		private int sugarInitial;
 		private int sugarMetabolism;
+		private int vision;
+		private int age;
+		
 		private DieAbility dieRule;
 		private VisionAbility visionRule;
 		private MovementAbility movementRule;
@@ -401,6 +406,8 @@ public class SugarAgent_ch2 {
 
 			ag.context=this.context;
 			ag.id=this.id;
+			ag.vision = this.vision;
+			ag.age = this.age;
 
 			ag.sugar = ag.new AgentResource(this.sugarInitial, this.sugarMetabolism);
 
@@ -414,6 +421,16 @@ public class SugarAgent_ch2 {
 		}
 
 
+		public Builder withVision(int vision) {
+			this.vision=vision;
+			return this;
+		}
+		
+		public Builder withAge(int age) {
+			this.age=age;
+			return this;
+		}
+		
 		public Builder withSugarInitial(int sugar) {
 			this.sugarInitial=sugar;
 			return this;

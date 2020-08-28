@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.utilities;
+package repast.simphony.demos.sugarscape2.datasources;
 
 import java.util.Arrays;
 
@@ -37,7 +37,7 @@ public class GiniAggregateDataSource implements AggregateDataSource {
 		int i=0;
 		for(Object o: objs) {
 			SugarAgent_ch2 a = (SugarAgent_ch2) o;
-			values[i++] = a.getSugarWealth();			
+			values[i++] = a.getResourceHolding("sugar");			
 		}
 		
 		//sort values

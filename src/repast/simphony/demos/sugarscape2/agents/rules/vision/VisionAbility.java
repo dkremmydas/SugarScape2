@@ -19,13 +19,6 @@ public interface VisionAbility {
 	public Set<GridPoint> see(SugarAgent_ch2 a);
 	
 	
-	/**
-	 * The level of vision of the agent
-	 * @param a
-	 * @return int the level of vision
-	 */
-	public int getVisionLevel(SugarAgent_ch2 a);
-	
 	
 	/**
 	 * In this method, the Repast Simphony environmental variables should be used

@@ -97,6 +97,9 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 
 			int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 			int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
+			int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
+			
+	
 
 			if (variant.equalsIgnoreCase("p30")) {
 
@@ -107,6 +110,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
 
 				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
+						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
 						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
 						.withDieRule(da)
@@ -128,6 +132,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
 
 				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
+						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
 						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
 						.withDieRule(da)
@@ -149,6 +154,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
 
 				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
+						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
 						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
 						.withDieRule(da)
@@ -170,6 +176,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				PollutionAbility pa = new DefaultPollution(); pa.configureFromEnvironment();
 
 				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
+						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
 						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
 						.withDieRule(da)
