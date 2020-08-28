@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.HistogramChartDescriptor simphonyVersion="2.7.0">
-  <name>Distribution of Welath</name>
-  <dataSet>Individual Wealth</dataSet>
-  <xAxisLabel>Bins</xAxisLabel>
-  <yAxisLabel>Wealth</yAxisLabel>
-  <chartTitle>Distribution of Welath</chartTitle>
+  <name>Distribution nof Sugar Wealth</name>
+  <dataSet>Sugar Wealth Individual</dataSet>
+  <xAxisLabel>Sugar Wealth (individual)</xAxisLabel>
+  <yAxisLabel>Number of agents</yAxisLabel>
+  <chartTitle>Distributio nof Sugar Wealth</chartTitle>
   <type>HISTOGRAM</type>
   <background>
     <red>192</red>
@@ -20,8 +20,8 @@
   <showGrid>true</showGrid>
   <showLegend>true</showLegend>
   <histType>DYNAMIC</histType>
-  <binCount>10</binCount>
-  <sourceId>SugarWealth</sourceId>
+  <binCount>8</binCount>
+  <sourceId>SugarWealthDataSource</sourceId>
   <outOfRange>IGNORE</outOfRange>
   <min>0.0</min>
   <max>0.0</max>

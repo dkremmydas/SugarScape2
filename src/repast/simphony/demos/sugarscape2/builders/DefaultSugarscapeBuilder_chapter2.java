@@ -33,7 +33,6 @@ import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.random.RandomHelper;
-import repast.simphony.space.graph.Network;
 
 /**
  * The concern of this class is to create the Sugarscape {@link}Context
@@ -231,7 +230,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				SugarSpace_ch2 agentscontext = new SugarSpace_ch2(pgm_file, growbackRule , replacementRule, diffusionRule);
 
 				NetworkBuilder<Object> netb = new NetworkBuilder<Object>("neigbours", agentscontext, true);
-				Network<Object> net = netb.buildNetwork();
+				netb.buildNetwork();
 
 				return agentscontext;
 

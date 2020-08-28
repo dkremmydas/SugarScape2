@@ -1,7 +1,6 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Individual Wealth</name>
-  <type>NON_AGGREGATE</type>
-  <sourceType>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2</sourceType>
+  <name>Gini coefficient</name>
+  <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -12,20 +11,19 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1591221460</hashCode>
+    <hashCode>55578057</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
-  <methodDataSources class="linked-hash-map">
-    <entry>
-      <string>SugarWealth</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>SugarWealth</id>
-        <className>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2</className>
-        <methodName>getSugarWealth</methodName>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-  </methodDataSources>
+  <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
-  <customAggDataSources class="linked-hash-map"/>
+  <customAggDataSources class="linked-hash-map">
+    <entry>
+      <string>GiniCoefficient</string>
+      <repast.simphony.data2.engine.CustomDataSourceDefinition>
+        <id>GiniCoefficient</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.GiniAggregateDataSource</dsClassName>
+      </repast.simphony.data2.engine.CustomDataSourceDefinition>
+    </entry>
+  </customAggDataSources>
 </repast.simphony.data2.engine.DataSetDescriptor>
