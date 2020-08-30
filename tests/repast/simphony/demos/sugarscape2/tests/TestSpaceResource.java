@@ -6,12 +6,12 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import repast.simphony.demos.sugarscape2.agents.SpaceResource;
+import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
 import repast.simphony.valueLayer.GridValueLayer;
 
 public class TestSpaceResource {
 	
-	static SpaceResource s;
+	static SugarSpace_ch2.SpaceResource s;
 
 	@Before
 	public void setUp() throws Exception {
@@ -19,7 +19,7 @@ public class TestSpaceResource {
 		GridValueLayer cap = new GridValueLayer("sugar capacity", 10, true, 10,10);
 		GridValueLayer lvl = new GridValueLayer("sugar level", 10, true, 10,10);
 		
-		s = new SpaceResource(cap, lvl);
+		s = new SugarSpace_ch2().new SpaceResource(cap, lvl);
 				
 				
 	}

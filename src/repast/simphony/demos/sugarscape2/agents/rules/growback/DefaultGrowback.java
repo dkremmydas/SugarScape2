@@ -36,10 +36,10 @@ public class DefaultGrowback implements GrowbackAbility{
 
 
 		if(regeneration_rate<0) {
-			return s.getSugar().getCapacity();
+			return s.getResourceCapacity("sugar");
 		} else {
-			s.getSugar().addEverywhere(regeneration_rate);
-			return s.getSugar().getHolding();
+			s.addResourceEverywhere("sugar",regeneration_rate);
+			return s.getResourceHolding("sugar");
 		}
 
 	}

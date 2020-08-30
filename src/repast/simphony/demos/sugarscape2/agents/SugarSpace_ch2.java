@@ -10,6 +10,7 @@ import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.PollutionDiffusionAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.ReplacementAbility;
+import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -97,6 +98,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	}
 
 
+	
+	//********************************************************************************************************
+	//Methods delegating sugar object
 
 	/**
 	 * 
@@ -105,20 +109,220 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public SpaceResource getSugar() {
 		return sugar;
 	}
+	
+	/**
+	 * 
+	 * @param resource
+	 * @return
+	 */
+	public GridValueLayer getResourceCapacity(String resource) {
+		if(resource.equalsIgnoreCase("sugar")) {
+			return Utility.cloneGridValueLayer(this.sugar.getCapacity());
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+	}
+	
+	/**
+	 * 
+	 * @param resource
+	 * @return
+	 */
+	public GridValueLayer getResourceHolding(String resource) {
+		if(resource.equalsIgnoreCase("sugar")) {
+			return Utility.cloneGridValueLayer(this.sugar.getHolding());
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param resource
+	 * @param quant
+	 */
+	public void addResourceEverywhere(String resource,int quant) {
+		
+		if(resource.equalsIgnoreCase("sugar")) {
+			sugar.addEverywhere(quant);
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param resource
+	 * @param x
+	 * @param y
+	 * @param quant
+	 * @return
+	 */
+	public int addResourceToXY(String resource,int x, int y, int quant) {
+		
+		if(resource.equalsIgnoreCase("sugar")) {
+			return sugar.addToXY(x, y, quant);
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+		
+	}
+
+	
+	/**
+	 * 
+	 * @param resource
+	 * @param gp
+	 * @param quant
+	 * @return
+	 */
+	public int addResourceToXY(String resource,GridPoint gp, int quant) {
+		
+		if(resource.equalsIgnoreCase("sugar")) {
+			return sugar.addToXY(gp, quant);
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param resource
+	 * @param x
+	 * @param y
+	 * @param amountRequested
+	 * @return
+	 */
+	public int gatherResourceFromXY(String resource,int x, int y, int amountRequested) {
+		
+		if(resource.equalsIgnoreCase("sugar")) {
+			return sugar.gatherFromXY(x, y, amountRequested);
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+		
+	}
+
 
 	/**
 	 * 
+	 * @param resource
+	 * @param x
+	 * @param y
 	 * @return
 	 */
-	public Grid<Object> getGrid() {
-		return grid;
+	public int availableResourceAtXY(String resource,int x, int y) {
+		
+		if(resource.equalsIgnoreCase("sugar")) {
+			return sugar.availableAtXY(x, y);
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+		
 	}
 
 
 
+	//********************************************************************************************************
+	//Methods delegating grid object
+	
+	/**
+	 * 
+	 * @param a
+	 * @return
+	 */
+	public GridPoint getSugarAgentLocation(SugarAgent_ch2 a) {
+		return grid.getLocation(a);
+	}
+	
+	/**
+	 * 
+	 * @param a
+	 * @param x
+	 * @param y
+	 */
+	public void moveAgentTo(SugarAgent_ch2 a,int x, int y) {
+		grid.moveTo(a, x, y);
+	}
+	
+	/**
+	 * 
+	 * @param a
+	 * @param radius
+	 * @param v
+	 * @return
+	 */
+	public Iterable<GridPoint> getSugarAgentNeighboringPoints(SugarAgent_ch2 a, int radius, Utility.TypeOfVision v) {
+		if(v==Utility.TypeOfVision.MOORE) {
+			return NeighbourhoodFunctions.getMoorePoints(a.getCurrentPosition(), grid, radius);
+		} else {
+			return NeighbourhoodFunctions.getVonNeumanPoints(a.getCurrentPosition(), grid, radius);
+		}		
+	}
+	
+	/**
+	 * 
+	 * @param gp
+	 * @param radius
+	 * @param v
+	 * @return
+	 */
+	public Iterable<GridPoint> getGridPointNeighboringPoints(GridPoint gp, int radius, Utility.TypeOfVision v) {
+		if(v==Utility.TypeOfVision.MOORE) {
+			return NeighbourhoodFunctions.getMoorePoints(gp, grid, radius);
+		} else {
+			return NeighbourhoodFunctions.getVonNeumanPoints(gp, grid, radius);
+		}		
+	}
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public Iterable<Object> getObjectsAt(int x, int y) {
+		return grid.getObjectsAt(x,y);
+	}
+	
 	/**
 	 * 
 	 * @return
+	 */
+	public int getWidth() {
+		return grid.getDimensions().getWidth();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getHeight() {
+		return grid.getDimensions().getHeight();
+	}
+	
+	/**
+	 * 
+	 * @param point1
+	 * @param point2
+	 * @return
+	 */
+	public double getDistance(GridPoint point1, GridPoint point2) {
+		return grid.getDistance(point1, point2);
+	}
+	
+	
+
+
+
+	/**
+	 * 
+	 * @param pgm_file
 	 */
 	public void configureFromPGM (String pgm_file) {
 
@@ -194,7 +398,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @author Dimitris Kremmydas
 	 *
 	 */
-	public class SpaceResource {
+	protected class SpaceResource {
 		
 		GridValueLayer capacity;
 		

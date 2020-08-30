@@ -49,4 +49,24 @@ public class Utility {
 	}
 	
 	
+	
+	public static GridValueLayer cloneGridValueLayer(GridValueLayer gvl) {
+		
+		GridValueLayer gvl_clone = new GridValueLayer(gvl.getName() + "_clone", true, (int)gvl.getDimensions().getWidth(),(int)gvl.getDimensions().getHeight());
+		
+		int x,y;
+		
+		for( x=0; x< gvl.getDimensions().getWidth();x++) {
+			for( y=0; y< gvl.getDimensions().getHeight();y++) {
+				gvl_clone.set(gvl.get(x,y), x,y);
+			}
+		}
+		
+		
+		return gvl_clone;
+		
+		
+	}
+	
+	
 }

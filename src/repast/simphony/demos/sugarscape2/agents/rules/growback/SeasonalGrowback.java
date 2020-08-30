@@ -37,32 +37,32 @@ public class SeasonalGrowback extends DefaultGrowback {
 	@Override
 	public GridValueLayer growback(SugarSpace_ch2 s) {
 
-		int width = s.getGrid().getDimensions().getWidth();
-		int height = s.getGrid().getDimensions().getHeight();
+		int width = s.getWidth();
+		int height = s.getHeight();
 
 		for(int i=0;i<width;i++) {
 			for(int j=0;j<height;j++) {
 				if(j>(height/2)) {
 					if(season==Season.Summer) {
-						s.getSugar().addToXY(i, j, summerRegenerationRate);
+						s.addResourceToXY("sugar",i, j, summerRegenerationRate);
 					} 
 					else {
-						s.getSugar().addToXY(i, j, winterRegenerationRate);
+						s.addResourceToXY("sugar",i, j, winterRegenerationRate);
 					}
 				}
 				else {
 					if(season==Season.Summer) {
-						s.getSugar().addToXY(i, j, winterRegenerationRate);
+						s.addResourceToXY("sugar",i, j, winterRegenerationRate);
 					}
 					else {
-						s.getSugar().addToXY(i, j, summerRegenerationRate);
+						s.addResourceToXY("sugar",i, j, summerRegenerationRate);
 					}
 				}
 
 			}
 		}
 
-		return s.getSugar().getHolding();
+		return s.getResourceHolding("sugar");
 
 	}
 

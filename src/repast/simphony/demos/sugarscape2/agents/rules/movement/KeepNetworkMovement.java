@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.graph.Network;
@@ -54,16 +53,11 @@ public class KeepNetworkMovement extends DefaultMovement {
 
 		Iterable<GridPoint> points_neigh;
 		
-		if(this.typeOfVision==Utility.TypeOfVision.MOORE) {
-			points_neigh = NeighbourhoodFunctions.getMoorePoints(gp, a.getContext().getGrid(), 1);
-		} else {
-			points_neigh = NeighbourhoodFunctions.getVonNeumanPoints(gp, a.getContext().getGrid(), 1);
-		}
-
+		points_neigh = a.getContext().getSugarAgentNeighboringPoints(a, 1, this.typeOfVision);
 
 		for(GridPoint gpp: points_neigh ) {
 
-			Iterable<Object> objs = a.getContext().getGrid().getObjectsAt(gpp.getX(),gpp.getY());
+			Iterable<Object> objs = a.getContext().getObjectsAt(gpp.getX(),gpp.getY());
 
 			for(Object obj: objs) {
 				if(obj.getClass().equals(SugarAgent_ch2.class)) {

@@ -54,8 +54,8 @@ public class DefaultMovement implements MovementAbility {
 				Double q2 = gvl.get(arg1.getX(),arg1.getY());
 				int tr = q2.compareTo(q1);
 				if(tr==0) { //there is the same amount of sugar, so check distance
-					Double dis1 = a.getContext().getGrid().getDistance(myPoint, arg0);
-					Double dis2 = a.getContext().getGrid().getDistance(myPoint, arg1);
+					Double dis1 = a.getContext().getDistance(myPoint, arg0);
+					Double dis2 = a.getContext().getDistance(myPoint, arg1);
 					tr = dis1.compareTo(dis2);
 				}
 				return tr;

@@ -5,10 +5,8 @@ import java.util.Set;
 import org.apache.commons.math3.stat.StatUtils;
 
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -35,13 +33,13 @@ public class DefaultPollutionDiffusion implements PollutionDiffusionAbility {
 
 		if((tick%pollutionDiffusionPeriod)==0) {
 			
-			Grid grid =  s.getGrid();
+			//Grid grid =  s.getGrid();
 
 
-			GridValueLayer newP = new GridValueLayer("temp", true, grid.getDimensions().getWidth(), grid.getDimensions().getHeight());			
-			for(int x=0;x<grid.getDimensions().getWidth();x++) {
-				for(int y=0;y<grid.getDimensions().getHeight();y++) {
-					double nv = computeFlux(x, y, pollution, grid);
+			GridValueLayer newP = new GridValueLayer("temp", true, s.getWidth(), s.getHeight());			
+			for(int x=0;x<s.getWidth();x++) {
+				for(int y=0;y<s.getHeight();y++) {
+					double nv = computeFlux(x, y, pollution, s);
 					newP.set(nv, x,y);
 				}
 			}
@@ -55,9 +53,10 @@ public class DefaultPollutionDiffusion implements PollutionDiffusionAbility {
 	
 	
 	
-	private double computeFlux(int x, int y, GridValueLayer gvl, Grid<?> grid) {
+	private double computeFlux(int x, int y, GridValueLayer gvl,SugarSpace_ch2 s) {
 
-		Set<GridPoint> neigh = NeighbourhoodFunctions.getVonNeumanPoints(new GridPoint(x,y), grid, 1);
+		Set<GridPoint> neigh = (Set<GridPoint>) s.getGridPointNeighboringPoints(new GridPoint(x,y), 1, Utility.TypeOfVision.NEUMMAN);
+				//NeighbourhoodFunctions.getVonNeumanPoints(new GridPoint(x,y), grid, 1);
 		double[] values = new double[neigh.size()];
 
 		int i=0;

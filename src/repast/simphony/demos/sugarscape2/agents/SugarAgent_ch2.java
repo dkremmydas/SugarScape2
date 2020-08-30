@@ -226,7 +226,7 @@ public class SugarAgent_ch2 {
 		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVision() +
 				", Sugar.metab: " + this.sugar.metabolism + 
 				", Sugar.hold: " + this.sugar.holding + 
-				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.getSugar().availableAtXY(x,y)+"]"+
+				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.availableResourceAtXY("sugar",x,y)+"]"+
 				"}";
 
 		return r;
@@ -246,11 +246,11 @@ public class SugarAgent_ch2 {
 
 			GridPoint new_pos = this.movementRule.move(this, points_seen);
 
-			context.getGrid().moveTo(this, new_pos.getX(),new_pos.getY());
+			context.moveAgentTo(this, new_pos.getX(),new_pos.getY());
 
 			int sugar_to_gather = this.gatherRule.gather(this, new_pos);
 
-			int sugar_gathered = this.context.getSugar().gatherFromXY(new_pos.getX(), new_pos.getY(), sugar_to_gather);
+			int sugar_gathered = this.context.gatherResourceFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
 
 			this.sugar.store(sugar_gathered);
 
@@ -307,7 +307,7 @@ public class SugarAgent_ch2 {
 	 * @author Dimitris Kremmydas
 	 *
 	 */
-	public class AgentResource {
+	protected class AgentResource {
 
 		/**
 		 * Initial endowment
