@@ -23,7 +23,9 @@ import repast.simphony.valueLayer.GridValueLayer;
 import simphony.util.messages.MessageCenter;
 
 /**
- * The space in which the SugarAgents act. 
+ * <p>The space in which the SugarAgents act. This is the implementation for chapter 2</p>.
+ * 
+ * <p>This class implements the Singleton design pattern since only one object is allowed</p>
  *
  * @author Dimitris Kremmydas
  * @version 
@@ -31,33 +33,59 @@ import simphony.util.messages.MessageCenter;
 
 public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
+	private static SugarSpace_ch2 single_instance = null;
+
+	private static boolean configured = false;
+
+
 	protected SpaceResource sugar;
 
 	protected GrowbackAbility growbackRule;
 
 	protected ReplacementAbility replacementRule;
-	
+
 	protected PollutionDiffusionAbility diffusion_rule;
 
 	protected Grid<Object> grid;
 
 
 
+	public static SugarSpace_ch2 getInstance()  {
 
-	public SugarSpace_ch2(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusion_rule) {
+		if(SugarSpace_ch2.configured) {
+			return SugarSpace_ch2.single_instance;
+		} else {
+			throw new RuntimeException("SugarSpace has not been configured yet.");
+		}
+
+
+	}
+
+	public static SugarSpace_ch2 createInstance(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
+
+		if(SugarSpace_ch2.configured) {
+			SugarSpace_ch2.logMessage(SugarSpace_ch2.class, Level.INFO, "SugarSpace has already been configured. You can not re-configure it.");
+		} else {
+			SugarSpace_ch2 s = new SugarSpace_ch2(pgm_file,growbackRule,replacementRule,diffusionRule);
+			SugarSpace_ch2.single_instance = s;
+			SugarSpace_ch2.configured = true;
+		}
+		
+		return SugarSpace_ch2.single_instance;
+	}
+
+
+	private SugarSpace_ch2(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
+
 		super("sugarspace");
 
+		this.growbackRule = growbackRule;
+		this.replacementRule = replacementRule;
+		this.diffusion_rule = diffusionRule;
+		
 		this.configureFromPGM(pgm_file);
 
-		this.growbackRule = growbackRule;
-
-		this.replacementRule = replacementRule;
-		
-		this.diffusion_rule = diffusion_rule;
-		
-
 		SugarSpace_ch2 me = this;
-
 		super.addContextListener(new ContextListener<Object>() {
 
 			@Override
@@ -70,8 +98,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 			}
 		});
-
 	}
+
 
 
 
@@ -87,8 +115,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		this.sugar.updateHolding(sugarHoldingNew);
 
 	}
-	
-	
+
+
 	@ScheduledMethod(start=4d,interval=5d)
 	public void diffuse_pollution() {	
 
@@ -98,7 +126,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	}
 
 
-	
+
 	//********************************************************************************************************
 	//Methods delegating sugar object
 
@@ -109,7 +137,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public SpaceResource getSugar() {
 		return sugar;
 	}
-	
+
 	/**
 	 * 
 	 * @param resource
@@ -122,7 +150,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param resource
@@ -135,24 +163,24 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param resource
 	 * @param quant
 	 */
 	public void addResourceEverywhere(String resource,int quant) {
-		
+
 		if(resource.equalsIgnoreCase("sugar")) {
 			sugar.addEverywhere(quant);
 		} else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
-		
+
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param resource
@@ -162,16 +190,16 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @return
 	 */
 	public int addResourceToXY(String resource,int x, int y, int quant) {
-		
+
 		if(resource.equalsIgnoreCase("sugar")) {
 			return sugar.addToXY(x, y, quant);
 		} else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
-		
+
 	}
 
-	
+
 	/**
 	 * 
 	 * @param resource
@@ -180,16 +208,16 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @return
 	 */
 	public int addResourceToXY(String resource,GridPoint gp, int quant) {
-		
+
 		if(resource.equalsIgnoreCase("sugar")) {
 			return sugar.addToXY(gp, quant);
 		} else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
-		
+
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param resource
@@ -199,13 +227,13 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @return
 	 */
 	public int gatherResourceFromXY(String resource,int x, int y, int amountRequested) {
-		
+
 		if(resource.equalsIgnoreCase("sugar")) {
 			return sugar.gatherFromXY(x, y, amountRequested);
 		} else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
-		
+
 	}
 
 
@@ -217,20 +245,20 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @return
 	 */
 	public int availableResourceAtXY(String resource,int x, int y) {
-		
+
 		if(resource.equalsIgnoreCase("sugar")) {
 			return sugar.availableAtXY(x, y);
 		} else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
-		
+
 	}
 
 
 
 	//********************************************************************************************************
 	//Methods delegating grid object
-	
+
 	/**
 	 * 
 	 * @param a
@@ -239,7 +267,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public GridPoint getSugarAgentLocation(SugarAgent_ch2 a) {
 		return grid.getLocation(a);
 	}
-	
+
 	/**
 	 * 
 	 * @param a
@@ -249,7 +277,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public void moveAgentTo(SugarAgent_ch2 a,int x, int y) {
 		grid.moveTo(a, x, y);
 	}
-	
+
 	/**
 	 * 
 	 * @param a
@@ -264,7 +292,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 			return NeighbourhoodFunctions.getVonNeumanPoints(a.getCurrentPosition(), grid, radius);
 		}		
 	}
-	
+
 	/**
 	 * 
 	 * @param gp
@@ -279,7 +307,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 			return NeighbourhoodFunctions.getVonNeumanPoints(gp, grid, radius);
 		}		
 	}
-	
+
 	/**
 	 * 
 	 * @param x
@@ -289,7 +317,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public Iterable<Object> getObjectsAt(int x, int y) {
 		return grid.getObjectsAt(x,y);
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -297,7 +325,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public int getWidth() {
 		return grid.getDimensions().getWidth();
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -305,7 +333,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public int getHeight() {
 		return grid.getDimensions().getHeight();
 	}
-	
+
 	/**
 	 * 
 	 * @param point1
@@ -315,16 +343,33 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public double getDistance(GridPoint point1, GridPoint point2) {
 		return grid.getDistance(point1, point2);
 	}
-	
-	
 
+
+
+
+
+
+
+	public void setGrowbackRule(GrowbackAbility growbackRule) {
+		this.growbackRule = growbackRule;
+	}
+
+
+	public void setReplacementRule(ReplacementAbility replacementRule) {
+		this.replacementRule = replacementRule;
+	}
+
+
+	public void setDiffusion_rule(PollutionDiffusionAbility diffusion_rule) {
+		this.diffusion_rule = diffusion_rule;
+	}
 
 
 	/**
 	 * 
 	 * @param pgm_file
 	 */
-	public void configureFromPGM (String pgm_file) {
+	private void configureFromPGM (String pgm_file) {
 
 		//1.1 read the pgm file
 		PGMReader pgmreader = new PGMReader( pgm_file); //"./data/sugarspace.pgm"
@@ -377,7 +422,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	}
 
-	
+
 	/**
 	 * Write log messages to log4j
 	 * 
@@ -389,8 +434,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		MessageCenter mc = MessageCenter.getMessageCenter(clazz);
 		mc.fireMessageEvent(level, message, null);
 	}
-	
-	
+
+
 
 	/**
 	 * The set of agent's properties (fixed or variables) that are related to a product
@@ -399,9 +444,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 *
 	 */
 	protected class SpaceResource {
-		
+
 		GridValueLayer capacity;
-		
+
 		GridValueLayer holding;
 
 		public SpaceResource(GridValueLayer capacity, GridValueLayer holding) {
@@ -409,35 +454,35 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 			this.capacity = capacity;
 			this.holding = holding;
 		}
-		
-			
+
+
 		public int gatherFromXY(int x,int y,int amountRequested) {
-			
+
 			if(amountRequested<0) {amountRequested=0;}
-			
+
 			int amountGathered;
-			
+
 			int amountAvailable = (int) this.holding.get(x,y);
-			
+
 			if(amountAvailable>amountRequested) {
 				amountGathered = amountRequested;
 			} else {
 				amountGathered = amountAvailable;
 			}
-			
+
 			this.holding.set(amountAvailable-amountGathered, x,y);
-			
+
 			return amountGathered;
 		}
-		
-		
+
+
 		public int availableAtXY(int x, int y) {
-			
+
 			return( (int) this.holding.get(x,y) );
-			
-			
+
+
 		}
-		
+
 		/**
 		 * Add a quantity of resource to a x-y GridPoint
 		 * The sum of the existing and the added quantity cannot go over the capacity of the point 
@@ -448,22 +493,22 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		 * @return the actual quantity added
 		 */
 		public int addToXY(int x,int y,int quant) {
-			
+
 			int added;
-			
+
 			if( (this.holding.get(x,y)+quant) > this.capacity.get(x,y) ) {
 				added = (int) (this.capacity.get(x,y)-this.holding.get(x,y));
 			} else {
 				added = quant;
 			}
-			
-			
+
+
 			this.holding.set(this.holding.get(x,y)+added,x, y );
-			
+
 			return added;
-			
+
 		}
-		
+
 		/**
 		 * Add a quantity of resource to a x-y GridPoint
 		 * The sum of the existing and the added quantity cannot go over the capacity of the point
@@ -475,8 +520,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		public int addToXY(GridPoint gp, int quant) {
 			return this.addToXY(gp.getX(), gp.getY(), quant);
 		}
-		
-		
+
+
 		/**
 		 * Add in every {@link GridPoint} of the Resource the specified quantity
 		 * @param quant the quantity of resource to add
@@ -485,15 +530,15 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 			int x,y;
 			int x_max= (int) this.holding.getDimensions().getWidth();
 			int y_max=(int) this.holding.getDimensions().getHeight();
-			
+
 			for( x=0; x< x_max;x++) {
 				for( y=0; y< y_max;y++) {
 					this.addToXY(x, y, quant);
 				}
 			}
 		}
-		
-		
+
+
 		/**
 		 * Replace the holding {@link GridValueLayer} with the provided one. 
 		 * The replacement is done in a 'by value' way
@@ -501,7 +546,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		 */
 		public void updateHolding(GridValueLayer newValueLayer) {
 			int x,y;
-			
+
 			for( x=0; x< this.holding.getDimensions().getWidth();x++) {
 				for( y=0; y< this.holding.getDimensions().getHeight();y++) {
 					this.holding.set(newValueLayer.get(x,y), x,y);
@@ -518,16 +563,16 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		public GridValueLayer getHolding() {
 			return holding;
 		}
-		
-		
-		
-			
-		
+
+
+
+
+
 
 	}
 
-	
-	
+
+
 
 
 }

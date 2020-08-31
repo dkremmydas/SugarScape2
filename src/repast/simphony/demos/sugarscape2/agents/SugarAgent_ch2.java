@@ -70,12 +70,7 @@ public class SugarAgent_ch2 {
 	
 	//Other utility variables
 
-	/**
-	 * Reference to the context
-	 */
-	protected SugarSpace_ch2 context;
 
-	
 	
 	//Constructors, Initialization
 
@@ -116,21 +111,12 @@ public class SugarAgent_ch2 {
 
 
 
-
-	/**
-	 * 
-	 * @return
-	 */
-	public SugarSpace_ch2 getContext() {
-		return context;
-	}
-
 	/**
 	 * 
 	 * @return
 	 */
 	public GridPoint getCurrentPosition() {
-		return this.context.grid.getLocation(this);
+		return SugarSpace_ch2.getInstance().grid.getLocation(this);
 	}
 
 
@@ -226,7 +212,7 @@ public class SugarAgent_ch2 {
 		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVision() +
 				", Sugar.metab: " + this.sugar.metabolism + 
 				", Sugar.hold: " + this.sugar.holding + 
-				", Position: [X:"+x+", Y:"+y+", Sugar:"+this.context.availableResourceAtXY("sugar",x,y)+"]"+
+				", Position: [X:"+x+", Y:"+y+", Sugar:"+SugarSpace_ch2.getInstance().availableResourceAtXY("sugar",x,y)+"]"+
 				"}";
 
 		return r;
@@ -246,11 +232,11 @@ public class SugarAgent_ch2 {
 
 			GridPoint new_pos = this.movementRule.move(this, points_seen);
 
-			context.moveAgentTo(this, new_pos.getX(),new_pos.getY());
+			SugarSpace_ch2.getInstance().moveAgentTo(this, new_pos.getX(),new_pos.getY());
 
 			int sugar_to_gather = this.gatherRule.gather(this, new_pos);
 
-			int sugar_gathered = this.context.gatherResourceFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
+			int sugar_gathered = SugarSpace_ch2.getInstance().gatherResourceFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
 
 			this.sugar.store(sugar_gathered);
 
@@ -272,7 +258,7 @@ public class SugarAgent_ch2 {
 
 		Map<GridPoint,Integer> pollution = this.pollutionRule.pollute(this);
 
-		GridValueLayer pollution_gvl = (GridValueLayer) this.context.getValueLayer("pollution");
+		GridValueLayer pollution_gvl = (GridValueLayer) SugarSpace_ch2.getInstance().getValueLayer("pollution");
 
 		for (GridPoint gp: pollution.keySet()) {
 
@@ -291,7 +277,7 @@ public class SugarAgent_ch2 {
 	 */
 	protected void die() {
 		this.isAlive=false;
-		this.context.remove(this);	
+		SugarSpace_ch2.getInstance().remove(this);	
 		//System.out.println("DIED: " + this);
 	}
 
@@ -390,13 +376,10 @@ public class SugarAgent_ch2 {
 		private MovementAbility movementRule;
 		private GatherAbility gatherRule;
 		private PollutionAbility pollutionRule;
-		SugarSpace_ch2 context;
 
 
-
-		public Builder(String id,SugarSpace_ch2 context) {
+		public Builder(String id) {
 			this.id=id;
-			this.context=context;
 		}
 
 		public SugarAgent_ch2 build() {
@@ -404,7 +387,6 @@ public class SugarAgent_ch2 {
 
 			//TODO check that all required fields have been defined
 
-			ag.context=this.context;
 			ag.id=this.id;
 			ag.vision = this.vision;
 			ag.age = this.age;

@@ -6,6 +6,7 @@ import java.util.Set;
 import com.google.common.collect.Iterables;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.GridPoint;
@@ -39,13 +40,13 @@ public class DefaultVision implements VisionAbility {
 	public Set<GridPoint> see(SugarAgent_ch2 a) {
 		
 		//add neighboring points
-		Set<GridPoint> seen_all = (Set<GridPoint>) a.getContext().getSugarAgentNeighboringPoints(a, a.getVision(), this.typeOfVision);;
+		Set<GridPoint> seen_all = (Set<GridPoint>) SugarSpace_ch2.getInstance().getSugarAgentNeighboringPoints(a, a.getVision(), this.typeOfVision);;
 				
 	
 		Set<GridPoint> seen_empty = new HashSet<GridPoint>();
 		//remove occupied space
 		for(GridPoint s : seen_all) {
-			if(  Iterables.size(a.getContext().getObjectsAt(s.getX(),s.getY()))==0 ) {
+			if(  Iterables.size(SugarSpace_ch2.getInstance().getObjectsAt(s.getX(),s.getY()))==0 ) {
 				seen_empty.add(s);
 			}
 		}

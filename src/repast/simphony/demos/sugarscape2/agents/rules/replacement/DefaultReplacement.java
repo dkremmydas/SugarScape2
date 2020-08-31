@@ -24,9 +24,9 @@ public class DefaultReplacement implements ReplacementAbility{
 		
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 
-		SugarAgent_ch2 new_agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.chapter, this.variant, old_agent.getContext());
+		SugarAgent_ch2 new_agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.chapter, this.variant);
 		
-		old_agent.getContext().add(new_agent);	
+		SugarSpace_ch2.getInstance().add(new_agent);	
 		//new_agent.getContext().getGrid().moveTo(new_agent, old_agent.getCurrentPosition().getX(),old_agent.getCurrentPosition().getY());
 		schedule.schedule(new_agent); 
 		

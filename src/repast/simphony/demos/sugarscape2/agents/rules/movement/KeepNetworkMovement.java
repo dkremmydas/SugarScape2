@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.graph.Network;
@@ -53,11 +54,11 @@ public class KeepNetworkMovement extends DefaultMovement {
 
 		Iterable<GridPoint> points_neigh;
 		
-		points_neigh = a.getContext().getSugarAgentNeighboringPoints(a, 1, this.typeOfVision);
+		points_neigh = SugarSpace_ch2.getInstance().getSugarAgentNeighboringPoints(a, 1, this.typeOfVision);
 
 		for(GridPoint gpp: points_neigh ) {
 
-			Iterable<Object> objs = a.getContext().getObjectsAt(gpp.getX(),gpp.getY());
+			Iterable<Object> objs = SugarSpace_ch2.getInstance().getObjectsAt(gpp.getX(),gpp.getY());
 
 			for(Object obj: objs) {
 				if(obj.getClass().equals(SugarAgent_ch2.class)) {
@@ -76,7 +77,7 @@ public class KeepNetworkMovement extends DefaultMovement {
 
 	private void updateNetwork(SugarAgent_ch2 a) {
 
-		Network<Object> net = (Network<Object>) a.getContext().getProjection("neigbours");
+		Network<Object> net = (Network<Object>) SugarSpace_ch2.getInstance().getProjection("neigbours");
 
 		//delete old edges
 		Iterable<RepastEdge<Object>> dai = net.getOutEdges(a);

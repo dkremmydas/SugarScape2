@@ -73,7 +73,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 		//2.2 create the agents and add them to the context and to the Grid projection
 		for(int i=0;i<n;i++) {
 
-			SugarAgent_ch2 agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.chapter, this.variant, agentsContext);
+			SugarAgent_ch2 agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.chapter, this.variant);
 
 			agentsContext.add(agent);			
 			schedule.schedule(agent); //TODO why do we have to add the annotated methods to the schedule manually?
@@ -90,15 +90,15 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 
 
 
-	public static SugarAgent_ch2 createAgent(int chapter, String variant, SugarSpace_ch2 agentsContext ) {
+	public static SugarAgent_ch2 createAgent(int chapter, String variant ) {
 
 		if(chapter==2) {
 
 			int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 			int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
 			int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
-			
-	
+
+
 
 			if (variant.equalsIgnoreCase("p30")) {
 
@@ -108,7 +108,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				VisionAbility va = new DefaultVision(); va.configureFromEnvironment();
 				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
 
-				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
+				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
 						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
 						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
@@ -130,7 +130,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				VisionAbility va = new DefaultVision(); va.configureFromEnvironment();
 				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
 
-				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
+				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
 						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
 						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
@@ -152,7 +152,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				VisionAbility va = new DefaultVision(); va.configureFromEnvironment();
 				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
 
-				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
+				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
 						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
 						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
@@ -174,7 +174,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				VisionAbility va = new DefaultVision(); va.configureFromEnvironment();
 				PollutionAbility pa = new DefaultPollution(); pa.configureFromEnvironment();
 
-				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10),agentsContext)
+				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
 						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
 						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
 						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
@@ -197,58 +197,63 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 	public static SugarSpace_ch2 createSugarSpace(int chapter, String variant,String pgm_file) {
 
 		if(chapter==2) {
+			
+			
+			
+			GrowbackAbility growbackRule;
+			ReplacementAbility replacementRule ;
+			PollutionDiffusionAbility diffusionRule;
+			
+			
 			if (variant.equalsIgnoreCase("p30")) {
 
-				GrowbackAbility growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
+				growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
+				replacementRule = new NoReplacement();
+				diffusionRule = new NoPollutionDiffusion();
+			
+				SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
+				
+				return s;
+				
+			} else if (variant.equalsIgnoreCase("p37")) {
 
-				ReplacementAbility replacementRule = new NoReplacement();
+				growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
+				replacementRule = new DefaultReplacement(); replacementRule.configureFromEnvironment();
+				diffusionRule = new NoPollutionDiffusion();
+				
+				SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
+				return s;
+				
+			} else if (variant.equalsIgnoreCase("p41")) {
 
-				PollutionDiffusionAbility diffusionRule = new NoPollutionDiffusion();
+				growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
+				replacementRule = new NoReplacement();		
+				diffusionRule = new NoPollutionDiffusion();
 
-				return new SugarSpace_ch2(pgm_file, growbackRule , replacementRule, diffusionRule);
-
-			}
-			else if (variant.equalsIgnoreCase("p37")) {
-
-				GrowbackAbility growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
-
-				ReplacementAbility replacementRule = new DefaultReplacement(); replacementRule.configureFromEnvironment();
-
-				PollutionDiffusionAbility diffusionRule = new NoPollutionDiffusion();
-
-				return new SugarSpace_ch2(pgm_file, growbackRule , replacementRule, diffusionRule);
-
-			}
-			else if (variant.equalsIgnoreCase("p41")) {
-
-				GrowbackAbility growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
-
-				ReplacementAbility replacementRule = new NoReplacement();		
-
-				PollutionDiffusionAbility diffusionRule = new NoPollutionDiffusion();
-
-				SugarSpace_ch2 agentscontext = new SugarSpace_ch2(pgm_file, growbackRule , replacementRule, diffusionRule);
-
-				NetworkBuilder<Object> netb = new NetworkBuilder<Object>("neigbours", agentscontext, true);
+				SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
+				
+				NetworkBuilder<Object> netb = new NetworkBuilder<Object>("neigbours", s, true);
 				netb.buildNetwork();
-
-				return agentscontext;
-
+				
+				return s;
 			}
 
 			else if (variant.equalsIgnoreCase("p50")) {
 
-				GrowbackAbility growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
-
-				ReplacementAbility replacementRule = new NoReplacement();		
-
-				PollutionDiffusionAbility diffusionRule = new DefaultPollutionDiffusion(); diffusionRule.configureFromEnvironment();
-
-				SugarSpace_ch2 agentscontext = new SugarSpace_ch2(pgm_file, growbackRule , replacementRule, diffusionRule);
-
-				return agentscontext;
-
+				growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
+				replacementRule = new NoReplacement();		
+				diffusionRule = new DefaultPollutionDiffusion(); diffusionRule.configureFromEnvironment();
+				
+				SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
+				return s;
 			}
+			
+			else {
+				throw new RuntimeErrorException(null, "For Chapter 2, thisbVariant is not yet implemented" );
+			}
+			
+
+			
 
 		}
 
