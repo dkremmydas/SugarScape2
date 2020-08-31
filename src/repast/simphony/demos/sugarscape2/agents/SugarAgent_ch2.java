@@ -212,7 +212,7 @@ public class SugarAgent_ch2 {
 		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVision() +
 				", Sugar.metab: " + this.sugar.metabolism + 
 				", Sugar.hold: " + this.sugar.holding + 
-				", Position: [X:"+x+", Y:"+y+", Sugar:"+SugarSpace_ch2.getInstance().availableResourceAtXY("sugar",x,y)+"]"+
+				", Position: [X:"+x+", Y:"+y+", Sugar:"+SugarSpace_ch2.getInstance().resourceGetHoldingAtXY("sugar",x,y)+"]"+
 				"}";
 
 		return r;
@@ -236,7 +236,7 @@ public class SugarAgent_ch2 {
 
 			int sugar_to_gather = this.gatherRule.gather(this, new_pos);
 
-			int sugar_gathered = SugarSpace_ch2.getInstance().gatherResourceFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
+			int sugar_gathered = SugarSpace_ch2.getInstance().resourceGatherFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
 
 			this.sugar.store(sugar_gathered);
 

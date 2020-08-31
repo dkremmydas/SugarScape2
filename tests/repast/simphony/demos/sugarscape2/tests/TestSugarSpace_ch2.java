@@ -53,7 +53,7 @@ public class TestSugarSpace_ch2 {
 	@Test
 	public void testUpdateSugar() {
 		//TODO
-		int sugar0 = context.availableResourceAtXY("sugar",0, 0);
+		int sugar0 = context.resourceGetHoldingAtXY("sugar",0, 0);
 	}
 
 	@Test

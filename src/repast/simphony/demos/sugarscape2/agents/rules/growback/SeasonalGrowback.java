@@ -44,25 +44,25 @@ public class SeasonalGrowback extends DefaultGrowback {
 			for(int j=0;j<height;j++) {
 				if(j>(height/2)) {
 					if(season==Season.Summer) {
-						s.addResourceToXY("sugar",i, j, summerRegenerationRate);
+						s.resourceAddToXY("sugar",i, j, summerRegenerationRate);
 					} 
 					else {
-						s.addResourceToXY("sugar",i, j, winterRegenerationRate);
+						s.resourceAddToXY("sugar",i, j, winterRegenerationRate);
 					}
 				}
 				else {
 					if(season==Season.Summer) {
-						s.addResourceToXY("sugar",i, j, winterRegenerationRate);
+						s.resourceAddToXY("sugar",i, j, winterRegenerationRate);
 					}
 					else {
-						s.addResourceToXY("sugar",i, j, summerRegenerationRate);
+						s.resourceAddToXY("sugar",i, j, summerRegenerationRate);
 					}
 				}
 
 			}
 		}
 
-		return s.getResourceHolding("sugar");
+		return s.resourceGetHolding("sugar");
 
 	}
 
