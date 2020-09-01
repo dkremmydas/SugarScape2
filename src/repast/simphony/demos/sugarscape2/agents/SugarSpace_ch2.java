@@ -25,7 +25,19 @@ import simphony.util.messages.MessageCenter;
 /**
  * <p>The space in which the SugarAgents act. This is the implementation for chapter 2. </p>
  * 
- * <p><b>Space is a Grid</b><br/></p>
+ * 
+ * <p><b>Sugarspace contains Resources</b><br />
+ * In the implementation of chapters 2 and 3, Sugarscape contains sugar and in chapter 4 it contains spice too. 
+ * Thus we have introduced the more general notion of a "resource". 
+ * We are providing methods so that {@link SugarAgent_ch2}s can interact with the resources of the Sugarspace.
+ * The details of the implementation are encapsulated in the class. Currently, we have the inner protected class {@link SpaceResource}.
+ * </p>
+ * 
+ * 
+ * <p><b>Space is a Grid</b><br/>Sugarspace is a grid. Agent's location are in a grid, resources reside in each grid cell.
+ * We are providing several methods with the grid* prefix that allow the interaction with the grid. We are encapsulating the
+ * implementation details in a {@link Grid} object from the Repast.</p>
+ *  
  * 
  * <p><b>Instantiation through the Singleton pattern</b><br/>
  * Only one object of this class is expected to be instantiated during the simulation. 
@@ -40,7 +52,7 @@ import simphony.util.messages.MessageCenter;
  * 
  * 
  * <p><b>Responsibilities:</b><br/>
- * 		The space object is responsible for:
+ * 		The SugarSpace object is responsible for:
  *  	<ul>
  *  		<li>
  *  			<b>Add or remove {@link SugarAgent_ch2} from the space.</b> This class  
@@ -48,17 +60,16 @@ import simphony.util.messages.MessageCenter;
  *  				through the relevant inherited methods. 
  *  		</li>
  *  		<li>
- *  			<b>Handle the resources of Sugarscape.</b> We have generalized the notion of ¨sugar¨ 
- *  				to that of ¨resource¨. In the implementation of chapters 2 and 3, sugarspace contains only 
- *  				sugar but in chapter 4 it contains spice too. Both are resources. The relevant methods start
- *  				with the resource* prefix.
+ *  			<b>Handle the resources of Sugarscape.</b> The relevant methods start
+ *  				with the resource* prefix. The first parameter is a {@link String}, denoting the
+ *  				name of the resource the method call is about.
  *  		</li>
  *  		<li>
- *  			Apply the following steps in each turn: 
+ *  			<b>Keep and apply the rules of the SugarSpace.</b> In chapter 2, there are three rules:
  *  			<ul>
- *  				<li>Growback sugar in the sugarscape</li>
- *  				<li>Replacement of agents</li>
- *  				<li>Diffusion of pollution</li>
+ *  				<li>Growback: This scheduled with Repast {@link ScheduledMethod} annotation on {@link #applyGrowback() applyGrowback} method</li>
+ *  				<li>Replacement of agents: This is programmed in the private constructor through the Listener pattern inherited from {@link DefaultContext}</li>
+ *  				<li>Diffusion of pollution: This scheduled with Repast {@link ScheduledMethod} annotation on {@link #applyDiffuse_pollution() applyDiffuse_pollution} method</li>
  *  			</ul>
  *  		</li>
  *  	</ul> 
@@ -75,8 +86,6 @@ import simphony.util.messages.MessageCenter;
 public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	private static SugarSpace_ch2 single_instance = null;
-
-	private static boolean configured = false;
 
 
 	protected SpaceResource sugar;
@@ -96,9 +105,13 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	//****************************************************************************************************************************************************
 	
 
+	/**
+	 * 
+	 * @return 
+	 */
 	public static SugarSpace_ch2 getInstance()  {
 
-		if(SugarSpace_ch2.configured) {
+		if(!(SugarSpace_ch2.single_instance==null)) {
 			return SugarSpace_ch2.single_instance;
 		} else {
 			throw new RuntimeException("SugarSpace has not been configured yet.");
@@ -109,12 +122,11 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	public static SugarSpace_ch2 createInstance(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
 
-		if(SugarSpace_ch2.configured) {
+		if(!(SugarSpace_ch2.single_instance==null)) {
 			SugarSpace_ch2.logMessage(SugarSpace_ch2.class, Level.INFO, "SugarSpace has already been configured. You can not re-configure it.");
 		} else {
 			SugarSpace_ch2 s = new SugarSpace_ch2(pgm_file,growbackRule,replacementRule,diffusionRule);
 			SugarSpace_ch2.single_instance = s;
-			SugarSpace_ch2.configured = true;
 		}
 
 		return SugarSpace_ch2.single_instance;
@@ -304,7 +316,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param a
 	 * @return
 	 */
-	public GridPoint getSugarAgentLocation(SugarAgent_ch2 a) {
+	public GridPoint gridGetAgentLocation(SugarAgent_ch2 a) {
 		return grid.getLocation(a);
 	}
 
@@ -314,7 +326,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param x
 	 * @param y
 	 */
-	public void moveAgentTo(SugarAgent_ch2 a,int x, int y) {
+	public void gridMoveAgentTo(SugarAgent_ch2 a,int x, int y) {
 		grid.moveTo(a, x, y);
 	}
 
@@ -325,12 +337,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param v
 	 * @return
 	 */
-	public Iterable<GridPoint> getSugarAgentNeighboringPoints(SugarAgent_ch2 a, int radius, Utility.TypeOfVision v) {
-		if(v==Utility.TypeOfVision.MOORE) {
-			return NeighbourhoodFunctions.getMoorePoints(a.getCurrentPosition(), grid, radius);
-		} else {
-			return NeighbourhoodFunctions.getVonNeumanPoints(a.getCurrentPosition(), grid, radius);
-		}		
+	public Iterable<GridPoint> gridGetNeighboringPoints(SugarAgent_ch2 a, int radius, Utility.TypeOfVision v) {
+		return this.gridGetNeighboringPoints(a.getCurrentPosition(), radius, v);		
 	}
 
 	/**
@@ -340,7 +348,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param v
 	 * @return
 	 */
-	public Iterable<GridPoint> getGridPointNeighboringPoints(GridPoint gp, int radius, Utility.TypeOfVision v) {
+	public Iterable<GridPoint> gridGetNeighboringPoints(GridPoint gp, int radius, Utility.TypeOfVision v) {
 		if(v==Utility.TypeOfVision.MOORE) {
 			return NeighbourhoodFunctions.getMoorePoints(gp, grid, radius);
 		} else {
@@ -354,7 +362,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param y
 	 * @return
 	 */
-	public Iterable<Object> getObjectsAt(int x, int y) {
+	public Iterable<Object> gridGetObjectsAt(int x, int y) {
 		return grid.getObjectsAt(x,y);
 	}
 
@@ -362,7 +370,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * 
 	 * @return
 	 */
-	public int getWidth() {
+	public int gridGetWidth() {
 		return grid.getDimensions().getWidth();
 	}
 
@@ -370,7 +378,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * 
 	 * @return
 	 */
-	public int getHeight() {
+	public int gridGetHeight() {
 		return grid.getDimensions().getHeight();
 	}
 
@@ -380,7 +388,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param point2
 	 * @return
 	 */
-	public double getDistance(GridPoint point1, GridPoint point2) {
+	public double gridGetDistance(GridPoint point1, GridPoint point2) {
 		return grid.getDistance(point1, point2);
 	}
 

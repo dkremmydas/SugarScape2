@@ -36,9 +36,9 @@ public class DefaultPollutionDiffusion implements PollutionDiffusionAbility {
 			//Grid grid =  s.getGrid();
 
 
-			GridValueLayer newP = new GridValueLayer("temp", true, s.getWidth(), s.getHeight());			
-			for(int x=0;x<s.getWidth();x++) {
-				for(int y=0;y<s.getHeight();y++) {
+			GridValueLayer newP = new GridValueLayer("temp", true, s.gridGetWidth(), s.gridGetHeight());			
+			for(int x=0;x<s.gridGetWidth();x++) {
+				for(int y=0;y<s.gridGetHeight();y++) {
 					double nv = computeFlux(x, y, pollution, s);
 					newP.set(nv, x,y);
 				}
@@ -55,7 +55,7 @@ public class DefaultPollutionDiffusion implements PollutionDiffusionAbility {
 	
 	private double computeFlux(int x, int y, GridValueLayer gvl,SugarSpace_ch2 s) {
 
-		Set<GridPoint> neigh = (Set<GridPoint>) s.getGridPointNeighboringPoints(new GridPoint(x,y), 1, Utility.TypeOfVision.NEUMMAN);
+		Set<GridPoint> neigh = (Set<GridPoint>) s.gridGetNeighboringPoints(new GridPoint(x,y), 1, Utility.TypeOfVision.NEUMMAN);
 				//NeighbourhoodFunctions.getVonNeumanPoints(new GridPoint(x,y), grid, 1);
 		double[] values = new double[neigh.size()];
 

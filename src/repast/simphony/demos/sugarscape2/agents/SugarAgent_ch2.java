@@ -232,7 +232,7 @@ public class SugarAgent_ch2 {
 
 			GridPoint new_pos = this.movementRule.move(this, points_seen);
 
-			SugarSpace_ch2.getInstance().moveAgentTo(this, new_pos.getX(),new_pos.getY());
+			SugarSpace_ch2.getInstance().gridMoveAgentTo(this, new_pos.getX(),new_pos.getY());
 
 			int sugar_to_gather = this.gatherRule.gather(this, new_pos);
 

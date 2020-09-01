@@ -88,13 +88,13 @@ public class TestSugarAgent_ch2 {
 	 */
 	@Test
 	public void testapplyRuleM() {
-		GridPoint old_position = this.context.getSugarAgentLocation(this.a);
+		GridPoint old_position = this.context.gridGetAgentLocation(this.a);
 		System.out.println("Agent before Move:\n"+a.toString()+"\n");
 		this.a.step();
 		System.out.println("Agent after Move:\n"+a.toString()+"\n");
 		
 		if(this.a.isAlive()) {
-			GridPoint new_position = this.context.getSugarAgentLocation(this.a);	
+			GridPoint new_position = this.context.gridGetAgentLocation(this.a);	
 			
 			assertNotEquals(old_position, new_position);
 			System.out.println("Old position: ("+old_position.getX()+

@@ -37,8 +37,8 @@ public class SeasonalGrowback extends DefaultGrowback {
 	@Override
 	public GridValueLayer growback(SugarSpace_ch2 s) {
 
-		int width = s.getWidth();
-		int height = s.getHeight();
+		int width = s.gridGetWidth();
+		int height = s.gridGetHeight();
 
 		for(int i=0;i<width;i++) {
 			for(int j=0;j<height;j++) {
