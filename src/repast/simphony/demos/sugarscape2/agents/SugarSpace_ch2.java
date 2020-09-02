@@ -9,7 +9,10 @@ import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.PollutionDiffusionAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.replacement.DefaultReplacement;
+import repast.simphony.demos.sugarscape2.agents.rules.replacement.NoReplacement;
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.ReplacementAbility;
+import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter2;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
@@ -80,13 +83,13 @@ import simphony.util.messages.MessageCenter;
  * <p></p>
  *
  * @author Dimitris Kremmydas
- * @version 
+ * @version %I%
  */
 
 public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
+	// Holds the singleton instance of the class. It is initialized to null.
 	private static SugarSpace_ch2 single_instance = null;
-
 
 	protected SpaceResource sugar;
 
@@ -99,15 +102,23 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	protected Grid<Object> grid;
 
 
-	
-	
+
+
 	// Instantiating the object
 	//****************************************************************************************************************************************************
-	
+
 
 	/**
+	 * <p>We need to enforce that only one SugarSpace object will be created. We are using the Singleton design pattern.
+	 * This method is the only valid method to access this single object. Since it is static, one has to call 
+	 * <i>SugarSpace_ch2.getInstance()</i> to get this object.</p>
 	 * 
-	 * @return 
+	 * <p>Before calling this method, you have to create the singleton object by calling 
+	 * {@link #createInstance(String, GrowbackAbility, ReplacementAbility, PollutionDiffusionAbility) #createInstance} 
+	 * . If this has not been done, a {@link RuntimeException} is thrown. This is</p>
+	 * 
+	 * @return the instantiated Sugarspace object. If it has not been created yet, it throws a RuntimeException
+	 * @see SugarSpace_ch2#createInstance(String, GrowbackAbility, ReplacementAbility, PollutionDiffusionAbility) createInstance
 	 */
 	public static SugarSpace_ch2 getInstance()  {
 
@@ -120,6 +131,29 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	}
 
+	/**
+	 * <p>This is the static constructor of the single Sugarspace object. Before calling the {@link #getInstance()} method, the object
+	 * has to be instantiated with this method. In case the objects has already been instantiated, it writes an information message
+	 * to the log and return the existing object.</p>
+	 * 
+	 * <p>The dimensions of the Sugarspace and the allocation of sugar in each grid cell are 
+	 * controlled through the given <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM file</a> (PGM=Portable Gray Map;a grayscale file format).</p>
+	 * 
+	 * <p>The behavior of the Sugarspace object is controlled through the rules that will be passed to this method. For example,
+	 * the replacementRule controls how agents are replaced when they die. All implementations of the rule must follow the 
+	 * {@link ReplacementAbility} interface. If one passes a {@link NoReplacement} object, no replacement of agents takes place. If one
+	 * passes a {@link DefaultReplacement} object, then the default behavior that is described in the book takes place. For more examples of 
+	 * how different rules affect the behavior of Sugarspace see 
+	 * {@link DefaultSugarscapeBuilder_chapter2#build(repast.simphony.context.Context) DefaultSugarscapeBuilder_chapter2#build}.</p>  
+	 * 
+	 //TODO what to return if the objet cannot be created? 
+	 * 
+	 * @param pgm_file The full path to the <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM file</a> that gives the sugar capacity allocation in space. 
+	 * @param growbackRule The rule to increase the available sugar at each grid cell every clock tick. It must follow the {@link GrowbackAbility} interface.
+	 * @param replacementRule The rule to replace agent when they die. It must follow the {@link ReplacementAbility} interface.
+	 * @param diffusionRule The rule to diffuse pollution. It must follow the {@link PollutionDiffusionAbility} interface.
+	 * @return The {@link SugarSpace_ch2 instance created}
+	 */
 	public static SugarSpace_ch2 createInstance(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
 
 		if(!(SugarSpace_ch2.single_instance==null)) {
@@ -133,6 +167,23 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	}
 
 
+	/**
+	 * <p>This conventional constructor is private, so that the Singleton pattern is enforced. 
+	 * Creation of objects is allowed only by using the {@link #createInstance(String, GrowbackAbility, ReplacementAbility, PollutionDiffusionAbility) createInstance}
+	 * method. </p>
+	 * 
+	 * <p>TODO: addContextLitener. The replacement behavior of the Sugarspace is injected here. We are using the 
+	 * <a href="https://refactoring.guru/design-patterns/observer/java/example">Observer pattern</a> of 
+	 * the parent {@link DefaultContext} class. We are adding a simple object of the {@link ContextListener} interface, that it is
+	 * notified every time an event has occurred and in case this event is related to an agent removal, it triggers
+	 * the {@link ReplacementAbility} rule.</p>
+	 * 
+	 * @param pgm_file The full path to the <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM file</a> that gives the sugar capacity allocation in space. 
+	 * @param growbackRule The rule to increase the available sugar at each grid cell every clock tick. It must follow the {@link GrowbackAbility} interface.
+	 * @param replacementRule The rule to replace agent when they die. It must follow the {@link ReplacementAbility} interface.
+	 * @param diffusionRule The rule to diffuse pollution. It must follow the {@link PollutionDiffusionAbility} interface.
+	 * @return The {@link SugarSpace_ch2 instance created}
+	 */
 	private SugarSpace_ch2(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
 
 		super("sugarspace");
@@ -161,10 +212,11 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 
-	// The actual implementation of growback rule G, pg 182 (Appendix B).
+	// Application of Rules of  the Sugarspace
 	//****************************************************************************************************************************************************
+
 	/**
-	 * 
+	 * The growbak rule
 	 */
 	@ScheduledMethod(start=2d,interval=5d)
 	public void applyGrowback() {	
@@ -186,8 +238,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 
+
+
 	//********************************************************************************************************
-	//Methods delegating sugar object
+	//Methods related to Resources
 
 
 	/**
@@ -218,9 +272,11 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
+	 * Add in all grid cells of the Sugarspace, a quantity of a resource
 	 * 
-	 * @param resource
-	 * @param quant
+	 * @param resource A {@link String} with the name of the resource. E.g "sugar"
+	 * @param quant An int with the quantity to add everywhere
+	 * @throws RuntimeException if the resource name does not exist
 	 */
 	public void resourceAddEverywhere(String resource,int quant) {
 
@@ -234,12 +290,17 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
+	 * Adds a quantity of a resource in a X-Y coordinate of the space. It takes care so as, if
+	 * the quantity added to the X-Y cell plus the existing quantity exceeds the capacity of
+	 * the cell, only the difference [capacity]-[existing quantity] is added.
 	 * 
-	 * @param resource
-	 * @param x
-	 * @param y
-	 * @param quant
-	 * @return
+	 * @param resource A {@link String} with the name of the resource. E.g "sugar"
+	 * @param x The x-coordinate
+	 * @param y The y-coordinate
+	 * @param quant An int with the quantity to add
+	 * @return The actual quantity added. If the quantity added to a grid cell goes over its capacity, 
+	 * 			the actual quantity added will be lower than the quantity added so that it always hold
+	 * 			[existing quantity]+[quantity added] <= [capacity] 
 	 */
 	public int resourceAddToXY(String resource,int x, int y, int quant) {
 
@@ -368,7 +429,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	/**
 	 * 
-	 * @return
+	 * @return the width of the Sugarspace
 	 */
 	public int gridGetWidth() {
 		return grid.getDimensions().getWidth();
@@ -376,17 +437,19 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	/**
 	 * 
-	 * @return
+	 * @return the height of the Sugarspace
 	 */
 	public int gridGetHeight() {
 		return grid.getDimensions().getHeight();
 	}
 
 	/**
+	 * Computes the euclidian distance between two points in Sugarspace. It takes into account that
+	 * topology of Sugarspace is a toroid.
 	 * 
-	 * @param point1
-	 * @param point2
-	 * @return
+	 * @param point1 The first {@link GridPoint}
+	 * @param point2 The second {@link GridPoint}
+	 * @return the euclidian distance between the points
 	 */
 	public double gridGetDistance(GridPoint point1, GridPoint point2) {
 		return grid.getDistance(point1, point2);
@@ -552,6 +615,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 		/**
 		 * Add in every {@link GridPoint} of the Resource the specified quantity
+		 //TODO return A GridValueLayer with the actual quantities added (since we cannot exceed capacity)
 		 * @param quant the quantity of resource to add
 		 */
 		public void addEverywhere(int quant) {
