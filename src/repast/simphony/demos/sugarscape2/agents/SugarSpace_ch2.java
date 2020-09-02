@@ -37,10 +37,14 @@ import simphony.util.messages.MessageCenter;
  * </p>
  * 
  * 
- * <p><b>Space is a Grid</b><br/>Sugarspace is a grid. Agent's location are in a grid, resources reside in each grid cell.
+ * <p><b>Sugarspace is a Grid</b><br/>Sugarspace is a grid. Agent's location are in a grid, resources reside in each grid cell.
  * We are providing several methods with the grid* prefix that allow the interaction with the grid. We are encapsulating the
  * implementation details in a {@link Grid} object from the Repast.</p>
- *  
+ * 
+ * 
+  * <p><b>Sugarspace has behavior</b><br/>As described in the book, sugarspace has its own behavior TODO[describe the three behaviors].
+  * Annotations ...</p>
+ *   
  * 
  * <p><b>Instantiation through the Singleton pattern</b><br/>
  * Only one object of this class is expected to be instantiated during the simulation. 
@@ -146,7 +150,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * how different rules affect the behavior of Sugarspace see 
 	 * {@link DefaultSugarscapeBuilder_chapter2#build(repast.simphony.context.Context) DefaultSugarscapeBuilder_chapter2#build}.</p>  
 	 * 
-	 //TODO what to return if the objet cannot be created? 
+	 * TODO[what to return if the objet cannot be created?]
 	 * 
 	 * @param pgm_file The full path to the <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM file</a> that gives the sugar capacity allocation in space. 
 	 * @param growbackRule The rule to increase the available sugar at each grid cell every clock tick. It must follow the {@link GrowbackAbility} interface.
@@ -216,7 +220,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	//****************************************************************************************************************************************************
 
 	/**
-	 * The growbak rule
+	 * The growback rule
 	 */
 	@ScheduledMethod(start=2d,interval=5d)
 	public void applyGrowback() {	
@@ -228,6 +232,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	}
 
 
+	/**
+	 * The pollution diffusion behavior
+	 */
 	@ScheduledMethod(start=4d,interval=5d)
 	public void applyDiffuse_pollution() {	
 
@@ -245,9 +252,13 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
+	 * The capacity of the resource throughout the Sugarspace. It returns a {@link GridValueLayer} with the resource.
+	 * Any write operations (e.g. change the capacity) on the returned {@link GridValueLayer}, will not have any effect
+	 * on the Sugarspace, since the returned object is a clone of the original one TODO[explain better]. 
 	 * 
-	 * @param resource
-	 * @return
+	 * @param resource The name of the resource to get the capacity for.  E.g "sugar"
+	 * @return A {@link GridValueLayer} with the capacity of the resource.
+	 * @throws RunTimeException if the resource does not exist
 	 */
 	public GridValueLayer resourceGetCapacity(String resource) {
 		if(resource.equalsIgnoreCase("sugar")) {
@@ -259,8 +270,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	/**
 	 * 
-	 * @param resource
+	 * @param resource The name of the resource to get the holding for.  E.g "sugar"
 	 * @return
+	 * @throws RunTimeException if the resource does not exist
 	 */
 	public GridValueLayer resourceGetHolding(String resource) {
 		if(resource.equalsIgnoreCase("sugar")) {
@@ -301,6 +313,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @return The actual quantity added. If the quantity added to a grid cell goes over its capacity, 
 	 * 			the actual quantity added will be lower than the quantity added so that it always hold
 	 * 			[existing quantity]+[quantity added] <= [capacity] 
+	 * @throws RunTimeException if the resource does not exist
 	 */
 	public int resourceAddToXY(String resource,int x, int y, int quant) {
 
@@ -319,6 +332,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param gp
 	 * @param quant
 	 * @return
+	 * @throws RunTimeException if the resource does not exist
 	 */
 	public int resourceAddToXY(String resource,GridPoint gp, int quant) {
 
@@ -338,6 +352,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param y
 	 * @param amountRequested
 	 * @return
+	 * @throws RunTimeException if the resource does not exist
 	 */
 	public int resourceGatherFromXY(String resource,int x, int y, int amountRequested) {
 
@@ -356,6 +371,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param x
 	 * @param y
 	 * @return
+	 * @throws RunTimeException if the resource does not exist
 	 */
 	public int resourceGetHoldingAtXY(String resource,int x, int y) {
 
