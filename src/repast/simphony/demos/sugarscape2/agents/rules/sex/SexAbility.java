@@ -17,6 +17,8 @@ public interface SexAbility {
 	 */
 	Iterable<SugarAgent_ch3> selectPotentialMates(SugarAgent_ch3 a);
 	
+	
+	
 	/**
 	 * The mating procedure. The responsibilities of this method are:
 	 * <ul> 
@@ -31,5 +33,13 @@ public interface SexAbility {
 	 * @return A map that contains the {@link SugarAgent_ch2} child and the position it should be located. In case no child can be born, return null.
 	 */
 	Map<SugarAgent_ch3,GridPoint> giveBirth(SugarAgent_ch3 a1, SugarAgent_ch3 a2);
+	
+	
+	
+	/**
+	 * In this method, the Repast Simphony environmental variables should be used
+	 * in order to give values to the object 
+	 */
+	public void configureFromEnvironment();
 
 }

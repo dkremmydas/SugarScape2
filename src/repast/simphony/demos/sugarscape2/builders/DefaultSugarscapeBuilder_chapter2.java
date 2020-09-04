@@ -51,29 +51,26 @@ import repast.simphony.random.RandomHelper;
 public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>{
 
 
-	private int chapter;
 	private String variant; 
-
 
 
 	@Override
 	public Context<Object> build(Context<Object> context) {
 
 
-		this.chapter = RunEnvironment.getInstance().getParameters().getInteger("Chapter");
 		this.variant = RunEnvironment.getInstance().getParameters().getString("Variant");
 
 		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		RandomHelper.createUniform();
 
-		SugarSpace_ch2 agentsContext = DefaultSugarscapeBuilder_chapter2.createSugarSpace(chapter, variant, "./data/sugarspace.pgm");
+		SugarSpace_ch2 agentsContext = DefaultSugarscapeBuilder_chapter2.createSugarSpace(variant, "./data/sugarspace.pgm");
 
 		int n=RunEnvironment.getInstance().getParameters().getInteger("numberOfAgents");
 
 		//2.2 create the agents and add them to the context and to the Grid projection
 		for(int i=0;i<n;i++) {
 
-			SugarAgent_ch2 agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.chapter, this.variant);
+			SugarAgent_ch2 agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.variant);
 
 			agentsContext.add(agent);			
 			schedule.schedule(agent); //TODO why do we have to add the annotated methods to the schedule manually?
@@ -90,9 +87,9 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 
 
 
-	public static SugarAgent_ch2 createAgent(int chapter, String variant ) {
+	public static SugarAgent_ch2 createAgent(String variant ) {
 
-		if(chapter==2) {
+	
 
 			int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 			int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
@@ -188,16 +185,14 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				return agent;
 
 			}
-		}
-
-		throw new RuntimeErrorException(null, "The Chapter and Variant parameters provided, are not yet implemented" );
+		
+		throw new RuntimeErrorException(null, "The Variant parameters provided, are not yet implemented" );
 	}
 
 
-	public static SugarSpace_ch2 createSugarSpace(int chapter, String variant,String pgm_file) {
+	public static SugarSpace_ch2 createSugarSpace(String variant,String pgm_file) {
 
-		if(chapter==2) {
-			
+	
 			GrowbackAbility growbackRule;
 			ReplacementAbility replacementRule ;
 			PollutionDiffusionAbility diffusionRule;
@@ -247,16 +242,10 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 			}
 			
 			else {
-				throw new RuntimeErrorException(null, "For Chapter 2, thisbVariant is not yet implemented" );
+				throw new RuntimeErrorException(null, "For Chapter 2, This variant is not yet implemented" );
 			}
 			
 
-			
-
-		}
-
-
-		throw new RuntimeErrorException(null, "The Chapter and Variant parameters provided, are not yet implemented" );
 	}
 
 }

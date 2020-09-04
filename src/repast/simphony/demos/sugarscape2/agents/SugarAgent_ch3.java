@@ -15,7 +15,7 @@ import repast.simphony.space.grid.GridPoint;
  */
 public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	
-	enum Sex {MALE, FEMALE}
+	public enum Sex {MALE, FEMALE}
 	
 	private SugarAgent_ch3.Sex sex;
 	
