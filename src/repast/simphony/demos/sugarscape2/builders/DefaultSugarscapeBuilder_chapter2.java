@@ -198,8 +198,6 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 
 		if(chapter==2) {
 			
-			
-			
 			GrowbackAbility growbackRule;
 			ReplacementAbility replacementRule ;
 			PollutionDiffusionAbility diffusionRule;

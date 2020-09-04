@@ -58,16 +58,10 @@ public class KeepNetworkMovement extends DefaultMovement {
 
 		for(GridPoint gpp: points_neigh ) {
 
-			Iterable<Object> objs = SugarSpace_ch2.getInstance().gridGetObjectsAt(gpp.getX(),gpp.getY());
+			SugarAgent_ch2 aa = SugarSpace_ch2.getInstance().gridGetSugarAgentAt(gpp.getX(),gpp.getY());
 
-			for(Object obj: objs) {
-				if(obj.getClass().equals(SugarAgent_ch2.class)) {
-					SugarAgent_ch2 aa = (SugarAgent_ch2) obj;
-					if(aa.isAlive()) {
-						this.neighbors.add(aa);
-					}
-
-				}
+			if(aa.isAlive()) {
+				this.neighbors.add(aa);
 			}
 
 		}

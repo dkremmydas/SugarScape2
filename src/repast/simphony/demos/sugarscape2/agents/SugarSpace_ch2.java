@@ -1,5 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+import java.util.Set;
+
 import org.apache.log4j.Level;
 
 import repast.simphony.context.ContextEvent;
@@ -21,7 +23,6 @@ import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.RandomGridAdder;
-import repast.simphony.space.grid.WrapAroundBorders;
 import repast.simphony.valueLayer.GridValueLayer;
 import simphony.util.messages.MessageCenter;
 
@@ -37,7 +38,8 @@ import simphony.util.messages.MessageCenter;
  * </p>
  * 
  * 
- * <p><b>Sugarspace is a Grid</b><br/>Sugarspace is a grid. Agent's location are in a grid, resources reside in each grid cell.
+ * <p><b>Sugarspace is a Grid</b><br/>Sugarspace is a grid. Agent's location are in a grid, resources reside in each grid cell. 
+ * Only one agent is permitted in a cell in each tick.
  * We are providing several methods with the grid* prefix that allow the interaction with the grid. We are encapsulating the
  * implementation details in a {@link Grid} object from the Repast.</p>
  * 
@@ -252,12 +254,14 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
-	 * The capacity of the resource throughout the Sugarspace. It returns a {@link GridValueLayer} with the resource.
+	 * <p>Get the capacity of the resource throughout the Sugarspace. It returns a {@link GridValueLayer} with the resource.
 	 * Any write operations (e.g. change the capacity) on the returned {@link GridValueLayer}, will not have any effect
-	 * on the Sugarspace, since the returned object is a clone of the original one TODO[explain better]. 
+	 * on the Sugarspace, since the returned object is a clone of the original one TODO[explain better].</p>
+	 * 
+	 * <p> We assume that the capacity of grid cells of the Sugarspace cannot be changed during the simulation.</p>
 	 * 
 	 * @param resource The name of the resource to get the capacity for.  E.g "sugar"
-	 * @return A {@link GridValueLayer} with the capacity of the resource.
+	 * @return A {@link GridValueLayer} with the capacity of the resource. Operations on this object do not have any effect on Sugarspace.
 	 * @throws RunTimeException if the resource does not exist
 	 */
 	public GridValueLayer resourceGetCapacity(String resource) {
@@ -269,9 +273,19 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	}
 
 	/**
+	 * <p>Get the current holding of a resource throughout the Sugarspace. It returns a {@link GridValueLayer} with the resource.
+	 * Any write operations (e.g. change the capacity) on the returned {@link GridValueLayer}, will not have any effect
+	 * on the Sugarspace, since the returned object is a clone of the original one TODO[explain better].</p>
+	 * 
+	 * <p>In order to add or remove resource from the Sugarspace's holding, use one of the following methods of this class:
+	 * <ul>
+	 * <li>{@link #resourceAddEverywhere(String, int) #resourceAddEverywhere}</li>
+	 * <li>{@link #resourceAddToXY(String, GridPoint, int) #resourceAddToXY}</li>
+	 * <li>{@link #resourceGatherFromXY(String, int, int, int) #resourceGatherFromXY}</li>
+	 * </ul></p>
 	 * 
 	 * @param resource The name of the resource to get the holding for.  E.g "sugar"
-	 * @return
+	 * @return A {@link GridValueLayer} with the holding of the resource. Operations on the returned object do not have any effect on Sugarspace.
 	 * @throws RunTimeException if the resource does not exist
 	 */
 	public GridValueLayer resourceGetHolding(String resource) {
@@ -284,7 +298,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
-	 * Add in all grid cells of the Sugarspace, a quantity of a resource
+	 * Add in every grid cell of the Sugarspace, the specified quantity of the resource
 	 * 
 	 * @param resource A {@link String} with the name of the resource. E.g "sugar"
 	 * @param quant An int with the quantity to add everywhere
@@ -327,8 +341,11 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
+	 * Adds a quantity of a resource in a X-Y coordinate of the space. It takes care so as, if
+	 * the quantity added to the X-Y cell plus the existing quantity exceeds the capacity of
+	 * the cell, only the difference [capacity]-[existing quantity] is added.
 	 * 
-	 * @param resource
+	 * @param resource A {@link String} with the name of the resource. E.g "sugar"
 	 * @param gp
 	 * @param quant
 	 * @return
@@ -346,8 +363,11 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
+	 * Removes the specified quantity of resource from X-Y coordinate of Sugarspace. If the
+	 * specified quantity does not exist in the cell, it gather the available one. It returns the
+	 * actual quantity gathered.
 	 * 
-	 * @param resource
+	 * @param resource A {@link String} with the name of the resource. E.g "sugar"
 	 * @param x
 	 * @param y
 	 * @param amountRequested
@@ -366,8 +386,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
+	 * Queries and returns the available quantity of the resource available at X-Y point 
+	 * of the Sugarspace.
 	 * 
-	 * @param resource
+	 * @param resource A {@link String} with the name of the resource. E.g "sugar"
 	 * @param x
 	 * @param y
 	 * @return
@@ -389,44 +411,51 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	//Methods delegating grid object
 
 	/**
+	 * Returns the location of a {@link SugarAgent_ch2} in the Sugarspace 
 	 * 
-	 * @param a
-	 * @return
+	 * @param a the {@link SugarAgent_ch2} to find the location for
+	 * @return {@link GridPoint} of the location of agent
 	 */
 	public GridPoint gridGetAgentLocation(SugarAgent_ch2 a) {
 		return grid.getLocation(a);
 	}
 
 	/**
+	 * Moves a {@link SugarAgent_ch2} to a new location in the SugarSpace
 	 * 
-	 * @param a
-	 * @param x
-	 * @param y
+	 * @param a a the {@link SugarAgent_ch2} to move
+	 * @param x int of the x coordinate of the new location
+	 * @param y int of the y coordinate of the new location
+	 * @return true if the move was successful, otherwise false.
 	 */
-	public void gridMoveAgentTo(SugarAgent_ch2 a,int x, int y) {
-		grid.moveTo(a, x, y);
+	public boolean gridMoveAgentTo(SugarAgent_ch2 a,int x, int y) {
+		return grid.moveTo(a, x, y);
 	}
 
 	/**
+	 * Gets the neighboring {@link GridPoint}s of a {@link SugarAgent_ch2} up to a certain radius. 
+	 * The definition of 'neighboring point' (MOORE or von-NEUMAN) must be provided.
 	 * 
-	 * @param a
-	 * @param radius
-	 * @param v
-	 * @return
+	 * @param a The {@link SugarAgent_ch2} object
+	 * @param radius An int with the radius up to which to find the neighboring {@link GridPoint}s
+	 * @param typeOfVision A {@link Utility.TypeOfVision} that defines whether adjacent points are MOORE or vonNEUMAN
+	 * @return An {@link Iterable} with all neighboring {@link GridPoint}s 
 	 */
-	public Iterable<GridPoint> gridGetNeighboringPoints(SugarAgent_ch2 a, int radius, Utility.TypeOfVision v) {
-		return this.gridGetNeighboringPoints(a.getCurrentPosition(), radius, v);		
+	public Iterable<GridPoint> gridGetNeighboringPoints(SugarAgent_ch2 a, int radius, Utility.TypeOfVision typeOfVision) {
+		return this.gridGetNeighboringPoints(a.getCurrentPosition(), radius, typeOfVision);		
 	}
 
 	/**
+	 * Gets the neighboring {@link GridPoint}s of another {@link GridPoint} up to a certain radius. 
+	 * The definition of 'neighboring point' (MOORE or von-NEUMAN) must be provided.
 	 * 
-	 * @param gp
-	 * @param radius
-	 * @param v
-	 * @return
+	 * @param gp The {@link GridPoint} for which to calculate the neighboring {@link GridPoint}s
+	 * @param radius An int with the radius up to which to find the neighboring {@link GridPoint}s
+	 * @param typeOfVision A {@link Utility.TypeOfVision} that defines whether adjacent points are MOORE or vonNEUMAN
+	 * @return An {@link Iterable} with all neighboring {@link GridPoint}s 
 	 */
-	public Iterable<GridPoint> gridGetNeighboringPoints(GridPoint gp, int radius, Utility.TypeOfVision v) {
-		if(v==Utility.TypeOfVision.MOORE) {
+	public Iterable<GridPoint> gridGetNeighboringPoints(GridPoint gp, int radius, Utility.TypeOfVision typeOfVision) {
+		if(typeOfVision==Utility.TypeOfVision.MOORE) {
 			return NeighbourhoodFunctions.getMoorePoints(gp, grid, radius);
 		} else {
 			return NeighbourhoodFunctions.getVonNeumanPoints(gp, grid, radius);
@@ -434,13 +463,26 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	}
 
 	/**
+	 * Gets the {@link SugarAgent_ch2} that is located in a certain {@link GridPoint} at space. If no agent is 
+	 * present at this point it return a null
 	 * 
-	 * @param x
-	 * @param y
-	 * @return
+	 * @param x int of the x-coordinate of the requested {@link GridPoint}
+	 * @param y int of the y-coordinate of the requested {@link GridPoint}
+	 * @return the {@link SugarAgent_ch2} that is located in the requested location. Null if no agent is present there.
 	 */
-	public Iterable<Object> gridGetObjectsAt(int x, int y) {
-		return grid.getObjectsAt(x,y);
+	public SugarAgent_ch2 gridGetSugarAgentAt(int x, int y) {
+		
+		Iterable<Object> r = grid.getObjectsAt(x,y);
+		
+		if(  ((Set<Object>)r).size()==0  ) {
+			return null;
+		} else {
+			
+			SugarAgent_ch2 a = (SugarAgent_ch2) r.iterator().next();
+			return a;
+		}
+		
+		
 	}
 
 	/**
@@ -521,10 +563,14 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		this.addValueLayer(landscape_pollution);
 
 		this.grid = GridFactoryFinder.createGridFactory(null)
-				.createGrid("sugarscape", this, new GridBuilderParameters<Object>(
-						new WrapAroundBorders(), new RandomGridAdder<Object>(), true, 
-						(int)sugar.capacity.getDimensions().getWidth(),
-						(int)sugar.capacity.getDimensions().getHeight()));
+				.createGrid("sugarscape", 
+						this, 
+						GridBuilderParameters.singleOccupancy2DTorus(
+								new RandomGridAdder<Object>(), 
+								(int)sugar.capacity.getDimensions().getWidth(), 
+								(int)sugar.capacity.getDimensions().getHeight()
+								)
+						);
 
 
 	}
