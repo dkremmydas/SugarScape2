@@ -1,7 +1,5 @@
 package repast.simphony.demos.sugarscape2.agents;
 
-import java.util.Set;
-
 import org.apache.log4j.Level;
 
 import repast.simphony.context.ContextEvent;
@@ -474,13 +472,13 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		
 		Iterable<Object> r = grid.getObjectsAt(x,y);
 		
-		if(  ((Set<Object>)r).size()==0  ) {
-			return null;
-		} else {
-			SugarAgent_ch2 a = (SugarAgent_ch2) r.iterator().next();
-			return a;
-		}
+		SugarAgent_ch2 a = null;
+
+		for(Object rr: r) {
+			return (SugarAgent_ch2) rr;
+		}	
 		
+		return a;
 		
 	}
 

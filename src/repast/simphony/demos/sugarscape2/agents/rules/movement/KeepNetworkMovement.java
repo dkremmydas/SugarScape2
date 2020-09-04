@@ -61,9 +61,12 @@ public class KeepNetworkMovement extends DefaultMovement implements Configurable
 
 			SugarAgent_ch2 aa = SugarSpace_ch2.getInstance().gridGetSugarAgentAt(gpp.getX(),gpp.getY());
 
-			if(aa.isAlive()) {
-				this.neighbors.add(aa);
+			if(!(aa==null)) {
+				if(aa.isAlive()) {
+					this.neighbors.add(aa);
+				}	
 			}
+			
 
 		}
 
