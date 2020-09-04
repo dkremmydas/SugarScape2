@@ -5,12 +5,13 @@ import java.util.Set;
 import org.apache.commons.math3.stat.StatUtils;
 
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
-public class DefaultPollutionDiffusion implements PollutionDiffusionAbility {
+public class DefaultPollutionDiffusion implements PollutionDiffusionAbility, ConfigurableFromRepastEnvironment {
 
 	/**
 	 * TODO description of the notion

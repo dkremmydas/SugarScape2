@@ -79,17 +79,6 @@ public class DefaultMovement implements MovementAbility {
 		return valueLayerName;
 	}
 
-
-
-
-	@Override
-	public void configureFromEnvironment() {	}
-
-
-	
-	
-	
-
 	
 
 }

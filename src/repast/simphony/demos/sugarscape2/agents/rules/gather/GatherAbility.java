@@ -29,10 +29,4 @@ public interface GatherAbility {
 	public int getAmountGathered(SugarAgent_ch2 a);
 	
 	
-	/**
-	 * In this method, the Repast Simphony environmental variables should be used
-	 * in order to give values to the object 
-	 */
-	public void configureFromEnvironment();
-
 }

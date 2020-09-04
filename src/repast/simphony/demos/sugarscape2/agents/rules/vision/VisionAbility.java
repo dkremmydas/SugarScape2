@@ -17,14 +17,6 @@ public interface VisionAbility {
 	 * @return a {@link HashSet} of {@link GridPoint}s that the agent is able to see
 	 */
 	public Set<GridPoint> see(SugarAgent_ch2 a);
-	
-	
-	
-	/**
-	 * In this method, the Repast Simphony environmental variables should be used
-	 * in order to give values to the object 
-	 */
-	public void configureFromEnvironment();
-	
+
 
 }

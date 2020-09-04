@@ -5,6 +5,7 @@ import java.util.Set;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.graph.Network;
@@ -18,7 +19,7 @@ import repast.simphony.space.grid.GridPoint;
  * @author Dimitris Kremmydas
  *
  */
-public class KeepNetworkMovement extends DefaultMovement {
+public class KeepNetworkMovement extends DefaultMovement implements ConfigurableFromRepastEnvironment {
 	
 
 	/**
@@ -94,9 +95,7 @@ public class KeepNetworkMovement extends DefaultMovement {
 	
 	@Override
 	public void configureFromEnvironment() {	
-		
-		super.configureFromEnvironment();
-		
+			
 		String typeOfVision_str = RunEnvironment.getInstance().getParameters().getString("VisionType");
 		
 		typeOfVision = (typeOfVision_str.equalsIgnoreCase("Moore"))?Utility.TypeOfVision.MOORE:Utility.TypeOfVision.NEUMMAN;

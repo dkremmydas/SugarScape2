@@ -24,10 +24,5 @@ public interface GrowbackAbility {
 	public GridValueLayer growback(SugarSpace_ch2 s);
 	
 	
-	/**
-	 * In this method, the Repast Simphony environmental variables should be used
-	 * in order to give values to the object 
-	 */
-	public void configureFromEnvironment();
-	
+
 }

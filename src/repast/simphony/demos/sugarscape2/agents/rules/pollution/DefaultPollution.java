@@ -5,10 +5,11 @@ import java.util.Map;
 import org.apache.commons.collections15.map.HashedMap;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.GridPoint;
 
-public class DefaultPollution implements PollutionAbility {
+public class DefaultPollution implements PollutionAbility, ConfigurableFromRepastEnvironment {
 
 	private int alpha;
 	private int beta;

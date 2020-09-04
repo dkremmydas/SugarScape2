@@ -9,7 +9,7 @@ import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
  * @author Dimitris Kremmydas
  *
  */
-public class DefaultDeath implements DieAbility {
+public class DefaultDeath implements DieAbility  {
 	
 	
 	@Override
@@ -20,16 +20,6 @@ public class DefaultDeath implements DieAbility {
 			return false;
 		}
 	}
-
-
-
-
-	@Override
-	public void configureFromEnvironment() {}
-	
-	
-	
-	
 	
 
 	

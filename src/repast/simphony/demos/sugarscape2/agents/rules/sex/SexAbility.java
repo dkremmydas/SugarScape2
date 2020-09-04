@@ -9,11 +9,11 @@ import repast.simphony.space.grid.GridPoint;
 public interface SexAbility {
 	
 	/**
-	 * Selection of the {@link SugarAgent_ch2}s to mate with. The mates returned should be the fertile neighbors.
+	 * Selection of the {@link SugarAgent_ch3}s to mate with. The mates returned should be the fertile neighbors.
 	 * In this method we do not care whether the potential mates have the resources to have children or not.
 	 * 
-	 * @param a The {@link SugarAgent_ch2} that will perform the selection
-	 * @return An {@link Iterable} of {@link SugarAgent_ch2} that have been selected for mating
+	 * @param a The {@link SugarAgent_ch3} that will perform the selection
+	 * @return An {@link Iterable} of {@link SugarAgent_ch3} that have been selected for mating. If no {@link SugarAgent_ch3} is available, returns an empty Iterable
 	 */
 	Iterable<SugarAgent_ch3> selectPotentialMates(SugarAgent_ch3 a);
 	
@@ -30,16 +30,10 @@ public interface SexAbility {
 	 * 
 	 * @param a1 the {@link SugarAgent_ch2} that is the calling object of the mating
 	 * @param a2 the {@link SugarAgent_ch2} that is the second part of the mating
-	 * @return A map that contains the {@link SugarAgent_ch2} child and the position it should be located. In case no child can be born, return null.
+	 * @return A map that contains the {@link SugarAgent_ch2} child and the position it should be located. In case no child can be born, returns an empty map.
 	 */
 	Map<SugarAgent_ch3,GridPoint> giveBirth(SugarAgent_ch3 a1, SugarAgent_ch3 a2);
 	
-	
-	
-	/**
-	 * In this method, the Repast Simphony environmental variables should be used
-	 * in order to give values to the object 
-	 */
-	public void configureFromEnvironment();
+
 
 }

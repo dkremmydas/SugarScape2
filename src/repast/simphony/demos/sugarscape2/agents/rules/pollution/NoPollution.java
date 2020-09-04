@@ -16,7 +16,4 @@ public class NoPollution implements PollutionAbility {
 		
 	}
 
-	@Override
-	public void configureFromEnvironment() {}
-
 }

@@ -12,7 +12,5 @@ public class NoPollutionDiffusion implements PollutionDiffusionAbility {
 		return pollution;
 	}
 
-	@Override
-	public void configureFromEnvironment() {	}
 
 }

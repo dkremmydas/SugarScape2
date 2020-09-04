@@ -1,6 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.rules.growback;
 
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -9,7 +10,7 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitrios Kremmydas
  *
  */
-public class DefaultGrowback implements GrowbackAbility{
+public class DefaultGrowback implements GrowbackAbility, ConfigurableFromRepastEnvironment {
 
 	/**
 	 * If <0, growback immediately to full capacity

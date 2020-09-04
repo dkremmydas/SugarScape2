@@ -7,6 +7,7 @@ import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DefaultDeath;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.death.FiniteLifeDeath;
@@ -89,162 +90,205 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 
 	public static SugarAgent_ch2 createAgent(String variant ) {
 
-	
-
-			int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
-			int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
-			int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
 
 
+		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
+		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
+		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
 
-			if (variant.equalsIgnoreCase("p30")) {
 
-				DieAbility da = new DefaultDeath(); da.configureFromEnvironment();
-				GatherAbility ga = new DefaultGather("sugar level"); ga.configureFromEnvironment();
-				MovementAbility ma = new DefaultMovement("sugar level"); ma.configureFromEnvironment();
-				VisionAbility va = new DefaultVision(); va.configureFromEnvironment();
-				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
+		//Configure Rules
+		DieAbility da;
+		GatherAbility ga;
+		MovementAbility ma;
+		VisionAbility va;
+		PollutionAbility pa;
 
-				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
-						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
-						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
-						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
-						.withDieRule(da)
-						.withGatherRule(ga)
-						.withMovementRule(ma)
-						.withVisionRule(va)
-						.withPollutionRule(pa)
-						.build();
 
-				return agent;
+		//DieAbility
+		switch(variant) {
+		case "p30":
+		case "p41":
+		case "p50":
+			da = new DefaultDeath();
+			break;
+		case "p37":
+			da = new FiniteLifeDeath();
+			break;
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant DieAbility rule" );
+		}
 
-			}
-			else if (variant.equalsIgnoreCase("p37")) {
 
-				DieAbility da = new FiniteLifeDeath(); da.configureFromEnvironment();
-				GatherAbility ga = new DefaultGather("sugar level"); ga.configureFromEnvironment();
-				MovementAbility ma = new DefaultMovement("sugar level"); ma.configureFromEnvironment();
-				VisionAbility va = new DefaultVision(); va.configureFromEnvironment();
-				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
+		//GatherAbility
+		switch(variant) {
+		case "p30":
+		case "p37":
+		case "p41":
+		case "p50":
+			ga = new DefaultGather("sugar level");
+			break;
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant GatherAbility rule" );
+		}
 
-				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
-						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
-						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
-						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
-						.withDieRule(da)
-						.withGatherRule(ga)
-						.withMovementRule(ma)
-						.withVisionRule(va)
-						.withPollutionRule(pa)
-						.build();
 
-				return agent;
+		//MovementAbility
+		switch(variant) {
+		case "p30":
+		case "p37":
+			ma = new DefaultMovement("sugar level");
+			break;
+		case "p41":
+			ma = new KeepNetworkMovement("sugar level");
+			break;
+		case "p50":
+			ma = new PollutionMovement("sugar level");
+			break;
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant MovementAbility rule" );
+		}
 
-			}
-			else if (variant.equalsIgnoreCase("p41")) {
 
-				DieAbility da = new DefaultDeath(); da.configureFromEnvironment();
-				GatherAbility ga = new DefaultGather("sugar level"); ga.configureFromEnvironment();
-				MovementAbility ma = new KeepNetworkMovement("sugar level"); ma.configureFromEnvironment();
-				VisionAbility va = new DefaultVision(); va.configureFromEnvironment();
-				PollutionAbility pa = new NoPollution(); pa.configureFromEnvironment();
+		//VisionAbility
+		switch(variant) {
+		case "p30":
+		case "p37":
+		case "p41":
+		case "p50":
+			va = new DefaultVision();
+			break;
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant VisionAbility rule" );
+		}
 
-				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
-						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
-						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
-						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
-						.withDieRule(da)
-						.withGatherRule(ga)
-						.withMovementRule(ma)
-						.withVisionRule(va)
-						.withPollutionRule(pa)
-						.build();
 
-				return agent;
-
-			}
-			else if (variant.equalsIgnoreCase("p50")) {
-
-				DieAbility da = new DefaultDeath(); da.configureFromEnvironment();
-				GatherAbility ga = new DefaultGather("sugar level"); ga.configureFromEnvironment();
-				MovementAbility ma = new PollutionMovement("sugar level"); ma.configureFromEnvironment();
-				VisionAbility va = new DefaultVision(); va.configureFromEnvironment();
-				PollutionAbility pa = new DefaultPollution(); pa.configureFromEnvironment();
-
-				SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
-						.withVision(RandomHelper.nextIntFromTo(1, maxVision))
-						.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
-						.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
-						.withDieRule(da)
-						.withGatherRule(ga)
-						.withMovementRule(ma)
-						.withVisionRule(va)
-						.withPollutionRule(pa)
-						.build();
-
-				return agent;
-
-			}
+		//PollutionAbility
+		switch(variant) {
+		case "p30":
+		case "p37":
+		case "p41":
+			pa = new NoPollution();
+			break;
+		case "p50":
+			pa = new DefaultPollution();
+			break;
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant Pollution Ability rule" );
+		}
 		
-		throw new RuntimeErrorException(null, "The Variant parameters provided, are not yet implemented" );
+		
+		//If they follow the ConfigurableFromRepastEnvironment interface, configure rules from environment
+
+		if(da instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) da).configureFromEnvironment();}
+
+		if(ga instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ga).configureFromEnvironment();}
+		
+		if(ma instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ma).configureFromEnvironment();}
+		
+		if(va instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) va).configureFromEnvironment();}
+		
+		if(pa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) pa).configureFromEnvironment();}
+		
+
+		
+		//create the agent and return it
+		
+		SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
+				.withVision(RandomHelper.nextIntFromTo(1, maxVision))
+				.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
+				.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
+				.withDieRule(da)
+				.withGatherRule(ga)
+				.withMovementRule(ma)
+				.withVisionRule(va)
+				.withPollutionRule(pa)
+				.build();
+
+		return agent;
+
+
+
+
 	}
 
 
 	public static SugarSpace_ch2 createSugarSpace(String variant,String pgm_file) {
 
-	
-			GrowbackAbility growbackRule;
-			ReplacementAbility replacementRule ;
-			PollutionDiffusionAbility diffusionRule;
-			
-			
-			if (variant.equalsIgnoreCase("p30")) {
 
-				growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
-				replacementRule = new NoReplacement();
-				diffusionRule = new NoPollutionDiffusion();
-			
-				SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
-				
-				return s;
-				
-			} else if (variant.equalsIgnoreCase("p37")) {
+		GrowbackAbility growbackRule;
+		ReplacementAbility replacementRule ;
+		PollutionDiffusionAbility diffusionRule;
 
-				growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
-				replacementRule = new DefaultReplacement(); replacementRule.configureFromEnvironment();
-				diffusionRule = new NoPollutionDiffusion();
-				
-				SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
-				return s;
-				
-			} else if (variant.equalsIgnoreCase("p41")) {
 
-				growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
-				replacementRule = new NoReplacement();		
-				diffusionRule = new NoPollutionDiffusion();
+		//Growback rule
+		switch(variant) {
+		case "p30":
+		case "p37":
+		case "p41":
+		case "p50":
+			growbackRule = new DefaultGrowback(); 
+			break;
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant Growback rule" );
+		}
 
-				SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
-				
-				NetworkBuilder<Object> netb = new NetworkBuilder<Object>("neigbours", s, true);
-				netb.buildNetwork();
-				
-				return s;
-			}
 
-			else if (variant.equalsIgnoreCase("p50")) {
+		//Replacement rule
+		switch(variant) {
+		case "p30":
+		case "p41":
+		case "p50":
+			replacementRule = new NoReplacement();
+			break;
+		case "p37":
+			replacementRule = new DefaultReplacement();	
+			break;
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant Replacement rule" );
+		}
 
-				growbackRule = new DefaultGrowback(); growbackRule.configureFromEnvironment();
-				replacementRule = new NoReplacement();		
-				diffusionRule = new DefaultPollutionDiffusion(); diffusionRule.configureFromEnvironment();
-				
-				SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
-				return s;
-			}
-			
-			else {
-				throw new RuntimeErrorException(null, "For Chapter 2, This variant is not yet implemented" );
-			}
-			
+
+		//Pollution diffusion rule
+		switch(variant) {
+		case "p30":
+		case "p41":
+		case "p37":
+			diffusionRule = new NoPollutionDiffusion();
+			break;
+		case "p50":
+			diffusionRule = new DefaultPollutionDiffusion(); 
+			break;
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant Pollution diffusion rule" );
+		}
+
+
+		//If they follow the ConfigurableFromRepastEnvironment interface, configure rules from environment
+		if(growbackRule instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) growbackRule).configureFromEnvironment();}
+
+		if(replacementRule instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) replacementRule).configureFromEnvironment();}
+
+		if(diffusionRule instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) diffusionRule).configureFromEnvironment();}
+
+
+
+		//create the Sugarspace agent
+		SugarSpace_ch2 s = SugarSpace_ch2.createInstance(pgm_file, growbackRule, replacementRule, diffusionRule);
+
+
+		//create other things, if necessary
+		switch(variant) {
+		case "p41":
+			//add the Network object
+			NetworkBuilder<Object> netb = new NetworkBuilder<Object>("neigbours", s, true);
+			netb.buildNetwork();
+			break;
+
+		}
+
+
+		return s;
 
 	}
 

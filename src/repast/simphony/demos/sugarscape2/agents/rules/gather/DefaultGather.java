@@ -49,14 +49,6 @@ public class DefaultGather implements GatherAbility {
 	}
 
 
-
-
-	@Override
-	public void configureFromEnvironment() {
-		
-	}
-
-
 	@Override
 	public int getAmountGathered(SugarAgent_ch2 a) {
 		return gathered_last_time;
