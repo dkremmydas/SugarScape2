@@ -38,10 +38,10 @@ import simphony.util.messages.MessageCenter;
  * </p>
  * 
  * 
- * <p><b>Sugarspace is a Grid</b><br/>Sugarspace is a grid. Agent's location are in a grid, resources reside in each grid cell. 
- * Only one agent is permitted in a cell in each tick.
- * We are providing several methods with the grid* prefix that allow the interaction with the grid. We are encapsulating the
- * implementation details in a {@link Grid} object from the Repast.</p>
+ * <p><b>Sugarspace is a Grid</b><br/>Sugarspace is a <a href="https://en.wikipedia.org/wiki/Torus">torus</a> grid. 
+ * Each grid cell contains resources and can host up to
+ * one {@link SugarAgent_ch2}. We are providing several methods with the grid* prefix that allow the interaction with the grid. 
+ * We are encapsulating the implementation details in a {@link Grid} object from the Repast API.</p>
  * 
  * 
   * <p><b>Sugarspace has behavior</b><br/>As described in the book, sugarspace has its own behavior TODO[describe the three behaviors].
@@ -198,7 +198,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		this.replacementRule = replacementRule;
 		this.diffusion_rule = diffusionRule;
 
-		this.configureFromPGM(pgm_file);
+		this.configureGridFromPGM(pgm_file);
 
 		SugarSpace_ch2 me = this;
 		super.addContextListener(new ContextListener<Object>() {
@@ -222,9 +222,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	//****************************************************************************************************************************************************
 
 	/**
-	 * The growback rule
+	 * The growback rule. Every second tick, the sugar resource in each grid cell is updated.
 	 */
-	@ScheduledMethod(start=2d,interval=5d)
+	@ScheduledMethod(start=6d,interval=10d)
 	public void applyGrowback() {	
 
 		GridValueLayer sugarHoldingNew = this.growbackRule.growback(this);
@@ -235,9 +235,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
-	 * The pollution diffusion behavior
+	 * The pollution diffusion behavior. Each 4th tick, the pollution of each grid cell is updated.
 	 */
-	@ScheduledMethod(start=4d,interval=5d)
+	@ScheduledMethod(start=8d,interval=5d)
 	public void applyDiffuse_pollution() {	
 
 		GridValueLayer pollution_vl = (GridValueLayer) this.getValueLayer("pollution");
@@ -464,7 +464,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	/**
 	 * Gets the {@link SugarAgent_ch2} that is located in a certain {@link GridPoint} at space. If no agent is 
-	 * present at this point it return a null
+	 * present it returns a null
 	 * 
 	 * @param x int of the x-coordinate of the requested {@link GridPoint}
 	 * @param y int of the y-coordinate of the requested {@link GridPoint}
@@ -477,7 +477,6 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		if(  ((Set<Object>)r).size()==0  ) {
 			return null;
 		} else {
-			
 			SugarAgent_ch2 a = (SugarAgent_ch2) r.iterator().next();
 			return a;
 		}
@@ -515,10 +514,12 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
+	 * We configure the grid of the Sugarspace based on a PGM file. The grid's width and height are set and
+	 * the capacity of sugar in each grid cell is loaded.
 	 * 
 	 * @param pgm_file
 	 */
-	private void configureFromPGM (String pgm_file) {
+	private void configureGridFromPGM (String pgm_file) {
 
 		//1.1 read the pgm file
 		PGMReader pgmreader = new PGMReader( pgm_file); //"./data/sugarspace.pgm"
@@ -579,9 +580,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	/**
 	 * Write log messages to log4j
 	 * 
-	 * @param clazz
-	 * @param level
-	 * @param message
+	 * @param clazz the {@link Class} of the object that writes to the log
+	 * @param level {@link Level} of the message
+	 * @param message The message itself
 	 */
 	public static void logMessage(Class<?> clazz, Level level,Object message) {
 		MessageCenter mc = MessageCenter.getMessageCenter(clazz);
@@ -591,7 +592,14 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 	/**
-	 * The set of agent's properties (fixed or variables) that are related to a product
+	 * We encapsulate the details of a Sugarspace's resource inside this <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html">inner class</a>. 
+	 * 
+	 * This class is kept inside the {@link SugarSpace_ch2} class on purpose, so that the visibility of the class is kept at minimum.
+	 * The only thing the users of the {@link SugarSpace_ch2} object should know is how to use the resource* family of methods. The
+	 * handling of the resources inside the class is a internal concern of the class and should not be exposed outside. In this way, 
+	 * if in the future the implementation of a resource changes, the contract with the user will not break (he can still keep
+	 * using the *resource methods).
+	 * 
 	 * 
 	 * @author Dimitris Kremmydas
 	 *

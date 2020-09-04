@@ -14,7 +14,7 @@ import repast.simphony.valueLayer.GridValueLayer;
 
 
 /**
- * The Agent of the Sugarscape
+ * The implementation of the Agent of the Sugarscape for chapter 2.
  * 
  * @author Dimitris Kremmydas
  *
@@ -224,7 +224,7 @@ public class SugarAgent_ch2 {
 	/* Scheduled actions of the agent */
 
 
-	@ScheduledMethod(start=1d,interval=5d)
+	@ScheduledMethod(start=1d,interval=10d)
 	public void step() {
 
 		if(isAlive) {
