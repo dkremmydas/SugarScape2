@@ -64,15 +64,11 @@ public class DefaultVision implements VisionAbility, ConfigurableFromRepastEnvir
 
 	@Override
 	public void configureFromEnvironment() {
-		
-		
-		
+
 		String typeOfVision_str = RunEnvironment.getInstance().getParameters().getString("VisionType");
 		
 		typeOfVision = (typeOfVision_str.equalsIgnoreCase("Moore"))?Utility.TypeOfVision.MOORE:Utility.TypeOfVision.NEUMMAN;
-		
-
-		
+	
 	}
 	
 	

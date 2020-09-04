@@ -1,5 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+import java.util.HashSet;
+
 import org.apache.log4j.Level;
 
 import repast.simphony.context.ContextEvent;
@@ -12,6 +14,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.Pollut
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.DefaultReplacement;
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.NoReplacement;
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.ReplacementAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter2;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
@@ -435,13 +438,40 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * The definition of 'neighboring point' (MOORE or von-NEUMAN) must be provided.
 	 * 
 	 * @param a The {@link SugarAgent_ch2} object
-	 * @param radius An int with the radius up to which to find the neighboring {@link GridPoint}s
+	 * @param radius An int with the radius up to which to looks for neighboring {@link GridPoint}s
 	 * @param typeOfVision A {@link Utility.TypeOfVision} that defines whether adjacent points are MOORE or vonNEUMAN
 	 * @return An {@link Iterable} with all neighboring {@link GridPoint}s 
 	 */
 	public Iterable<GridPoint> gridGetNeighboringPoints(SugarAgent_ch2 a, int radius, Utility.TypeOfVision typeOfVision) {
 		return this.gridGetNeighboringPoints(a.getCurrentPosition(), radius, typeOfVision);		
 	}
+	
+	/**
+	 * Gets the neighboring {@link SugarAgent_ch2}s of a {@link SugarAgent_ch2}. We assume that 'neighboring agents' 
+	 * are those that occupy a {@link GridPoint} seen from the agent. The latter dependes on the {@link VisionAbility}
+	 * of the agent.
+	 * @param a The {@link SugarAgent_ch2} for whom to find the neighbor
+	 * @return an {@link Iterable} of {@link SugarAgent_ch2}s. If none, returns an empty one.
+	 */
+	public Iterable<SugarAgent_ch2> gridGetNeighboringSugarAgents(SugarAgent_ch2 a) {
+		
+		HashSet<SugarAgent_ch2> neighbors = new HashSet<SugarAgent_ch2>();
+		
+		Iterable<GridPoint> points_neigh = a.visionRule.see(a);
+
+		for(GridPoint gpp: points_neigh ) {
+
+			SugarAgent_ch2 aa = SugarSpace_ch2.getInstance().gridGetSugarAgentAt(gpp.getX(),gpp.getY());
+
+			if(!(aa==null)) {
+				if(aa.isAlive()) { //TODO: Do we need this?
+					neighbors.add(aa);
+				}	
+			}
+		}
+		return neighbors;
+	}
+	
 
 	/**
 	 * Gets the neighboring {@link GridPoint}s of another {@link GridPoint} up to a certain radius. 

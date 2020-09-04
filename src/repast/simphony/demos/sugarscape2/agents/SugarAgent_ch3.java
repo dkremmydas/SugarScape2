@@ -43,21 +43,34 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		return childbearing_age_end;
 	}
 	
+	public boolean hasFertileAge() {
+		
+		if(age>=childbearing_age_start & age<childbearing_age_end) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	@ScheduledMethod(start=3d,interval=10d)
 	public void applyRuleS() {
-		Iterable<SugarAgent_ch3> ags = this.sexRule.selectPotentialMates(this);
 		
-		for(SugarAgent_ch3 a: ags) {
-			Map<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
+		if(hasFertileAge()) {
 			
-			if(!(m==null)) {
-				SugarAgent_ch3 child = m.keySet().iterator().next();
-				GridPoint loc_to_put = m.values().iterator().next();
+			Iterable<SugarAgent_ch3> ags = this.sexRule.selectPotentialMates(this);
+			
+			for(SugarAgent_ch3 a: ags) {
+				Map<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
 				
-				SugarSpace_ch2.getInstance().add(child);
-				SugarSpace_ch2.getInstance().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());
+				if(!(m==null)) {
+					SugarAgent_ch3 child = m.keySet().iterator().next();
+					GridPoint loc_to_put = m.values().iterator().next();
+					
+					SugarSpace_ch2.getInstance().add(child);
+					SugarSpace_ch2.getInstance().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());
+				}
 			}
-		}
+		}		
 		
 	}
 	

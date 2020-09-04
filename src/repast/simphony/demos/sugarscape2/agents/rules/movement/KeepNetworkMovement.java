@@ -53,9 +53,7 @@ public class KeepNetworkMovement extends DefaultMovement implements Configurable
 	private void setNeighbors(SugarAgent_ch2 a,GridPoint gp) {
 		this.neighbors.clear();
 
-		Iterable<GridPoint> points_neigh;
-		
-		points_neigh = SugarSpace_ch2.getInstance().gridGetNeighboringPoints(a, 1, this.typeOfVision);
+		Iterable<GridPoint> points_neigh = SugarSpace_ch2.getInstance().gridGetNeighboringPoints(a, 1, this.typeOfVision);
 
 		for(GridPoint gpp: points_neigh ) {
 
