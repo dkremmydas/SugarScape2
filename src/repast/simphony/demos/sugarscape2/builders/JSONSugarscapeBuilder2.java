@@ -1,33 +1,7 @@
 package repast.simphony.demos.sugarscape2.builders;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
-
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
-import repast.simphony.demos.sugarscape2.agents.SpaceResource;
-import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.agents.behaviors.AgentBehavior_ch2;
-import repast.simphony.demos.sugarscape2.agents.behaviors.SpaceBehavior_ch2;
-import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
-import repast.simphony.demos.sugarscape2.utilities.PGMReader;
-import repast.simphony.demos.sugarscape2.utilities.Utility;
-import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ISchedule;
-import repast.simphony.random.RandomHelper;
-import repast.simphony.valueLayer.GridValueLayer;
 
 /**
  * The concern of this class is to create the Sugarscape {@link}Context based on a JSON definition
@@ -44,6 +18,13 @@ import repast.simphony.valueLayer.GridValueLayer;
  */
 public class JSONSugarscapeBuilder2 implements ContextBuilder<Object>{
 
+	@Override
+	public Context build(Context<Object> context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
 
 	JSONParser jsonParser = new JSONParser();
 
@@ -126,7 +107,7 @@ public class JSONSugarscapeBuilder2 implements ContextBuilder<Object>{
 
 	}
 	
-	
+	*/
 	
 	
 

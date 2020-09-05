@@ -69,7 +69,7 @@ public class DefaultSugarscapeBuilder_chapter3 implements ContextBuilder<Object>
 		
 		if (variant_ch3.equalsIgnoreCase("p58")) {
 
-			SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(1, SugarAgent_ch3.Sex.values().length)];
+			SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(0, SugarAgent_ch3.Sex.values().length-1)];
 
 			SexAbility sexRule = new DefaultSexAbility(); 
 			
