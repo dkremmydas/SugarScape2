@@ -42,8 +42,8 @@ import simphony.util.messages.MessageCenter;
  * We are encapsulating the implementation details in a {@link Grid} object from the Repast API.</p>
  * 
  * 
-  * <p><b>Sugarspace has behavior</b><br/>As described in the book, sugarspace has its own behavior TODO[describe the three behaviors].
-  * Annotations ...</p>
+ * <p><b>Sugarspace has behavior</b><br/>As described in the book, sugarspace has its own behavior TODO[describe the three behaviors].
+ * Annotations ...</p>
  *   
  * 
  * <p><b>Instantiation through the Singleton pattern</b><br/>
@@ -442,8 +442,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public Iterable<GridPoint> gridGetNeighboringPoints(SugarAgent_ch2 a, int radius, Utility.TypeOfVision typeOfVision) {
 		return this.gridGetNeighboringPoints(a.getCurrentPosition(), radius, typeOfVision);		
 	}
-	
-	
+
+
 
 	/**
 	 * Gets the neighboring {@link GridPoint}s of another {@link GridPoint} up to a certain radius. 
@@ -471,17 +471,20 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @return the {@link SugarAgent_ch2} that is located in the requested location. Null if no agent is present there.
 	 */
 	public SugarAgent_ch2 gridGetSugarAgentAt(int x, int y) {
-		
-		Iterable<Object> r = grid.getObjectsAt(x,y);
-		
+
+		Iterable<Object> objects = grid.getObjectsAt(x,y);
 		SugarAgent_ch2 a = null;
 
-		for(Object rr: r) {
-			return (SugarAgent_ch2) rr;
+		for (Object o : objects) {
+			try {
+				a = (SugarAgent_ch2) o;
+				break;
+			}
+			catch (ClassCastException e) {}
 		}	
-		
+
 		return a;
-		
+
 	}
 
 	/**
@@ -728,9 +731,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 
-		
-		
-		
+
+
+
 
 
 	}

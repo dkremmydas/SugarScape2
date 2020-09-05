@@ -216,30 +216,34 @@ public class SugarAgent_ch2 {
 
 		HashSet<SugarAgent_ch2> neighbors = new HashSet<SugarAgent_ch2>();
 
-		Iterable<GridPoint> points_neigh = this.visionRule.see(this);
+		this.visionRule.seeAll(this).forEach(new Consumer<GridPoint>() {
 
-		for(GridPoint gpp: points_neigh ) {
-
-			SugarAgent_ch2 aa = SugarSpace_ch2.getInstance().gridGetSugarAgentAt(gpp.getX(),gpp.getY());
-
-			if(!(aa==null)) {
-				if(aa.isAlive()) { //TODO: Do we need this?
-					neighbors.add(aa);
-				}	
+			@Override
+			public void accept(GridPoint t) {
+				
+				SugarAgent_ch2 aa = SugarSpace_ch2.getInstance().gridGetSugarAgentAt(t.getX(),t.getY());
+				if(!(aa==null)) {
+					if(aa.isAlive()) { //TODO: Do we need this?
+						neighbors.add(aa);
+					}	
+				}
 			}
-		}
+			
+		});
+
+		
 		return neighbors;
 	}
 
 
 	public Iterable<GridPoint>getVisiblePoints() {
-		return this.visionRule.see(this);		
+		return this.visionRule.seeEmpty(this);		
 	}
 
 	public Iterable<GridPoint>getVisibleEmptyPoints() {
 
 		ArrayList<GridPoint> r= new ArrayList<GridPoint>();
-		Iterable<GridPoint> seen = this.visionRule.see(this);
+		Iterable<GridPoint> seen = this.visionRule.seeEmpty(this);
 		
 		seen.forEach(new Consumer<GridPoint>() {
 
@@ -285,7 +289,7 @@ public class SugarAgent_ch2 {
 	public void step() {
 
 		if(isAlive) {
-			Set<GridPoint> points_seen = this.visionRule.see(this);
+			Set<GridPoint> points_seen = this.visionRule.seeEmpty(this);
 
 			GridPoint new_pos = this.movementRule.move(this, points_seen);
 
@@ -335,7 +339,6 @@ public class SugarAgent_ch2 {
 	protected void die() {
 		this.isAlive=false;
 		SugarSpace_ch2.getInstance().remove(this);	
-		//System.out.println("DIED: " + this);
 	}
 
 

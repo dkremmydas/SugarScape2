@@ -27,24 +27,31 @@ public class DefaultSexAbility implements SexAbility {
 	@Override
 	public Iterable<SugarAgent_ch3> selectPotentialMates(SugarAgent_ch3 a) {
 
-		ArrayList<SugarAgent_ch3> r = new ArrayList<SugarAgent_ch3>();
-
+		ArrayList<SugarAgent_ch3> neighbors = new ArrayList<SugarAgent_ch3>();
+		
 		a.getNeighboringSugarAgents()
 		.forEach(new Consumer<SugarAgent_ch2>() {
 
 			@Override
 			public void accept(SugarAgent_ch2 t) {
-				SugarAgent_ch3 t_ch3 = (SugarAgent_ch3) t;
-
-				if(! a.getSex().equals(t_ch3.getSex())) {
-					if(t_ch3.hasFertileAge()) {
-						r.add((SugarAgent_ch3) t_ch3);
+				
+				SugarAgent_ch3 t_ch3;
+				try {
+					
+					t_ch3 = (SugarAgent_ch3) t;
+					
+					if(! a.getSex().equals(t_ch3.getSex())) {
+						if(t_ch3.isInFertileAge()) {
+							neighbors.add((SugarAgent_ch3) t_ch3);
+						}
 					}
-				}
+					
+				} catch(ClassCastException e) {}
+				
 			}
 		});
 
-		return r;
+		return neighbors;
 	}
 
 	@Override
@@ -82,7 +89,7 @@ public class DefaultSexAbility implements SexAbility {
 						child_ch2);
 				
 				//select the location
-				GridPoint birth_loc = loc_possible.get(RandomHelper.nextIntFromTo(1, loc_possible.size()));
+				GridPoint birth_loc = loc_possible.get(RandomHelper.nextIntFromTo(0, loc_possible.size()-1));
 				
 				//return
 				return new ImmutablePair<SugarAgent_ch3, GridPoint>(child_ch3,birth_loc);

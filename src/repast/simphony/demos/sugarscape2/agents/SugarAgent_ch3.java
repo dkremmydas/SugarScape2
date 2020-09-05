@@ -2,6 +2,8 @@ package repast.simphony.demos.sugarscape2.agents;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.google.common.collect.Iterables;
+
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.GridPoint;
@@ -43,9 +45,9 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		return childbearing_age_end;
 	}
 	
-	public boolean hasFertileAge() {
+	public boolean isInFertileAge() {
 		
-		if(age>=childbearing_age_start & age<childbearing_age_end) {
+		if( (age>=childbearing_age_start) & (age<childbearing_age_end)) {
 			return true;
 		} else {
 			return false;
@@ -57,10 +59,14 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		
 		if(isAlive) {
 			
-			if(hasFertileAge()) {
-				
+			if(isInFertileAge()) {
+	
 				Iterable<SugarAgent_ch3> ags = this.sexRule.selectPotentialMates(this);
 				
+//				System.out.println("Agent [" + this.getId() + "]" + 
+//									"\n\tLooking at points: " + visionRule.seeEmpty(this) + 
+//									"\n\tChecking for having children ... found "+Iterables.size(ags)+" potential candidates");
+//				
 				for(SugarAgent_ch3 a: ags) {
 					Pair<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
 					
@@ -70,6 +76,8 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 						
 						SugarSpace_ch2.getInstance().add(child);
 						SugarSpace_ch2.getInstance().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());
+						
+						System.out.println("Child was Born: " + child.toString());
 					}
 				}
 			}	

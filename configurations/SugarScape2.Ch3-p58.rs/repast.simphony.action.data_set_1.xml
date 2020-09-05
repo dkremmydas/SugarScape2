@@ -1,6 +1,7 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Number of Agents</name>
-  <type>AGGREGATE</type>
+  <name>Age</name>
+  <type>NON_AGGREGATE</type>
+  <sourceType>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3</sourceType>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -11,19 +12,20 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1383396887</hashCode>
+    <hashCode>38828429</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
-  <methodDataSources class="linked-hash-map"/>
-  <countSources class="linked-hash-map">
+  <methodDataSources class="linked-hash-map">
     <entry>
-      <string>Number of Agents</string>
-      <repast.simphony.data2.engine.CountSourceDefinition>
-        <typeName>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3</typeName>
-        <id>Number of Agents</id>
-      </repast.simphony.data2.engine.CountSourceDefinition>
+      <string>Age</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>Age</id>
+        <className>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3</className>
+        <methodName>getAge</methodName>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
-  </countSources>
+  </methodDataSources>
+  <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
   <customAggDataSources class="linked-hash-map"/>
 </repast.simphony.data2.engine.DataSetDescriptor>

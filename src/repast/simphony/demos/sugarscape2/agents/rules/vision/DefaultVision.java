@@ -34,13 +34,19 @@ public class DefaultVision implements VisionAbility, ConfigurableFromRepastEnvir
 	public DefaultVision() {}	
 	
 	
+
+
+	@Override
+	public Set<GridPoint> seeAll(SugarAgent_ch2 a) {
+		Set<GridPoint> seen_all = (Set<GridPoint>) SugarSpace_ch2.getInstance().gridGetNeighboringPoints(a, a.getVision(), this.typeOfVision);;
+		return seen_all;
+	}
 	
 	@Override
-	public Set<GridPoint> see(SugarAgent_ch2 a) {
+	public Set<GridPoint> seeEmpty(SugarAgent_ch2 a) {
 		
 		//add neighboring points
-		Set<GridPoint> seen_all = (Set<GridPoint>) SugarSpace_ch2.getInstance().gridGetNeighboringPoints(a, a.getVision(), this.typeOfVision);;
-				
+		Set<GridPoint> seen_all = this.seeAll(a);		
 	
 		Set<GridPoint> seen_empty = new HashSet<GridPoint>();
 		//remove occupied space
@@ -70,6 +76,7 @@ public class DefaultVision implements VisionAbility, ConfigurableFromRepastEnvir
 		typeOfVision = (typeOfVision_str.equalsIgnoreCase("Moore"))?Utility.TypeOfVision.MOORE:Utility.TypeOfVision.NEUMMAN;
 	
 	}
+
 	
 	
 	

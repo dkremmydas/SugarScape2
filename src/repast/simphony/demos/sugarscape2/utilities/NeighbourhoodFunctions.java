@@ -35,9 +35,8 @@ public class NeighbourhoodFunctions {
 			r.add(new GridPoint(gp_up)); r.add(new GridPoint(gp_down));
 			r.add(new GridPoint(gp_left)); r.add(new GridPoint(gp_right));
 		}		
-		
-		//System.out.println("Up: " + Arrays.toString(gp_up) + ", down: " + Arrays.toString(gp_down) + ", left: " + Arrays.toString(gp_left) + ", right: " + Arrays.toString(gp_right));
-		
+
+
 		return r;
 	}
 	
@@ -76,8 +75,6 @@ public class NeighbourhoodFunctions {
 			r.add(new GridPoint(gp_upright)); r.add(new GridPoint(gp_downright));
 			r.add(new GridPoint(gp_upleft)); r.add(new GridPoint(gp_downleft));
 		}		
-		
-		//System.out.println("Up: " + Arrays.toString(gp_up) + ", down: " + Arrays.toString(gp_down) + ", left: " + Arrays.toString(gp_left) + ", right: " + Arrays.toString(gp_right));
 		
 		return r;
 	}

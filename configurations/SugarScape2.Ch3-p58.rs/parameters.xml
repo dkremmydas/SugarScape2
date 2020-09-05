@@ -22,7 +22,7 @@
 	<parameter name="maxMetabolism_max" displayName="2.1.2 Maximum Agent Metabolism" type="int" defaultValue="4" />
 	 -->
 	
-	<parameter name="maxInitEndownment" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="100" />
+	<parameter name="maxInitEndownment" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="10" />
 	<!-- 
 	<parameter name="maxInitEndownment_min" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="50" />
 	<parameter name="maxInitEndownment_max" displayName="2.1.3 Maximum Agent Initial Sugar" type="int" defaultValue="100" />

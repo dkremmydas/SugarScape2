@@ -20,7 +20,7 @@ public class SugarQuantityValueLayerStyle2D implements ValueLayerStyleOGL {
 	@Override
 	public Color getColor(double... coordinates) {
 		double q = layer.get(coordinates);
-		float qp = (float)(q/21);
+		float qp = (float)(q/12);
 		return new Color((int)(qp*255), (int)(qp*255), (int)(qp*255));
 	}
 
