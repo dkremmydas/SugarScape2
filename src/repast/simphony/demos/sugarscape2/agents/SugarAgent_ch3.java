@@ -1,6 +1,6 @@
 package repast.simphony.demos.sugarscape2.agents;
 
-import java.util.Map;
+import org.apache.commons.lang3.tuple.Pair;
 
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -60,11 +60,11 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			Iterable<SugarAgent_ch3> ags = this.sexRule.selectPotentialMates(this);
 			
 			for(SugarAgent_ch3 a: ags) {
-				Map<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
+				Pair<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
 				
-				if(!(m==null)) {
-					SugarAgent_ch3 child = m.keySet().iterator().next();
-					GridPoint loc_to_put = m.values().iterator().next();
+				if(!(m.getLeft()==null)) {
+					SugarAgent_ch3 child = m.getLeft();
+					GridPoint loc_to_put = m.getRight();
 					
 					SugarSpace_ch2.getInstance().add(child);
 					SugarSpace_ch2.getInstance().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());

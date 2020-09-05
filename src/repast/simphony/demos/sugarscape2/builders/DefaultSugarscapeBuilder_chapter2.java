@@ -71,7 +71,7 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 		//2.2 create the agents and add them to the context and to the Grid projection
 		for(int i=0;i<n;i++) {
 
-			SugarAgent_ch2 agent = DefaultSugarscapeBuilder_chapter2.createAgent(this.variant);
+			SugarAgent_ch2 agent = DefaultSugarscapeBuilder_chapter2.createRandomAgent(this.variant);
 
 			agentsContext.add(agent);			
 			schedule.schedule(agent); //TODO why do we have to add the annotated methods to the schedule manually?
@@ -84,17 +84,24 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 
 
 
-
-
-
-
-	public static SugarAgent_ch2 createAgent(String variant ) {
-
-
+    public static SugarAgent_ch2 createRandomAgent(String variant) {
 
 		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
 		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
 		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
+
+
+		return DefaultSugarscapeBuilder_chapter2.createSpecificAgent(
+				variant, 
+				RandomHelper.nextIntFromTo(1, maxMetabolism), 
+				RandomHelper.nextIntFromTo(1, maxInitial),
+				RandomHelper.nextIntFromTo(1, maxVision)
+				);		
+
+	}
+
+
+	public static SugarAgent_ch2 createSpecificAgent(String variant,int sugar_metabolism,int sugar_endownment,  int vision ) {
 
 
 		//Configure Rules
@@ -176,28 +183,28 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant Pollution Ability rule" );
 		}
-		
-		
+
+
 		//If they follow the ConfigurableFromRepastEnvironment interface, configure rules from environment
 
 		if(da instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) da).configureFromEnvironment();}
 
 		if(ga instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ga).configureFromEnvironment();}
-		
-		if(ma instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ma).configureFromEnvironment();}
-		
-		if(va instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) va).configureFromEnvironment();}
-		
-		if(pa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) pa).configureFromEnvironment();}
-		
 
-		
+		if(ma instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ma).configureFromEnvironment();}
+
+		if(va instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) va).configureFromEnvironment();}
+
+		if(pa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) pa).configureFromEnvironment();}
+
+
+
 		//create the agent and return it
-		
+
 		SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
-				.withVision(RandomHelper.nextIntFromTo(1, maxVision))
-				.withSugarInitial(RandomHelper.nextIntFromTo(1, maxInitial))
-				.withSugarMetabolism(RandomHelper.nextIntFromTo(1, maxMetabolism))
+				.withVision(vision)
+				.withSugarInitial(sugar_endownment)
+				.withSugarMetabolism(sugar_metabolism)
 				.withDieRule(da)
 				.withGatherRule(ga)
 				.withMovementRule(ma)
@@ -206,9 +213,6 @@ public class DefaultSugarscapeBuilder_chapter2 implements ContextBuilder<Object>
 				.build();
 
 		return agent;
-
-
-
 
 	}
 

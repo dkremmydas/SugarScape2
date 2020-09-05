@@ -31,7 +31,7 @@ public class FiniteLifeDeath implements DieAbility, ConfigurableFromRepastEnviro
 	@Override
 	public boolean shallDie(SugarAgent_ch2 a) {
 
-		boolean dieFromStavation = (a.getResourceHolding("sugar") < 0);
+		boolean dieFromStavation = (a.resourceGetHolding("sugar") < 0);
 
 		boolean dieFromAge = ((a.getAge()>=age_max)?true:false);
 		

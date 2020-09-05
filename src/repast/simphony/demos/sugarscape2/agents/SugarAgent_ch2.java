@@ -1,7 +1,10 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
@@ -32,7 +35,7 @@ public class SugarAgent_ch2 {
 	protected int age = 1;
 
 	protected int vision;
-	
+
 	/**
 	 * Properties related to sugar
 	 * We have abstracted the properties and the operations related to a resource into a Resource class.
@@ -67,11 +70,11 @@ public class SugarAgent_ch2 {
 
 
 
-	
+
 	//Other utility variables
 
 
-	
+
 	//Constructors, Initialization
 
 	/**
@@ -88,8 +91,8 @@ public class SugarAgent_ch2 {
 	public String getId() {
 		return id;
 	}
-	
-	
+
+
 	public int getVision() {
 		return vision;
 	}
@@ -98,13 +101,13 @@ public class SugarAgent_ch2 {
 	public boolean isAlive() {
 		return isAlive;
 	}
-	
+
 
 	public int getAge() {
 		return age;
 	}
-	
-	
+
+
 	public void incrementAge() {
 		age++;
 	};
@@ -145,32 +148,12 @@ public class SugarAgent_ch2 {
 
 
 
-	//public AgentResource getSugar() {
-	//	return sugar;
-	//}
 
 
-
-	//public int getSugarWealth() {
-	//	return this.sugar.getHolding();
-	//}
-
-
-	public int getResourceHolding(String resource) {
+	public int resourceGetHolding(String resource) {
 
 		if(resource.equalsIgnoreCase("sugar")) {
-			return this.sugar.getHolding();
-		} else {
-			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
-		}
-
-	}
-	
-	
-	public int getResourceMetabolism(String resource) {
-
-		if(resource.equalsIgnoreCase("sugar")) {
-			return this.sugar.getMetabolism();
+			return this.sugar.holding;
 		} else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
@@ -178,7 +161,29 @@ public class SugarAgent_ch2 {
 	}
 
 
-	public void useResource(String resource, int quantity) {
+	public int resourceGetInitialEndownment(String resource) {
+
+		if(resource.equalsIgnoreCase("sugar")) {
+			return this.sugar.initial;
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+
+	}
+
+
+	public int resourceGetMetabolism(String resource) {
+
+		if(resource.equalsIgnoreCase("sugar")) {
+			return this.sugar.metabolism;
+		} else {
+			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
+		}
+
+	}
+
+
+	public void resourceUse(String resource, int quantity) {
 
 		if(resource.equalsIgnoreCase("sugar")) {
 			this.sugar.use(quantity);
@@ -189,7 +194,7 @@ public class SugarAgent_ch2 {
 	}
 
 
-	public void storeResource(String resource, int quantity) {
+	public void resourceStore(String resource, int quantity) {
 
 		if(resource.equalsIgnoreCase("sugar")) {
 			this.sugar.store(quantity);
@@ -197,6 +202,58 @@ public class SugarAgent_ch2 {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 
+	}
+
+
+	/**
+	 * Gets the neighboring {@link SugarAgent_ch2}s of the {@link SugarAgent_ch2}. We assume that 'neighboring agents' 
+	 * are those that occupy a {@link GridPoint} seen from the agent. The latter dependes on the {@link VisionAbility}
+	 * of the agent.
+	 * @param a The {@link SugarAgent_ch2} for whom to find the neighbor
+	 * @return an {@link Iterable} of {@link SugarAgent_ch2}s. If none, returns an empty one.
+	 */
+	public Iterable<SugarAgent_ch2> getNeighboringSugarAgents() {
+
+		HashSet<SugarAgent_ch2> neighbors = new HashSet<SugarAgent_ch2>();
+
+		Iterable<GridPoint> points_neigh = this.visionRule.see(this);
+
+		for(GridPoint gpp: points_neigh ) {
+
+			SugarAgent_ch2 aa = SugarSpace_ch2.getInstance().gridGetSugarAgentAt(gpp.getX(),gpp.getY());
+
+			if(!(aa==null)) {
+				if(aa.isAlive()) { //TODO: Do we need this?
+					neighbors.add(aa);
+				}	
+			}
+		}
+		return neighbors;
+	}
+
+
+	public Iterable<GridPoint>getVisiblePoints() {
+		return this.visionRule.see(this);		
+	}
+
+	public Iterable<GridPoint>getVisibleEmptyPoints() {
+
+		ArrayList<GridPoint> r= new ArrayList<GridPoint>();
+		Iterable<GridPoint> seen = this.visionRule.see(this);
+		
+		seen.forEach(new Consumer<GridPoint>() {
+
+			@Override
+			public void accept(GridPoint t) {
+				
+				if(SugarSpace_ch2.getInstance().gridGetSugarAgentAt(t.getX(), t.getY())==null) {
+					r.add(t);
+				}
+				
+			}
+		});
+
+		return r;
 	}
 
 
@@ -370,7 +427,7 @@ public class SugarAgent_ch2 {
 		private int sugarMetabolism;
 		private int vision;
 		private int age;
-		
+
 		private DieAbility dieRule;
 		private VisionAbility visionRule;
 		private MovementAbility movementRule;
@@ -407,12 +464,12 @@ public class SugarAgent_ch2 {
 			this.vision=vision;
 			return this;
 		}
-		
+
 		public Builder withAge(int age) {
 			this.age=age;
 			return this;
 		}
-		
+
 		public Builder withSugarInitial(int sugar) {
 			this.sugarInitial=sugar;
 			return this;

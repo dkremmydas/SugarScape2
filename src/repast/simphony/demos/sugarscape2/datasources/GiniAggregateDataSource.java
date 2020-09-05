@@ -37,7 +37,7 @@ public class GiniAggregateDataSource implements AggregateDataSource {
 		int i=0;
 		for(Object o: objs) {
 			SugarAgent_ch2 a = (SugarAgent_ch2) o;
-			values[i++] = a.getResourceHolding("sugar");			
+			values[i++] = a.resourceGetHolding("sugar");			
 		}
 		
 		//sort values

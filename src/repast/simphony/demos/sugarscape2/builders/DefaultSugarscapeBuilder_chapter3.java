@@ -51,7 +51,7 @@ public class DefaultSugarscapeBuilder_chapter3 implements ContextBuilder<Object>
 		//2.2 create the agents and add them to the context and to the Grid projection
 		for(int i=0;i<n;i++) {
 
-			SugarAgent_ch3 agent = DefaultSugarscapeBuilder_chapter3.createAgent(this.variant_ch2, this.variant_ch3);
+			SugarAgent_ch3 agent = DefaultSugarscapeBuilder_chapter3.createRandomAgent(this.variant_ch2, this.variant_ch3);
 
 			agentsContext.add(agent);			
 			schedule.schedule(agent); //TODO why do we have to add the annotated methods to the schedule manually?
@@ -65,14 +65,8 @@ public class DefaultSugarscapeBuilder_chapter3 implements ContextBuilder<Object>
 
 
 
-
-
-
-	public static SugarAgent_ch3 createAgent(String variant_ch2, String variant_ch3 ) {
-
-		SugarAgent_ch2 agent_ch2 = DefaultSugarscapeBuilder_chapter2.createAgent(variant_ch2);
-
-
+	public static SugarAgent_ch3 createRandomAgentFromSugarAgent_ch2(String variant_ch2, String variant_ch3,SugarAgent_ch2 agent_ch2) {
+		
 		if (variant_ch3.equalsIgnoreCase("p58")) {
 
 			SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(1, SugarAgent_ch3.Sex.values().length)];
@@ -115,6 +109,15 @@ public class DefaultSugarscapeBuilder_chapter3 implements ContextBuilder<Object>
 
 
 		throw new RuntimeErrorException(null, "The Variant parameters provided, are not yet implemented" );
+	}
+
+
+
+	public static SugarAgent_ch3 createRandomAgent(String variant_ch2, String variant_ch3 ) {
+
+		SugarAgent_ch2 agent_ch2 = DefaultSugarscapeBuilder_chapter2.createRandomAgent(variant_ch2);
+
+		return DefaultSugarscapeBuilder_chapter3.createRandomAgentFromSugarAgent_ch2(variant_ch2, variant_ch3, agent_ch2);
 	}
 
 

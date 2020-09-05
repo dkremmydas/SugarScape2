@@ -14,7 +14,7 @@ public class DefaultDeath implements DieAbility  {
 	
 	@Override
 	public boolean shallDie(SugarAgent_ch2 a) {
-		if(a.getResourceHolding("sugar") < 0) {
+		if(a.resourceGetHolding("sugar") < 0) {
 			return  true;	
 		} 	else {
 			return false;

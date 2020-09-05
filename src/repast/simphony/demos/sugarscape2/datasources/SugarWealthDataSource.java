@@ -26,7 +26,7 @@ public class SugarWealthDataSource implements NonAggregateDataSource,AggregateDa
 		
 		SugarAgent_ch2 a = (SugarAgent_ch2) obj;
 		
-		return a.getResourceHolding("sugar");
+		return a.resourceGetHolding("sugar");
 		
 	}
 
@@ -38,7 +38,7 @@ public class SugarWealthDataSource implements NonAggregateDataSource,AggregateDa
 		
 		for(Object o: objs) {
 			SugarAgent_ch2 a = (SugarAgent_ch2) o;
-			sum = sum + a.getResourceHolding("sugar");			
+			sum = sum + a.resourceGetHolding("sugar");			
 		}
 		
 	    return (sum );

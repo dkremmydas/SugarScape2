@@ -16,7 +16,7 @@ public class AgentStyleChapter2_p37 extends DefaultStyleOGL2D {
 	public Color getColor(Object agent) {
 		double maxthesh=250d;
 		SugarAgent_ch2 ag = (SugarAgent_ch2) agent;
-		float value = Math.min(Math.max((float)(ag.getResourceHolding("sugar")/maxthesh),0f), 1f);
+		float value = Math.min(Math.max((float)(ag.resourceGetHolding("sugar")/maxthesh),0f), 1f);
 		//System.out.println(value);
 		
 		int aR = 0;   int aG = 0; int aB=255;  // RGB for our 1st color (blue in this case).
