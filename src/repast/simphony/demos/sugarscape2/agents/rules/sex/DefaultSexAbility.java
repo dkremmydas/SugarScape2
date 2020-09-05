@@ -10,8 +10,7 @@ import com.google.common.collect.Lists;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
-import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter2;
-import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter3;
+import repast.simphony.demos.sugarscape2.builders.SugarAgentFactory;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
@@ -24,8 +23,7 @@ import repast.simphony.space.grid.GridPoint;
  *
  */
 public class DefaultSexAbility implements SexAbility {
-
-
+	
 	@Override
 	public Iterable<SugarAgent_ch3> selectPotentialMates(SugarAgent_ch3 a) {
 
@@ -72,16 +70,15 @@ public class DefaultSexAbility implements SexAbility {
 				a1.resourceUse("sugar", a1.resourceGetInitialEndownment("sugar")/2);
 				a2.resourceUse("sugar", a2.resourceGetInitialEndownment("sugar")/2);
 
-				SugarAgent_ch2 child_ch2 = DefaultSugarscapeBuilder_chapter2.createSpecificAgent(
+				SugarAgent_ch2 child_ch2 = SugarAgentFactory.createChapter2SpecificAgent(
 						RunEnvironment.getInstance().getParameters().getString("Variant"), 
 						child_metabolism, 
 						child_endownment, 
 						child_vision
 						);
 
-				SugarAgent_ch3 child_ch3 = DefaultSugarscapeBuilder_chapter3.createRandomAgentFromSugarAgent_ch2(
-						RunEnvironment.getInstance().getParameters().getString("Variant_chapter2"), 
-						RunEnvironment.getInstance().getParameters().getString("Variant_chapter3"),
+				SugarAgent_ch3 child_ch3 = SugarAgentFactory.createChapter3RandomAgent(
+						RunEnvironment.getInstance().getParameters().getString("Variant"), 
 						child_ch2);
 				
 				//select the location

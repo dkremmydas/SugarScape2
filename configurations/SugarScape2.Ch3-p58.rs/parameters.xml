@@ -3,9 +3,8 @@
 
 	<!--  1. Loading -->
 	<parameter name="randomSeed" displayName="1.1 Default Random Seed" type="int" defaultValue="__NULL__" />	
-	<parameter name="Chapter" type="int" displayName="Chapter" defaultValue="2"  />
-	<parameter name="Variant_chapter2" type="String" displayName="Variant" defaultValue="p30"  />
-	<parameter name="Variant_chapter3" type="String" displayName="Variant" defaultValue="p58"  />
+	<parameter name="Chapter" type="int" displayName="Chapter" defaultValue="3"  />
+	<parameter name="Variant" type="String" displayName="Variant" defaultValue="p58"  />
 	
 	
 	<!--  2.1 Agent Properties  -->

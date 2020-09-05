@@ -55,23 +55,26 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	@ScheduledMethod(start=3d,interval=10d)
 	public void applyRuleS() {
 		
-		if(hasFertileAge()) {
+		if(isAlive) {
 			
-			Iterable<SugarAgent_ch3> ags = this.sexRule.selectPotentialMates(this);
-			
-			for(SugarAgent_ch3 a: ags) {
-				Pair<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
+			if(hasFertileAge()) {
 				
-				if(!(m.getLeft()==null)) {
-					SugarAgent_ch3 child = m.getLeft();
-					GridPoint loc_to_put = m.getRight();
+				Iterable<SugarAgent_ch3> ags = this.sexRule.selectPotentialMates(this);
+				
+				for(SugarAgent_ch3 a: ags) {
+					Pair<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
 					
-					SugarSpace_ch2.getInstance().add(child);
-					SugarSpace_ch2.getInstance().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());
+					if(!(m.getLeft()==null)) {
+						SugarAgent_ch3 child = m.getLeft();
+						GridPoint loc_to_put = m.getRight();
+						
+						SugarSpace_ch2.getInstance().add(child);
+						SugarSpace_ch2.getInstance().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());
+					}
 				}
-			}
-		}		
-		
+			}	
+			
+		}
 	}
 	
 	
