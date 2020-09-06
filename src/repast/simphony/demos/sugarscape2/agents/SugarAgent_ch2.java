@@ -1,17 +1,19 @@
 package repast.simphony.demos.sugarscape2.agents;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+
+import org.apache.log4j.Level;
 
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
-import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
+import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -119,7 +121,7 @@ public class SugarAgent_ch2 {
 	 * @return
 	 */
 	public GridPoint getCurrentPosition() {
-		return SugarSpace_ch2.getInstance().grid.getLocation(this);
+		return SugarSpaceFactory.getSugarspace().gridGetAgentLocation(this);
 	}
 
 
@@ -221,7 +223,7 @@ public class SugarAgent_ch2 {
 			@Override
 			public void accept(GridPoint t) {
 				
-				SugarAgent_ch2 aa = SugarSpace_ch2.getInstance().gridGetSugarAgentAt(t.getX(),t.getY());
+				SugarAgent_ch2 aa =  SugarSpaceFactory.getSugarspace().gridGetSugarAgentAt(t.getX(),t.getY());
 				if(!(aa==null)) {
 					if(aa.isAlive()) { //TODO: Do we need this?
 						neighbors.add(aa);
@@ -236,30 +238,6 @@ public class SugarAgent_ch2 {
 	}
 
 
-	public Iterable<GridPoint>getVisiblePoints() {
-		return this.visionRule.seeEmpty(this);		
-	}
-
-	public Iterable<GridPoint>getVisibleEmptyPoints() {
-
-		ArrayList<GridPoint> r= new ArrayList<GridPoint>();
-		Iterable<GridPoint> seen = this.visionRule.seeEmpty(this);
-		
-		seen.forEach(new Consumer<GridPoint>() {
-
-			@Override
-			public void accept(GridPoint t) {
-				
-				if(SugarSpace_ch2.getInstance().gridGetSugarAgentAt(t.getX(), t.getY())==null) {
-					r.add(t);
-				}
-				
-			}
-		});
-
-		return r;
-	}
-
 
 	/**
 	 * 
@@ -267,14 +245,16 @@ public class SugarAgent_ch2 {
 	@Override
 	public String toString() {
 
-		int x = this.getCurrentPosition().getX(); 
-		int y = this.getCurrentPosition().getY();
-
-		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVision() +
-				", Sugar.metab: " + this.sugar.metabolism + 
-				", Sugar.hold: " + this.sugar.holding + 
-				", Position: [X:"+x+", Y:"+y+", Sugar:"+SugarSpace_ch2.getInstance().resourceGetHoldingAtXY("sugar",x,y)+"]"+
-				"}";
+//		int x = this.getCurrentPosition().getX(); 
+//		int y = this.getCurrentPosition().getY();
+//
+//		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVision() +
+//				", Sugar.metab: " + this.sugar.metabolism + 
+//				", Sugar.hold: " + this.sugar.holding + 
+//				", Position: [X:"+x+", Y:"+y+", Sugar:"+ SugarSpaceFactory.getSugarspace().resourceGetHoldingAtXY("sugar",x,y)+"]"+
+//				"}";
+		
+		String r = "Id:" + this.id + " S.m: " + this.sugar.metabolism + ", S.h: " + this.sugar.holding ;
 
 		return r;
 	}
@@ -285,28 +265,38 @@ public class SugarAgent_ch2 {
 	/* Scheduled actions of the agent */
 
 
-	@ScheduledMethod(start=1d,interval=10d)
+	//@ScheduledMethod(start=1d,interval=10d)
 	public void step() {
 
 		if(isAlive) {
 			Set<GridPoint> points_seen = this.visionRule.seeEmpty(this);
+			
+			if(! points_seen.isEmpty()) {
+				
+				Utility.logMessage(Level.DEBUG, " \n" + this.id + ", before moving, sugar holding:  " + this.sugar.getHolding());
+				
+				GridPoint new_pos = this.movementRule.move(this, points_seen);
 
-			GridPoint new_pos = this.movementRule.move(this, points_seen);
+				SugarSpaceFactory.getSugarspace().gridMoveAgentTo(this, new_pos.getX(),new_pos.getY());
 
-			SugarSpace_ch2.getInstance().gridMoveAgentTo(this, new_pos.getX(),new_pos.getY());
+				int sugar_to_gather = this.gatherRule.gather(this, new_pos);
 
-			int sugar_to_gather = this.gatherRule.gather(this, new_pos);
+				int sugar_gathered =  SugarSpaceFactory.getSugarspace().resourceGatherFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
 
-			int sugar_gathered = SugarSpace_ch2.getInstance().resourceGatherFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
+				this.sugar.store(sugar_gathered);
+				Utility.logMessage(Level.DEBUG, this.id + ", just stored " + sugar_gathered + " sugar");
 
-			this.sugar.store(sugar_gathered);
+				this.sugar.use(this.sugar.getMetabolism());
+				Utility.logMessage(Level.DEBUG, this.id + ", just used " + this.sugar.getMetabolism() + " sugar. \n\tRemaining sugar: " + this.sugar.getHolding());
 
-			this.sugar.use(this.sugar.getMetabolism());
+				this.pollute();
+			}
 
-			this.pollute();
+			
 
 			//die if sugar holding<0
 			if(this.dieRule.shallDie(this)) {
+				Utility.logMessage(Level.DEBUG, this.id + ", just DIED");
 				this.die();		
 			} else {
 				this.incrementAge();
@@ -319,7 +309,7 @@ public class SugarAgent_ch2 {
 
 		Map<GridPoint,Integer> pollution = this.pollutionRule.pollute(this);
 
-		GridValueLayer pollution_gvl = (GridValueLayer) SugarSpace_ch2.getInstance().getValueLayer("pollution");
+		GridValueLayer pollution_gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer("pollution");
 
 		for (GridPoint gp: pollution.keySet()) {
 
@@ -338,7 +328,7 @@ public class SugarAgent_ch2 {
 	 */
 	protected void die() {
 		this.isAlive=false;
-		SugarSpace_ch2.getInstance().remove(this);	
+		 SugarSpaceFactory.getSugarspace().remove(this);	
 	}
 
 
@@ -388,7 +378,7 @@ public class SugarAgent_ch2 {
 		public void use (int quantity) {
 
 			if(quantity>0) {
-				holding -= quantity;
+				holding =  holding - quantity;
 			}	
 
 		}
@@ -396,7 +386,7 @@ public class SugarAgent_ch2 {
 		public void store(int quantity) {	
 
 			if(quantity>0) {
-				holding += quantity;
+				holding = holding + quantity;
 			}		
 
 		}

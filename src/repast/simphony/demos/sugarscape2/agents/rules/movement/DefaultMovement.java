@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 import repast.simphony.valueLayer.ValueLayer;
@@ -53,14 +53,14 @@ public class DefaultMovement implements MovementAbility {
 		Collections.sort(gps, new Comparator<GridPoint>() {
 			@Override
 			public int compare(GridPoint arg0, GridPoint arg1) {
-				GridValueLayer gvl = (GridValueLayer) SugarSpace_ch2.getInstance().getValueLayer(valueLayerName);
+				GridValueLayer gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer(valueLayerName);
 				
 				Double q1 = gvl.get(arg0.getX(),arg0.getY());
 				Double q2 = gvl.get(arg1.getX(),arg1.getY());
 				int tr = q2.compareTo(q1);
 				if(tr==0) { //there is the same amount of sugar, so check distance
-					Double dis1 = SugarSpace_ch2.getInstance().gridGetDistance(myPoint, arg0);
-					Double dis2 = SugarSpace_ch2.getInstance().gridGetDistance(myPoint, arg1);
+					Double dis1 =  SugarSpaceFactory.getSugarspace().gridGetDistance(myPoint, arg0);
+					Double dis2 =  SugarSpaceFactory.getSugarspace().gridGetDistance(myPoint, arg1);
 					tr = dis1.compareTo(dis2);
 				}
 				return tr;

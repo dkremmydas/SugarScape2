@@ -9,20 +9,19 @@ import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.PollutionDiffusionAbility;
-import repast.simphony.demos.sugarscape2.agents.rules.replacement.DefaultReplacement;
-import repast.simphony.demos.sugarscape2.agents.rules.replacement.NoReplacement;
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.ReplacementAbility;
-import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter2;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedulableAction;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.GridBuilderParameters;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.space.grid.RandomGridAdder;
 import repast.simphony.valueLayer.GridValueLayer;
-import simphony.util.messages.MessageCenter;
 
 /**
  * <p>The space in which the SugarAgents act. This is the implementation for chapter 2. </p>
@@ -92,8 +91,7 @@ import simphony.util.messages.MessageCenter;
 
 public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
-	// Holds the singleton instance of the class. It is initialized to null.
-	private static SugarSpace_ch2 single_instance = null;
+
 
 	protected SpaceResource sugar;
 
@@ -112,63 +110,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	//****************************************************************************************************************************************************
 
 
-	/**
-	 * <p>We need to enforce that only one SugarSpace object will be created. We are using the Singleton design pattern.
-	 * This method is the only valid method to access this single object. Since it is static, one has to call 
-	 * <i>SugarSpace_ch2.getInstance()</i> to get this object.</p>
-	 * 
-	 * <p>Before calling this method, you have to create the singleton object by calling 
-	 * {@link #createInstance(String, GrowbackAbility, ReplacementAbility, PollutionDiffusionAbility) #createInstance} 
-	 * . If this has not been done, a {@link RuntimeException} is thrown. This is</p>
-	 * 
-	 * @return the instantiated Sugarspace object. If it has not been created yet, it throws a RuntimeException
-	 * @see SugarSpace_ch2#createInstance(String, GrowbackAbility, ReplacementAbility, PollutionDiffusionAbility) createInstance
-	 */
-	public static SugarSpace_ch2 getInstance()  {
-
-		if(!(SugarSpace_ch2.single_instance==null)) {
-			return SugarSpace_ch2.single_instance;
-		} else {
-			throw new RuntimeException("SugarSpace has not been configured yet.");
-		}
-
-
-	}
-
-	/**
-	 * <p>This is the static constructor of the single Sugarspace object. Before calling the {@link #getInstance()} method, the object
-	 * has to be instantiated with this method. In case the objects has already been instantiated, it writes an information message
-	 * to the log and return the existing object.</p>
-	 * 
-	 * <p>The dimensions of the Sugarspace and the allocation of sugar in each grid cell are 
-	 * controlled through the given <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM file</a> (PGM=Portable Gray Map;a grayscale file format).</p>
-	 * 
-	 * <p>The behavior of the Sugarspace object is controlled through the rules that will be passed to this method. For example,
-	 * the replacementRule controls how agents are replaced when they die. All implementations of the rule must follow the 
-	 * {@link ReplacementAbility} interface. If one passes a {@link NoReplacement} object, no replacement of agents takes place. If one
-	 * passes a {@link DefaultReplacement} object, then the default behavior that is described in the book takes place. For more examples of 
-	 * how different rules affect the behavior of Sugarspace see 
-	 * {@link DefaultSugarscapeBuilder_chapter2#build(repast.simphony.context.Context) DefaultSugarscapeBuilder_chapter2#build}.</p>  
-	 * 
-	 * TODO[what to return if the objet cannot be created?]
-	 * 
-	 * @param pgm_file The full path to the <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM file</a> that gives the sugar capacity allocation in space. 
-	 * @param growbackRule The rule to increase the available sugar at each grid cell every clock tick. It must follow the {@link GrowbackAbility} interface.
-	 * @param replacementRule The rule to replace agent when they die. It must follow the {@link ReplacementAbility} interface.
-	 * @param diffusionRule The rule to diffuse pollution. It must follow the {@link PollutionDiffusionAbility} interface.
-	 * @return The {@link SugarSpace_ch2 instance created}
-	 */
-	public static SugarSpace_ch2 createInstance(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
-
-		if(!(SugarSpace_ch2.single_instance==null)) {
-			SugarSpace_ch2.logMessage(SugarSpace_ch2.class, Level.INFO, "SugarSpace has already been configured. You can not re-configure it.");
-		} else {
-			SugarSpace_ch2 s = new SugarSpace_ch2(pgm_file,growbackRule,replacementRule,diffusionRule);
-			SugarSpace_ch2.single_instance = s;
-		}
-
-		return SugarSpace_ch2.single_instance;
-	}
+	
 
 
 	/**
@@ -188,7 +130,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @param diffusionRule The rule to diffuse pollution. It must follow the {@link PollutionDiffusionAbility} interface.
 	 * @return The {@link SugarSpace_ch2 instance created}
 	 */
-	private SugarSpace_ch2(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
+	public SugarSpace_ch2(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
 
 		super("sugarspace");
 
@@ -219,6 +161,12 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	// Application of Rules of  the Sugarspace
 	//****************************************************************************************************************************************************
 
+	@ScheduledMethod(start=6d,interval=10d)
+	public void diagnostics() {
+		Utility.logMessage( Level.DEBUG, 
+				"Number of scheduled methods: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+	}
+
 	/**
 	 * The growback rule. Every second tick, the sugar resource in each grid cell is updated.
 	 */
@@ -243,6 +191,25 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		Utility.updateGridValueLayer(pollution_vl, this.diffusion_rule.diffuse(this));
 	}
 
+
+
+	public void addSugarAgent(SugarAgent_ch2 a) {
+		
+		this.add(a);
+
+		double cur_tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		ISchedulableAction ac = RunEnvironment.getInstance().getCurrentSchedule().schedule(
+				ScheduleParameters.createRepeating(cur_tick+1+1, 10d), 
+				a, 
+				"step"
+				);
+
+		Utility.logMessage( Level.DEBUG, "Agent added in SugarSpace_ch2: " + a + 
+				"\n\t'Step' action scheduled to take place at tick " + ac.getNextTime());
+		
+	}
+	
+	
 
 
 
@@ -516,6 +483,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	}
 
 
+
 	/**
 	 * We configure the grid of the Sugarspace based on a PGM file. The grid's width and height are set and
 	 * the capacity of sugar in each grid cell is loaded.
@@ -577,19 +545,6 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 						);
 
 
-	}
-
-
-	/**
-	 * Write log messages to log4j
-	 * 
-	 * @param clazz the {@link Class} of the object that writes to the log
-	 * @param level {@link Level} of the message
-	 * @param message The message itself
-	 */
-	public static void logMessage(Class<?> clazz, Level level,Object message) {
-		MessageCenter mc = MessageCenter.getMessageCenter(clazz);
-		mc.fireMessageEvent(level, message, null);
 	}
 
 
@@ -728,10 +683,6 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		public GridValueLayer getHolding() {
 			return holding;
 		}
-
-
-
-
 
 
 

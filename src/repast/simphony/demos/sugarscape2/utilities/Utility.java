@@ -2,11 +2,41 @@ package repast.simphony.demos.sugarscape2.utilities;
 
 import java.util.Random;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import repast.simphony.valueLayer.GridValueLayer;
 
 public class Utility {
 	
 	public static enum TypeOfVision {  MOORE, NEUMMAN }
+	
+	
+	static Logger logger = Logger.getLogger("Sugarscape2");
+	
+	
+	
+
+	/**
+	 * Write log messages to log4j
+	 * 
+	 * @param clazz the {@link Class} of the object that writes to the log
+	 * @param level {@link Level} of the message
+	 * @param message The message itself
+	 */
+	public static void logMessage(Level level,Object message) {
+		
+		if(level.equals(Level.DEBUG)) {
+			logger.debug(message);
+		}
+		else if (level.equals(Level.INFO)) {
+			logger.info(message);
+		}
+		
+	}
+	
+	
+	
 
 	/**
 	 * Get a random string with certain length

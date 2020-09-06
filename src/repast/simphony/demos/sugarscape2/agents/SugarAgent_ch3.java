@@ -1,11 +1,11 @@
 package repast.simphony.demos.sugarscape2.agents;
 
 import org.apache.commons.lang3.tuple.Pair;
-
-import com.google.common.collect.Iterables;
+import org.apache.log4j.Level;
 
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
-import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
+import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.space.grid.GridPoint;
 
 /**
@@ -54,7 +54,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		}
 	}
 	
-	@ScheduledMethod(start=3d,interval=10d)
+//	@ScheduledMethod(start=3d,interval=10d)
 	public void applyRuleS() {
 		
 		if(isAlive) {
@@ -68,16 +68,28 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 //									"\n\tChecking for having children ... found "+Iterables.size(ags)+" potential candidates");
 //				
 				for(SugarAgent_ch3 a: ags) {
+					
+					Utility.logMessage(Level.DEBUG, "\nAgents " + this.id + " and " + a.getId() + 
+							"are about to have child. Sugar holding before: " +
+							this.id + "=" + this.sugar.getHolding() + ", " + 
+							a.getId() + "=" + a.sugar.getHolding());
+					
 					Pair<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
+					
+					
 					
 					if(!(m.getLeft()==null)) {
 						SugarAgent_ch3 child = m.getLeft();
 						GridPoint loc_to_put = m.getRight();
 						
-						SugarSpace_ch2.getInstance().add(child);
-						SugarSpace_ch2.getInstance().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());
+						((SugarSpace_ch3)SugarSpaceFactory.getSugarspace()).addSugarAgent(child);
+						 SugarSpaceFactory.getSugarspace().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());
 						
-						System.out.println("Child was Born: " + child.toString());
+						 Utility.logMessage(Level.DEBUG, "Agents " + this.id + " and " + a.getId() + " just had the child " + m.getLeft().getId());
+						 Utility.logMessage(Level.DEBUG, "Agents " + this.id + " and " + a.getId() + 
+									"Sugar holding after: " +
+									this.id + "=" + this.sugar.getHolding() + ", " + 
+									a.getId() + "=" + a.sugar.getHolding());
 					}
 				}
 			}	

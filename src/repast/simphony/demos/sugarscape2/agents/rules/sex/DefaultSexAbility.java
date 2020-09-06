@@ -5,12 +5,14 @@ import java.util.function.Consumer;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.log4j.Level;
 
 import com.google.common.collect.Lists;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
 import repast.simphony.demos.sugarscape2.builders.SugarAgentFactory;
+import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.grid.GridPoint;
@@ -56,6 +58,9 @@ public class DefaultSexAbility implements SexAbility {
 
 	@Override
 	public Pair<SugarAgent_ch3, GridPoint> giveBirth(SugarAgent_ch3 a1, SugarAgent_ch3 a2) {
+		
+		Utility.logMessage(Level.DEBUG, "For child birth, " + a1.getId() + ", initial endwnment " + a1.resourceGetInitialEndownment("sugar"));
+		Utility.logMessage(Level.DEBUG, "For child birth, " + a2.getId() + ", initial endwnment " + a2.resourceGetInitialEndownment("sugar"));
 
 		//check of resources are available from parents
 		if(a1.resourceGetHolding("sugar")>a1.resourceGetInitialEndownment("sugar") & 
@@ -64,8 +69,8 @@ public class DefaultSexAbility implements SexAbility {
 			//check that there are neighboring points
 			ArrayList<GridPoint> loc_possible = new ArrayList<GridPoint>();
 
-			loc_possible.addAll(Lists.newArrayList(a1.getVisibleEmptyPoints()));
-			loc_possible.addAll(Lists.newArrayList(a2.getVisibleEmptyPoints()));
+			loc_possible.addAll(Lists.newArrayList(a1.getVisionRule().seeAll(a1)));
+			loc_possible.addAll(Lists.newArrayList(a2.getVisionRule().seeAll(a2)));
 
 			if(loc_possible.isEmpty()) {
 				return ImmutablePair.of(null,null);
@@ -73,9 +78,15 @@ public class DefaultSexAbility implements SexAbility {
 				//create the child
 				int child_metabolism = (RandomHelper.nextDoubleFromTo(0d, 1d)>=0.5)?a1.resourceGetMetabolism("sugar"):a2.resourceGetMetabolism("sugar");
 				int child_vision = (RandomHelper.nextDoubleFromTo(0d, 1d)>=0.5)?a1.getVision():a2.getVision();
-				int child_endownment = (a1.resourceGetInitialEndownment("sugar")/2) + (a2.resourceGetInitialEndownment("sugar")/2);
-				a1.resourceUse("sugar", a1.resourceGetInitialEndownment("sugar")/2);
-				a2.resourceUse("sugar", a2.resourceGetInitialEndownment("sugar")/2);
+				int child_endownment = (int)Math.ceil(a1.resourceGetInitialEndownment("sugar")/2) + (int)Math.ceil(a2.resourceGetInitialEndownment("sugar")/2);
+				
+				Utility.logMessage(Level.DEBUG, "For child birth, " + a1.getId() + ", before using sugar, holding " + a1.resourceGetHolding("sugar"));
+				a1.resourceUse("sugar", (int)Math.ceil(a1.resourceGetInitialEndownment("sugar")/2));
+				Utility.logMessage(Level.DEBUG, "For child birth, " + a1.getId() + ", after using sugar, holding " + a1.resourceGetHolding("sugar"));
+				
+				Utility.logMessage(Level.DEBUG, "For child birth, " + a2.getId() + ", before using sugar, holding " + a2.resourceGetHolding("sugar"));
+				a2.resourceUse("sugar",  (int)Math.ceil(a2.resourceGetInitialEndownment("sugar")/2));
+				Utility.logMessage(Level.DEBUG, "For child birth, " + a2.getId() + ", after using sugar, holding " + a2.resourceGetHolding("sugar"));
 
 				SugarAgent_ch2 child_ch2 = SugarAgentFactory.createChapter2SpecificAgent(
 						RunEnvironment.getInstance().getParameters().getString("Variant"), 

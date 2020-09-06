@@ -3,9 +3,8 @@ package repast.simphony.demos.sugarscape2.builders;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch3;
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ISchedule;
 import repast.simphony.random.RandomHelper;
 
 /**
@@ -36,11 +35,9 @@ public class DefaultSugarscapeBuilder_chapter3 implements ContextBuilder<Object>
 
 
 		this.variant = RunEnvironment.getInstance().getParameters().getString("Variant");
-
-		ISchedule schedule = RunEnvironment.getInstance().getCurrentSchedule();
 		RandomHelper.createUniform();
 
-		SugarSpace_ch2 agentsContext = DefaultSugarscapeBuilder_chapter2.createSugarSpace(variant, "./data/sugarspace.pgm");
+		SugarSpace_ch3 agentsContext = SugarSpaceFactory.createChapter3SugarSpace(variant, "./data/sugarspace.pgm");
 
 		int n=RunEnvironment.getInstance().getParameters().getInteger("numberOfAgents");
 
@@ -49,8 +46,7 @@ public class DefaultSugarscapeBuilder_chapter3 implements ContextBuilder<Object>
 
 			SugarAgent_ch3 agent = SugarAgentFactory.createChapter3RandomAgent(this.variant);
 
-			agentsContext.add(agent);			
-			schedule.schedule(agent); //TODO why do we have to add the annotated methods to the schedule manually?
+			agentsContext.addSugarAgent(agent);	
 
 		}
 
