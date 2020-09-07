@@ -212,16 +212,23 @@ public class SugarAgentFactory {
 
 	public static SugarAgent_ch2 createChapter2RandomAgent(String variant) {
 
-		int maxMetabolism = RunEnvironment.getInstance().getParameters().getInteger("maxMetabolism");
-		int maxInitial = RunEnvironment.getInstance().getParameters().getInteger("maxInitEndownment");
-		int maxVision = RunEnvironment.getInstance().getParameters().getInteger("maxVision");
+		int Vision_min = RunEnvironment.getInstance().getParameters().getInteger("Vision_min");
+		int Vision_max = RunEnvironment.getInstance().getParameters().getInteger("Vision_max");
+		
+		int Metabolism_min = RunEnvironment.getInstance().getParameters().getInteger("Metabolism_min");
+		int Metabolism_max = RunEnvironment.getInstance().getParameters().getInteger("Metabolism_max");
+		
+		int InitEndownment_min = RunEnvironment.getInstance().getParameters().getInteger("InitEndownment_max");
+		int InitEndownment_max = RunEnvironment.getInstance().getParameters().getInteger("InitEndownment_max");
+		
+		
 
 
 		return SugarAgentFactory.createChapter2SpecificAgent(
 				variant, 
-				RandomHelper.nextIntFromTo(1, maxMetabolism), 
-				RandomHelper.nextIntFromTo(1, maxInitial),
-				RandomHelper.nextIntFromTo(1, maxVision)
+				RandomHelper.nextIntFromTo(Metabolism_min, Metabolism_max), 
+				RandomHelper.nextIntFromTo(InitEndownment_min, InitEndownment_max),
+				RandomHelper.nextIntFromTo(Vision_min, Vision_max)
 				);		
 
 	}

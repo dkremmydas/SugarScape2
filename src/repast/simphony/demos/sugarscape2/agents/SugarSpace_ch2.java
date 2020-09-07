@@ -161,7 +161,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	// Application of Rules of  the Sugarspace
 	//****************************************************************************************************************************************************
 
-	@ScheduledMethod(start=6d,interval=10d)
+	@ScheduledMethod(start=10d,interval=10d,priority = -1000d)
 	public void diagnostics() {
 		Utility.logMessage( Level.DEBUG, 
 				"Number of scheduled methods: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
@@ -170,7 +170,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	/**
 	 * The growback rule. Every second tick, the sugar resource in each grid cell is updated.
 	 */
-	@ScheduledMethod(start=6d,interval=10d)
+	@ScheduledMethod(start=6d,interval=20d)
 	public void applyGrowback() {	
 
 		GridValueLayer sugarHoldingNew = this.growbackRule.growback(this);

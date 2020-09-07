@@ -3,6 +3,7 @@ package repast.simphony.demos.sugarscape2.agents.rules.death;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
 import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.random.RandomHelper;
 
 
 /**
@@ -47,7 +48,9 @@ public class FiniteLifeDeath implements DieAbility, ConfigurableFromRepastEnviro
 	@Override
 	public void configureFromEnvironment() {
 		
-		age_max = RunEnvironment.getInstance().getParameters().getInteger("maxAge");
+		int p_age_max_min = RunEnvironment.getInstance().getParameters().getInteger("maxAge_min");
+		int p_age_max_max = RunEnvironment.getInstance().getParameters().getInteger("maxAge_max");
+		this.age_max = RandomHelper.nextIntFromTo(p_age_max_min, p_age_max_max);
 		
 	}
 	
