@@ -8,26 +8,26 @@ import repast.simphony.engine.schedule.ISchedulableAction;
 import repast.simphony.engine.schedule.ScheduleParameters;
 
 public class SugarSpace_ch3 extends SugarSpace_ch2 {
-	
-	
-		
+
+
+
 	public SugarSpace_ch3(String pgm_file,GrowbackAbility growbackRule,ReplacementAbility replacementRule,PollutionDiffusionAbility diffusionRule) {
 		super(pgm_file, growbackRule, replacementRule, diffusionRule);
 	}
 
-	
-	
-	
-	
-	
+
+
+
+
+
 	// Behavior
 	//****************************************************************************************************************************************************
 
-	
+
 	public void addSugarAgent(SugarAgent_ch3 a) {
-		
+
 		super.addSugarAgent((SugarAgent_ch2)a);
-		
+
 		double cur_tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 
 		ISchedulableAction ac = RunEnvironment.getInstance().getCurrentSchedule().schedule(
@@ -35,16 +35,20 @@ public class SugarSpace_ch3 extends SugarSpace_ch2 {
 				a, 
 				"applyRuleS"
 				);
-		 
+
 		actions.put(a.getId(), ac);
 	}
-	
-	
-	
-	
-	
+
+
+
+	public void removeSugarAgent(SugarAgent_ch3 a) {		
+		super.removeSugarAgent(a);
+	}
 
 	
 	
+
+
+
 
 }

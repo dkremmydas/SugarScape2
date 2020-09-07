@@ -1,5 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.rules.sex;
 
+import java.util.Set;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
@@ -33,6 +35,16 @@ public interface SexAbility {
 	 * @return A map that contains the {@link SugarAgent_ch2} child and the position it should be located. In case no child can be born, returns an empty map.
 	 */
 	Pair<SugarAgent_ch3, GridPoint> giveBirth(SugarAgent_ch3 a1, SugarAgent_ch3 a2);
+	
+	
+	
+	/**
+	 * Gets the children of the {@link SugarAgent_ch3}
+	 * 
+	 * @param a
+	 * @return
+	 */
+	Set<SugarAgent_ch3> getChildren(SugarAgent_ch3 a);
 	
 
 

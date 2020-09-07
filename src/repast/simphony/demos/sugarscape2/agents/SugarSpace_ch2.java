@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 
 import org.apache.log4j.Level;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
 import repast.simphony.context.ContextEvent;
@@ -111,7 +111,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	protected Grid<Object> grid;
 
 	
-	protected Multimap<String,ISchedulableAction> actions =  HashMultimap.create();
+	protected Multimap<String,ISchedulableAction> actions =  ArrayListMultimap.create();
 
 
 
@@ -173,6 +173,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	@ScheduledMethod(start=10d,interval=10d,priority = -1000d)
 	public void diagnostics() {
 		Utility.logMessage( Level.DEBUG, 
+				"Number of Agents: " + this.getObjects(SugarAgent_ch2.class).size() + ", " + 
 				"Number of scheduled methods: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 	}
 

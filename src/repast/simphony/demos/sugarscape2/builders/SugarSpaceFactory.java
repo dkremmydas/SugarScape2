@@ -139,6 +139,7 @@ public class SugarSpaceFactory {
 		//Growback rule
 		switch(variant) {
 		case "p58":
+		case "p68":
 			growbackRule = new DefaultGrowback(); 
 			break;
 		default:
@@ -149,6 +150,7 @@ public class SugarSpaceFactory {
 		//Replacement rule
 		switch(variant) {
 		case "p58":
+		case "p68":
 			replacementRule = new NoReplacement();
 			break;
 		default:
@@ -159,6 +161,7 @@ public class SugarSpaceFactory {
 		//Pollution diffusion rule
 		switch(variant) {
 		case "p58":
+		case "p68":
 			diffusionRule = new NoPollutionDiffusion();
 			break;
 		default:

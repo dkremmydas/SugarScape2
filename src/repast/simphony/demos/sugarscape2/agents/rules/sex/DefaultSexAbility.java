@@ -1,6 +1,9 @@
 package repast.simphony.demos.sugarscape2.agents.rules.sex;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -23,6 +26,10 @@ import repast.simphony.space.grid.GridPoint;
  *
  */
 public class DefaultSexAbility implements SexAbility {
+	
+	//Keeps for each children the tick they were born
+	Map<SugarAgent_ch3,Integer> children = new HashMap<SugarAgent_ch3, Integer>();
+	
 	
 	@Override
 	public Iterable<SugarAgent_ch3> selectPotentialMates(SugarAgent_ch3 a) {
@@ -107,6 +114,11 @@ public class DefaultSexAbility implements SexAbility {
 		}
 
 
+	}
+
+	@Override
+	public Set<SugarAgent_ch3> getChildren(SugarAgent_ch3 a) {
+		return children.keySet();
 	}
 
 

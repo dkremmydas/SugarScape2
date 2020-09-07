@@ -10,6 +10,9 @@ import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.death.FiniteLifeDeath;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.DefaultGather;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.inheritance.DefaultInheritance;
+import repast.simphony.demos.sugarscape2.agents.rules.inheritance.InheritanceAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.inheritance.NoInheritance;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.DefaultMovement;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.KeepNetworkMovement;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
@@ -28,7 +31,7 @@ import repast.simphony.random.RandomHelper;
 public class SugarAgentFactory {
 
 
-	
+
 
 
 
@@ -42,48 +45,86 @@ public class SugarAgentFactory {
 
 	public static SugarAgent_ch3 createChapter3RandomAgent(String variant,SugarAgent_ch2 agent_ch2) {
 
-		if (variant.equalsIgnoreCase("p58")) {
 
-			SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(0, SugarAgent_ch3.Sex.values().length-1)];
+		//get the childbreeding age range
+		SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(0, SugarAgent_ch3.Sex.values().length-1)];
 
-			SexAbility sexRule = new DefaultSexAbility(); 
+		int childbearing_start,childbearing_end;
 
-			//get the childbreeding age range
-			int childbearing_start,childbearing_end;
-
-			if(sex.equals(SugarAgent_ch3.Sex.MALE)) {
-				childbearing_start = RandomHelper.nextIntFromTo(
-						RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_men"), 
-						RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_men")
-						);
-				childbearing_end = RandomHelper.nextIntFromTo(
-						RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_men"), 
-						RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_men")
-						);
-			} else {
-				childbearing_start = RandomHelper.nextIntFromTo(
-						RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_women"), 
-						RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_women")
-						);
-				childbearing_end = RandomHelper.nextIntFromTo(
-						RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_women"), 
-						RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_women")
-						);
-			}
+		if(sex.equals(SugarAgent_ch3.Sex.MALE)) {
+			childbearing_start = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_men"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_men")
+					);
+			childbearing_end = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_men"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_men")
+					);
+		} else {
+			childbearing_start = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_women"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_women")
+					);
+			childbearing_end = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_women"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_women")
+					);
+		}
 
 
-			SugarAgent_ch3 agent = new SugarAgent_ch3.Builder(agent_ch2)
-					.withSex(sex)
-					.withChildBearingAge(childbearing_start,childbearing_end)
-					.withSexRule(sexRule)
-					.build();
 
-			return agent;
+
+		//Create rules
+		SexAbility sa;
+		InheritanceAbility ia;
+
+
+		//SexAbility
+		switch(variant) {
+		case "p58":
+		case "p68":
+			sa = new DefaultSexAbility(); 
+			break;
+			
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant SexAbility rule" );
 
 		}
 
 
-		throw new RuntimeErrorException(null, "The Variant parameters provided, are not yet implemented" );
+		//InheritanceAbility
+		switch(variant) {
+		case "p58":
+			ia = new NoInheritance(); 
+			break;
+			
+		case "p68":
+			ia = new DefaultInheritance(); 
+			break;
+			
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant InheritanceAbility rule" );
+
+		}
+		
+		
+		//Configure environmental rules
+		if(sa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) sa).configureFromEnvironment();}
+
+		if(ia instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ia).configureFromEnvironment();}
+
+
+		//create agent
+		SugarAgent_ch3 agent = new SugarAgent_ch3.Builder(agent_ch2)
+				.withSex(sex)
+				.withChildBearingAge(childbearing_start,childbearing_end)
+				.withSexRule(sa)
+				.withInheritanceRule(ia)
+				.build();
+
+		return agent;
+
+
 	}
 
 
@@ -214,14 +255,14 @@ public class SugarAgentFactory {
 
 		int Vision_min = RunEnvironment.getInstance().getParameters().getInteger("Vision_min");
 		int Vision_max = RunEnvironment.getInstance().getParameters().getInteger("Vision_max");
-		
+
 		int Metabolism_min = RunEnvironment.getInstance().getParameters().getInteger("Metabolism_min");
 		int Metabolism_max = RunEnvironment.getInstance().getParameters().getInteger("Metabolism_max");
-		
+
 		int InitEndownment_min = RunEnvironment.getInstance().getParameters().getInteger("InitEndownment_max");
 		int InitEndownment_max = RunEnvironment.getInstance().getParameters().getInteger("InitEndownment_max");
-		
-		
+
+
 
 
 		return SugarAgentFactory.createChapter2SpecificAgent(
@@ -232,8 +273,8 @@ public class SugarAgentFactory {
 				);		
 
 	}
-	
-	
+
+
 
 
 
