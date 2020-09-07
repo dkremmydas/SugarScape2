@@ -1,29 +1,19 @@
 package repast.simphony.demos.sugarscape2.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-
-import java.util.function.Consumer;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.google.common.collect.Iterables;
-
 import repast.simphony.context.Context;
 import repast.simphony.context.DefaultContext;
-import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
 import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.builders.DefaultSugarscapeBuilder_chapter3;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.environment.RunState;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.parameter.DefaultParameters;
-import repast.simphony.query.space.grid.GridWithin;
-import repast.simphony.space.grid.Grid;
-import repast.simphony.space.grid.GridPoint;
 
 public class TestDefaultSexAbility {
 
@@ -71,58 +61,6 @@ public class TestDefaultSexAbility {
 	}
 
 
-	@Test
-	public void testSelectPotentialMates() {
-		assertNotNull(this.context);
-		assertEquals("800 agents created", context.getObjects(SugarAgent_ch3.class).size(),800);
-
-		SugarAgent_ch3 a = (SugarAgent_ch3) context.getObjects(SugarAgent_ch3.class).get(0);
-		System.out.println(a);
-
-		Iterable<GridPoint> seen = a.getVisionRule().seeEmpty(a);
-		System.out.println("DEBUG: " + a.getId() + ", seen="+seen);
-		
-		@SuppressWarnings("unchecked")
-		Grid<Object> grid = (Grid<Object>) SugarSpace_ch2.getInstance().getProjection("sugarscape");
-
-		
-		a.getVisionRule().seeAll(a).forEach(new Consumer<GridPoint>() {
-
-			@Override
-			public void accept(GridPoint t) {
-				
-				System.out.println("Checking point " + t);
-				
-				grid.getObjectsAt(t.getX(),t.getY()).forEach(new Consumer<Object>() {
-
-					@Override
-					public void accept(Object o) {
-
-						try {
-							SugarAgent_ch3 aa = (SugarAgent_ch3) o;
-							System.out.println("Neigbor: " + o);
-						}
-						catch (ClassCastException e) {}
-						
-					}
-				});
-				
-			}
-		});
-		
-		new GridWithin<Object>(grid, a, 2).query().forEach(new Consumer<Object>() {
-
-			@Override
-			public void accept(Object t) {
-				System.out.println("Neighbor: " + t);
-				
-			}
-		});
-
-
-
-
-	}
 
 	@Test
 	public void testGiveBirth() {

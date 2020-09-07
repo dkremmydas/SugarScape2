@@ -1,11 +1,8 @@
 package repast.simphony.demos.sugarscape2.agents;
 
-import org.apache.log4j.Level;
-
 import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.PollutionDiffusionAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.ReplacementAbility;
-import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ISchedulableAction;
 import repast.simphony.engine.schedule.ScheduleParameters;
@@ -39,8 +36,7 @@ public class SugarSpace_ch3 extends SugarSpace_ch2 {
 				"applyRuleS"
 				);
 		 
-		 Utility.logMessage( Level.DEBUG, "Agent added in SugarSpace_ch3: " + a + 
-					"\n\t'applyRuleS' action scheduled to take place at tick " + ac.getNextTime());
+		actions.put(a.getId(), ac);
 	}
 	
 	

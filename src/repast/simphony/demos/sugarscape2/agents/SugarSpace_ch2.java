@@ -1,6 +1,13 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+
+
+import java.util.function.Consumer;
+
 import org.apache.log4j.Level;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 import repast.simphony.context.ContextEvent;
 import repast.simphony.context.ContextEvent.EventType;
@@ -103,6 +110,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	protected Grid<Object> grid;
 
+	
+	protected Multimap<String,ISchedulableAction> actions =  HashMultimap.create();
 
 
 
@@ -198,15 +207,31 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		this.add(a);
 
 		double cur_tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		
 		ISchedulableAction ac = RunEnvironment.getInstance().getCurrentSchedule().schedule(
 				ScheduleParameters.createRepeating(cur_tick+1+1, 10d), 
 				a, 
 				"step"
 				);
-
-		Utility.logMessage( Level.DEBUG, "Agent added in SugarSpace_ch2: " + a + 
-				"\n\t'Step' action scheduled to take place at tick " + ac.getNextTime());
 		
+		actions.put(a.getId(), ac);
+		
+	}
+	
+	
+	public void removeSugarAgent(SugarAgent_ch2 a) {
+		
+		this.remove(a);
+		
+		actions.get(a.getId()).forEach(new Consumer<ISchedulableAction>() {
+
+			@Override
+			public void accept(ISchedulableAction t) {
+				RunEnvironment.getInstance().getCurrentSchedule().removeAction(t);		
+			}
+		
+			
+		});
 	}
 	
 	

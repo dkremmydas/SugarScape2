@@ -1,11 +1,9 @@
 package repast.simphony.demos.sugarscape2.agents;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.log4j.Level;
 
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
-import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.space.grid.GridPoint;
 
 /**
@@ -63,21 +61,10 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	
 				Iterable<SugarAgent_ch3> ags = this.sexRule.selectPotentialMates(this);
 				
-//				System.out.println("Agent [" + this.getId() + "]" + 
-//									"\n\tLooking at points: " + visionRule.seeEmpty(this) + 
-//									"\n\tChecking for having children ... found "+Iterables.size(ags)+" potential candidates");
-//				
 				for(SugarAgent_ch3 a: ags) {
-					
-					Utility.logMessage(Level.DEBUG, "\nAgents " + this.id + " and " + a.getId() + 
-							"are about to have child. Sugar holding before: " +
-							this.id + "=" + this.sugar.getHolding() + ", " + 
-							a.getId() + "=" + a.sugar.getHolding());
-					
+
 					Pair<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
-					
-					
-					
+
 					if(!(m.getLeft()==null)) {
 						SugarAgent_ch3 child = m.getLeft();
 						GridPoint loc_to_put = m.getRight();
@@ -85,11 +72,6 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 						((SugarSpace_ch3)SugarSpaceFactory.getSugarspace()).addSugarAgent(child);
 						 SugarSpaceFactory.getSugarspace().gridMoveAgentTo(child,loc_to_put.getX(),loc_to_put.getY());
 						
-						 Utility.logMessage(Level.DEBUG, "Agents " + this.id + " and " + a.getId() + " just had the child " + m.getLeft().getId());
-						 Utility.logMessage(Level.DEBUG, "Agents " + this.id + " and " + a.getId() + 
-									"Sugar holding after: " +
-									this.id + "=" + this.sugar.getHolding() + ", " + 
-									a.getId() + "=" + a.sugar.getHolding());
 					}
 				}
 			}	

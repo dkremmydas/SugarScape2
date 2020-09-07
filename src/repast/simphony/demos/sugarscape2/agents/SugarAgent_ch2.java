@@ -222,7 +222,7 @@ public class SugarAgent_ch2 {
 
 			@Override
 			public void accept(GridPoint t) {
-				
+
 				SugarAgent_ch2 aa =  SugarSpaceFactory.getSugarspace().gridGetSugarAgentAt(t.getX(),t.getY());
 				if(!(aa==null)) {
 					if(aa.isAlive()) { //TODO: Do we need this?
@@ -230,10 +230,10 @@ public class SugarAgent_ch2 {
 					}	
 				}
 			}
-			
+
 		});
 
-		
+
 		return neighbors;
 	}
 
@@ -245,15 +245,15 @@ public class SugarAgent_ch2 {
 	@Override
 	public String toString() {
 
-//		int x = this.getCurrentPosition().getX(); 
-//		int y = this.getCurrentPosition().getY();
-//
-//		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVision() +
-//				", Sugar.metab: " + this.sugar.metabolism + 
-//				", Sugar.hold: " + this.sugar.holding + 
-//				", Position: [X:"+x+", Y:"+y+", Sugar:"+ SugarSpaceFactory.getSugarspace().resourceGetHoldingAtXY("sugar",x,y)+"]"+
-//				"}";
-		
+		//		int x = this.getCurrentPosition().getX(); 
+		//		int y = this.getCurrentPosition().getY();
+		//
+		//		String r = "{Id:"+this.id+", Sugar Vision: "+this.getVision() +
+		//				", Sugar.metab: " + this.sugar.metabolism + 
+		//				", Sugar.hold: " + this.sugar.holding + 
+		//				", Position: [X:"+x+", Y:"+y+", Sugar:"+ SugarSpaceFactory.getSugarspace().resourceGetHoldingAtXY("sugar",x,y)+"]"+
+		//				"}";
+
 		String r = "Id:" + this.id + " S.m: " + this.sugar.metabolism + ", S.h: " + this.sugar.holding ;
 
 		return r;
@@ -270,11 +270,9 @@ public class SugarAgent_ch2 {
 
 		if(isAlive) {
 			Set<GridPoint> points_seen = this.visionRule.seeEmpty(this);
-			
+
 			if(! points_seen.isEmpty()) {
-				
-				Utility.logMessage(Level.DEBUG, " \n" + this.id + ", before moving, sugar holding:  " + this.sugar.getHolding());
-				
+
 				GridPoint new_pos = this.movementRule.move(this, points_seen);
 
 				SugarSpaceFactory.getSugarspace().gridMoveAgentTo(this, new_pos.getX(),new_pos.getY());
@@ -284,19 +282,17 @@ public class SugarAgent_ch2 {
 				int sugar_gathered =  SugarSpaceFactory.getSugarspace().resourceGatherFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
 
 				this.sugar.store(sugar_gathered);
-				Utility.logMessage(Level.DEBUG, this.id + ", just stored " + sugar_gathered + " sugar");
 
 				this.sugar.use(this.sugar.getMetabolism());
-				Utility.logMessage(Level.DEBUG, this.id + ", just used " + this.sugar.getMetabolism() + " sugar. \n\tRemaining sugar: " + this.sugar.getHolding());
+
 
 				this.pollute();
 			}
 
-			
+
 
 			//die if sugar holding<0
 			if(this.dieRule.shallDie(this)) {
-				Utility.logMessage(Level.DEBUG, this.id + ", just DIED");
 				this.die();		
 			} else {
 				this.incrementAge();
@@ -328,7 +324,7 @@ public class SugarAgent_ch2 {
 	 */
 	protected void die() {
 		this.isAlive=false;
-		 SugarSpaceFactory.getSugarspace().remove(this);	
+		SugarSpaceFactory.getSugarspace().removeSugarAgent(this);	
 	}
 
 
