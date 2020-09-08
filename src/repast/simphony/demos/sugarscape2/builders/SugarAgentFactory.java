@@ -70,6 +70,8 @@ public class SugarAgentFactory {
 					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_women")
 					);
 		}
+		
+		int tagString_length = RunEnvironment.getInstance().getParameters().getInteger("tagString_length");
 
 
 
@@ -83,6 +85,7 @@ public class SugarAgentFactory {
 		switch(variant) {
 		case "p58":
 		case "p68":
+		case "p79":
 			sa = new DefaultSexAbility(); 
 			break;
 			
@@ -95,6 +98,7 @@ public class SugarAgentFactory {
 		//InheritanceAbility
 		switch(variant) {
 		case "p58":
+		case "p79":
 			ia = new NoInheritance(); 
 			break;
 			
@@ -112,12 +116,20 @@ public class SugarAgentFactory {
 		if(sa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) sa).configureFromEnvironment();}
 
 		if(ia instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ia).configureFromEnvironment();}
+		
+		
+		//create random Tag
+		Boolean[] tagString = new Boolean[tagString_length];
+		for(int i=0; i<tagString_length; i++) {
+			tagString[i]=(RandomHelper.nextIntFromTo(0, 1)==0);
+		}
 
 
 		//create agent
 		SugarAgent_ch3 agent = new SugarAgent_ch3.Builder(agent_ch2)
 				.withSex(sex)
 				.withChildBearingAge(childbearing_start,childbearing_end)
+				.withTag(tagString)
 				.withSexRule(sa)
 				.withInheritanceRule(ia)
 				.build();
@@ -151,6 +163,7 @@ public class SugarAgentFactory {
 		case "p37":
 		case "p58":
 		case "p68":
+		case "p79":
 			da = new FiniteLifeDeath();
 			break;
 		default:
@@ -166,6 +179,7 @@ public class SugarAgentFactory {
 		case "p50":
 		case "p58":
 		case "p68":
+		case "p79":
 			ga = new DefaultGather("sugar level");
 			break;
 		default:
@@ -179,6 +193,7 @@ public class SugarAgentFactory {
 		case "p37":
 		case "p58":
 		case "p68":
+		case "p79":
 			ma = new DefaultMovement("sugar level");
 			break;
 		case "p41":
@@ -200,6 +215,7 @@ public class SugarAgentFactory {
 		case "p50":
 		case "p58":
 		case "p68":
+		case "p79":
 			va = new DefaultVision();
 			break;
 		default:
@@ -214,6 +230,7 @@ public class SugarAgentFactory {
 		case "p41":
 		case "p58":
 		case "p68":
+		case "p79":
 			pa = new NoPollution();
 			break;
 		case "p50":

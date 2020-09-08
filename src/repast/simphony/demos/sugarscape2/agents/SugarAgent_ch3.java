@@ -4,6 +4,7 @@ import java.util.function.BiConsumer;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import repast.simphony.demos.sugarscape2.agents.rules.culture.CulturalAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.inheritance.InheritanceAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
@@ -20,15 +21,26 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 
 	public enum Sex {MALE, FEMALE}
 
+	
+	//properties
+	
 	private SugarAgent_ch3.Sex sex;
 
 	private int childbearing_age_start;
 
 	private int childbearing_age_end;
+	
+	private Boolean[] tagString;
+	
+	
+	
+	//rules
 
 	private SexAbility sexRule;	
 	
 	private InheritanceAbility inheritanceRule;
+	
+	private CulturalAbility culturalAbility;
 
 
 
@@ -56,6 +68,36 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			return false;
 		}
 	}
+	
+	
+	public Boolean tagGetAtPosition(int position) {
+		boolean r;
+		
+		try {
+			r = this.tagString[position];
+		} 
+		catch (Exception e) {
+			throw new RuntimeException("Could not access the tagString at position: " + position + ". Error: " + e.getMessage());
+		}
+		
+		return r;
+	}
+	
+	public void tagFlipAtPosition(int position) {
+		
+		try {
+			this.tagString[position] = !this.tagString[position];
+		} 
+		catch (Exception e) {
+			throw new RuntimeException("Could not access the tagString at position: " + position + ". Error: " + e.getMessage());
+		}
+		
+	}
+	
+	public Boolean[] tagGetArray() {
+		return tagString.clone();
+	}
+	
 
 	public SexAbility getSexRule() {
 		return sexRule;
@@ -106,6 +148,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		}
 	}
 
+	
 
 
 
@@ -122,6 +165,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		private SugarAgent_ch3.Sex sex;
 		private int childbearing_age_start;		
 		private int childbearing_age_end;
+		private Boolean[] tagString;
 
 		private SexAbility sexRule;
 		private InheritanceAbility inheritanceRule;
@@ -152,6 +196,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			ag.childbearing_age_start = this.childbearing_age_start;
 			ag.childbearing_age_end = this.childbearing_age_end;
 			ag.sex = this.sex;
+			ag.tagString = tagString;
 
 			//own rules
 			ag.sexRule = this.sexRule;
@@ -170,6 +215,11 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		public Builder withChildBearingAge(int start, int end) {
 			this.childbearing_age_start = start;
 			this.childbearing_age_end = end;
+			return this;
+		}
+		
+		public Builder withTag(Boolean[] tagString) {
+			this.tagString = tagString;
 			return this;
 		}
 
