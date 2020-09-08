@@ -11,6 +11,9 @@ public class DefaultInheritance implements InheritanceAbility {
 
 	@Override
 	public Map<SugarAgent_ch3, Integer> will(SugarAgent_ch3 a) {
+		
+		Map<SugarAgent_ch3, Integer> the_will = new HashMap<SugarAgent_ch3, Integer>();
+		
 
 		int holding_sugar  = a.resourceGetHolding("sugar");
 		
@@ -18,20 +21,19 @@ public class DefaultInheritance implements InheritanceAbility {
 		
 		int num_of_children = children.size();
 		
-		int will_amount = (int)Math.floor(holding_sugar/num_of_children);
-		
-		
-		Map<SugarAgent_ch3, Integer> the_will = new HashMap<SugarAgent_ch3, Integer>();
-		
-		children.forEach(new Consumer<SugarAgent_ch3>() {
+		if(num_of_children>0) {
+			
+			int will_amount = (int)Math.floor(holding_sugar/num_of_children);
+			
+			children.forEach(new Consumer<SugarAgent_ch3>() {
 
-			@Override
-			public void accept(SugarAgent_ch3 t) {
-				
-				the_will.put(t, will_amount);			
-			}
-		});
-		
+				@Override
+				public void accept(SugarAgent_ch3 t) {
+					
+					the_will.put(t, will_amount);			
+				}
+			});
+		}
 		
 		return the_will;
 	}

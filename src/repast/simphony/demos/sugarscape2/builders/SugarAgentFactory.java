@@ -150,6 +150,7 @@ public class SugarAgentFactory {
 			break;
 		case "p37":
 		case "p58":
+		case "p68":
 			da = new FiniteLifeDeath();
 			break;
 		default:
@@ -164,6 +165,7 @@ public class SugarAgentFactory {
 		case "p41":
 		case "p50":
 		case "p58":
+		case "p68":
 			ga = new DefaultGather("sugar level");
 			break;
 		default:
@@ -176,6 +178,7 @@ public class SugarAgentFactory {
 		case "p30":
 		case "p37":
 		case "p58":
+		case "p68":
 			ma = new DefaultMovement("sugar level");
 			break;
 		case "p41":
@@ -196,6 +199,7 @@ public class SugarAgentFactory {
 		case "p41":
 		case "p50":
 		case "p58":
+		case "p68":
 			va = new DefaultVision();
 			break;
 		default:
@@ -209,6 +213,7 @@ public class SugarAgentFactory {
 		case "p37":
 		case "p41":
 		case "p58":
+		case "p68":
 			pa = new NoPollution();
 			break;
 		case "p50":

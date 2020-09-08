@@ -75,6 +75,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			}
 		});
 		
+		//die as a SugarAgent_ch2
 		super.die();
 	}
 
