@@ -5,6 +5,9 @@ import javax.management.RuntimeErrorException;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
 import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
+import repast.simphony.demos.sugarscape2.agents.rules.culture.CulturalAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.culture.DefaultCulture;
+import repast.simphony.demos.sugarscape2.agents.rules.culture.NoCulture;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DefaultDeath;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.death.FiniteLifeDeath;
@@ -20,6 +23,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.movement.PollutionMovement
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.DefaultPollution;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.NoPollution;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.sex.CulturalSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.DefaultSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.DefaultVision;
@@ -70,7 +74,7 @@ public class SugarAgentFactory {
 					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_women")
 					);
 		}
-		
+
 		int tagString_length = RunEnvironment.getInstance().getParameters().getInteger("tagString_length");
 
 
@@ -79,16 +83,20 @@ public class SugarAgentFactory {
 		//Create rules
 		SexAbility sa;
 		InheritanceAbility ia;
+		CulturalAbility ca;
 
 
 		//SexAbility
 		switch(variant) {
 		case "p58":
 		case "p68":
-		case "p79":
 			sa = new DefaultSexAbility(); 
 			break;
-			
+
+		case "p79":
+			sa = new CulturalSexAbility(); 
+			break;
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant SexAbility rule" );
 
@@ -101,23 +109,43 @@ public class SugarAgentFactory {
 		case "p79":
 			ia = new NoInheritance(); 
 			break;
-			
+
 		case "p68":
 			ia = new DefaultInheritance(); 
 			break;
-			
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant InheritanceAbility rule" );
 
 		}
-		
-		
+
+
+		//InheritanceAbility
+		switch(variant) {
+		case "p58":
+		case "p68":
+			ca = new NoCulture(); 
+			break;
+
+		case "p79":
+			ca = new DefaultCulture(); 
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant CulturalAbility rule" );
+
+		}
+
+
 		//Configure environmental rules
 		if(sa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) sa).configureFromEnvironment();}
 
 		if(ia instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ia).configureFromEnvironment();}
+
+		if(ca instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ca).configureFromEnvironment();}
+
 		
-		
+
 		//create random Tag
 		Boolean[] tagString = new Boolean[tagString_length];
 		for(int i=0; i<tagString_length; i++) {

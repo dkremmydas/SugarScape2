@@ -17,7 +17,7 @@ public class DefaultInheritance implements InheritanceAbility {
 
 		int holding_sugar  = a.resourceGetHolding("sugar");
 		
-		Set<SugarAgent_ch3> children = a.getSexRule().getChildren(a);
+		Set<SugarAgent_ch3> children = a.getSexAbility().getChildren(a);
 		
 		int num_of_children = children.size();
 		

@@ -36,9 +36,9 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	
 	//rules
 
-	private SexAbility sexRule;	
+	private SexAbility sexAbility;	
 	
-	private InheritanceAbility inheritanceRule;
+	private InheritanceAbility inheritanceAbility;
 	
 	private CulturalAbility culturalAbility;
 
@@ -99,17 +99,31 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	}
 	
 
-	public SexAbility getSexRule() {
-		return sexRule;
+	public SexAbility getSexAbility() {
+		return sexAbility;
 	}
 	
+
+	public InheritanceAbility getInheritanceAbility() {
+		return inheritanceAbility;
+	}
+
+	public CulturalAbility getCulturalAbility() {
+		return culturalAbility;
+	}	
 	
+	
+	
+	
+	
+	//Rules
+
 
 	@Override
 	protected void die() {
 		
 		//pass holding to children
-		inheritanceRule.will(this).forEach(new BiConsumer<SugarAgent_ch3, Integer>() {
+		inheritanceAbility.will(this).forEach(new BiConsumer<SugarAgent_ch3, Integer>() {
 
 			@Override
 			public void accept(SugarAgent_ch3 t, Integer u) {
@@ -128,11 +142,11 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 
 			if(isInFertileAge()) {
 
-				Iterable<SugarAgent_ch3> ags = this.sexRule.selectPotentialMates(this);
+				Iterable<SugarAgent_ch3> ags = this.sexAbility.selectPotentialMates(this);
 
 				for(SugarAgent_ch3 a: ags) {
 
-					Pair<SugarAgent_ch3,GridPoint> m = this.sexRule.giveBirth(this,a);
+					Pair<SugarAgent_ch3,GridPoint> m = this.sexAbility.giveBirth(this,a);
 
 					if(!(m.getLeft()==null)) {
 						SugarAgent_ch3 child = m.getLeft();
@@ -146,6 +160,21 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			}	
 
 		}
+	}
+	
+	//	@ScheduledMethod(start=5d,interval=10d)
+	public void applyRuleK() {
+		
+		this.culturalAbility.culturalTransmission(this).forEach(new BiConsumer<SugarAgent_ch3, Integer>() {
+
+			@Override
+			public void accept(SugarAgent_ch3 t, Integer u) {
+
+				t.tagFlipAtPosition(u);
+				
+			}
+		});
+		
 	}
 
 	
@@ -199,8 +228,8 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			ag.tagString = tagString;
 
 			//own rules
-			ag.sexRule = this.sexRule;
-			ag.inheritanceRule = this.inheritanceRule;
+			ag.sexAbility = this.sexRule;
+			ag.inheritanceAbility = this.inheritanceRule;
 
 			//TODO check that all required fields have been defined
 
