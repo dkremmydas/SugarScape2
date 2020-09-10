@@ -70,33 +70,78 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	}
 	
 	
+	/**
+	 * 
+	 * @param position int Starts from 1.
+	 * @return
+	 */
 	public Boolean tagGetAtPosition(int position) {
 		boolean r;
 		
 		try {
-			r = this.tagString[position];
+			r = this.tagString[position-1];
 		} 
 		catch (Exception e) {
-			throw new RuntimeException("Could not access the tagString at position: " + position + ". Error: " + e.getMessage());
+			throw new RuntimeException("Could not access the tagString at position: " + (position-1) + ". Error: " + e.getMessage());
 		}
 		
 		return r;
 	}
 	
+	
+	/**
+	 * 
+	 * @param position int Starts from 1.
+	 * @param value
+	 * @return
+	 */
+	public void tagSetAtPosition(int position, Boolean value) {
+				
+		try {
+			this.tagString[position-1]=value;
+		} 
+		catch (Exception e) {
+			throw new RuntimeException("Could not access the tagString at position: " + (position-1) + ". Error: " + e.getMessage());
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param position int Starts from 1.
+	 * @param value int 0 or 1
+	 * @return
+	 */
+	public void tagSetAtPosition(int position, int value) {
+				
+		try {
+			this.tagString[position-1]=(value==1);
+		} 
+		catch (Exception e) {
+			throw new RuntimeException("Could not access the tagString at position: " + (position-1) + ". Error: " + e.getMessage());
+		}
+	}
+	
+	public int tagGetSize() {
+		return tagString.length;
+	}
+	
+	
+	/**
+	 * 
+	 * @param position int Starts at 1
+	 */
 	public void tagFlipAtPosition(int position) {
 		
 		try {
-			this.tagString[position] = !this.tagString[position];
+			this.tagString[position-1] = !this.tagString[position-1];
 		} 
 		catch (Exception e) {
-			throw new RuntimeException("Could not access the tagString at position: " + position + ". Error: " + e.getMessage());
+			throw new RuntimeException("Could not access the tagString at position: " + (position-1) + ". Error: " + e.getMessage());
 		}
 		
 	}
 	
-	public Boolean[] tagGetArray() {
-		return tagString.clone();
-	}
 	
 
 	public SexAbility getSexAbility() {
@@ -165,15 +210,20 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	//	@ScheduledMethod(start=5d,interval=10d)
 	public void applyRuleK() {
 		
-		this.culturalAbility.culturalTransmission(this).forEach(new BiConsumer<SugarAgent_ch3, Integer>() {
+		if(this.isAlive) {
+			
 
-			@Override
-			public void accept(SugarAgent_ch3 t, Integer u) {
+			this.culturalAbility.culturalTransmission(this).forEach(new BiConsumer<SugarAgent_ch3, Integer>() {
 
-				t.tagFlipAtPosition(u);
-				
-			}
-		});
+				@Override
+				public void accept(SugarAgent_ch3 t, Integer u) {
+
+					t.tagFlipAtPosition(u);
+					
+				}
+			});
+			
+		}		
 		
 	}
 
@@ -198,6 +248,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 
 		private SexAbility sexRule;
 		private InheritanceAbility inheritanceRule;
+		private CulturalAbility culturalRule;
 
 
 		public Builder(SugarAgent_ch2 a) {
@@ -230,6 +281,8 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			//own rules
 			ag.sexAbility = this.sexRule;
 			ag.inheritanceAbility = this.inheritanceRule;
+			ag.culturalAbility = this.culturalRule;
+			
 
 			//TODO check that all required fields have been defined
 
@@ -260,6 +313,11 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		
 		public Builder withInheritanceRule(InheritanceAbility inheritanceRule) {
 			this.inheritanceRule=inheritanceRule;
+			return this;
+		} 
+		
+		public Builder withCulturalRule(CulturalAbility culturalRule) {
+			this.culturalRule=culturalRule;
 			return this;
 		} 
 

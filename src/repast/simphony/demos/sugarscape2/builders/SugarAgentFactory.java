@@ -160,6 +160,7 @@ public class SugarAgentFactory {
 				.withTag(tagString)
 				.withSexRule(sa)
 				.withInheritanceRule(ia)
+				.withCulturalRule(ca)
 				.build();
 
 		return agent;

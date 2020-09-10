@@ -22,7 +22,7 @@ public class DefaultCulture implements CulturalAbility {
 						
 				SugarAgent_ch3 t_ch3 = (SugarAgent_ch3) t;
 				
-				int position = RandomHelper.nextIntFromTo(0, t_ch3.tagGetArray().length);
+				int position = RandomHelper.nextIntFromTo(1, t_ch3.tagGetSize());
 				
 				if(! t_ch3.tagGetAtPosition(position).equals(a.tagGetAtPosition(position))) {
 					r.put(t_ch3,position);
@@ -40,7 +40,7 @@ public class DefaultCulture implements CulturalAbility {
 		
 		int count_0=0, count_1=0;
 		
-		for (int i = 0; i < a.tagGetArray().length; i++) {
+		for (int i = 1; i <= a.tagGetSize(); i++) {
 			
 			if(a.tagGetAtPosition(i)) {count_1++;} else {count_0++;}
 		}
