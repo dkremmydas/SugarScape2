@@ -28,7 +28,8 @@ public class PercentageBlueCulturalGroup implements AggregateDataSource {
 	@Override
 	public Object get(Iterable<?> objs, int size) {
 
-		AtomicInteger  count = new AtomicInteger(0) ; 
+		AtomicInteger  count_blue = new AtomicInteger(0) ; 
+		AtomicInteger  count_nonBlue = new AtomicInteger(0) ; 
 		
 		
 		objs.forEach(new Consumer<Object>() {
@@ -38,12 +39,23 @@ public class PercentageBlueCulturalGroup implements AggregateDataSource {
 
 				SugarAgent_ch3 a = (SugarAgent_ch3) t;
 				
-				if(a.getCulturalAbility().cultureGroup(a).equalsIgnoreCase("Blue")) {count.incrementAndGet();}
+				if(a.isAlive()) {
+
+					if(a.getCulturalAbility().cultureGroup(a).equalsIgnoreCase("Blue")) {count_blue.incrementAndGet();}
+					else {count_nonBlue.incrementAndGet();}
+				}
+				
 				
 			}
 		});
 		
-		return new Double(100*(count.intValue()/size));
+		
+		int agents_count = (count_blue.get()+count_nonBlue.get());
+		
+		double perc = new Double(count_blue.intValue()) / new Double(agents_count) ;
+		
+		if(count_blue.get()>0) { return perc; }		
+		else {return 0;}
 	}
 
 	@Override
