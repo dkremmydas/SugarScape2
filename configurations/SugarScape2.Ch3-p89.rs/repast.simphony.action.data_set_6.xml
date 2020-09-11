@@ -1,0 +1,29 @@
+<repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
+  <name>Number of Blue Agents</name>
+  <type>AGGREGATE</type>
+  <inclTick>true</inclTick>
+  <inclBatchRun>false</inclBatchRun>
+  <inclRandomSeed>false</inclRandomSeed>
+  <scheduleParams>
+    <start>1.0</start>
+    <interval>10.0</interval>
+    <priority>-Infinity</priority>
+    <pType>LAST</pType>
+    <duration>-1.0</duration>
+    <frequency>REPEAT</frequency>
+    <hashCode>405181852</hashCode>
+  </scheduleParams>
+  <atEnd>false</atEnd>
+  <methodDataSources class="linked-hash-map"/>
+  <countSources class="linked-hash-map"/>
+  <customNADataSources class="linked-hash-map"/>
+  <customAggDataSources class="linked-hash-map">
+    <entry>
+      <string>CountCulturalGroups</string>
+      <repast.simphony.data2.engine.CustomDataSourceDefinition>
+        <id>CountCulturalGroups</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.CountBlueCulturalGroup</dsClassName>
+      </repast.simphony.data2.engine.CustomDataSourceDefinition>
+    </entry>
+  </customAggDataSources>
+</repast.simphony.data2.engine.DataSetDescriptor>
