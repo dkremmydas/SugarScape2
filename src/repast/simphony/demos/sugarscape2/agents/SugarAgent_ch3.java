@@ -241,10 +241,11 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			
 			Pair<SugarAgent_ch3,Integer> victim = this.combatAbility.getVictim(this);
 			if(!(victim.getLeft()==null)) {
-				
+							
 				GridPoint gp = victim.getLeft().getCurrentPosition();
 				
-				((SugarSpace_ch3)SugarSpaceFactory.getSugarspace()).removeSugarAgent(victim.getLeft());
+				victim.getLeft().die();
+				
 				this.resourceStore("sugar", victim.getRight());
 				
 				SugarSpaceFactory.getSugarspace().gridMoveAgentTo(this, gp.getX(),gp.getY());

@@ -185,7 +185,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 				if(! RunEnvironment.getInstance().getCurrentSchedule().removeAction(t) ) {
 					
-					Utility.logMessage(Level.INFO, "Could not remove action " + t + " even through diagnostics");
+					Utility.logMessage(Level.DEBUG, "Could not remove action " + t + " even through diagnostics");
 
 				}
 
@@ -256,7 +256,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 					actions_to_remove.add(t);
 
-					Utility.logMessage(Level.INFO, "Could not remove action " + t + " of agent " + a
+					Utility.logMessage(Level.DEBUG, "Could not remove action " + t + " of agent " + a
 							+ "\n Action added to be removed on diagnostics stage (t=10)");
 
 				}
