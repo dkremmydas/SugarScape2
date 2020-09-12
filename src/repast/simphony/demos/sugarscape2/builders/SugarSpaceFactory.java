@@ -141,8 +141,10 @@ public class SugarSpaceFactory {
 		case "p58":
 		case "p68":
 		case "p79":
+		case "p89":
 			growbackRule = new DefaultGrowback(); 
 			break;
+			
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant Growback rule" );
 		}
@@ -153,8 +155,10 @@ public class SugarSpaceFactory {
 		case "p58":
 		case "p68":
 		case "p79":
+		case "p89":
 			replacementRule = new NoReplacement();
 			break;
+			
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant Replacement rule" );
 		}
@@ -165,8 +169,10 @@ public class SugarSpaceFactory {
 		case "p58":
 		case "p68":
 		case "p79":
+		case "p89":
 			diffusionRule = new NoPollutionDiffusion();
 			break;
+			
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant Pollution diffusion rule" );
 		}

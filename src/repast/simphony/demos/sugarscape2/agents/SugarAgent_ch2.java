@@ -262,7 +262,6 @@ public class SugarAgent_ch2 {
 	/* Scheduled actions of the agent */
 
 
-	//@ScheduledMethod(start=1d,interval=10d)
 	public void step() {
 
 		if(isAlive) {
@@ -281,7 +280,6 @@ public class SugarAgent_ch2 {
 				this.sugar.store(sugar_gathered);
 
 				this.sugar.use(this.sugar.getMetabolism());
-
 
 				this.pollute();
 			}

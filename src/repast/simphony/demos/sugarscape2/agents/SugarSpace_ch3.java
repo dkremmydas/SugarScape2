@@ -48,6 +48,16 @@ public class SugarSpace_ch3 extends SugarSpace_ch2 {
 		actions.put(a.getId(), ac_K);
 		
 		
+		ISchedulableAction ac_C = RunEnvironment.getInstance().getCurrentSchedule().schedule(
+				ScheduleParameters.createRepeating(cur_tick+1+6, 10d), 
+				a, 
+				"applyRuleC"
+				);
+
+		actions.put(a.getId(), ac_C);
+		
+		
+		
 	}
 
 

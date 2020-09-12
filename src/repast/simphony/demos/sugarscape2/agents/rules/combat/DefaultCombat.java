@@ -36,7 +36,7 @@ public class DefaultCombat implements CombatAbility,ConfigurableFromRepastEnviro
 					public void accept(SugarAgent_ch2 t) {
 
 						SugarAgent_ch3 t_ch3 = (SugarAgent_ch3) t;
-
+						
 						//check they are in different group
 						if(!t_ch3.getCulturalAbility().cultureGroup(t_ch3).equalsIgnoreCase(a.getCulturalAbility().cultureGroup(a))) {
 

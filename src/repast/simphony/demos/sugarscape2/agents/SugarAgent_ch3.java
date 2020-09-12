@@ -4,6 +4,7 @@ import java.util.function.BiConsumer;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import repast.simphony.demos.sugarscape2.agents.rules.combat.CombatAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.culture.CulturalAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.inheritance.InheritanceAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
@@ -41,6 +42,8 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	private InheritanceAbility inheritanceAbility;
 	
 	private CulturalAbility culturalAbility;
+	
+	private CombatAbility combatAbility;
 
 
 
@@ -157,12 +160,15 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		return culturalAbility;
 	}	
 	
+	public CombatAbility getCombatAbility() {
+		return combatAbility;
+	}
+	
 	
 	
 	
 	
 	//Rules
-
 
 	@Override
 	protected void die() {
@@ -226,6 +232,28 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		}		
 		
 	}
+	
+	
+//	@ScheduledMethod(start=5d,interval=10d)
+	public void applyRuleC() {
+		
+		if(this.isAlive) {
+			
+			Pair<SugarAgent_ch3,Integer> victim = this.combatAbility.getVictim(this);
+			if(!(victim.getLeft()==null)) {
+				
+				GridPoint gp = victim.getLeft().getCurrentPosition();
+				
+				((SugarSpace_ch3)SugarSpaceFactory.getSugarspace()).removeSugarAgent(victim.getLeft());
+				this.resourceStore("sugar", victim.getRight());
+				
+				SugarSpaceFactory.getSugarspace().gridMoveAgentTo(this, gp.getX(),gp.getY());
+				
+			}
+			
+		}
+		
+	}
 
 	
 
@@ -249,6 +277,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		private SexAbility sexRule;
 		private InheritanceAbility inheritanceRule;
 		private CulturalAbility culturalRule;
+		private CombatAbility combatRule;
 
 
 		public Builder(SugarAgent_ch2 a) {
@@ -282,6 +311,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			ag.sexAbility = this.sexRule;
 			ag.inheritanceAbility = this.inheritanceRule;
 			ag.culturalAbility = this.culturalRule;
+			ag.combatAbility = this.combatRule;
 			
 
 			//TODO check that all required fields have been defined
@@ -318,6 +348,11 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		
 		public Builder withCulturalRule(CulturalAbility culturalRule) {
 			this.culturalRule=culturalRule;
+			return this;
+		}
+
+		public Builder withCombatRule(CombatAbility cmba) {
+			this.combatRule = cmba;
 			return this;
 		} 
 

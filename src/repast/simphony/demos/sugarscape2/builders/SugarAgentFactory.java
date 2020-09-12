@@ -5,6 +5,9 @@ import javax.management.RuntimeErrorException;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
 import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
+import repast.simphony.demos.sugarscape2.agents.rules.combat.CombatAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.combat.DefaultCombat;
+import repast.simphony.demos.sugarscape2.agents.rules.combat.NoCombat;
 import repast.simphony.demos.sugarscape2.agents.rules.culture.CulturalAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.culture.DefaultCulture;
 import repast.simphony.demos.sugarscape2.agents.rules.culture.NoCulture;
@@ -84,6 +87,7 @@ public class SugarAgentFactory {
 		SexAbility sa;
 		InheritanceAbility ia;
 		CulturalAbility ca;
+		CombatAbility cmba;
 
 
 		//SexAbility
@@ -94,6 +98,7 @@ public class SugarAgentFactory {
 			break;
 
 		case "p79":
+		case "p89":
 			sa = new CulturalSexAbility(); 
 			break;
 
@@ -107,6 +112,7 @@ public class SugarAgentFactory {
 		switch(variant) {
 		case "p58":
 		case "p79":
+		case "p89":
 			ia = new NoInheritance(); 
 			break;
 
@@ -120,7 +126,7 @@ public class SugarAgentFactory {
 		}
 
 
-		//InheritanceAbility
+		//CulturalAbility
 		switch(variant) {
 		case "p58":
 		case "p68":
@@ -128,7 +134,27 @@ public class SugarAgentFactory {
 			break;
 
 		case "p79":
+		case "p89":
 			ca = new DefaultCulture(); 
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant CulturalAbility rule" );
+
+		}
+
+
+		//CombatAbility
+		switch(variant) {
+		case "p58":
+		case "p68":
+		case "p79":
+			cmba = new NoCombat(); 
+			break;
+
+		
+		case "p89":
+			cmba = new DefaultCombat(); 
 			break;
 
 		default:
@@ -143,8 +169,10 @@ public class SugarAgentFactory {
 		if(ia instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ia).configureFromEnvironment();}
 
 		if(ca instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ca).configureFromEnvironment();}
-
 		
+		if(cmba instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) cmba).configureFromEnvironment();}
+
+
 
 		//create random Tag
 		Boolean[] tagString = new Boolean[tagString_length];
@@ -161,6 +189,7 @@ public class SugarAgentFactory {
 				.withSexRule(sa)
 				.withInheritanceRule(ia)
 				.withCulturalRule(ca)
+				.withCombatRule(cmba)
 				.build();
 
 		return agent;
@@ -189,10 +218,12 @@ public class SugarAgentFactory {
 		case "p50":
 			da = new DefaultDeath();
 			break;
+			
 		case "p37":
 		case "p58":
 		case "p68":
 		case "p79":
+		case "p89":
 			da = new FiniteLifeDeath();
 			break;
 		default:
@@ -209,6 +240,7 @@ public class SugarAgentFactory {
 		case "p58":
 		case "p68":
 		case "p79":
+		case "p89":
 			ga = new DefaultGather("sugar level");
 			break;
 		default:
@@ -223,14 +255,18 @@ public class SugarAgentFactory {
 		case "p58":
 		case "p68":
 		case "p79":
+		case "p89":
 			ma = new DefaultMovement("sugar level");
 			break;
+			
 		case "p41":
 			ma = new KeepNetworkMovement("sugar level");
 			break;
+			
 		case "p50":
 			ma = new PollutionMovement("sugar level");
 			break;
+			
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant MovementAbility rule" );
 		}
@@ -245,8 +281,10 @@ public class SugarAgentFactory {
 		case "p58":
 		case "p68":
 		case "p79":
+		case "p89":
 			va = new DefaultVision();
 			break;
+			
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant VisionAbility rule" );
 		}
@@ -260,8 +298,10 @@ public class SugarAgentFactory {
 		case "p58":
 		case "p68":
 		case "p79":
+		case "p89":
 			pa = new NoPollution();
 			break;
+			
 		case "p50":
 			pa = new DefaultPollution();
 			break;
@@ -286,7 +326,7 @@ public class SugarAgentFactory {
 
 		//create the agent and return it
 
-		SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(10))
+		SugarAgent_ch2 agent = new SugarAgent_ch2.Builder(Utility.getRandomString(20))
 				.withVision(vision)
 				.withSugarInitial(sugar_endownment)
 				.withSugarMetabolism(sugar_metabolism)

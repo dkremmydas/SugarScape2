@@ -2,6 +2,8 @@ package repast.simphony.demos.sugarscape2.agents;
 
 
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import org.apache.log4j.Level;
@@ -110,8 +112,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	protected Grid<Object> grid;
 
-	
+
 	protected Multimap<String,ISchedulableAction> actions =  ArrayListMultimap.create();
+
+	private Set<ISchedulableAction> actions_to_remove = new HashSet<ISchedulableAction>();
 
 
 
@@ -119,7 +123,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	//****************************************************************************************************************************************************
 
 
-	
+
 
 
 	/**
@@ -150,6 +154,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		this.configureGridFromPGM(pgm_file);
 
 		SugarSpace_ch2 me = this;
+
 		super.addContextListener(new ContextListener<Object>() {
 
 			@Override
@@ -172,9 +177,27 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 	@ScheduledMethod(start=10d,interval=10d,priority = -1000d)
 	public void diagnostics() {
+
+		actions_to_remove.forEach(new Consumer<ISchedulableAction>() {
+
+			@Override
+			public void accept(ISchedulableAction t) {
+
+				if(! RunEnvironment.getInstance().getCurrentSchedule().removeAction(t) ) {
+					
+					Utility.logMessage(Level.INFO, "Could not remove action " + t + " even through diagnostics");
+
+				}
+
+			}
+		});
+		
+		actions_to_remove.clear();
+		
+
 		Utility.logMessage( Level.DEBUG, 
 				"Number of Agents: " + this.getObjects(SugarAgent_ch2.class).size() + ", " + 
-				"Number of scheduled methods: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+						"Number of scheduled methods: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 	}
 
 	/**
@@ -203,39 +226,53 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 
+
+
+
 	public void addSugarAgent(SugarAgent_ch2 a) {
-		
+
 		this.add(a);
 
 		double cur_tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
-		
+
 		ISchedulableAction ac = RunEnvironment.getInstance().getCurrentSchedule().schedule(
 				ScheduleParameters.createRepeating(cur_tick+1+1, 10d), 
 				a, 
 				"step"
 				);
-		
+
 		actions.put(a.getId(), ac);
-		
 	}
-	
-	
+
+
 	public void removeSugarAgent(SugarAgent_ch2 a) {
-		
-		this.remove(a);
-		
+
 		actions.get(a.getId()).forEach(new Consumer<ISchedulableAction>() {
 
 			@Override
 			public void accept(ISchedulableAction t) {
-				RunEnvironment.getInstance().getCurrentSchedule().removeAction(t);		
+
+				if(! RunEnvironment.getInstance().getCurrentSchedule().removeAction(t) ) {
+
+					actions_to_remove.add(t);
+
+					Utility.logMessage(Level.INFO, "Could not remove action " + t + " of agent " + a
+							+ "\n Action added to be removed on diagnostics stage (t=10)");
+
+				}
+
 			}
-		
-			
 		});
+
+		actions.removeAll(a.getId());
+		
+		this.remove(a);
+
 	}
-	
-	
+
+
+
+
 
 
 
@@ -433,7 +470,16 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @return An {@link Iterable} with all neighboring {@link GridPoint}s 
 	 */
 	public Iterable<GridPoint> gridGetNeighboringPoints(SugarAgent_ch2 a, int radius, Utility.TypeOfVision typeOfVision) {
+
 		return this.gridGetNeighboringPoints(a.getCurrentPosition(), radius, typeOfVision);		
+
+		//		if(!(a.getCurrentPosition()==null)) {
+		//			return this.gridGetNeighboringPoints(a.getCurrentPosition(), radius, typeOfVision);		
+		//		} else {
+		//			return new HashSet<GridPoint>();
+		//		}
+
+
 	}
 
 
@@ -448,6 +494,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @return An {@link Iterable} with all neighboring {@link GridPoint}s 
 	 */
 	public Iterable<GridPoint> gridGetNeighboringPoints(GridPoint gp, int radius, Utility.TypeOfVision typeOfVision) {
+
 		if(typeOfVision==Utility.TypeOfVision.MOORE) {
 			return NeighbourhoodFunctions.getMoorePoints(gp, grid, radius);
 		} else {
