@@ -1,19 +1,25 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+import repast.simphony.demos.sugarscape2.agents.rules.trade.TradeAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.welfare.WelfareAbility;
+
 public class SugarAgent_ch4 extends SugarAgent_ch3 {
 	
 	
-	private AgentResource spice;
+	//properties
+	
+	protected AgentResource spice;
 	
 	
 	
-	public SugarAgent_ch4() {
-		super();
-	}
-
-
-
-
+	// rules
+	
+	protected WelfareAbility wa;
+	
+	protected TradeAbility ta;
+	
+	
+	
 
 
 
@@ -46,7 +52,7 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 			ag.id = this.a.id;
 			ag.age = this.a.age;
 			ag.vision = this.a.vision;
-			ag.sugar = this.a.sugar;
+			ag.resources = this.a.resources;
 			ag.isAlive = this.a.isAlive;
 
 			//inherited rules from SugarAgent_ch2

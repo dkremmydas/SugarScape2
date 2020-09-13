@@ -293,7 +293,7 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 			ag.id = this.a.id;
 			ag.age = this.a.age;
 			ag.vision = this.a.vision;
-			ag.sugar = this.a.sugar;
+			ag.resources = this.a.resources;
 			ag.isAlive = this.a.isAlive;
 
 			//inherited rules from SugarAgent_ch2

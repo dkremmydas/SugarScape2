@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
+
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
@@ -40,7 +42,8 @@ public class SugarAgent_ch2 {
 	 * We have abstracted the properties and the operations related to a resource into a Resource class.
 	 * TODO[explain the flexibility of this approach: We can use many resources in the future]
 	 */
-	protected AgentResource sugar;
+		
+	protected Map<String,AgentResource> resources = new CaseInsensitiveMap<String, AgentResource>();
 
 
 
@@ -150,56 +153,55 @@ public class SugarAgent_ch2 {
 
 
 	public int resourceGetHolding(String resource) {
-
-		if(resource.equalsIgnoreCase("sugar")) {
-			return this.sugar.holding;
-		} else {
+		
+		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
+		
+		return this.resources.get(resource).holding;
 
 	}
 
 
 	public int resourceGetInitialEndownment(String resource) {
-
-		if(resource.equalsIgnoreCase("sugar")) {
-			return this.sugar.initial;
-		} else {
+		
+		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 
+		return this.resources.get(resource).initial;
 	}
 
 
 	public int resourceGetMetabolism(String resource) {
-
-		if(resource.equalsIgnoreCase("sugar")) {
-			return this.sugar.metabolism;
-		} else {
+		
+		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
+
+		return this.resources.get(resource).metabolism;
 
 	}
 
 
 	public void resourceUse(String resource, int quantity) {
-
-		if(resource.equalsIgnoreCase("sugar")) {
-			this.sugar.use(quantity);
-		} else {
+		
+		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
+
+		this.resources.get(resource).use(quantity);
 
 	}
 
 
 	public void resourceStore(String resource, int quantity) {
-
-		if(resource.equalsIgnoreCase("sugar")) {
-			this.sugar.store(quantity);
-		} else {
+		
+		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
+
+		this.resources.get(resource).store(quantity);
 
 	}
 
@@ -251,7 +253,7 @@ public class SugarAgent_ch2 {
 		//				", Position: [X:"+x+", Y:"+y+", Sugar:"+ SugarSpaceFactory.getSugarspace().resourceGetHoldingAtXY("sugar",x,y)+"]"+
 		//				"}";
 
-		String r = "Id:" + this.id + " S.m: " + this.sugar.metabolism + ", S.h: " + this.sugar.holding ;
+		String r = "Id:" + this.id + " S.m: " + this.resourceGetMetabolism("sugar") + ", S.h: " + this.resourceGetHolding("sugar") ;
 
 		return r;
 	}
@@ -277,9 +279,9 @@ public class SugarAgent_ch2 {
 
 				int sugar_gathered =  SugarSpaceFactory.getSugarspace().resourceGatherFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
 
-				this.sugar.store(sugar_gathered);
+				this.resourceStore("sugar",sugar_gathered);
 
-				this.sugar.use(this.sugar.getMetabolism());
+				this.resourceUse("sugar", this.resourceGetMetabolism("sugar"));
 
 				this.pollute();
 			}
@@ -361,7 +363,7 @@ public class SugarAgent_ch2 {
 			ag.vision = this.vision;
 			ag.age = this.age;
 
-			ag.sugar = new AgentResource(this.sugarInitial, this.sugarMetabolism);
+			ag.resources.put("sugar",new AgentResource(this.sugarInitial, this.sugarMetabolism));
 
 			ag.dieRule = dieRule;
 			ag.visionRule = visionRule;
