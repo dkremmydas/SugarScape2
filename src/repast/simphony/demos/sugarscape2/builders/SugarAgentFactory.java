@@ -186,10 +186,10 @@ public class SugarAgentFactory {
 				.withSex(sex)
 				.withChildBearingAge(childbearing_start,childbearing_end)
 				.withTag(tagString)
-				.withSexRule(sa)
-				.withInheritanceRule(ia)
-				.withCulturalRule(ca)
-				.withCombatRule(cmba)
+				.withSexAbility(sa)
+				.withInheritanceAbility(ia)
+				.withCulturalAbility(ca)
+				.withCombatAbility(cmba)
 				.build();
 
 		return agent;

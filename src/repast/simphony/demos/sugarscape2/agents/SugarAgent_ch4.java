@@ -6,17 +6,12 @@ import repast.simphony.demos.sugarscape2.agents.rules.welfare.WelfareAbility;
 public class SugarAgent_ch4 extends SugarAgent_ch3 {
 	
 	
-	//properties
-	
-	protected AgentResource spice;
-	
-	
 	
 	// rules
 	
-	protected WelfareAbility wa;
+	protected WelfareAbility welfareAbility;
 	
-	protected TradeAbility ta;
+	protected TradeAbility tradeAbility;
 	
 	
 	
@@ -37,7 +32,9 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 		private int spiceMetabolism;
 		
 
-		//private SexAbility sexRule;
+		// rules
+		private WelfareAbility wa;
+		private TradeAbility ta;
 		
 
 
@@ -77,11 +74,12 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 			
 
 			//own properties
-			ag.spice = new AgentResource(this.spiceInitial, this.spiceMetabolism);
+			ag.resources.put("spice", new AgentResource(this.spiceInitial, this.spiceMetabolism));
 			
 
 			//own rules
-			
+			ag.welfareAbility = this.wa;
+			ag.tradeAbility = this.ta;
 			
 
 			//TODO check that all required fields have been defined
@@ -92,6 +90,16 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 		public Builder withSpice(int initial, int metabolism) {
 			this.spiceInitial = initial;
 			this.spiceMetabolism = metabolism;
+			return this;
+		} 
+		
+		public Builder withWelfareAbility(WelfareAbility wa) {
+			this.wa = wa;
+			return this;
+		} 
+		
+		public Builder withTradeAbility(TradeAbility ta) {
+			this.ta = ta;
 			return this;
 		} 
 

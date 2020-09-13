@@ -338,22 +338,22 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 		}
 
 
-		public Builder withSexRule(SexAbility sexRule) {
+		public Builder withSexAbility(SexAbility sexRule) {
 			this.sexRule=sexRule;
 			return this;
 		} 
 		
-		public Builder withInheritanceRule(InheritanceAbility inheritanceRule) {
+		public Builder withInheritanceAbility(InheritanceAbility inheritanceRule) {
 			this.inheritanceRule=inheritanceRule;
 			return this;
 		} 
 		
-		public Builder withCulturalRule(CulturalAbility culturalRule) {
+		public Builder withCulturalAbility(CulturalAbility culturalRule) {
 			this.culturalRule=culturalRule;
 			return this;
 		}
 
-		public Builder withCombatRule(CombatAbility cmba) {
+		public Builder withCombatAbility(CombatAbility cmba) {
 			this.combatRule = cmba;
 			return this;
 		} 
