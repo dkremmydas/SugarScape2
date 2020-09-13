@@ -4,7 +4,6 @@ import javax.management.RuntimeErrorException;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
-import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
 import repast.simphony.demos.sugarscape2.agents.rules.combat.CombatAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.combat.DefaultCombat;
 import repast.simphony.demos.sugarscape2.agents.rules.combat.NoCombat;
@@ -31,6 +30,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.sex.DefaultSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.DefaultVision;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
+import repast.simphony.demos.sugarscape2.utilities.ConfigurableFromRepastEnvironment;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;

@@ -1,7 +1,7 @@
-package repast.simphony.demos.sugarscape2.agents.rules.growback;
+package repast.simphony.demos.sugarscape2.space.rules.growback;
 
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.utilities.ConfigurableFromRepastEnvironment;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.valueLayer.GridValueLayer;
 

@@ -1,11 +1,11 @@
-package repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion;
+package repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion;
 
 import java.util.Set;
 
 import org.apache.commons.math3.stat.StatUtils;
 
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.utilities.ConfigurableFromRepastEnvironment;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.GridPoint;

@@ -1,15 +1,15 @@
-package repast.simphony.demos.sugarscape2.agents.styles;
+package repast.simphony.demos.sugarscape2.space.styles;
 
 import java.awt.Color;
 
 import repast.simphony.valueLayer.ValueLayer;
 import repast.simphony.visualizationOGL2D.ValueLayerStyleOGL;
 
-public class PollutionValueLayerStyle2D implements ValueLayerStyleOGL {
+public class SugarQuantityValueLayerStyle2D implements ValueLayerStyleOGL {
 	
 	protected ValueLayer layer;
 
-	public PollutionValueLayerStyle2D() {
+	public SugarQuantityValueLayerStyle2D() {
 	}
 
 	/**
@@ -20,8 +20,7 @@ public class PollutionValueLayerStyle2D implements ValueLayerStyleOGL {
 	@Override
 	public Color getColor(double... coordinates) {
 		double q = layer.get(coordinates);
-		float qp = (float)(q/50);
-		if(qp>0.99) {qp=1f;}
+		float qp = (float)(q/12);
 		return new Color((int)(qp*255), (int)(qp*255), (int)(qp*255));
 	}
 

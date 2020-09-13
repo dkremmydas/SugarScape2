@@ -9,6 +9,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.culture.CulturalAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.inheritance.InheritanceAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch3;
 import repast.simphony.space.grid.GridPoint;
 
 /**

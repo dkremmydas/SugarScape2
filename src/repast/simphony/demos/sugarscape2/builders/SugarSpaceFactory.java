@@ -3,17 +3,17 @@ package repast.simphony.demos.sugarscape2.builders;
 import javax.management.RuntimeErrorException;
 
 import repast.simphony.context.space.graph.NetworkBuilder;
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch3;
-import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
-import repast.simphony.demos.sugarscape2.agents.rules.growback.DefaultGrowback;
-import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
-import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.DefaultPollutionDiffusion;
-import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.NoPollutionDiffusion;
-import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.PollutionDiffusionAbility;
-import repast.simphony.demos.sugarscape2.agents.rules.replacement.DefaultReplacement;
-import repast.simphony.demos.sugarscape2.agents.rules.replacement.NoReplacement;
-import repast.simphony.demos.sugarscape2.agents.rules.replacement.ReplacementAbility;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch3;
+import repast.simphony.demos.sugarscape2.space.rules.growback.DefaultGrowback;
+import repast.simphony.demos.sugarscape2.space.rules.growback.GrowbackAbility;
+import repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion.DefaultPollutionDiffusion;
+import repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion.NoPollutionDiffusion;
+import repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion.PollutionDiffusionAbility;
+import repast.simphony.demos.sugarscape2.space.rules.replacement.DefaultReplacement;
+import repast.simphony.demos.sugarscape2.space.rules.replacement.NoReplacement;
+import repast.simphony.demos.sugarscape2.space.rules.replacement.ReplacementAbility;
+import repast.simphony.demos.sugarscape2.utilities.ConfigurableFromRepastEnvironment;
 import repast.simphony.valueLayer.GridValueLayer;
 
 public class SugarSpaceFactory {

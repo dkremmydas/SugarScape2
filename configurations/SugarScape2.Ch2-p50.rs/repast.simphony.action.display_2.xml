@@ -63,7 +63,7 @@
     <blue>255</blue>
     <alpha>255</alpha>
   </backgroundColor>
-  <valueLayerStyleName>repast.simphony.demos.sugarscape2.agents.styles.PollutionValueLayerStyle2D</valueLayerStyleName>
+  <valueLayerStyleName>repast.simphony.demos.sugarscape2.space.styles.PollutionValueLayerStyle2D</valueLayerStyleName>
   <valueLayers>
     <string>pollution</string>
   </valueLayers>

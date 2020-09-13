@@ -1,7 +1,7 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
   <name>Sugar Wealth Individual</name>
   <type>NON_AGGREGATE</type>
-  <sourceType>repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2$1</sourceType>
+  <sourceType>repast.simphony.demos.sugarscape2.space.SugarSpace_ch2$1</sourceType>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>

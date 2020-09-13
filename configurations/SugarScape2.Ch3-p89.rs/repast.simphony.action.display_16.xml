@@ -78,7 +78,7 @@
     <blue>255</blue>
     <alpha>255</alpha>
   </backgroundColor>
-  <valueLayerStyleName>repast.simphony.demos.sugarscape2.agents.styles.CombatFrequencyValueLayerStyle2D</valueLayerStyleName>
+  <valueLayerStyleName>repast.simphony.demos.sugarscape2.space.styles.CombatFrequencyValueLayerStyle2D</valueLayerStyleName>
   <valueLayers>
     <string>combat frequency</string>
   </valueLayers>

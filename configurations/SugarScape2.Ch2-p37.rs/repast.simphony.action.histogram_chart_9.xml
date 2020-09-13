@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.HistogramChartDescriptor simphonyVersion="2.7.0">
-  <name>Distribution nof Sugar Wealth</name>
+  <name>Distribution of Sugar Wealth</name>
   <dataSet>Sugar Wealth Individual</dataSet>
   <xAxisLabel>Sugar Wealth (individual)</xAxisLabel>
   <yAxisLabel>Number of agents</yAxisLabel>
-  <chartTitle>Distributio nof Sugar Wealth</chartTitle>
+  <chartTitle>Distribution of Sugar Wealth</chartTitle>
   <type>HISTOGRAM</type>
   <background>
     <red>192</red>

@@ -3,7 +3,7 @@ package repast.simphony.demos.sugarscape2.builders;
 import repast.simphony.context.Context;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch3;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch3;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.random.RandomHelper;
 

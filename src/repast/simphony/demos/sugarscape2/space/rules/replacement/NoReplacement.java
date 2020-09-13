@@ -1,7 +1,7 @@
-package repast.simphony.demos.sugarscape2.agents.rules.replacement;
+package repast.simphony.demos.sugarscape2.space.rules.replacement;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
 
 /**
  * 

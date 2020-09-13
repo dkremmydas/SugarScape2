@@ -33,6 +33,7 @@
 	<parameter name="maxAge_min" displayName="2.1.4 Maximum Agent Age (minimum)" type="int" defaultValue="60" />
 	<parameter name="maxAge_max" displayName="2.1.4 Maximum Agent Age (maximum)" type="int" defaultValue="100" />
 	 
+	<parameter name="tagString_length" displayName="2.1.5 Length of Cultural Tag string" type="int" defaultValue="11" />
 	
 	
 	<parameter name="childbearing_age_start_min_men" displayName="2.1.5.1 Start of Childbearing Age for men(minimum)" type="int" defaultValue="12" />

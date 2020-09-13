@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents;
+package repast.simphony.demos.sugarscape2.space;
 
 
 
@@ -16,9 +16,10 @@ import repast.simphony.context.ContextEvent.EventType;
 import repast.simphony.context.ContextListener;
 import repast.simphony.context.DefaultContext;
 import repast.simphony.context.space.grid.GridFactoryFinder;
-import repast.simphony.demos.sugarscape2.agents.rules.growback.GrowbackAbility;
-import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.PollutionDiffusionAbility;
-import repast.simphony.demos.sugarscape2.agents.rules.replacement.ReplacementAbility;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.space.rules.growback.GrowbackAbility;
+import repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion.PollutionDiffusionAbility;
+import repast.simphony.demos.sugarscape2.space.rules.replacement.ReplacementAbility;
 import repast.simphony.demos.sugarscape2.utilities.NeighbourhoodFunctions;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
 import repast.simphony.demos.sugarscape2.utilities.Utility;

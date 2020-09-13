@@ -1,4 +1,4 @@
-package repast.simphony.demos.sugarscape2.agents.styles;
+package repast.simphony.demos.sugarscape2.space.styles;
 
 import java.awt.Color;
 

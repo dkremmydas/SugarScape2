@@ -1,6 +1,6 @@
-package repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion;
+package repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion;
 
-import repast.simphony.demos.sugarscape2.agents.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
 import repast.simphony.valueLayer.GridValueLayer;
 
 public interface PollutionDiffusionAbility {
