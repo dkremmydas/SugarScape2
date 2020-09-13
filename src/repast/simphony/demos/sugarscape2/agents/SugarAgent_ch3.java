@@ -26,25 +26,25 @@ public class SugarAgent_ch3 extends SugarAgent_ch2 {
 	
 	//properties
 	
-	private SugarAgent_ch3.Sex sex;
+	protected SugarAgent_ch3.Sex sex;
 
-	private int childbearing_age_start;
+	protected int childbearing_age_start;
 
-	private int childbearing_age_end;
+	protected int childbearing_age_end;
 	
-	private Boolean[] tagString;
+	protected Boolean[] tagString;
 	
 	
 	
 	//rules
 
-	private SexAbility sexAbility;	
+	protected SexAbility sexAbility;	
 	
-	private InheritanceAbility inheritanceAbility;
+	protected InheritanceAbility inheritanceAbility;
 	
-	private CulturalAbility culturalAbility;
+	protected CulturalAbility culturalAbility;
 	
-	private CombatAbility combatAbility;
+	protected CombatAbility combatAbility;
 
 
 
