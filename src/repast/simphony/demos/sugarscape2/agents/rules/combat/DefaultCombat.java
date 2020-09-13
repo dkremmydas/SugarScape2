@@ -11,15 +11,22 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.log4j.Level;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
 import repast.simphony.demos.sugarscape2.agents.rules.ConfigurableFromRepastEnvironment;
+import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
+import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.valueLayer.GridValueLayer;
 
 public class DefaultCombat implements CombatAbility,ConfigurableFromRepastEnvironment {
 
 	int combat_reward;
+
+	static public int total_num_of_combats = 0;
+
 
 	@Override
 	public Pair<SugarAgent_ch3, Integer> getVictim(SugarAgent_ch3 a) {
@@ -36,7 +43,7 @@ public class DefaultCombat implements CombatAbility,ConfigurableFromRepastEnviro
 					public void accept(SugarAgent_ch2 t) {
 
 						SugarAgent_ch3 t_ch3 = (SugarAgent_ch3) t;
-						
+
 						//check they are in different group
 						if(!t_ch3.getCulturalAbility().cultureGroup(t_ch3).equalsIgnoreCase(a.getCulturalAbility().cultureGroup(a))) {
 
@@ -83,13 +90,25 @@ public class DefaultCombat implements CombatAbility,ConfigurableFromRepastEnviro
 								victim_found  = true;
 								return;
 							}
-
 						}
-
 					}
 				});
-				
-				if(victim_found) {return;}
+
+				if(victim_found) {
+					GridValueLayer gvl = (GridValueLayer) SugarSpaceFactory.getSugarspace().getValueLayer("combat frequency");
+					double num_of_combats = gvl.get(victim[0].getCurrentPosition().getX(),victim[0].getCurrentPosition().getY());
+					Utility.logMessage(Level.DEBUG, "Victim found = " + victim[0] + " at " + victim[0].getCurrentPosition()
+							+ "\n\tNumber of combats in this cell = " + num_of_combats);
+
+					gvl.set(
+							num_of_combats+1d, 
+							victim[0].getCurrentPosition().getX(),
+							victim[0].getCurrentPosition().getY()
+							);
+					total_num_of_combats++;
+
+					return;
+				}
 			}
 		});
 

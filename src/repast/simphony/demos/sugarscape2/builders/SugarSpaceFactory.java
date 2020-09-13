@@ -14,14 +14,15 @@ import repast.simphony.demos.sugarscape2.agents.rules.pollution_diffusion.Pollut
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.DefaultReplacement;
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.NoReplacement;
 import repast.simphony.demos.sugarscape2.agents.rules.replacement.ReplacementAbility;
+import repast.simphony.valueLayer.GridValueLayer;
 
 public class SugarSpaceFactory {
-	
-	
+
+
 	// Holds the singleton instance of the class. It is initialized to null.
 	private static SugarSpace_ch2 single_instance = null;
-	
-	
+
+
 	/**
 	 * <p>We need to enforce that only one SugarSpace object will be created. We are using the Singleton design pattern.
 	 * This method is the only valid method to access this single object. Since it is static, one has to call 
@@ -44,8 +45,8 @@ public class SugarSpaceFactory {
 
 
 	}
-	
-	
+
+
 
 	public static SugarSpace_ch2 createChapter2SugarSpace(String variant,String pgm_file) {
 
@@ -125,8 +126,8 @@ public class SugarSpaceFactory {
 		return s;
 
 	}
-	
-	
+
+
 
 	public static SugarSpace_ch3 createChapter3SugarSpace(String variant,String pgm_file) {
 
@@ -144,7 +145,7 @@ public class SugarSpaceFactory {
 		case "p89":
 			growbackRule = new DefaultGrowback(); 
 			break;
-			
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant Growback rule" );
 		}
@@ -158,7 +159,7 @@ public class SugarSpaceFactory {
 		case "p89":
 			replacementRule = new NoReplacement();
 			break;
-			
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant Replacement rule" );
 		}
@@ -172,7 +173,7 @@ public class SugarSpaceFactory {
 		case "p89":
 			diffusionRule = new NoPollutionDiffusion();
 			break;
-			
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant Pollution diffusion rule" );
 		}
@@ -192,14 +193,22 @@ public class SugarSpaceFactory {
 
 
 		//create other things, if necessary
-		//none
+		switch(variant) {
+		case "p58":
+			//TODO children NET
+			break;
+		case "p89":
+			GridValueLayer combat_frequency = new  GridValueLayer("combat frequency", true, s.gridGetWidth(),s.gridGetHeight());
+			s.addValueLayer(combat_frequency);
+			break;
+		}
 
 		SugarSpaceFactory.single_instance = s;
 		return s;
 
 	}
-	
-	
-	
+
+
+
 
 }

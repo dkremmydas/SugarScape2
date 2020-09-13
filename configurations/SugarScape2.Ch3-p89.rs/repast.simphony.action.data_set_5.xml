@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Gini coefficient</name>
+  <name>Number of Blue Agents</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
@@ -11,7 +11,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1623198736</hashCode>
+    <hashCode>405181852</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map"/>
@@ -19,10 +19,10 @@
   <customNADataSources class="linked-hash-map"/>
   <customAggDataSources class="linked-hash-map">
     <entry>
-      <string>GiniCoefficient</string>
+      <string>CountCulturalGroups</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
-        <id>GiniCoefficient</id>
-        <dsClassName>repast.simphony.demos.sugarscape2.datasources.GiniAggregateDataSource</dsClassName>
+        <id>CountCulturalGroups</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.CountBlueCulturalGroup</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
   </customAggDataSources>
