@@ -14,25 +14,36 @@ import repast.simphony.valueLayer.GridValueLayer;
  * @author Dimitrios Kremmydas
  *
  */
-public class DefaultGrowback implements GrowbackAbility, ConfigurableFromRepastEnvironment {
+public class SpiceSugarGrowback implements GrowbackAbility, ConfigurableFromRepastEnvironment {
 
 	/**
 	 * If <0, growback immediately to full capacity
 	 */
-	protected int regeneration_rate;
+	protected int sugar_regeneration_rate;
+	
+	protected int spice_regeneration_rate;
 
 
 
 	@Override
 	public Map<String, GridValueLayer> growback(SugarSpace_ch2 s) {
-
-		Map<String, GridValueLayer> r = new CaseInsensitiveMap<String, GridValueLayer>();
 		
-		if(regeneration_rate<0) {
+		Map<String, GridValueLayer> r = new CaseInsensitiveMap<String, GridValueLayer>();
+
+		//sugar
+		if(sugar_regeneration_rate<0) {
 			r.put("sugar", s.resourceGetCapacity("sugar"));
 		} else {
-			s.resourceAddEverywhere("sugar",regeneration_rate);
+			s.resourceAddEverywhere("sugar",sugar_regeneration_rate);
 			r.put("sugar", s.resourceGetHolding("sugar"));
+		}
+		
+		//spice
+		if(spice_regeneration_rate<0) {
+			r.put("spice", s.resourceGetCapacity("spice"));
+		} else {
+			s.resourceAddEverywhere("sugar",spice_regeneration_rate);
+			r.put("spice", s.resourceGetHolding("spice"));
 		}
 		
 		return r;
@@ -44,7 +55,8 @@ public class DefaultGrowback implements GrowbackAbility, ConfigurableFromRepastE
 
 	@Override
 	public void configureFromEnvironment() {
-		regeneration_rate = RunEnvironment.getInstance().getParameters().getInteger("regenerationRate");		
+		sugar_regeneration_rate = RunEnvironment.getInstance().getParameters().getInteger("regenerationRate");	
+		spice_regeneration_rate = RunEnvironment.getInstance().getParameters().getInteger("spice_regenerationRate");	
 	}
 
 

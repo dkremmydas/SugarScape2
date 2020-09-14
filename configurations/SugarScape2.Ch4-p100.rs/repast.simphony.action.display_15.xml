@@ -1,5 +1,5 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor simphonyVersion="2.7.0">
-  <name>grid</name>
+  <name>Sugar grid</name>
   <type>2D</type>
   <styles>
     <entry>

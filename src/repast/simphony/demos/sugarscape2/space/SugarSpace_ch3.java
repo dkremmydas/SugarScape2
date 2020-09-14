@@ -17,8 +17,7 @@ public class SugarSpace_ch3 extends SugarSpace_ch2 {
 		super(pgm_file, growbackRule, replacementRule, diffusionRule);
 	}
 
-
-
+	
 
 
 

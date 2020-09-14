@@ -5,8 +5,10 @@ import javax.management.RuntimeErrorException;
 import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.space.SugarSpace_ch3;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch4;
 import repast.simphony.demos.sugarscape2.space.rules.growback.DefaultGrowback;
 import repast.simphony.demos.sugarscape2.space.rules.growback.GrowbackAbility;
+import repast.simphony.demos.sugarscape2.space.rules.growback.SpiceSugarGrowback;
 import repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion.DefaultPollutionDiffusion;
 import repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion.NoPollutionDiffusion;
 import repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion.PollutionDiffusionAbility;
@@ -206,6 +208,74 @@ public class SugarSpaceFactory {
 		SugarSpaceFactory.single_instance = s;
 		return s;
 
+	}
+
+
+
+	public static SugarSpace_ch4 createChapter4SugarSpace(String variant, String sugar_pgm_file, String spice_pgm_file) {
+
+
+		GrowbackAbility growbackRule;
+		ReplacementAbility replacementRule ;
+		PollutionDiffusionAbility diffusionRule;
+
+
+		//Growback rule
+		switch(variant) {
+		case "p100":
+			growbackRule = new SpiceSugarGrowback(); 
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 4 and Variant " + variant + ", there is no relevant Growback rule" );
+		}
+
+
+		//Replacement rule
+		switch(variant) {
+		case "p100":
+			replacementRule = new NoReplacement();
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 4 and Variant " + variant + ", there is no relevant Replacement rule" );
+		}
+
+
+		//Pollution diffusion rule
+		switch(variant) {
+		case "p100":
+			diffusionRule = new NoPollutionDiffusion();
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 4 and Variant " + variant + ", there is no relevant Pollution diffusion rule" );
+		}
+
+
+		//If they follow the ConfigurableFromRepastEnvironment interface, configure rules from environment
+		if(growbackRule instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) growbackRule).configureFromEnvironment();}
+
+		if(replacementRule instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) replacementRule).configureFromEnvironment();}
+
+		if(diffusionRule instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) diffusionRule).configureFromEnvironment();}
+
+
+
+		//create the Sugarspace agent
+		SugarSpace_ch4 s = new SugarSpace_ch4(sugar_pgm_file,spice_pgm_file, growbackRule, replacementRule, diffusionRule);
+
+
+		//create other things, if necessary
+		
+		
+		
+		//return
+		SugarSpaceFactory.single_instance = s;
+		return s;
+
+		
+		
 	}
 
 

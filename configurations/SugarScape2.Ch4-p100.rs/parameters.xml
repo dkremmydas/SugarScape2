@@ -3,8 +3,8 @@
 
 	<!--  1. Loading -->
 	<parameter name="randomSeed" displayName="1.1 Default Random Seed" type="int" defaultValue="__NULL__" />	
-	<parameter name="Chapter" type="int" displayName="Chapter" defaultValue="3"  />
-	<parameter name="Variant" type="String" displayName="Variant" defaultValue="p89"  />
+	<parameter name="Chapter" type="int" displayName="Chapter" defaultValue="4"  />
+	<parameter name="Variant" type="String" displayName="Variant" defaultValue="p100"  />
 	
 	
 	<!--  2.1 Agent Properties  -->
@@ -57,7 +57,10 @@
 	
 	<!--  3.1 Landscape Properties  -->
 	<parameter name="numberOfAgents" displayName="3.1.1 Number of initial Agents" type="int" defaultValue="400" />
-	<parameter name="regenerationRate" displayName="3.1.2 Rate of Landscape regenaration" type="int" defaultValue="1" />
+	
+	<parameter name="regenerationRate" displayName="3.1.2 Rate of Landscape regenaration of Sugar" type="int" defaultValue="1" />
+	
+	<parameter name="spice_regenerationRate" displayName="3.1.3 Rate of Landscape regenaration of Spice" type="int" defaultValue="1" />
 	
 	
 	

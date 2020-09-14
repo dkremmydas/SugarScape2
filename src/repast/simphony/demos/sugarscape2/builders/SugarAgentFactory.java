@@ -4,6 +4,7 @@ import javax.management.RuntimeErrorException;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch4;
 import repast.simphony.demos.sugarscape2.agents.rules.combat.CombatAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.combat.DefaultCombat;
 import repast.simphony.demos.sugarscape2.agents.rules.combat.NoCombat;
@@ -363,6 +364,12 @@ public class SugarAgentFactory {
 				RandomHelper.nextIntFromTo(Vision_min, Vision_max)
 				);		
 
+	}
+
+
+	public static SugarAgent_ch4 createChapter4RandomAgent(String variant) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

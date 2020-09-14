@@ -3,9 +3,11 @@ package repast.simphony.demos.sugarscape2.space;
 
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.apache.log4j.Level;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -102,8 +104,9 @@ import repast.simphony.valueLayer.GridValueLayer;
 public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
+	protected Map<String,SpaceResource> resources = new CaseInsensitiveMap<String, SpaceResource>();
 
-	protected SpaceResource sugar;
+
 
 	protected GrowbackAbility growbackRule;
 
@@ -170,6 +173,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		});
 	}
 
+	protected SugarSpace_ch2() {}
+
 
 
 
@@ -185,16 +190,16 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 			public void accept(ISchedulableAction t) {
 
 				if(! RunEnvironment.getInstance().getCurrentSchedule().removeAction(t) ) {
-					
+
 					Utility.logMessage(Level.DEBUG, "Could not remove action " + t + " even through diagnostics");
 
 				}
 
 			}
 		});
-		
+
 		actions_to_remove.clear();
-		
+
 
 		Utility.logMessage( Level.DEBUG, 
 				"Number of Agents: " + this.getObjects(SugarAgent_ch2.class).size() + ", " + 
@@ -207,9 +212,9 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	@ScheduledMethod(start=6d,interval=20d)
 	public void applyGrowback() {	
 
-		GridValueLayer sugarHoldingNew = this.growbackRule.growback(this);
+		GridValueLayer sugarHoldingNew = this.growbackRule.growback(this).get("sugar");
 
-		this.sugar.updateHolding(sugarHoldingNew);
+		this.resources.get("sugar").updateHolding(sugarHoldingNew);
 
 	}
 
@@ -266,7 +271,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		});
 
 		actions.removeAll(a.getId());
-		
+
 		this.remove(a);
 
 	}
@@ -295,7 +300,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 */
 	public GridValueLayer resourceGetCapacity(String resource) {
 		if(resource.equalsIgnoreCase("sugar")) {
-			return Utility.cloneGridValueLayer(this.sugar.getCapacity());
+			return Utility.cloneGridValueLayer(this.resources.get("sugar").getCapacity());
 		} else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
@@ -319,7 +324,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 */
 	public GridValueLayer resourceGetHolding(String resource) {
 		if(resource.equalsIgnoreCase("sugar")) {
-			return Utility.cloneGridValueLayer(this.sugar.getHolding());
+			return Utility.cloneGridValueLayer(resources.get("sugar").getHolding());
 		} else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
@@ -335,9 +340,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 */
 	public void resourceAddEverywhere(String resource,int quant) {
 
-		if(resource.equalsIgnoreCase("sugar")) {
-			sugar.addEverywhere(quant);
-		} else {
+		if(resources.containsKey(resource)) {
+			resources.get(resource).addEverywhere(quant);
+		}
+		else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 
@@ -360,9 +366,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 */
 	public int resourceAddToXY(String resource,int x, int y, int quant) {
 
-		if(resource.equalsIgnoreCase("sugar")) {
-			return sugar.addToXY(x, y, quant);
-		} else {
+		if(resources.containsKey(resource)) {
+			return resources.get(resource).addToXY(x, y, quant);
+		}
+		else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 
@@ -382,9 +389,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 */
 	public int resourceAddToXY(String resource,GridPoint gp, int quant) {
 
-		if(resource.equalsIgnoreCase("sugar")) {
-			return sugar.addToXY(gp, quant);
-		} else {
+		if(resources.containsKey(resource)) {
+			return resources.get(resource).addToXY(gp, quant);
+		}
+		else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 
@@ -405,9 +413,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 */
 	public int resourceGatherFromXY(String resource,int x, int y, int amountRequested) {
 
-		if(resource.equalsIgnoreCase("sugar")) {
-			return sugar.gatherFromXY(x, y, amountRequested);
-		} else {
+		if(resources.containsKey(resource)) {
+			return resources.get(resource).gatherFromXY(x, y, amountRequested);
+		}
+		else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 
@@ -426,9 +435,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 */
 	public int resourceGetHoldingAtXY(String resource,int x, int y) {
 
-		if(resource.equalsIgnoreCase("sugar")) {
-			return sugar.availableAtXY(x, y);
-		} else {
+		if(resources.containsKey(resource)) {
+			return resources.get(resource).availableAtXY(x, y);
+		}
+		else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
 
@@ -602,10 +612,10 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 
 		//1.5 create the sugar SpaceResource
-		this.sugar = new SpaceResource(landscape_sugarCapacity, landscape_sugarLevel);
+		this.resources.put("sugar", new SpaceResource(landscape_sugarCapacity, landscape_sugarLevel));
 
-		this.addValueLayer(sugar.capacity);
-		this.addValueLayer(sugar.holding);
+		this.addValueLayer(this.resources.get("sugar").capacity);
+		this.addValueLayer(this.resources.get("sugar").holding);
 		this.addValueLayer(landscape_pollution);
 
 		this.grid = GridFactoryFinder.createGridFactory(null)
@@ -613,8 +623,8 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 						this, 
 						GridBuilderParameters.singleOccupancy2DTorus(
 								new RandomGridAdder<Object>(), 
-								(int)sugar.capacity.getDimensions().getWidth(), 
-								(int)sugar.capacity.getDimensions().getHeight()
+								(int)this.resources.get("sugar").capacity.getDimensions().getWidth(), 
+								(int)this.resources.get("sugar").capacity.getDimensions().getHeight()
 								)
 						);
 

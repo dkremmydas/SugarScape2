@@ -2,5 +2,7 @@
   		<projection id="sugarscape" type="grid" />
 		<projection id="sugar level" type="value layer" />
 		<projection id="sugar capacity" type="value layer" />
+		<projection id="spice level" type="value layer" />
+		<projection id="spice capacity" type="value layer" />
 		<projection id="combat frequency" type="value layer" />
 </context>
