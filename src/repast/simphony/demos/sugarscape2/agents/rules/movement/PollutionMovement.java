@@ -22,21 +22,12 @@ public class PollutionMovement extends DefaultMovement {
 	
 	
 
-	public PollutionMovement(String valueLayerName) {
-		super(valueLayerName);
-	}	
-	
-		
-	
-
 	@Override
 	public GridPoint move(SugarAgent_ch2 a,Set<GridPoint> gs) {
 		
 		if(gs.isEmpty()) {
 			return a.getCurrentPosition();
 		}
-		
-		String valueLayerName = this.getValueLayerName();
 		
 		//1. Get points that the agent can sees
 		List<GridPoint> gps = new ArrayList<GridPoint>(gs);
@@ -46,7 +37,7 @@ public class PollutionMovement extends DefaultMovement {
 		//2. Sort the points by available quantity
 		Collections.sort(gps, new Comparator<GridPoint>() {
 			
-			GridValueLayer gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer(valueLayerName);
+			GridValueLayer gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer("sugar level");
 			GridValueLayer pollution_vl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer("pollution");
 			
 			

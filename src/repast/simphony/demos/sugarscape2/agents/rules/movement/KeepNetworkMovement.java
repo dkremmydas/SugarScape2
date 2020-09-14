@@ -27,11 +27,6 @@ public class KeepNetworkMovement extends DefaultMovement implements Configurable
 	 */	
 	protected Utility.TypeOfVision typeOfVision;
 
-
-	public KeepNetworkMovement(String valueLayerName) {
-		super(valueLayerName);
-	}
-
 	private Set<SugarAgent_ch2> neighbors = new HashSet<SugarAgent_ch2>();
 
 

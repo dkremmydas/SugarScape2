@@ -275,7 +275,7 @@ public class SugarAgent_ch2 {
 
 				SugarSpaceFactory.getSugarspace().gridMoveAgentTo(this, new_pos.getX(),new_pos.getY());
 
-				int sugar_to_gather = this.gatherRule.gather(this, new_pos);
+				int sugar_to_gather = this.gatherRule.gather(this, new_pos).get("sugar");
 
 				int sugar_gathered =  SugarSpaceFactory.getSugarspace().resourceGatherFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
 

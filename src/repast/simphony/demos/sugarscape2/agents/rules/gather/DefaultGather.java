@@ -1,5 +1,7 @@
 package repast.simphony.demos.sugarscape2.agents.rules.gather;
 
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
+
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
 import repast.simphony.space.grid.GridPoint;
@@ -31,27 +33,31 @@ public class DefaultGather implements GatherAbility {
 	
 
 	@Override
-	public int gather(SugarAgent_ch2 a,GridPoint g) {
+	public CaseInsensitiveMap<String, Integer> gather(SugarAgent_ch2 a,GridPoint g) {
+		
+		CaseInsensitiveMap<String, Integer>  r = new CaseInsensitiveMap<String, Integer>();
 		
 		GridValueLayer gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer(valueLayerName);
 		
 		gathered_last_time = (int) gvl.get(g.getX(),g.getY());
 		
-		return gathered_last_time;
+		r.put("sugar", gathered_last_time);
+		
+		return r;
 		
 	}
 
 
-	
-	@Override
-	public String getValueLayerName() {
-		return valueLayerName;
-	}
-
 
 	@Override
-	public int getAmountGathered(SugarAgent_ch2 a) {
-		return gathered_last_time;
+	public CaseInsensitiveMap<String, Integer> getAmountGathered(SugarAgent_ch2 a) {
+		
+		CaseInsensitiveMap<String, Integer>  r = new CaseInsensitiveMap<String, Integer>();
+		
+		r.put("sugar", gathered_last_time);
+		
+		return( r);
+		
 	}
 	
 	

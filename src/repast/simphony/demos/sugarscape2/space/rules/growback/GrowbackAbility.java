@@ -1,6 +1,6 @@
 package repast.simphony.demos.sugarscape2.space.rules.growback;
 
-import java.util.Map;
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
 
 import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
 import repast.simphony.valueLayer.GridValueLayer;
@@ -23,7 +23,7 @@ public interface GrowbackAbility {
 	 * @param s the SugarSpace agent
 	 * @return
 	 */
-	public Map<String,GridValueLayer> growback(SugarSpace_ch2 s);
+	public CaseInsensitiveMap<String,GridValueLayer> growback(SugarSpace_ch2 s);
 	
 	
 

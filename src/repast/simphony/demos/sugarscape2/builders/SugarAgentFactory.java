@@ -31,6 +31,8 @@ import repast.simphony.demos.sugarscape2.agents.rules.sex.DefaultSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.DefaultVision;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.welfare.DefaultWelfare;
+import repast.simphony.demos.sugarscape2.agents.rules.welfare.WelfareAbility;
 import repast.simphony.demos.sugarscape2.utilities.ConfigurableFromRepastEnvironment;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
@@ -49,155 +51,6 @@ public class SugarAgentFactory {
 
 		return SugarAgentFactory.createChapter3RandomAgent(variant, agent_ch2);
 	}
-
-
-	public static SugarAgent_ch3 createChapter3RandomAgent(String variant,SugarAgent_ch2 agent_ch2) {
-
-
-		//get the childbreeding age range
-		SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(0, SugarAgent_ch3.Sex.values().length-1)];
-
-		int childbearing_start,childbearing_end;
-
-		if(sex.equals(SugarAgent_ch3.Sex.MALE)) {
-			childbearing_start = RandomHelper.nextIntFromTo(
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_men"), 
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_men")
-					);
-			childbearing_end = RandomHelper.nextIntFromTo(
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_men"), 
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_men")
-					);
-		} else {
-			childbearing_start = RandomHelper.nextIntFromTo(
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_women"), 
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_women")
-					);
-			childbearing_end = RandomHelper.nextIntFromTo(
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_women"), 
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_women")
-					);
-		}
-
-		int tagString_length = RunEnvironment.getInstance().getParameters().getInteger("tagString_length");
-
-
-
-
-		//Create rules
-		SexAbility sa;
-		InheritanceAbility ia;
-		CulturalAbility ca;
-		CombatAbility cmba;
-
-
-		//SexAbility
-		switch(variant) {
-		case "p58":
-		case "p68":
-			sa = new DefaultSexAbility(); 
-			break;
-
-		case "p79":
-		case "p89":
-			sa = new CulturalSexAbility(); 
-			break;
-
-		default:
-			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant SexAbility rule" );
-
-		}
-
-
-		//InheritanceAbility
-		switch(variant) {
-		case "p58":
-		case "p79":
-		case "p89":
-			ia = new NoInheritance(); 
-			break;
-
-		case "p68":
-			ia = new DefaultInheritance(); 
-			break;
-
-		default:
-			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant InheritanceAbility rule" );
-
-		}
-
-
-		//CulturalAbility
-		switch(variant) {
-		case "p58":
-		case "p68":
-			ca = new NoCulture(); 
-			break;
-
-		case "p79":
-		case "p89":
-			ca = new DefaultCulture(); 
-			break;
-
-		default:
-			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant CulturalAbility rule" );
-
-		}
-
-
-		//CombatAbility
-		switch(variant) {
-		case "p58":
-		case "p68":
-		case "p79":
-			cmba = new NoCombat(); 
-			break;
-
-		
-		case "p89":
-			cmba = new DefaultCombat(); 
-			break;
-
-		default:
-			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant CulturalAbility rule" );
-
-		}
-
-
-		//Configure environmental rules
-		if(sa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) sa).configureFromEnvironment();}
-
-		if(ia instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ia).configureFromEnvironment();}
-
-		if(ca instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ca).configureFromEnvironment();}
-		
-		if(cmba instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) cmba).configureFromEnvironment();}
-
-
-
-		//create random Tag
-		Boolean[] tagString = new Boolean[tagString_length];
-		for(int i=0; i<tagString_length; i++) {
-			tagString[i]=(RandomHelper.nextIntFromTo(0, 1)==0);
-		}
-
-
-		//create agent
-		SugarAgent_ch3 agent = new SugarAgent_ch3.Builder(agent_ch2)
-				.withSex(sex)
-				.withChildBearingAge(childbearing_start,childbearing_end)
-				.withTag(tagString)
-				.withSexAbility(sa)
-				.withInheritanceAbility(ia)
-				.withCulturalAbility(ca)
-				.withCombatAbility(cmba)
-				.build();
-
-		return agent;
-
-
-	}
-
 
 
 
@@ -225,6 +78,7 @@ public class SugarAgentFactory {
 		case "p68":
 		case "p79":
 		case "p89":
+		case "p100":
 			da = new FiniteLifeDeath();
 			break;
 		default:
@@ -242,8 +96,10 @@ public class SugarAgentFactory {
 		case "p68":
 		case "p79":
 		case "p89":
+		case "p100":
 			ga = new DefaultGather("sugar level");
 			break;
+			
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant GatherAbility rule" );
 		}
@@ -257,15 +113,16 @@ public class SugarAgentFactory {
 		case "p68":
 		case "p79":
 		case "p89":
-			ma = new DefaultMovement("sugar level");
+		case "p100":
+			ma = new DefaultMovement();
 			break;
 			
 		case "p41":
-			ma = new KeepNetworkMovement("sugar level");
+			ma = new KeepNetworkMovement();
 			break;
 			
 		case "p50":
-			ma = new PollutionMovement("sugar level");
+			ma = new PollutionMovement();
 			break;
 			
 		default:
@@ -283,6 +140,7 @@ public class SugarAgentFactory {
 		case "p68":
 		case "p79":
 		case "p89":
+		case "p100":
 			va = new DefaultVision();
 			break;
 			
@@ -300,6 +158,7 @@ public class SugarAgentFactory {
 		case "p68":
 		case "p79":
 		case "p89":
+		case "p100":
 			pa = new NoPollution();
 			break;
 			
@@ -351,7 +210,7 @@ public class SugarAgentFactory {
 		int Metabolism_min = RunEnvironment.getInstance().getParameters().getInteger("Metabolism_min");
 		int Metabolism_max = RunEnvironment.getInstance().getParameters().getInteger("Metabolism_max");
 
-		int InitEndownment_min = RunEnvironment.getInstance().getParameters().getInteger("InitEndownment_max");
+		int InitEndownment_min = RunEnvironment.getInstance().getParameters().getInteger("InitEndownment_min");
 		int InitEndownment_max = RunEnvironment.getInstance().getParameters().getInteger("InitEndownment_max");
 
 
@@ -365,11 +224,209 @@ public class SugarAgentFactory {
 				);		
 
 	}
+	
+
+
+	public static SugarAgent_ch3 createChapter3RandomAgent(String variant,SugarAgent_ch2 agent_ch2) {
+
+
+		//get the childbreeding age range
+		SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(0, SugarAgent_ch3.Sex.values().length-1)];
+
+		int childbearing_start,childbearing_end;
+
+		if(sex.equals(SugarAgent_ch3.Sex.MALE)) {
+			childbearing_start = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_men"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_men")
+					);
+			childbearing_end = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_men"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_men")
+					);
+		} else {
+			childbearing_start = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_women"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_women")
+					);
+			childbearing_end = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_women"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_women")
+					);
+		}
+
+		int tagString_length = RunEnvironment.getInstance().getParameters().getInteger("tagString_length");
+
+
+
+
+		//Create rules
+		SexAbility sa;
+		InheritanceAbility ia;
+		CulturalAbility ca;
+		CombatAbility cmba;
+
+
+		//SexAbility
+		switch(variant) {
+		case "p58":
+		case "p68":
+		case "p100":
+			sa = new DefaultSexAbility(); 
+			break;
+
+		case "p79":
+		case "p89":
+			sa = new CulturalSexAbility(); 
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant SexAbility rule" );
+
+		}
+
+
+		//InheritanceAbility
+		switch(variant) {
+		case "p58":
+		case "p79":
+		case "p89":
+		case "p100":
+			ia = new NoInheritance(); 
+			break;
+
+		case "p68":
+			ia = new DefaultInheritance(); 
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant InheritanceAbility rule" );
+
+		}
+
+
+		//CulturalAbility
+		switch(variant) {
+		case "p58":
+		case "p68":
+		case "p100":
+			ca = new NoCulture(); 
+			break;
+
+		case "p79":
+		case "p89":
+			ca = new DefaultCulture(); 
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant CulturalAbility rule" );
+
+		}
+
+
+		//CombatAbility
+		switch(variant) {
+		case "p58":
+		case "p68":
+		case "p79":
+		case "p100":
+			cmba = new NoCombat(); 
+			break;
+
+		case "p89":
+			cmba = new DefaultCombat(); 
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 3 and Variant " + variant + ", there is no relevant CulturalAbility rule" );
+
+		}
+
+
+		//Configure environmental rules
+		if(sa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) sa).configureFromEnvironment();}
+
+		if(ia instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ia).configureFromEnvironment();}
+
+		if(ca instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ca).configureFromEnvironment();}
+		
+		if(cmba instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) cmba).configureFromEnvironment();}
+
+
+
+		//create random Tag
+		Boolean[] tagString = new Boolean[tagString_length];
+		for(int i=0; i<tagString_length; i++) {
+			tagString[i]=(RandomHelper.nextIntFromTo(0, 1)==0);
+		}
+
+
+		//create agent
+		SugarAgent_ch3 agent = new SugarAgent_ch3.Builder(agent_ch2)
+				.withSex(sex)
+				.withChildBearingAge(childbearing_start,childbearing_end)
+				.withTag(tagString)
+				.withSexAbility(sa)
+				.withInheritanceAbility(ia)
+				.withCulturalAbility(ca)
+				.withCombatAbility(cmba)
+				.build();
+
+		return agent;
+
+
+	}
 
 
 	public static SugarAgent_ch4 createChapter4RandomAgent(String variant) {
-		// TODO Auto-generated method stub
-		return null;
+
+
+		SugarAgent_ch3 agent_ch3 = createChapter3RandomAgent(variant);
+		
+		int spice_Metabolism_min = RunEnvironment.getInstance().getParameters().getInteger("Spice_Metabolism_min");
+		int spice_Metabolism_max = RunEnvironment.getInstance().getParameters().getInteger("Spice_Metabolism_max");
+
+		int spice_InitEndownment_min = RunEnvironment.getInstance().getParameters().getInteger("Spice_InitEndownment_min");
+		int spice_InitEndownment_max = RunEnvironment.getInstance().getParameters().getInteger("Spice_InitEndownment_max");
+
+
+
+		//Create rules
+		WelfareAbility wa;
+		//TradeAbility ta;
+
+
+		//SexAbility
+		switch(variant) {
+		case "p100":
+			wa = new DefaultWelfare(); 
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 4 and Variant " + variant + ", there is no relevant SexAbility rule" );
+
+		}
+
+		//TradeAbility
+		
+
+		//Configure environmental rules
+		if(wa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) wa).configureFromEnvironment();}
+
+
+
+		//create agent
+		SugarAgent_ch4 agent = new SugarAgent_ch4.Builder(agent_ch3)
+				.withSpice(
+						RandomHelper.nextIntFromTo(spice_Metabolism_min, spice_Metabolism_max), 
+						RandomHelper.nextIntFromTo(spice_InitEndownment_min, spice_InitEndownment_max)
+						)
+				.withWelfareAbility(wa)
+				.build();
+
+		return agent;
+		
+		
 	}
 
 

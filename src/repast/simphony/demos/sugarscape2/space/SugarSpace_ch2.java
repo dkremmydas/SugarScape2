@@ -323,11 +323,15 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @throws RunTimeException if the resource does not exist
 	 */
 	public GridValueLayer resourceGetHolding(String resource) {
-		if(resource.equalsIgnoreCase("sugar")) {
+		
+		if(resources.containsKey(resource)) {
 			return Utility.cloneGridValueLayer(resources.get("sugar").getHolding());
-		} else {
+		}
+		else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
+		
+
 	}
 
 

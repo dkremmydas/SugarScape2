@@ -1,7 +1,5 @@
 package repast.simphony.demos.sugarscape2.space.rules.growback;
 
-import java.util.Map;
-
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 
 import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
@@ -24,9 +22,9 @@ public class DefaultGrowback implements GrowbackAbility, ConfigurableFromRepastE
 
 
 	@Override
-	public Map<String, GridValueLayer> growback(SugarSpace_ch2 s) {
+	public CaseInsensitiveMap<String, GridValueLayer> growback(SugarSpace_ch2 s) {
 
-		Map<String, GridValueLayer> r = new CaseInsensitiveMap<String, GridValueLayer>();
+		CaseInsensitiveMap<String, GridValueLayer> r = new CaseInsensitiveMap<String, GridValueLayer>();
 		
 		if(regeneration_rate<0) {
 			r.put("sugar", s.resourceGetCapacity("sugar"));

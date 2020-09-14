@@ -6,6 +6,10 @@ import repast.simphony.demos.sugarscape2.agents.rules.welfare.WelfareAbility;
 public class SugarAgent_ch4 extends SugarAgent_ch3 {
 	
 	
+	// properties
+	
+	
+	
 	
 	// rules
 	

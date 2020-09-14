@@ -20,12 +20,6 @@ import repast.simphony.space.grid.GridPoint;
 public class RandomMovement extends DefaultMovement {
 	
 
-
-	public RandomMovement(String valueLayerName) {
-		super(valueLayerName);
-	}
-
-
 	@Override
 	public GridPoint move(SugarAgent_ch2 a,Set<GridPoint> gs) {
 
