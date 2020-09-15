@@ -209,7 +209,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	/**
 	 * The growback rule. Every second tick, the sugar resource in each grid cell is updated.
 	 */
-	@ScheduledMethod(start=6d,interval=20d)
+	@ScheduledMethod(start=7d,interval=20d)
 	public void applyGrowback() {	
 
 		GridValueLayer sugarHoldingNew = this.growbackRule.growback(this).get("sugar");
@@ -240,14 +240,26 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 		this.add(a);
 
 		double cur_tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		
+		//We cannot be sure the tick that the agent will be aded
+		//	so, we need to find the next period start (always a multiple of 10)
+		double next_period_start = cur_tick + (10-(cur_tick%10));
 
-		ISchedulableAction ac = RunEnvironment.getInstance().getCurrentSchedule().schedule(
-				ScheduleParameters.createRepeating(cur_tick+1+1, 10d), 
+		ISchedulableAction ac_m = RunEnvironment.getInstance().getCurrentSchedule().schedule(
+				ScheduleParameters.createRepeating(next_period_start+1, 10d), 
 				a, 
-				"step"
+				"applyRuleM"
+				);
+		
+		ISchedulableAction ac_p = RunEnvironment.getInstance().getCurrentSchedule().schedule(
+				ScheduleParameters.createRepeating(next_period_start+2, 10d), 
+				a, 
+				"applyRuleP"
 				);
 
-		actions.put(a.getId(), ac);
+		actions.put(a.getId(), ac_m);
+		actions.put(a.getId(), ac_p);
+		
 	}
 
 

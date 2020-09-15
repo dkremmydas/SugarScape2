@@ -6,7 +6,6 @@ import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
-import repast.simphony.valueLayer.ValueLayer;
 
 
 /**
@@ -20,24 +19,13 @@ public class DefaultGather implements GatherAbility {
 	int gathered_last_time = 0;
 	
 	
-	/**
-	 * The name of the {@link ValueLayer} of the resource
-	 */
-	private String valueLayerName;
-	
-	
-	
-	public DefaultGather(String valueLayerName) {
-		this.valueLayerName  = valueLayerName;
-	}	
-	
 
 	@Override
 	public CaseInsensitiveMap<String, Integer> gather(SugarAgent_ch2 a,GridPoint g) {
 		
 		CaseInsensitiveMap<String, Integer>  r = new CaseInsensitiveMap<String, Integer>();
 		
-		GridValueLayer gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer(valueLayerName);
+		GridValueLayer gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer("sugar level");
 		
 		gathered_last_time = (int) gvl.get(g.getX(),g.getY());
 		

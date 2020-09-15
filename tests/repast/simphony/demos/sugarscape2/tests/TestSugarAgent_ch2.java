@@ -90,7 +90,8 @@ public class TestSugarAgent_ch2 {
 	public void testapplyRuleM() {
 		GridPoint old_position = this.context.gridGetAgentLocation(this.a);
 		System.out.println("Agent before Move:\n"+a.toString()+"\n");
-		this.a.step();
+		this.a.applyRuleM();
+		this.a.applyRuleP();
 		System.out.println("Agent after Move:\n"+a.toString()+"\n");
 		
 		if(this.a.isAlive()) {

@@ -30,9 +30,12 @@ public class SugarSpace_ch3 extends SugarSpace_ch2 {
 		super.addSugarAgent((SugarAgent_ch2)a);
 
 		double cur_tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		
+		double next_period_start = cur_tick + (10-(cur_tick%10));
+		
 
 		ISchedulableAction ac_S = RunEnvironment.getInstance().getCurrentSchedule().schedule(
-				ScheduleParameters.createRepeating(cur_tick+1+3, 10d), 
+				ScheduleParameters.createRepeating(next_period_start+3, 10d), 
 				a, 
 				"applyRuleS"
 				);
@@ -41,7 +44,7 @@ public class SugarSpace_ch3 extends SugarSpace_ch2 {
 		
 		
 		ISchedulableAction ac_K = RunEnvironment.getInstance().getCurrentSchedule().schedule(
-				ScheduleParameters.createRepeating(cur_tick+1+5, 10d), 
+				ScheduleParameters.createRepeating(next_period_start+4, 10d), 
 				a, 
 				"applyRuleK"
 				);
@@ -50,7 +53,7 @@ public class SugarSpace_ch3 extends SugarSpace_ch2 {
 		
 		
 		ISchedulableAction ac_C = RunEnvironment.getInstance().getCurrentSchedule().schedule(
-				ScheduleParameters.createRepeating(cur_tick+1+6, 10d), 
+				ScheduleParameters.createRepeating(next_period_start+5, 10d), 
 				a, 
 				"applyRuleC"
 				);

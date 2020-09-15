@@ -3,9 +3,12 @@ package repast.simphony.demos.sugarscape2.agents;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
+
+import com.google.common.collect.ImmutableSet;
 
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
@@ -151,6 +154,9 @@ public class SugarAgent_ch2 {
 
 
 
+	public Set<String> resourceAvailableResources() {
+		return ImmutableSet.copyOf(resources.keySet());
+	}
 
 	public int resourceGetHolding(String resource) {
 		
@@ -264,30 +270,47 @@ public class SugarAgent_ch2 {
 	/* Scheduled actions of the agent */
 
 
-	public void step() {
+	public void applyRuleM() {
 
 		if(isAlive) {
+			
+			//see
 			Set<GridPoint> points_seen = this.visionRule.seeEmpty(this);
 
+			//gather
 			if(! points_seen.isEmpty()) {
 
 				GridPoint new_pos = this.movementRule.move(this, points_seen);
 
 				SugarSpaceFactory.getSugarspace().gridMoveAgentTo(this, new_pos.getX(),new_pos.getY());
+				
+				CaseInsensitiveMap<String, Integer>  resources_gathered = this.gatherRule.gather(this, new_pos);
+				
+				resources_gathered.forEach(new BiConsumer<String, Integer>() {
 
-				int sugar_to_gather = this.gatherRule.gather(this, new_pos).get("sugar");
+					@Override
+					public void accept(String resource, Integer gathered) {
 
-				int sugar_gathered =  SugarSpaceFactory.getSugarspace().resourceGatherFromXY("sugar",new_pos.getX(), new_pos.getY(), sugar_to_gather);
+						int actual_sugar_gathered =  SugarSpaceFactory.getSugarspace().resourceGatherFromXY(resource,new_pos.getX(), new_pos.getY(), gathered);
+						
+						resourceStore(resource,actual_sugar_gathered);
+						
+					}
+				});
 
-				this.resourceStore("sugar",sugar_gathered);
-
-				this.resourceUse("sugar", this.resourceGetMetabolism("sugar"));
-
-				this.pollute();
 			}
+			
+			//metabolize
+			resources.forEach(new BiConsumer<String, AgentResource>() {
 
+				@Override
+				public void accept(String resource_name, AgentResource resource) {
 
+					resourceUse(resource_name, resourceGetMetabolism(resource_name));
+				}
+			});
 
+			
 			//die if sugar holding<0
 			if(this.dieRule.shallDie(this)) {
 				this.die();		
@@ -298,21 +321,25 @@ public class SugarAgent_ch2 {
 
 	}
 
-	protected void pollute() {
+	public void applyRuleP() {
+		
+		if(isAlive) {
+			
+			Map<GridPoint,Integer> pollution = this.pollutionRule.pollute(this);
 
-		Map<GridPoint,Integer> pollution = this.pollutionRule.pollute(this);
+			GridValueLayer pollution_gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer("pollution");
 
-		GridValueLayer pollution_gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer("pollution");
+			for (GridPoint gp: pollution.keySet()) {
 
-		for (GridPoint gp: pollution.keySet()) {
+				int pollution_cur = (int) pollution_gvl.get(gp.getX(),gp.getY());
 
-			int pollution_cur = (int) pollution_gvl.get(gp.getX(),gp.getY());
+				int pollution_new = pollution.get(gp);
 
-			int pollution_new = pollution.get(gp);
+				pollution_gvl.set(pollution_cur+pollution_new, gp.getX(),gp.getY());
 
-			pollution_gvl.set(pollution_cur+pollution_new, gp.getX(),gp.getY());
-
+			}
 		}
+
 	}
 
 

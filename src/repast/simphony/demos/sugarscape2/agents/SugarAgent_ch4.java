@@ -20,6 +20,16 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 	
 	
 
+	
+
+
+	public WelfareAbility getWelfareAbility() {
+		return welfareAbility;
+	}
+
+
+
+
 
 
 	/**

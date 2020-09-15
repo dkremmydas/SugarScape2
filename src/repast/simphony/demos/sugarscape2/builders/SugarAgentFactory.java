@@ -14,7 +14,9 @@ import repast.simphony.demos.sugarscape2.agents.rules.culture.NoCulture;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DefaultDeath;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.death.FiniteLifeDeath;
+import repast.simphony.demos.sugarscape2.agents.rules.death.FiniteLifeDeathSugarSpice;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.DefaultGather;
+import repast.simphony.demos.sugarscape2.agents.rules.gather.DefaultGatherSugarSpice;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.inheritance.DefaultInheritance;
 import repast.simphony.demos.sugarscape2.agents.rules.inheritance.InheritanceAbility;
@@ -22,6 +24,7 @@ import repast.simphony.demos.sugarscape2.agents.rules.inheritance.NoInheritance;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.DefaultMovement;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.KeepNetworkMovement;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.movement.DefaultMovementSugarSpice;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.PollutionMovement;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.DefaultPollution;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.NoPollution;
@@ -72,15 +75,19 @@ public class SugarAgentFactory {
 		case "p50":
 			da = new DefaultDeath();
 			break;
-			
+
 		case "p37":
 		case "p58":
 		case "p68":
 		case "p79":
 		case "p89":
-		case "p100":
 			da = new FiniteLifeDeath();
 			break;
+		
+		case "p100":
+			da = new FiniteLifeDeathSugarSpice();
+			break;
+			
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant DieAbility rule" );
 		}
@@ -96,10 +103,14 @@ public class SugarAgentFactory {
 		case "p68":
 		case "p79":
 		case "p89":
-		case "p100":
-			ga = new DefaultGather("sugar level");
+			ga = new DefaultGather();
+
 			break;
-			
+
+		case "p100":
+			ga = new DefaultGatherSugarSpice();
+			break;
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant GatherAbility rule" );
 		}
@@ -113,18 +124,21 @@ public class SugarAgentFactory {
 		case "p68":
 		case "p79":
 		case "p89":
-		case "p100":
 			ma = new DefaultMovement();
 			break;
-			
+
 		case "p41":
 			ma = new KeepNetworkMovement();
 			break;
-			
+
 		case "p50":
 			ma = new PollutionMovement();
 			break;
 			
+		case "p100":
+			ma = new DefaultMovementSugarSpice();
+			break;
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant MovementAbility rule" );
 		}
@@ -143,7 +157,7 @@ public class SugarAgentFactory {
 		case "p100":
 			va = new DefaultVision();
 			break;
-			
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant VisionAbility rule" );
 		}
@@ -161,7 +175,7 @@ public class SugarAgentFactory {
 		case "p100":
 			pa = new NoPollution();
 			break;
-			
+
 		case "p50":
 			pa = new DefaultPollution();
 			break;
@@ -224,7 +238,7 @@ public class SugarAgentFactory {
 				);		
 
 	}
-	
+
 
 
 	public static SugarAgent_ch3 createChapter3RandomAgent(String variant,SugarAgent_ch2 agent_ch2) {
@@ -349,7 +363,7 @@ public class SugarAgentFactory {
 		if(ia instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ia).configureFromEnvironment();}
 
 		if(ca instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ca).configureFromEnvironment();}
-		
+
 		if(cmba instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) cmba).configureFromEnvironment();}
 
 
@@ -382,7 +396,7 @@ public class SugarAgentFactory {
 
 
 		SugarAgent_ch3 agent_ch3 = createChapter3RandomAgent(variant);
-		
+
 		int spice_Metabolism_min = RunEnvironment.getInstance().getParameters().getInteger("Spice_Metabolism_min");
 		int spice_Metabolism_max = RunEnvironment.getInstance().getParameters().getInteger("Spice_Metabolism_max");
 
@@ -408,7 +422,7 @@ public class SugarAgentFactory {
 		}
 
 		//TradeAbility
-		
+
 
 		//Configure environmental rules
 		if(wa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) wa).configureFromEnvironment();}
@@ -425,8 +439,8 @@ public class SugarAgentFactory {
 				.build();
 
 		return agent;
-		
-		
+
+
 	}
 
 
