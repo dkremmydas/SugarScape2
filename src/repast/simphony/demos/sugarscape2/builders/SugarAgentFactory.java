@@ -432,8 +432,8 @@ public class SugarAgentFactory {
 		//create agent
 		SugarAgent_ch4 agent = new SugarAgent_ch4.Builder(agent_ch3)
 				.withSpice(
-						RandomHelper.nextIntFromTo(spice_Metabolism_min, spice_Metabolism_max), 
-						RandomHelper.nextIntFromTo(spice_InitEndownment_min, spice_InitEndownment_max)
+						RandomHelper.nextIntFromTo(spice_InitEndownment_min, spice_InitEndownment_max),
+						RandomHelper.nextIntFromTo(spice_Metabolism_min, spice_Metabolism_max)
 						)
 				.withWelfareAbility(wa)
 				.build();

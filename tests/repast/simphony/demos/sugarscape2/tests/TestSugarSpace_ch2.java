@@ -2,7 +2,7 @@ package repast.simphony.demos.sugarscape2.tests;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
@@ -17,8 +17,8 @@ public class TestSugarSpace_ch2 {
 
 	//static SugarSpace_ch2 context_ch2;
 	
-	@BeforeClass
-	public static void setUp () throws Exception {
+	@Before
+	public  void setUp () throws Exception {
 		Schedule schedule = new Schedule ();
 		
 		DefaultParameters parms_ch2 = new DefaultParameters();
@@ -32,7 +32,7 @@ public class TestSugarSpace_ch2 {
 		parms_ch2.addParameter("Metabolism_min", "", Integer.class,4, true);
 		parms_ch2.addParameter("Metabolism_max", "", Integer.class,4, true);
 		
-		parms_ch2.addParameter("InitEndownment_max", "", Integer.class, 10, true);
+		parms_ch2.addParameter("InitEndownment_min", "", Integer.class, 5, true);
 		parms_ch2.addParameter("InitEndownment_max", "", Integer.class, 10, true);
 		
 		
@@ -58,13 +58,17 @@ public class TestSugarSpace_ch2 {
 		
 		sp.addSugarAgent(a);
 		
-		assertEquals("Number of Behaviors after adding ONE Agent",1,RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+		assertEquals("Number of Behaviors after adding ONE Agent",2,RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+		
+		sp.addSugarAgent(a);
+		
+		assertEquals("Number of Behaviors after adding ANOTHER ONE Agent",4,RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		
 		RunEnvironment.getInstance().getCurrentSchedule().execute();
 		
 		sp.removeSugarAgent(a);
 		
-		RunEnvironment.getInstance().getCurrentSchedule().execute();
+		RunEnvironment.getInstance().getCurrentSchedule().execute(); RunEnvironment.getInstance().getCurrentSchedule().execute(); 
 		
 		assertEquals("Number of Behaviors after removing THE Agent",0,RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
 		

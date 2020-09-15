@@ -181,7 +181,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	// Application of Rules of  the Sugarspace
 	//****************************************************************************************************************************************************
 
-	@ScheduledMethod(start=10d,interval=10d,priority = -1000d)
+	@ScheduledMethod(start=0d,interval=1d,priority = 1000d)
 	public void diagnostics() {
 
 		actions_to_remove.forEach(new Consumer<ISchedulableAction>() {
@@ -200,10 +200,12 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 
 		actions_to_remove.clear();
 
-
-		Utility.logMessage( Level.DEBUG, 
-				"Number of Agents: " + this.getObjects(SugarAgent_ch2.class).size() + ", " + 
-						"Number of scheduled methods: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+		if(((int)RunEnvironment.getInstance().getCurrentSchedule().getTickCount())%10==0   ) {
+			Utility.logMessage( Level.DEBUG, 
+					"Number of Agents: " + this.getObjects(SugarAgent_ch2.class).size() + ", " + 
+							"Number of scheduled methods: " + RunEnvironment.getInstance().getCurrentSchedule().getActionCount());
+		}
+		
 	}
 
 	/**
@@ -275,7 +277,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 					actions_to_remove.add(t);
 
 					Utility.logMessage(Level.DEBUG, "Could not remove action " + t + " of agent " + a
-							+ "\n Action added to be removed on diagnostics stage (t=10)");
+							+ "\n Action added to be removed on diagnostics stage (t=10n)");
 
 				}
 

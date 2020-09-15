@@ -45,7 +45,7 @@ public class SugarAgent_ch2 {
 	 * We have abstracted the properties and the operations related to a resource into a Resource class.
 	 * TODO[explain the flexibility of this approach: We can use many resources in the future]
 	 */
-		
+
 	protected Map<String,AgentResource> resources = new CaseInsensitiveMap<String, AgentResource>();
 
 
@@ -159,18 +159,18 @@ public class SugarAgent_ch2 {
 	}
 
 	public int resourceGetHolding(String resource) {
-		
+
 		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
-		
+
 		return this.resources.get(resource).holding;
 
 	}
 
 
 	public int resourceGetInitialEndownment(String resource) {
-		
+
 		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
@@ -180,7 +180,7 @@ public class SugarAgent_ch2 {
 
 
 	public int resourceGetMetabolism(String resource) {
-		
+
 		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
@@ -191,7 +191,7 @@ public class SugarAgent_ch2 {
 
 
 	public void resourceUse(String resource, int quantity) {
-		
+
 		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
@@ -202,7 +202,7 @@ public class SugarAgent_ch2 {
 
 
 	public void resourceStore(String resource, int quantity) {
-		
+
 		if(! resources.containsKey(resource)) {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
@@ -272,8 +272,10 @@ public class SugarAgent_ch2 {
 
 	public void applyRuleM() {
 
+		SugarAgent_ch2 a = this;
+
 		if(isAlive) {
-			
+
 			//see
 			Set<GridPoint> points_seen = this.visionRule.seeEmpty(this);
 
@@ -283,23 +285,22 @@ public class SugarAgent_ch2 {
 				GridPoint new_pos = this.movementRule.move(this, points_seen);
 
 				SugarSpaceFactory.getSugarspace().gridMoveAgentTo(this, new_pos.getX(),new_pos.getY());
-				
+
 				CaseInsensitiveMap<String, Integer>  resources_gathered = this.gatherRule.gather(this, new_pos);
-				
+
 				resources_gathered.forEach(new BiConsumer<String, Integer>() {
 
 					@Override
 					public void accept(String resource, Integer gathered) {
 
-						int actual_sugar_gathered =  SugarSpaceFactory.getSugarspace().resourceGatherFromXY(resource,new_pos.getX(), new_pos.getY(), gathered);
-						
-						resourceStore(resource,actual_sugar_gathered);
-						
+						int actual_resource_gathered = SugarSpaceFactory.getSugarspace().resourceGatherFromXY(resource,new_pos.getX(), new_pos.getY(), gathered);
+
+						resourceStore(resource,actual_resource_gathered);				
 					}
 				});
 
 			}
-			
+
 			//metabolize
 			resources.forEach(new BiConsumer<String, AgentResource>() {
 
@@ -310,7 +311,7 @@ public class SugarAgent_ch2 {
 				}
 			});
 
-			
+
 			//die if sugar holding<0
 			if(this.dieRule.shallDie(this)) {
 				this.die();		
@@ -322,9 +323,9 @@ public class SugarAgent_ch2 {
 	}
 
 	public void applyRuleP() {
-		
+
 		if(isAlive) {
-			
+
 			Map<GridPoint,Integer> pollution = this.pollutionRule.pollute(this);
 
 			GridValueLayer pollution_gvl = (GridValueLayer)  SugarSpaceFactory.getSugarspace().getValueLayer("pollution");
