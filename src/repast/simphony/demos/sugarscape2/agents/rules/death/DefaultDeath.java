@@ -14,12 +14,22 @@ public class DefaultDeath implements DieAbility  {
 	
 	@Override
 	public boolean shallDie(SugarAgent_ch2 a) {
-		if(a.resourceGetHolding("sugar") < 0) {
-			return  true;	
-		} 	else {
-			return false;
+
+
+		boolean dieFromStavation = false;
+
+		for(String resource: a.resourceAvailableResources()) {
+
+			if(a.resourceGetHolding(resource)< 0) {
+				dieFromStavation = true;
+			}
 		}
+
+
+		return (dieFromStavation);
+
 	}
+	
 	
 
 	

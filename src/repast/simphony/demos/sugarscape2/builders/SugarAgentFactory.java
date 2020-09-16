@@ -74,6 +74,7 @@ public class SugarAgentFactory {
 		case "p30":
 		case "p41":
 		case "p50":
+		case "p100":
 			da = new DefaultDeath();
 			break;
 
@@ -85,9 +86,6 @@ public class SugarAgentFactory {
 			da = new FiniteLifeDeath();
 			break;
 		
-		case "p100":
-			da = new FiniteLifeDeathSugarSpice();
-			break;
 			
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant DieAbility rule" );
