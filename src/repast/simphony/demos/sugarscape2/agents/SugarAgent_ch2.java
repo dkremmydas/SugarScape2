@@ -272,8 +272,6 @@ public class SugarAgent_ch2 {
 
 	public void applyRuleM() {
 
-		SugarAgent_ch2 a = this;
-
 		if(isAlive) {
 
 			//see

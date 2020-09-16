@@ -9,9 +9,11 @@ public class DefaultWelfare implements WelfareAbility {
 		
 		int metabolism_total = a.resourceGetMetabolism("sugar") + a.resourceGetMetabolism("spice");
 		
+		
+		
 		return (
 				(sugarWealth^(a.resourceGetMetabolism("sugar")/metabolism_total))
-				/
+				*
 				(spiceWealth^(a.resourceGetMetabolism("spice")/metabolism_total))
 				);
 				

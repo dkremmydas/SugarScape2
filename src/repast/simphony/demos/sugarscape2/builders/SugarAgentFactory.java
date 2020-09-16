@@ -22,15 +22,16 @@ import repast.simphony.demos.sugarscape2.agents.rules.inheritance.DefaultInherit
 import repast.simphony.demos.sugarscape2.agents.rules.inheritance.InheritanceAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.inheritance.NoInheritance;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.DefaultMovement;
+import repast.simphony.demos.sugarscape2.agents.rules.movement.DefaultMovementSugarSpice;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.KeepNetworkMovement;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.MovementAbility;
-import repast.simphony.demos.sugarscape2.agents.rules.movement.DefaultMovementSugarSpice;
 import repast.simphony.demos.sugarscape2.agents.rules.movement.PollutionMovement;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.DefaultPollution;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.NoPollution;
 import repast.simphony.demos.sugarscape2.agents.rules.pollution.PollutionAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.CulturalSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.DefaultSexAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.sex.NoSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.DefaultVision;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
@@ -240,38 +241,9 @@ public class SugarAgentFactory {
 	}
 
 
-
-	public static SugarAgent_ch3 createChapter3RandomAgent(String variant,SugarAgent_ch2 agent_ch2) {
-
-
-		//get the childbreeding age range
-		SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(0, SugarAgent_ch3.Sex.values().length-1)];
-
-		int childbearing_start,childbearing_end;
-
-		if(sex.equals(SugarAgent_ch3.Sex.MALE)) {
-			childbearing_start = RandomHelper.nextIntFromTo(
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_men"), 
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_men")
-					);
-			childbearing_end = RandomHelper.nextIntFromTo(
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_men"), 
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_men")
-					);
-		} else {
-			childbearing_start = RandomHelper.nextIntFromTo(
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_women"), 
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_women")
-					);
-			childbearing_end = RandomHelper.nextIntFromTo(
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_women"), 
-					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_women")
-					);
-		}
-
-		int tagString_length = RunEnvironment.getInstance().getParameters().getInteger("tagString_length");
-
-
+	public static SugarAgent_ch3 createChapter3SpecificAgent(String variant,SugarAgent_ch2 agent_ch2,
+			SugarAgent_ch3.Sex sex, int childbearing_start, int childbearing_end, int tagString_length) {
+		
 
 
 		//Create rules
@@ -285,13 +257,16 @@ public class SugarAgentFactory {
 		switch(variant) {
 		case "p58":
 		case "p68":
-		case "p100":
 			sa = new DefaultSexAbility(); 
 			break;
 
 		case "p79":
 		case "p89":
 			sa = new CulturalSexAbility(); 
+			break;
+			
+		case "p100":
+			sa = new NoSexAbility(); 
 			break;
 
 		default:
@@ -387,6 +362,41 @@ public class SugarAgentFactory {
 				.build();
 
 		return agent;
+		
+	}
+
+	public static SugarAgent_ch3 createChapter3RandomAgent(String variant,SugarAgent_ch2 agent_ch2) {
+
+
+		//get the childbreeding age range
+		SugarAgent_ch3.Sex sex = SugarAgent_ch3.Sex.values()[RandomHelper.nextIntFromTo(0, SugarAgent_ch3.Sex.values().length-1)];
+
+		int childbearing_start,childbearing_end;
+
+		if(sex.equals(SugarAgent_ch3.Sex.MALE)) {
+			childbearing_start = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_men"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_men")
+					);
+			childbearing_end = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_men"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_men")
+					);
+		} else {
+			childbearing_start = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_min_women"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_start_max_women")
+					);
+			childbearing_end = RandomHelper.nextIntFromTo(
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_min_women"), 
+					RunEnvironment.getInstance().getParameters().getInteger("childbearing_age_end_max_women")
+					);
+		}
+
+		int tagString_length = RunEnvironment.getInstance().getParameters().getInteger("tagString_length");
+
+
+		return createChapter3SpecificAgent(variant, agent_ch2, sex, childbearing_start, childbearing_end, tagString_length);
 
 
 	}
@@ -394,9 +404,15 @@ public class SugarAgentFactory {
 
 	public static SugarAgent_ch4 createChapter4RandomAgent(String variant) {
 
-
 		SugarAgent_ch3 agent_ch3 = createChapter3RandomAgent(variant);
 
+		return  createChapter4RandomAgent( variant,  agent_ch3);
+
+
+	}
+	
+	public static SugarAgent_ch4 createChapter4RandomAgent(String variant, SugarAgent_ch3 agent_ch3) {
+		
 		int spice_Metabolism_min = RunEnvironment.getInstance().getParameters().getInteger("Spice_Metabolism_min");
 		int spice_Metabolism_max = RunEnvironment.getInstance().getParameters().getInteger("Spice_Metabolism_max");
 
@@ -439,8 +455,7 @@ public class SugarAgentFactory {
 				.build();
 
 		return agent;
-
-
+		
 	}
 
 
