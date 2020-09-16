@@ -11,6 +11,7 @@ import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.apache.log4j.Level;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 
 import repast.simphony.context.ContextEvent;
@@ -211,12 +212,16 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	/**
 	 * The growback rule. Every second tick, the sugar resource in each grid cell is updated.
 	 */
-	@ScheduledMethod(start=7d,interval=20d)
+	@ScheduledMethod(start=7d,interval=10d)
 	public void applyGrowback() {	
+		
+		CaseInsensitiveMap<String, GridValueLayer> r = this.growbackRule.growback(this);
 
-		GridValueLayer sugarHoldingNew = this.growbackRule.growback(this).get("sugar");
+		for(String resource: r.keySet()) {
 
-		this.resources.get("sugar").updateHolding(sugarHoldingNew);
+			this.resources.get(resource).updateHolding(r.get(resource));			
+		}
+	
 
 	}
 
@@ -224,7 +229,7 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	/**
 	 * The pollution diffusion behavior. Each 4th tick, the pollution of each grid cell is updated.
 	 */
-	@ScheduledMethod(start=8d,interval=5d)
+	@ScheduledMethod(start=8d,interval=10d)
 	public void applyDiffuse_pollution() {	
 
 		GridValueLayer pollution_vl = (GridValueLayer) this.getValueLayer("pollution");
@@ -313,11 +318,14 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	 * @throws RunTimeException if the resource does not exist
 	 */
 	public GridValueLayer resourceGetCapacity(String resource) {
-		if(resource.equalsIgnoreCase("sugar")) {
-			return Utility.cloneGridValueLayer(this.resources.get("sugar").getCapacity());
-		} else {
+		
+		if(resources.containsKey(resource)) {
+			return Utility.cloneGridValueLayer(this.resources.get(resource).getCapacity());
+		}
+		else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
+		
 	}
 
 	/**
@@ -339,13 +347,20 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 	public GridValueLayer resourceGetHolding(String resource) {
 		
 		if(resources.containsKey(resource)) {
-			return Utility.cloneGridValueLayer(resources.get("sugar").getHolding());
+			return Utility.cloneGridValueLayer(resources.get(resource).getHolding());
 		}
 		else {
 			throw new RuntimeException("Resource with name '" + resource + "' does not exist");
 		}
-		
 
+	}
+	
+	
+	
+	public Set<String> resourceAvailableResources() {
+		
+		return ImmutableSet.copyOf(resources.keySet());
+		
 	}
 
 
@@ -722,7 +737,6 @@ public class SugarSpace_ch2 extends DefaultContext<Object>  {
 			} else {
 				added = quant;
 			}
-
 
 			this.holding.set(this.holding.get(x,y)+added,x, y );
 

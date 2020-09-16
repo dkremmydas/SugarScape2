@@ -40,7 +40,7 @@ public class SpiceSugarGrowback implements GrowbackAbility, ConfigurableFromRepa
 		if(spice_regeneration_rate<0) {
 			r.put("spice", s.resourceGetCapacity("spice"));
 		} else {
-			s.resourceAddEverywhere("sugar",spice_regeneration_rate);
+			s.resourceAddEverywhere("spice",spice_regeneration_rate);
 			r.put("spice", s.resourceGetHolding("spice"));
 		}
 		

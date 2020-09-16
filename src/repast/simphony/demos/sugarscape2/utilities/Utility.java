@@ -82,7 +82,7 @@ public class Utility {
 	
 	public static GridValueLayer cloneGridValueLayer(GridValueLayer gvl) {
 		
-		GridValueLayer gvl_clone = new GridValueLayer(gvl.getName() + "_clone", true, (int)gvl.getDimensions().getWidth(),(int)gvl.getDimensions().getHeight());
+		GridValueLayer gvl_clone = new GridValueLayer(gvl.getName(), true, (int)gvl.getDimensions().getWidth(),(int)gvl.getDimensions().getHeight());
 		
 		int x,y;
 		
