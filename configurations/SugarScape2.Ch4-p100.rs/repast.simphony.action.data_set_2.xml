@@ -1,7 +1,6 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Age</name>
-  <type>NON_AGGREGATE</type>
-  <sourceType>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3</sourceType>
+  <name>Wealth</name>
+  <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -12,20 +11,26 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>38828429</hashCode>
+    <hashCode>-1545848830</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
-  <methodDataSources class="linked-hash-map">
-    <entry>
-      <string>Age</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>Age</id>
-        <className>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3</className>
-        <methodName>getAge</methodName>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-  </methodDataSources>
+  <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
-  <customAggDataSources class="linked-hash-map"/>
+  <customAggDataSources class="linked-hash-map">
+    <entry>
+      <string>SugarWealthDataSource</string>
+      <repast.simphony.data2.engine.CustomDataSourceDefinition>
+        <id>SugarWealthDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.SugarWealthDataSource</dsClassName>
+      </repast.simphony.data2.engine.CustomDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>SpiceWealthDataSource</string>
+      <repast.simphony.data2.engine.CustomDataSourceDefinition>
+        <id>SpiceWealthDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.SpiceWealthDataSource</dsClassName>
+      </repast.simphony.data2.engine.CustomDataSourceDefinition>
+    </entry>
+  </customAggDataSources>
 </repast.simphony.data2.engine.DataSetDescriptor>

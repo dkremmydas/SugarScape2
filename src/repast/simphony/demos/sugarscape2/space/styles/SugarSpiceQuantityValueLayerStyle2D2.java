@@ -27,15 +27,20 @@ public class SugarSpiceQuantityValueLayerStyle2D2 implements ValueLayerStyleOGL 
 		
 		int qp23; int qp1;
 		
-		if(sugar>spice) {
+		if((sugar/(sugar+spice)>.7)) {
 			
 			qp1=20;
-			qp23 = (int)Math.min(sugar*17,255);
+			qp23 = (int)Math.min(sugar*12,255);
 			
-		} else {
+		} 
+		else  if((sugar/(sugar+spice)<.3)) {
 			
-			qp1=70;
-			qp23 = (int)Math.min(spice*17,255);
+			qp1=170;
+			qp23 = (int)Math.min(sugar*12,255);
+			
+		}else {
+			qp1=50;
+			qp23 = (int)Math.min(((sugar+spice)/2)*12,255);
 		}
 		
 

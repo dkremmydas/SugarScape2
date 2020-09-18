@@ -58,9 +58,9 @@
 	<!--  3.1 Landscape Properties  -->
 	<parameter name="numberOfAgents" displayName="3.1.1 Number of initial Agents" type="int" defaultValue="400" />
 	
-	<parameter name="regenerationRate" displayName="3.1.2 Rate of Landscape regenaration of Sugar" type="int" defaultValue="1" />
+	<parameter name="regenerationRate" displayName="3.1.2 Rate of Landscape regenaration of Sugar" type="int" defaultValue="-1" />
 	
-	<parameter name="spice_regenerationRate" displayName="3.1.3 Rate of Landscape regenaration of Spice" type="int" defaultValue="1" />
+	<parameter name="spice_regenerationRate" displayName="3.1.3 Rate of Landscape regenaration of Spice" type="int" defaultValue="-1" />
 	
 	
 	
