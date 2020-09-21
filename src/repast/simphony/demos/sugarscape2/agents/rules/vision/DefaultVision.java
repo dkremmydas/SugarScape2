@@ -7,6 +7,7 @@ import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
 import repast.simphony.demos.sugarscape2.utilities.ConfigurableFromRepastEnvironment;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
+import repast.simphony.demos.sugarscape2.utilities.Utility.TypeOfVision;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.space.grid.GridPoint;
 
@@ -75,6 +76,12 @@ public class DefaultVision implements VisionAbility, ConfigurableFromRepastEnvir
 		
 		typeOfVision = (typeOfVision_str.equalsIgnoreCase("Moore"))?Utility.TypeOfVision.MOORE:Utility.TypeOfVision.NEUMMAN;
 	
+	}
+
+
+	@Override
+	public TypeOfVision getTypeOfVision(SugarAgent_ch2 a) {
+		return typeOfVision;
 	}
 
 	

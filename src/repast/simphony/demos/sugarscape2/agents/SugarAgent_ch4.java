@@ -50,6 +50,14 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 		private WelfareAbility wa;
 		private TradeAbility ta;
 		
+		
+		
+		public void applyRuleT() {
+			
+			
+			
+		}
+		
 
 
 		public Builder(SugarAgent_ch3 a) {

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
+import repast.simphony.demos.sugarscape2.utilities.Utility.TypeOfVision;
 import repast.simphony.space.grid.GridPoint;
 
 public interface VisionAbility {
@@ -27,6 +28,10 @@ public interface VisionAbility {
 	 * @return a {@link HashSet} of {@link GridPoint}s that the agent is able to see
 	 */
 	public Set<GridPoint> seeAll(SugarAgent_ch2 a);
+	
+	
+	
+	public TypeOfVision getTypeOfVision(SugarAgent_ch2 a);
 
 
 }

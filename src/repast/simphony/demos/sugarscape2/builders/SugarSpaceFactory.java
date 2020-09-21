@@ -2,7 +2,11 @@ package repast.simphony.demos.sugarscape2.builders;
 
 import javax.management.RuntimeErrorException;
 
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.HashSetValuedHashMap;
+
 import repast.simphony.context.space.graph.NetworkBuilder;
+import repast.simphony.demos.sugarscape2.agents.rules.trade.TradeTransaction;
 import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.space.SugarSpace_ch3;
 import repast.simphony.demos.sugarscape2.space.SugarSpace_ch4;
@@ -267,6 +271,8 @@ public class SugarSpaceFactory {
 
 
 		//create other things, if necessary
+		MultiValuedMap<Double, TradeTransaction> trade_transactions_registry = new HashSetValuedHashMap<>(); 
+		s.add(trade_transactions_registry); //to be retrieved with s.getObjects(MultiValuedMap.class).get(0)
 		
 		
 		

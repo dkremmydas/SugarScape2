@@ -223,7 +223,9 @@ public class SugarAgent_ch2 {
 
 		HashSet<SugarAgent_ch2> neighbors = new HashSet<SugarAgent_ch2>();
 
-		this.visionRule.seeAll(this).forEach(new Consumer<GridPoint>() {
+		SugarSpaceFactory.getSugarspace()
+		.gridGetNeighboringPoints(this,1,this.getVisionRule().getTypeOfVision(this))
+		.forEach(new Consumer<GridPoint>() {
 
 			@Override
 			public void accept(GridPoint t) {
