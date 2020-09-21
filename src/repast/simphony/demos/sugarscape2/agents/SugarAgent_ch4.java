@@ -1,7 +1,17 @@
 package repast.simphony.demos.sugarscape2.agents;
 
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.log4j.Level;
+
 import repast.simphony.demos.sugarscape2.agents.rules.trade.TradeAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.trade.TradeTransaction;
 import repast.simphony.demos.sugarscape2.agents.rules.welfare.WelfareAbility;
+import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
+import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
+import repast.simphony.demos.sugarscape2.utilities.Utility;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedulableAction;
+import repast.simphony.engine.schedule.ScheduleParameters;
 
 public class SugarAgent_ch4 extends SugarAgent_ch3 {
 	
@@ -19,7 +29,42 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 	
 	
 	
-
+	
+	public void applyRuleT() {
+		
+		if(isAlive) {
+			
+			SugarAgent_ch4 partner = this.tradeAbility.selectPartner(this);
+			
+			if(!(partner==null)) {
+				
+				TradeTransaction tr = this.tradeAbility.doTrade(this, partner);
+				
+				if(!(tr==null)) {
+					
+					Utility.logMessage(Level.DEBUG,"Transaction! : " + tr);
+					
+					//add to global registry
+					MultiValuedMap<Double, TradeTransaction> trans_log = (MultiValuedMap<Double, TradeTransaction>) SugarSpaceFactory.getSugarspace().getObjects(MultiValuedMap.class).get(0);
+					trans_log.put( RunEnvironment.getInstance().getCurrentSchedule().getTickCount(), tr);
+					
+					//update agents
+					tr.getSugarContributor().resourceUse("sugar", tr.getSugar_quantity());
+					tr.getSugarContributor().resourceStore("spice", tr.getSpice_quantity());
+					
+					tr.getSpiceContributor().resourceStore("sugar", tr.getSugar_quantity());
+					tr.getSpiceContributor().resourceUse("spice", tr.getSpice_quantity());					
+					
+				}
+				
+			}
+			
+		}
+		
+		
+	}
+	
+	
 	
 
 
@@ -49,14 +94,6 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 		// rules
 		private WelfareAbility wa;
 		private TradeAbility ta;
-		
-		
-		
-		public void applyRuleT() {
-			
-			
-			
-		}
 		
 
 

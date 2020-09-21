@@ -219,7 +219,7 @@ public class SugarAgent_ch2 {
 	 * @param a The {@link SugarAgent_ch2} for whom to find the neighbor
 	 * @return an {@link Iterable} of {@link SugarAgent_ch2}s. If none, returns an empty one.
 	 */
-	public Iterable<SugarAgent_ch2> getNeighboringSugarAgents() {
+	public Set<SugarAgent_ch2> getNeighboringSugarAgents() {
 
 		HashSet<SugarAgent_ch2> neighbors = new HashSet<SugarAgent_ch2>();
 

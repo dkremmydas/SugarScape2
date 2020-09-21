@@ -1,23 +1,44 @@
 package repast.simphony.demos.sugarscape2.agents.rules.trade;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch4;
+import repast.simphony.random.RandomHelper;
 
 public class DefaultTrade implements TradeAbility {
 
-	//we assume w1 = sugar, w2 = spice
+
+
 
 	@Override
-	public Set<TradeTransaction> doTrade(SugarAgent_ch4 a1, SugarAgent_ch4 a2) {
+	public SugarAgent_ch4 selectPartner(SugarAgent_ch4 a) {
+		
+		Set<SugarAgent_ch2> n = a.getNeighboringSugarAgents();
+		
+		int select_index = RandomHelper.nextIntFromTo(1, n.size());
+		
+		int i = 1;
+		for(SugarAgent_ch2 obj : n)
+		{
+		    if (i == select_index)
+		        return (SugarAgent_ch4) obj;
+		    i++;
+		}
 
-		HashSet<TradeTransaction> r = new HashSet<TradeTransaction>();
+		return null;
+		
+	}
 
-		SugarAgent_ch4 sugar_contributor, spice_contributor, sugar_recipient, spice_recipient;
+	
+	
 
-		Double sugar_given;
-		Double spice_given;
+	@Override
+	public TradeTransaction doTrade(SugarAgent_ch4 a1, SugarAgent_ch4 a2) {
+
+		SugarAgent_ch4 sugar_contributor, spice_contributor;
+		TradeTransaction r = null;
+
 
 		Double price;
 
@@ -26,55 +47,79 @@ public class DefaultTrade implements TradeAbility {
 			return r;
 		} 
 		else if ( computeMRS(a1).compareTo(computeMRS(a2))<0) {
-			sugar_contributor = a1; spice_recipient = a1;
-			spice_contributor = a2; sugar_recipient = a2;
+			sugar_contributor = a1; 
+			spice_contributor = a2; 
 		} else {
-			sugar_contributor = a2; spice_recipient = a2;
-			spice_contributor = a1; sugar_recipient = a1;
+			sugar_contributor = a2; 
+			spice_contributor = a1; 
 		}
 
 		//find price
 		price = Math.sqrt(computeMRS(a1)*computeMRS(a2));
 
-		//quantities to exchange
-		if(price.compareTo(1.0d)>0) {
-			sugar_given=1d; spice_given=price;
-		} 
-		else if (price.compareTo(1.0d)<0) {
-			sugar_given=1/price; spice_given=1d;
-		}
-		else {
+		//
+		if(price.compareTo(1.0d)==0) {
 			return r;
 		}
 
-		//check if this increases agents' welfare
-		double sug_con_welf_bef =  (int) (sugar_contributor.getWelfareAbility().estimateWelfare(sugar_contributor, 
-				sugar_contributor.resourceGetHolding("sugar"), 
-				sugar_contributor.resourceGetHolding("spice")));
-		double sug_con_welf_aft =  (int) (sugar_contributor.getWelfareAbility().estimateWelfare(sugar_contributor, 
-				(int) (sugar_contributor.resourceGetHolding("sugar")-sugar_given), 
-				(int) (sugar_contributor.resourceGetHolding("spice")+spice_given)));
 
-		double sug_con_welf_change = sug_con_welf_aft - sug_con_welf_bef;
-		
-		
-		double spic_con_welf_bef =  (int) (spice_contributor.getWelfareAbility().estimateWelfare(spice_contributor, 
-				spice_contributor.resourceGetHolding("sugar"), 
-				spice_contributor.resourceGetHolding("spice")));
-		double spic_con_welf_aft =  (int) (spice_contributor.getWelfareAbility().estimateWelfare(spice_contributor, 
-				(int) (spice_contributor.resourceGetHolding("sugar")+sugar_given), 
-				(int) (spice_contributor.resourceGetHolding("spice")-spice_given)));
 
-		double spice_con_welf_change = spic_con_welf_aft - spic_con_welf_bef;
-		
-		if( (spice_con_welf_change>0) & (sug_con_welf_change>0)) {
+		//determine actual quantities
+		double sug_con_welf_change,spice_con_welf_change;
+		int q=1;
+
+
+
+		for(q=1; q<=sugar_contributor.resourceGetHolding("sugar"); q++) {
+
+
+			int sugar_given, spice_given;
 			
-			//Find trading quantity
-			
+			if(price.compareTo(1.0d)>0) { 
+				sugar_given = q;
+				spice_given = (int)Math.floor(q*price);	
+				
+			} else {
+				
+				sugar_given = q;
+				spice_given = (int)Math.floor(q*(1/price));	
+				
+			}
+
+
+			sug_con_welf_change = welfareChange(sugar_contributor,-1*sugar_given,spice_given);
+			spice_con_welf_change = welfareChange(spice_contributor,sugar_given,-1*spice_given);
+
+			if( (spice_con_welf_change>0) & (sug_con_welf_change>0)) {break;} 
+
+			if( (computeMRS(sugar_contributor)+sug_con_welf_change) > (computeMRS(spice_contributor)+spice_con_welf_change)  ) {break;}
 		}
+
+		if(q>1) {
+			r = new TradeTransaction(sugar_contributor, q, spice_contributor, (int) Math.floor(q*price), price);
+		}
+
+
 
 		return r;
 
+
+	}
+
+
+
+
+
+	private double welfareChange(SugarAgent_ch4 a, int sugar_given, int spice_given) {
+
+		double welf_bef =  (int) (a.getWelfareAbility().estimateWelfare(a, 
+				a.resourceGetHolding("sugar"), 
+				a.resourceGetHolding("spice")));
+		double welf_aft =  (int) (a.getWelfareAbility().estimateWelfare(a, 
+				(int) (a.resourceGetHolding("sugar")+sugar_given), 
+				(int) (a.resourceGetHolding("spice")+spice_given)));
+
+		return (welf_aft-welf_bef);
 	}
 
 
@@ -88,5 +133,7 @@ public class DefaultTrade implements TradeAbility {
 		return t2/t1;
 
 	}
+
+
 
 }

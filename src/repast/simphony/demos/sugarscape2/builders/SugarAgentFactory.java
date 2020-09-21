@@ -14,7 +14,6 @@ import repast.simphony.demos.sugarscape2.agents.rules.culture.NoCulture;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DefaultDeath;
 import repast.simphony.demos.sugarscape2.agents.rules.death.DieAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.death.FiniteLifeDeath;
-import repast.simphony.demos.sugarscape2.agents.rules.death.FiniteLifeDeathSugarSpice;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.DefaultGather;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.DefaultGatherSugarSpice;
 import repast.simphony.demos.sugarscape2.agents.rules.gather.GatherAbility;
@@ -33,6 +32,9 @@ import repast.simphony.demos.sugarscape2.agents.rules.sex.CulturalSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.DefaultSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.NoSexAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.sex.SexAbility;
+import repast.simphony.demos.sugarscape2.agents.rules.trade.DefaultTrade;
+import repast.simphony.demos.sugarscape2.agents.rules.trade.NoTrade;
+import repast.simphony.demos.sugarscape2.agents.rules.trade.TradeAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.DefaultVision;
 import repast.simphony.demos.sugarscape2.agents.rules.vision.VisionAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.welfare.DefaultWelfare;
@@ -75,6 +77,7 @@ public class SugarAgentFactory {
 		case "p41":
 		case "p50":
 		case "p100":
+		case "p110":
 			da = new DefaultDeath();
 			break;
 
@@ -85,8 +88,8 @@ public class SugarAgentFactory {
 		case "p89":
 			da = new FiniteLifeDeath();
 			break;
-		
-			
+
+
 		default:
 			throw new RuntimeErrorException(null, "For Chapter 2 and Variant " + variant + ", there is no relevant DieAbility rule" );
 		}
@@ -107,6 +110,7 @@ public class SugarAgentFactory {
 			break;
 
 		case "p100":
+		case "p110":
 			ga = new DefaultGatherSugarSpice();
 			break;
 
@@ -133,8 +137,9 @@ public class SugarAgentFactory {
 		case "p50":
 			ma = new PollutionMovement();
 			break;
-			
+
 		case "p100":
+		case "p110":
 			ma = new DefaultMovementSugarSpice();
 			break;
 
@@ -154,6 +159,7 @@ public class SugarAgentFactory {
 		case "p79":
 		case "p89":
 		case "p100":
+		case "p110":
 			va = new DefaultVision();
 			break;
 
@@ -172,6 +178,7 @@ public class SugarAgentFactory {
 		case "p79":
 		case "p89":
 		case "p100":
+		case "p110":
 			pa = new NoPollution();
 			break;
 
@@ -241,7 +248,7 @@ public class SugarAgentFactory {
 
 	public static SugarAgent_ch3 createChapter3SpecificAgent(String variant,SugarAgent_ch2 agent_ch2,
 			SugarAgent_ch3.Sex sex, int childbearing_start, int childbearing_end, int tagString_length) {
-		
+
 
 
 		//Create rules
@@ -262,8 +269,9 @@ public class SugarAgentFactory {
 		case "p89":
 			sa = new CulturalSexAbility(); 
 			break;
-			
+
 		case "p100":
+		case "p110":
 			sa = new NoSexAbility(); 
 			break;
 
@@ -279,6 +287,7 @@ public class SugarAgentFactory {
 		case "p79":
 		case "p89":
 		case "p100":
+		case "p110":
 			ia = new NoInheritance(); 
 			break;
 
@@ -297,6 +306,7 @@ public class SugarAgentFactory {
 		case "p58":
 		case "p68":
 		case "p100":
+		case "p110":
 			ca = new NoCulture(); 
 			break;
 
@@ -317,6 +327,7 @@ public class SugarAgentFactory {
 		case "p68":
 		case "p79":
 		case "p100":
+		case "p110":
 			cmba = new NoCombat(); 
 			break;
 
@@ -360,7 +371,7 @@ public class SugarAgentFactory {
 				.build();
 
 		return agent;
-		
+
 	}
 
 	public static SugarAgent_ch3 createChapter3RandomAgent(String variant,SugarAgent_ch2 agent_ch2) {
@@ -408,9 +419,9 @@ public class SugarAgentFactory {
 
 
 	}
-	
+
 	public static SugarAgent_ch4 createChapter4RandomAgent(String variant, SugarAgent_ch3 agent_ch3) {
-		
+
 		int spice_Metabolism_min = RunEnvironment.getInstance().getParameters().getInteger("Spice_Metabolism_min");
 		int spice_Metabolism_max = RunEnvironment.getInstance().getParameters().getInteger("Spice_Metabolism_max");
 
@@ -421,25 +432,41 @@ public class SugarAgentFactory {
 
 		//Create rules
 		WelfareAbility wa;
-		//TradeAbility ta;
+		TradeAbility ta;
 
 
-		//SexAbility
+		//WelfareAbility
 		switch(variant) {
 		case "p100":
+		case "p110":
 			wa = new DefaultWelfare(); 
 			break;
 
 		default:
-			throw new RuntimeErrorException(null, "For Chapter 4 and Variant " + variant + ", there is no relevant SexAbility rule" );
+			throw new RuntimeErrorException(null, "For Chapter 4 and Variant " + variant + ", there is no relevant WelfareAbility rule" );
 
 		}
 
 		//TradeAbility
+		switch(variant) {
+		case "p100":
+			ta = new NoTrade();
+			break;
+			
+		case "p110":
+			ta = new DefaultTrade();
+			break;
+
+		default:
+			throw new RuntimeErrorException(null, "For Chapter 4 and Variant " + variant + ", there is no relevant TradeAbility rule" );
+
+		}
 
 
 		//Configure environmental rules
 		if(wa instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) wa).configureFromEnvironment();}
+		
+		if(ta instanceof ConfigurableFromRepastEnvironment) {((ConfigurableFromRepastEnvironment) ta).configureFromEnvironment();}
 
 
 
@@ -450,10 +477,11 @@ public class SugarAgentFactory {
 						RandomHelper.nextIntFromTo(spice_Metabolism_min, spice_Metabolism_max)
 						)
 				.withWelfareAbility(wa)
+				.withTradeAbility(ta)
 				.build();
 
 		return agent;
-		
+
 	}
 
 

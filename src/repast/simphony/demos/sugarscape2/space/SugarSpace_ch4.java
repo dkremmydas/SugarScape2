@@ -1,9 +1,14 @@
 package repast.simphony.demos.sugarscape2.space;
 
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3;
+import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch4;
 import repast.simphony.demos.sugarscape2.space.rules.growback.GrowbackAbility;
 import repast.simphony.demos.sugarscape2.space.rules.pollution_diffusion.PollutionDiffusionAbility;
 import repast.simphony.demos.sugarscape2.space.rules.replacement.ReplacementAbility;
 import repast.simphony.demos.sugarscape2.utilities.PGMReader;
+import repast.simphony.engine.environment.RunEnvironment;
+import repast.simphony.engine.schedule.ISchedulableAction;
+import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.valueLayer.GridValueLayer;
 
 public class SugarSpace_ch4 extends SugarSpace_ch3 {
@@ -19,6 +24,32 @@ public class SugarSpace_ch4 extends SugarSpace_ch3 {
 		
 		
 	}
+	
+	
+	
+
+	public void addSugarAgent(SugarAgent_ch4 a) {
+
+		super.addSugarAgent((SugarAgent_ch3)a);
+
+		double cur_tick = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		
+		double next_period_start = cur_tick + (10-(cur_tick%10));
+		
+	
+		ISchedulableAction ac_T = RunEnvironment.getInstance().getCurrentSchedule().schedule(
+				ScheduleParameters.createRepeating(next_period_start+6, 10d), 
+				a, 
+				"applyRuleT"
+				);
+
+		actions.put(a.getId(), ac_T);
+		
+		
+		
+	}
+	
+	
 	
 	
 	/**
