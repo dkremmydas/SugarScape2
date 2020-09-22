@@ -1,6 +1,6 @@
 # SugarScape2
 
-This is a full implementation of Sugarscape model ("Artificial World", Epstein & Axtell) in Java under the Repast Simphony framework.
+This is a full implementation of Sugarscape model ("Artificial World", Epstein & Axtell) in Java under the [Repast Simphony framework](https://repast.github.io/).
 
 It has a threefold purpose:
 
