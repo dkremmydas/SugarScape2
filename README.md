@@ -8,7 +8,7 @@ It has a threefold purpose:
 2. Show the virtues of using object oriented languages for social simulation
 3. Provide code that can be easily modified and/or extended for exploring the Sugarscape  model
 
-Presently chapter II is fully implemented. In the future Chapter IV will be also fully implemented.
+Presently chapters 2 and 3 are fully implemented. Chapter 4 is under development.
 
 Contributors are welcomed !
 
