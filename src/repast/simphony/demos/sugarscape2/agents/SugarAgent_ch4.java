@@ -7,11 +7,8 @@ import repast.simphony.demos.sugarscape2.agents.rules.trade.TradeAbility;
 import repast.simphony.demos.sugarscape2.agents.rules.trade.TradeTransaction;
 import repast.simphony.demos.sugarscape2.agents.rules.welfare.WelfareAbility;
 import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
-import repast.simphony.demos.sugarscape2.space.SugarSpace_ch2;
 import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ISchedulableAction;
-import repast.simphony.engine.schedule.ScheduleParameters;
 
 public class SugarAgent_ch4 extends SugarAgent_ch3 {
 	
@@ -71,6 +68,19 @@ public class SugarAgent_ch4 extends SugarAgent_ch3 {
 	public WelfareAbility getWelfareAbility() {
 		return welfareAbility;
 	}
+
+
+	
+
+
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString() + "  Sp.m:"+this.resourceGetMetabolism("spice") + "  Sp.h:"+this.resourceGetHolding("spice");
+	}
+
 
 
 

@@ -278,6 +278,7 @@ public class SugarAgent_ch2 {
 
 			//see
 			Set<GridPoint> points_seen = this.visionRule.seeEmpty(this);
+			//Utility.logMessage(Level.DEBUG, "Agent: " + this + ", saw places: " + points_seen);
 
 			//gather
 			if(! points_seen.isEmpty()) {
@@ -286,16 +287,16 @@ public class SugarAgent_ch2 {
 
 				SugarSpaceFactory.getSugarspace().gridMoveAgentTo(this, new_pos.getX(),new_pos.getY());
 
-				CaseInsensitiveMap<String, Integer>  resources_gathered = this.gatherRule.gather(this, new_pos);
+				CaseInsensitiveMap<String, Integer>  to_gather = this.gatherRule.gather(this, new_pos);
 
-				resources_gathered.forEach(new BiConsumer<String, Integer>() {
+				to_gather.forEach(new BiConsumer<String, Integer>() {
 
 					@Override
-					public void accept(String resource, Integer gathered) {
+					public void accept(String resource_name, Integer gathered) {
 
-						int actual_resource_gathered = SugarSpaceFactory.getSugarspace().resourceGatherFromXY(resource,new_pos.getX(), new_pos.getY(), gathered);
+						int actual_resource_gathered = SugarSpaceFactory.getSugarspace().resourceGatherFromXY(resource_name,new_pos.getX(), new_pos.getY(), gathered);
 
-						resourceStore(resource,actual_resource_gathered);				
+						resourceStore(resource_name,actual_resource_gathered);				
 					}
 				});
 

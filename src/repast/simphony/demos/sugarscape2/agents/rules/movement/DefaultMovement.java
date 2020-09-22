@@ -47,7 +47,7 @@ public class DefaultMovement implements MovementAbility {
 				if(tr==0) { //there is the same amount of sugar, so check distance
 					Double dis1 =  SugarSpaceFactory.getSugarspace().gridGetDistance(myPoint, arg0);
 					Double dis2 =  SugarSpaceFactory.getSugarspace().gridGetDistance(myPoint, arg1);
-					tr = dis1.compareTo(dis2);
+					tr = dis2.compareTo(dis1);
 				}
 				return tr;
 			}
