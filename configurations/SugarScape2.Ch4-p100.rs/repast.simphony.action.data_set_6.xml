@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Wealth</name>
+  <name>Metabolism</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
@@ -11,25 +11,25 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1545848830</hashCode>
+    <hashCode>-1009346833</hashCode>
   </scheduleParams>
-  <atEnd>false</atEnd>
+  <atEnd>true</atEnd>
   <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
   <customAggDataSources class="linked-hash-map">
     <entry>
-      <string>SugarWealthDataSource</string>
+      <string>SugarMetabolismDataSource</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
-        <id>SugarWealthDataSource</id>
-        <dsClassName>repast.simphony.demos.sugarscape2.datasources.SugarWealthDataSource</dsClassName>
+        <id>SugarMetabolismDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.SugarMetabolismDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
     <entry>
-      <string>SpiceWealthDataSource</string>
+      <string>SpiceMetabolismDataSource</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
-        <id>SpiceWealthDataSource</id>
-        <dsClassName>repast.simphony.demos.sugarscape2.datasources.SpiceWealthDataSource</dsClassName>
+        <id>SpiceMetabolismDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.SpiceMetabolismDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
   </customAggDataSources>
