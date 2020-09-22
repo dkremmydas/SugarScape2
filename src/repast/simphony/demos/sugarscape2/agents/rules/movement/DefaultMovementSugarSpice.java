@@ -6,9 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Level;
+
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch2;
 import repast.simphony.demos.sugarscape2.agents.SugarAgent_ch4;
 import repast.simphony.demos.sugarscape2.builders.SugarSpaceFactory;
+import repast.simphony.demos.sugarscape2.utilities.Utility;
 import repast.simphony.space.grid.GridPoint;
 import repast.simphony.valueLayer.GridValueLayer;
 
@@ -53,19 +56,29 @@ public class DefaultMovementSugarSpice implements MovementAbility {
 				
 				Double p1_welfare = a_ch4.getWelfareAbility().estimateWelfare(
 						a_ch4, 
-						a.resourceGetHolding("sugar")+q1_sugar.intValue(), 
-						a.resourceGetHolding("spice")+q1_spice.intValue()
+						a.resourceGetHolding("sugar")+(int)Math.floor(q1_sugar), 
+						a.resourceGetHolding("spice")+(int)Math.floor(q1_spice)
 						);
 				
 				Double p2_welfare = a_ch4.getWelfareAbility().estimateWelfare(
 						a_ch4, 
-						a.resourceGetHolding("sugar")+q2_sugar.intValue(), 
-						a.resourceGetHolding("spice")+q2_spice.intValue()
+						a.resourceGetHolding("sugar")+(int)Math.floor(q2_sugar), 
+						a.resourceGetHolding("spice")+(int)Math.floor(q2_spice)
 						);
 				
+//				Utility.logMessage(Level.DEBUG, 
+//
+//						"Agent: " + a + "\n\t" +
+//						"compares points: p1=" + arg0 + " / p2=" + arg1 + "\n\t" +
+//						"[sugar,spice]: " + " p1=[sug=" + q1_sugar + ", spic:"+q1_spice + "] / p1=[sug=" + q2_sugar + ", spic:"+q2_spice + "]\n\t" +
+//						"welfare:  p1=" + p1_welfare + "  /  p2=" + p2_welfare + "\n\t"+
+//						"welfare comparison: " + p1_welfare.compareTo(p2_welfare) 
+//						
+//						);
+//				
 				
 				int tr = p1_welfare.compareTo(p2_welfare);
-				if(tr==0) { //there is the same amount of sugar, so check distance
+				if(tr==0) { //welfare change is the same, so check distance
 					Double dis1 =  SugarSpaceFactory.getSugarspace().gridGetDistance(myPoint, arg0);
 					Double dis2 =  SugarSpaceFactory.getSugarspace().gridGetDistance(myPoint, arg1);
 					tr = dis1.compareTo(dis2);
