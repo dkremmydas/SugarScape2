@@ -1,28 +1,28 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Gini coefficient</name>
+  <name>Trade Price</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
   <scheduleParams>
     <start>1.0</start>
-    <interval>10.0</interval>
+    <interval>1.0</interval>
     <priority>-Infinity</priority>
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1623198736</hashCode>
+    <hashCode>1984692691</hashCode>
   </scheduleParams>
-  <atEnd>false</atEnd>
+  <atEnd>true</atEnd>
   <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
   <customAggDataSources class="linked-hash-map">
     <entry>
-      <string>GiniCoefficient</string>
+      <string>TradePriceDataSource</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
-        <id>GiniCoefficient</id>
-        <dsClassName>repast.simphony.demos.sugarscape2.datasources.GiniAggregateDataSource</dsClassName>
+        <id>TradePriceDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.TradePriceDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
   </customAggDataSources>

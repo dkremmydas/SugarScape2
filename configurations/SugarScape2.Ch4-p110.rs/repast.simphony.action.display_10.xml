@@ -1,15 +1,15 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor simphonyVersion="2.7.0">
-  <name>Sugar+Spice</name>
+  <name>Sugar grid</name>
   <type>2D</type>
   <styles>
     <entry>
-      <string>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch4</string>
-      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
+      <string>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3</string>
+      <string>repast.simphony.demos.sugarscape2.agents.styles.AgentStyleChapter3_p79</string>
     </entry>
   </styles>
   <editedStyles>
     <entry>
-      <string>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch4</string>
+      <string>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3</string>
       <null/>
     </entry>
   </editedStyles>
@@ -18,19 +18,19 @@
   <frequency>ON_MOVE</frequency>
   <schedParams>
     <start>1.0</start>
-    <interval>1.0</interval>
+    <interval>10.0</interval>
     <priority>-Infinity</priority>
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>953711271</hashCode>
+    <hashCode>-2131381101</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>sugarscape</layoutProjection>
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
-      <string>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch4</string>
+      <string>repast.simphony.demos.sugarscape2.agents.SugarAgent_ch3</string>
       <int>0</int>
     </entry>
   </layerOrder>
@@ -78,8 +78,8 @@
     <blue>255</blue>
     <alpha>255</alpha>
   </backgroundColor>
-  <valueLayerStyleName>repast.simphony.demos.sugarscape2.space.styles.SugarSpiceQuantityValueLayerStyle2D2</valueLayerStyleName>
+  <valueLayerStyleName>repast.simphony.demos.sugarscape2.space.styles.SugarQuantityValueLayerStyle2D</valueLayerStyleName>
   <valueLayers>
-    <string>spice level</string>
+    <string>sugar level</string>
   </valueLayers>
 </repast.simphony.visualization.engine.CartesianDisplayDescriptor>
