@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.7.0">
-  <name>Evolution of mean vision</name>
-  <dataSet>Vision mean</dataSet>
+  <name>Evolution of Total Sugar Wealth</name>
+  <dataSet>Sugar Wealth Sum</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Vision (mean)</yAxisLabel>
-  <chartTitle>Evolution of mean vision</chartTitle>
+  <yAxisLabel>Sugar Wealth (sum)</yAxisLabel>
+  <chartTitle>Evolution of Total Sugar Wealth</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,9 +21,9 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>Vision mean</string>
+      <string>SugarWealthDataSource</string>
       <SeriesData>
-        <label>Vision mean</label>
+        <label>SugarWealthDataSource</label>
         <color>
           <red>0</red>
           <green>0</green>

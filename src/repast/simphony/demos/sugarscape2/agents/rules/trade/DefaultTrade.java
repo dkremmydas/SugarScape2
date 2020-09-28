@@ -40,7 +40,7 @@ public class DefaultTrade implements TradeAbility {
 		TradeTransaction r = null;
 
 
-		Double price;
+		Double unitary_price;
 
 		//compute MRS, if equal stop, else find who gives spice/take sugar and who gives sugar/takes spice
 		if(computeMRS(a1).equals(computeMRS(a2))) {
@@ -54,11 +54,11 @@ public class DefaultTrade implements TradeAbility {
 			spice_contributor = a1; 
 		}
 
-		//find price
-		price = Math.sqrt(computeMRS(a1)*computeMRS(a2));
+		//find unitary price
+		unitary_price = Math.sqrt(computeMRS(a1)*computeMRS(a2));
 
 		//
-		if(price.compareTo(1.0d)==0) {
+		if(unitary_price.compareTo(1.0d)==0) {
 			return r;
 		}
 
@@ -75,28 +75,39 @@ public class DefaultTrade implements TradeAbility {
 
 			int sugar_given, spice_given;
 			
-			if(price.compareTo(1.0d)>0) { 
+			if(unitary_price.compareTo(1.0d)>0) { 
 				sugar_given = q;
-				spice_given = (int)Math.floor(q*price);	
+				spice_given = (int)Math.floor(q*unitary_price);	
 				
 			} else {
 				
 				sugar_given = q;
-				spice_given = (int)Math.floor(q*(1/price));	
+				spice_given = (int)Math.floor(q*(1/unitary_price));	
 				
 			}
-
-
+			
+			
 			sug_con_welf_change = welfareChange(sugar_contributor,-1*sugar_given,spice_given);
 			spice_con_welf_change = welfareChange(spice_contributor,sugar_given,-1*spice_given);
 
-			if( (spice_con_welf_change>0) & (sug_con_welf_change>0)) {break;} 
-
-			if( (computeMRS(sugar_contributor)+sug_con_welf_change) > (computeMRS(spice_contributor)+spice_con_welf_change)  ) {break;}
+			if( ! ((spice_con_welf_change>0) & (sug_con_welf_change>0))) {break;} 
+			
+			//check MRS crossing
+			if(computeMRS(sugar_contributor)>computeMRS(spice_contributor)) {	
+				if ( (computeMRS(sugar_contributor)+sug_con_welf_change) < (computeMRS(spice_contributor)+spice_con_welf_change) ) {break;}
+			}
+			else {
+				if ( (computeMRS(sugar_contributor)+sug_con_welf_change) > (computeMRS(spice_contributor)+spice_con_welf_change) ) {break;}
+			}
+				
+			//check that trade quantities actually exist for agents			
+			if(spice_given > spice_contributor.resourceGetHolding("spice")) {break;}
+			
+			
 		}
 
 		if(q>1) {
-			r = new TradeTransaction(sugar_contributor, q, spice_contributor, (int) Math.floor(q*price), price);
+			r = new TradeTransaction(sugar_contributor, q-1, spice_contributor, (int) Math.floor((q-1)*unitary_price), unitary_price);
 		}
 
 

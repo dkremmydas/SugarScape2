@@ -38,8 +38,10 @@ public class SugarMetabolismDataSource implements NonAggregateDataSource,Aggrega
 		
 		for(Object o: objs) {
 			SugarAgent_ch2 a = (SugarAgent_ch2) o;
-			sum = sum + a.resourceGetMetabolism("sugar");	
-			n_agents++;
+			if(a.isAlive()) {
+				sum = sum + a.resourceGetMetabolism("sugar");	
+				n_agents++;
+			}			
 		}
 		
 	    return (sum/n_agents );

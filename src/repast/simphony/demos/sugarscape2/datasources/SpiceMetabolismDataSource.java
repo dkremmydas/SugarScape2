@@ -38,8 +38,11 @@ public class SpiceMetabolismDataSource implements NonAggregateDataSource,Aggrega
 		
 		for(Object o: objs) {
 			SugarAgent_ch4 a = (SugarAgent_ch4) o;
-			sum = sum + a.resourceGetMetabolism("spice");	
-			n_agents++;
+			if(a.isAlive()) {
+				sum = sum + a.resourceGetMetabolism("spice");	
+				n_agents++;
+			}
+			
 		}
 		
 	    return (sum/n_agents );
