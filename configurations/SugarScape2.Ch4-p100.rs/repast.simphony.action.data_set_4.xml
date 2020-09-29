@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Total Welfare</name>
+  <name>Gini coefficient</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
@@ -11,18 +11,18 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1053084712</hashCode>
+    <hashCode>1623198736</hashCode>
   </scheduleParams>
-  <atEnd>true</atEnd>
+  <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>
   <customAggDataSources class="linked-hash-map">
     <entry>
-      <string>WelfareDataSource</string>
+      <string>GiniCoefficient</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
-        <id>WelfareDataSource</id>
-        <dsClassName>repast.simphony.demos.sugarscape2.datasources.WelfareDataSource</dsClassName>
+        <id>GiniCoefficient</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.GiniAggregateDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
   </customAggDataSources>
