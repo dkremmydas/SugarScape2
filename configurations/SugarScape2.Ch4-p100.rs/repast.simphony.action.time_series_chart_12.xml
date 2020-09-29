@@ -1,5 +1,5 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.7.0">
-  <name>Evolution of total Welfare</name>
+  <name>Evolution of Total Welfare</name>
   <dataSet>Total Welfare</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
   <yAxisLabel>Total welfare</yAxisLabel>

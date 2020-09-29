@@ -1,29 +1,30 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Trade Price</name>
-  <type>AGGREGATE</type>
+  <name>Individual Welfare</name>
+  <type>NON_AGGREGATE</type>
+  <sourceType>repast.simphony.demos.sugarscape2.agents.rules.sex.DefaultSexAbility$1</sourceType>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
   <scheduleParams>
     <start>1.0</start>
-    <interval>1.0</interval>
+    <interval>10.0</interval>
     <priority>-Infinity</priority>
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1984692691</hashCode>
+    <hashCode>460808934</hashCode>
   </scheduleParams>
-  <atEnd>true</atEnd>
+  <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
-  <customNADataSources class="linked-hash-map"/>
-  <customAggDataSources class="linked-hash-map">
+  <customNADataSources class="linked-hash-map">
     <entry>
-      <string>TradePriceDataSource</string>
+      <string>WelfareDataSource</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
-        <id>TradePriceDataSource</id>
-        <dsClassName>repast.simphony.demos.sugarscape2.datasources.TradePriceDataSource</dsClassName>
+        <id>WelfareDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.WelfareDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
-  </customAggDataSources>
+  </customNADataSources>
+  <customAggDataSources class="linked-hash-map"/>
 </repast.simphony.data2.engine.DataSetDescriptor>

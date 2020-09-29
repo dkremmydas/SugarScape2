@@ -1,0 +1,14 @@
+<repast.simphony.data2.engine.ConsoleSinkDescriptor simphonyVersion="2.7.0">
+  <name>Prices</name>
+  <dataSet>Trade Prices</dataSet>
+  <delimiter>;</delimiter>
+  <format>LINE</format>
+  <sourceIds class="linked-hash-set">
+    <string>tick</string>
+    <string>TradePriceMinDataSource</string>
+    <string>TradePriceMaxDataSource</string>
+    <string>TradePriceDataSource</string>
+  </sourceIds>
+  <enabled>true</enabled>
+  <outputStream>OUT</outputStream>
+</repast.simphony.data2.engine.ConsoleSinkDescriptor>

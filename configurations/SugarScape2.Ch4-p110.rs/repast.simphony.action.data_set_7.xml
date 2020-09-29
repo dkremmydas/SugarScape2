@@ -1,17 +1,17 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Total Welfare</name>
+  <name>Trade Prices</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
   <scheduleParams>
-    <start>1.0</start>
+    <start>6.0</start>
     <interval>10.0</interval>
     <priority>-Infinity</priority>
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>460808934</hashCode>
+    <hashCode>-1182700758</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map"/>
@@ -19,10 +19,24 @@
   <customNADataSources class="linked-hash-map"/>
   <customAggDataSources class="linked-hash-map">
     <entry>
-      <string>WelfareDataSource</string>
+      <string>TradePriceMinDataSource</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
-        <id>WelfareDataSource</id>
-        <dsClassName>repast.simphony.demos.sugarscape2.datasources.WelfareDataSource</dsClassName>
+        <id>TradePriceMinDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.TradePriceMinDataSource</dsClassName>
+      </repast.simphony.data2.engine.CustomDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>TradePriceMaxDataSource</string>
+      <repast.simphony.data2.engine.CustomDataSourceDefinition>
+        <id>TradePriceMaxDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.TradePriceMaxDataSource</dsClassName>
+      </repast.simphony.data2.engine.CustomDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>TradePriceDataSource</string>
+      <repast.simphony.data2.engine.CustomDataSourceDefinition>
+        <id>TradePriceDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.TradePriceDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
   </customAggDataSources>

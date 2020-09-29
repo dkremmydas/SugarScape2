@@ -1,7 +1,6 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Individual Welfare</name>
-  <type>NON_AGGREGATE</type>
-  <sourceType>repast.simphony.demos.sugarscape2.agents.rules.sex.DefaultSexAbility$1</sourceType>
+  <name>Metabolism</name>
+  <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -12,19 +11,26 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1053084712</hashCode>
+    <hashCode>-1009346833</hashCode>
   </scheduleParams>
   <atEnd>true</atEnd>
   <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
-  <customNADataSources class="linked-hash-map">
+  <customNADataSources class="linked-hash-map"/>
+  <customAggDataSources class="linked-hash-map">
     <entry>
-      <string>WelfareDataSource</string>
+      <string>SugarMetabolismDataSource</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
-        <id>WelfareDataSource</id>
-        <dsClassName>repast.simphony.demos.sugarscape2.datasources.WelfareDataSource</dsClassName>
+        <id>SugarMetabolismDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.SugarMetabolismDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
-  </customNADataSources>
-  <customAggDataSources class="linked-hash-map"/>
+    <entry>
+      <string>SpiceMetabolismDataSource</string>
+      <repast.simphony.data2.engine.CustomDataSourceDefinition>
+        <id>SpiceMetabolismDataSource</id>
+        <dsClassName>repast.simphony.demos.sugarscape2.datasources.SpiceMetabolismDataSource</dsClassName>
+      </repast.simphony.data2.engine.CustomDataSourceDefinition>
+    </entry>
+  </customAggDataSources>
 </repast.simphony.data2.engine.DataSetDescriptor>

@@ -1,6 +1,7 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.7.0">
-  <name>Total Welfare</name>
-  <type>AGGREGATE</type>
+  <name>Individual Welfare</name>
+  <type>NON_AGGREGATE</type>
+  <sourceType>repast.simphony.demos.sugarscape2.agents.rules.sex.DefaultSexAbility$1</sourceType>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -16,8 +17,7 @@
   <atEnd>true</atEnd>
   <methodDataSources class="linked-hash-map"/>
   <countSources class="linked-hash-map"/>
-  <customNADataSources class="linked-hash-map"/>
-  <customAggDataSources class="linked-hash-map">
+  <customNADataSources class="linked-hash-map">
     <entry>
       <string>WelfareDataSource</string>
       <repast.simphony.data2.engine.CustomDataSourceDefinition>
@@ -25,5 +25,6 @@
         <dsClassName>repast.simphony.demos.sugarscape2.datasources.WelfareDataSource</dsClassName>
       </repast.simphony.data2.engine.CustomDataSourceDefinition>
     </entry>
-  </customAggDataSources>
+  </customNADataSources>
+  <customAggDataSources class="linked-hash-map"/>
 </repast.simphony.data2.engine.DataSetDescriptor>
