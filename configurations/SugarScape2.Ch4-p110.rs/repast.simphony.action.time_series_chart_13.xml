@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.7.0">
-  <name>Evolution of Number of Agents</name>
-  <dataSet>Number of Agents</dataSet>
+  <name>Evolution of Total welfare</name>
+  <dataSet>Total Welfare</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Number of Agents</yAxisLabel>
-  <chartTitle>Evolution of Number of Agents</chartTitle>
+  <yAxisLabel>Total Welfare</yAxisLabel>
+  <chartTitle>Evolution of Total Welfare</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -21,9 +21,9 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>Number of Agents</string>
+      <string>WelfareDataSource</string>
       <SeriesData>
-        <label>Number of Agents</label>
+        <label>WelfareDataSource</label>
         <color>
           <red>0</red>
           <green>0</green>
