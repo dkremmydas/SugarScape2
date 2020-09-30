@@ -34,6 +34,17 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<classpathContainers>
+						<classpathContainer>REPAST_SIMPHONY_SUPPORT</classpathContainer>
+					</classpathContainers>
+				</configuration>
+			</plugin>
+
 
 
 		</plugins>
